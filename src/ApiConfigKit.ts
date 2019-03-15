@@ -1,0 +1,85 @@
+import { ApiConfig } from "./ApiConfig";
+import { IAccessTokenCache } from "./cache/IAccessTokenCache";
+import { DefaultAccessTokenCache } from "./cache/DefaultAccessTokenCache";
+
+export class ApiConfigKit {
+    static CFG_MAP: Map<String, ApiConfig> = new Map<String, ApiConfig>();
+
+    static currentAppId: string;
+
+    static DEFAULT_CFG_KEY: string = "_default_cfg_key_";
+
+    static devMode: boolean = false;
+
+    static _accessTokenCache: IAccessTokenCache = new DefaultAccessTokenCache();
+
+
+    public set devMode(devMode: boolean) {
+        this.devMode = devMode;
+    }
+    public static isDevMode(): boolean {
+        return this.devMode;
+    }
+
+    public static putApiConfig(apiConfig: ApiConfig) {
+        if (this.CFG_MAP.size == 0) {
+            this.CFG_MAP.set(this.DEFAULT_CFG_KEY, apiConfig);
+        }
+        return this.CFG_MAP.set(apiConfig.appId, apiConfig);
+    }
+
+    public static removeApiConfigByConfig(apiConfig: ApiConfig): boolean {
+        return this.removeApiConfig(apiConfig.appId);
+    }
+
+    public static removeApiConfig(appId: string): boolean {
+        return this.CFG_MAP.delete(appId);
+    }
+
+    public static setCurrentAppId(appId: string) {
+        if (!appId) {
+            let config = this.CFG_MAP.get(this.DEFAULT_CFG_KEY);
+            if (config) {
+                appId = config.appId;
+            }
+        }
+        this.currentAppId = appId;
+    }
+
+    public static removeCurrentAppId() {
+        this.currentAppId = '';
+    }
+
+    public static get appId(): string {
+        let appId: string = this.currentAppId;
+        if (!appId) {
+            let config = this.CFG_MAP.get(this.DEFAULT_CFG_KEY);
+            if (config) {
+                appId = config.appId;
+            }
+        }
+        return appId;
+    }
+
+    public static get apiConfig(): ApiConfig {
+        return this.getApiConfig(this.appId);
+    }
+
+    public static getApiConfig(appId: string): ApiConfig {
+        console.debug("appId: " + appId);
+        let cfg = this.CFG_MAP.get(appId);
+        if (!cfg)
+            throw new Error("需事先调用 ApiConfigKit.putApiConfig(apiConfig) 将 appId对应的 ApiConfig 对象存入后, " +
+                "才可以使用 ApiConfigKit.getApiConfig() 系列方法");
+        return cfg;
+    }
+
+    public static get accessTokenCache(): IAccessTokenCache {
+        return this._accessTokenCache;
+    }
+
+    public static set accessTokenCache(accessTokenCache: IAccessTokenCache) {
+        this._accessTokenCache = accessTokenCache;
+    }
+
+}

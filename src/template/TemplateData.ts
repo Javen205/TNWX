@@ -2,18 +2,19 @@ import { MiniProgram } from "./MiniProgram";
 import { TemplateItem } from "./TemplateItem";
 
 export class TemplateData {
-    private touser: string = "";
-    private template_id: string = "";
-    private url: string = "";;
-    private miniprogram: MiniProgram = new MiniProgram();
-    private data: Map<string, TemplateItem> = new Map<string, TemplateItem>();
+    private touser!: string;
+    private template_id!: string;
+    private url!: string;
+    private miniprogram!: MiniProgram;
+    private data!: Map<string, TemplateItem>;
 
     constructor() {
 
     }
 
     public New(): TemplateData {
-        // this.data = new Map<string, TemplateItem>();
+        this.data = new Map<string, TemplateItem>();
+        this.miniprogram = new MiniProgram();
         return this;
     }
 

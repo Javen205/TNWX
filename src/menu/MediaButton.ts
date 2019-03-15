@@ -1,7 +1,7 @@
 import { Button } from "./Button";
 
 export class MediaButton extends Button {
-    private media_id: string = '';
+    private media_id!: string;
 
     public get mediaId(): string {
         return this.media_id;

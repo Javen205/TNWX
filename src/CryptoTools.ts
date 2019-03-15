@@ -1,6 +1,6 @@
 import * as crypto from 'crypto';
 import * as xml2js from 'xml2js';
-import { Config } from "./Config";
+import { ApiConfig } from "./ApiConfig";
 
 export class CryptoTools {
     //用于构建 xml 结构
@@ -22,7 +22,7 @@ export class CryptoTools {
     timestamp: string;
     nonce: string;
 
-    constructor(request, config: Config) {
+    constructor(request, config: ApiConfig) {
         this.aesModel = 'aes-256-cbc';
         this.token = config.token;
         this.appId = config.appId;

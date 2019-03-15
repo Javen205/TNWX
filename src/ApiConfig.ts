@@ -1,4 +1,5 @@
-export class Config {
+
+export class ApiConfig {
     private _token: string;
     private _appId: string;
     private _appScrect: string;

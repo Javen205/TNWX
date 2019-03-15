@@ -1,6 +1,6 @@
 export class Button {
-    private name: string = '';
-    private type: string = '';
+    private name!: string;
+    private type!: string;
 
     public get Name(): string {
         return this.name;

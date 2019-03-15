@@ -2,8 +2,8 @@ import { Button } from "./Button";
 import { Matchrule } from "./Matchrule";
 
 export class Menu {
-    private button: Button[] = [];
-    private matchrule: Matchrule = new Matchrule();
+    private button!: Button[];
+    private matchrule!: Matchrule;
 
     public get Button(): Button[] {
         return this.button;

@@ -1,6 +1,6 @@
 export class MiniProgram {
-    private appid: string = '';
-    private pagepath: string = '';
+    private appid!: string;
+    private pagepath!: string;
 
     public get appId(): string {
         return this.appid;

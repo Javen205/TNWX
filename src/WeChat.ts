@@ -1,41 +1,12 @@
 import * as crypto from 'crypto';
-import * as urltil from 'url';
-import * as https from 'https';
-import * as util from 'util';
 import { parseString } from 'xml2js';
-
-import { ApiUrls } from './ApiUrls'
-import { AccessToken } from './AccessToken'
-import { Config } from './Config'
 import { CryptoTools } from './CryptoTools';
 import { Msg } from './Msg';
+import { ApiConfigKit } from './ApiConfigKit';
 
 export class WeChat {
-    private _config: Config;
-    private _accessToken: AccessToken;
 
-    constructor(config: Config, accessToken: AccessToken) {
-        this._config = config;
-        this._accessToken = accessToken;
-    }
-
-    public get config(): Config {
-        return this._config;
-    }
-
-    public set config(config: Config) {
-        this._config = config;
-    }
-
-    public get accessToken(): AccessToken {
-        return this._accessToken;
-    }
-
-    public set accessToken(accessToken: AccessToken) {
-        this._accessToken = accessToken;
-    }
-
-    checkSignature(request, response) {
+    public static checkSignature(request: any, response: any) {
         //微信服务器 get 请求的参数 signature、timestamp、nonce、echostr
         let signature = request.query.signature,//微信加密签名
             timestamp = request.query.timestamp,//时间戳
@@ -43,7 +14,7 @@ export class WeChat {
             echostr = request.query.echostr;//随机字符串
 
         //将 token、timestamp、nonce 三个参数进行字典序排序，并拼接成一个字符串
-        let tempStr = [this._config.token, timestamp, nonce].sort().join('');
+        let tempStr = [ApiConfigKit.getApiConfig(ApiConfigKit.appId).token, timestamp, nonce].sort().join('');
         //创建加密类型 
         const hashCode = crypto.createHash('sha1');
         //对传入的字符串进行加密
@@ -55,114 +26,15 @@ export class WeChat {
             response.send("签名异常");
         }
     }
-    getAccessToken() {
-        let that = this;
-        return new Promise(function (resolve, reject) {
-            //获取当前时间 
-            let currentTime = new Date().getTime();
-            //格式化请求地址
-            let url = util.format(ApiUrls.accessToken, ApiUrls.wxDomain, that.config.appId, that.config.appScrect);
-            if (that._accessToken.accessToken === "" || that._accessToken.expiresTime < currentTime) {
-                console.log('开始获取新的token...');
 
-                that.get(url).then(function (data) {
-                    let tempData = <string>data;
-                    var result = JSON.parse(tempData);
-                    if (tempData.indexOf("errcode") < 0) {
-                        that._accessToken.accessToken = result.access_token;
-                        that._accessToken.expiresTime = new Date().getTime() + (parseInt(result.expires_in) - 200) * 1000;
-                        //将获取后的 access_token 返回
-                        resolve(that._accessToken.accessToken);
-                    } else {
-                        //将错误返回
-                        resolve(result);
-                    }
-                });
-            } else {
-                //将本地存储的 access_token 返回
-                resolve(that._accessToken.accessToken);
-            }
-        });
-    }
-
-    /**
-    * 用于处理 https Get请求方法
-    * @param {String} url 请求地址 
-    */
-    get(url: string) {
-        return new Promise(function (resolve, reject) {
-            https.get(url, function (res) {
-                let buffer: Array<any> = [], result = "";
-                //监听 data 事件
-                res.on('data', function (data) {
-                    buffer.push(data);
-                });
-                //监听 数据传输完成事件
-                res.on('end', function () {
-                    result = Buffer.concat(buffer).toString('utf-8');
-                    //将最后结果返回
-                    resolve(result);
-                });
-            }).on('error', function (err) {
-                reject(err);
-            });
-        });
-    }
-    /**
-     * 用于处理 https Post请求方法
-     * @param {String} url  请求地址
-     * @param {JSON} data 提交的数据
-     */
-    post(url: string, data: string) {
-        return new Promise(function (resolve, reject) {
-            //解析 url 地址
-            let urlData = urltil.parse(url);
-            //设置 https.request  options 传入的参数对象
-            let options = {
-                //目标主机地址
-                hostname: urlData.hostname,
-                //目标地址 
-                path: urlData.path,
-                //请求方法
-                method: 'POST',
-                //头部协议
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'Content-Length': Buffer.byteLength(data, 'utf-8')
-                }
-            };
-            let req = https.request(options, function (res) {
-                let buffer: Uint8Array[] = [], result = '';
-                //用于监听 data 事件 接收数据
-                res.on('data', function (data) {
-                    buffer.push(data);
-                });
-                //用于监听 end 事件 完成数据的接收
-                res.on('end', function () {
-                    result = Buffer.concat(buffer).toString('utf-8');
-                    resolve(result);
-                })
-            })
-                //监听错误事件
-                .on('error', function (err) {
-                    console.log(err);
-                    reject(err);
-                });
-            //传入数据
-            req.write(data);
-            req.end();
-        });
-    }
-
-    handleMsg(request, response) {
+    public static handleMsg(request: any, response: any) {
 
         console.log('request.query', request.query);
-
 
         let that = this, buffer: Uint8Array[] = [];
 
         //实例微信消息加解密
-        let cryptoTools = new CryptoTools(request, that._config);
+        let cryptoTools = new CryptoTools(request, ApiConfigKit.apiConfig);
         //监听 data 事件 用于接收数据
         request.on('data', function (data) {
             buffer.push(data);

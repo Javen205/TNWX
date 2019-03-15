@@ -1,7 +1,7 @@
 import { Button } from "./Button";
 
 export class ViewButton extends Button {
-    private url: string = '';
+    private url!: string;
 
     public get Url(): string {
         return this.url;
