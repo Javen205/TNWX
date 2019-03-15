@@ -1,0 +1,59 @@
+{
+    "button": [{
+        "sub_button": [{
+            "name": "微信相册发图",
+            "type": "pic_weixin",
+            "key": "rselfmenu_1_1"
+        }, {
+            "name": "拍照或者相册发图",
+            "type": "pic_photo_or_album",
+            "key": "rselfmenu_1_2"
+        }, {
+            "name": "系统拍照发图",
+            "type": "pic_sysphoto",
+            "key": "rselfmenu_1_3"
+        }],
+        "name": "发图",
+        "type": null
+    }, {
+        "sub_button": [{
+            "name": "扫码带提示",
+            "type": "scancode_waitmsg",
+            "key": "rselfmenu_2_1"
+        }, {
+            "name": "扫码推事件",
+            "type": "scancode_push",
+            "key": "rselfmenu_2_2"
+        }, {
+            "name": "我的设备",
+            "type": "view",
+            "url": "https://hw.weixin.qq.com/devicectrl/panel/device-list.html?appid=wx614c453e0d1dcd12"
+        }],
+        "name": "扫码",
+        "type": null
+    }, {
+        "sub_button": [{
+            "name": "IJPay",
+            "type": "view",
+            "url": "https://gitee.com/javen205/IJPay"
+        }, {
+            "name": "发送位置",
+            "type": "location_select",
+            "key": "rselfmenu_3_2"
+        }, {
+            "name": "在线咨询",
+            "type": "view",
+            "url": "http://wpa.qq.com/msgrd?v=3&uin=572839485&site=qq&menu=yes"
+        }, {
+            "name": "我的博客",
+            "type": "view",
+            "url": "https://blog.javen.dev"
+        }, {
+            "name": "点击事件",
+            "type": "click",
+            "key": "rselfmenu_3_5"
+        }],
+        "name": "个人中心",
+        "type": null
+    }]
+}

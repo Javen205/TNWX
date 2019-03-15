@@ -1,0 +1,24 @@
+{
+  "name": "nwx",
+  "version": "1.0.0",
+  "description": "",
+  "main": "express.js",
+  "scripts": {
+    "dev": "supervisor -w build ./build/App.js",
+    "serve": "node build/express.js",
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "xml2js": "^0.4.19"
+  },
+  "devDependencies": {
+    "@types/express": "^4.16.1",
+    "@types/node": "^11.11.0",
+    "@types/xml2js": "^0.4.3"
+  }
+}
