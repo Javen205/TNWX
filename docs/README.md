@@ -39,7 +39,9 @@ npm run run
 群号:[ 114196246](https:shang.qq.com/wpa/qunwpa?idkey=a1e4fd8c71008961bd4fc8eeea224e726afd5e5eae7bf1d96d3c77897388bf24)
 
 
-## 推荐
+## 推荐与参考资料
 
-- Java 版 [jfinal-weixin](https://gitee.com/jfinal/jfinal-weixin)
-- JavaScript + Node.js 版 [ wechatByNode 暂未维护](https://github.com/SilenceHVK/wechatByNode)
+- [Node.js & Express 教程](http://www.runoob.com/nodejs/nodejs-tutorial.html)
+- [Java 版 jfinal-weixin](https://gitee.com/jfinal/jfinal-weixin)
+- [ JavaScript + Node.js 版](https://github.com/SilenceHVK/wechatByNode)
+
