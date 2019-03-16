@@ -1,4 +1,3 @@
-import * as util from 'util';
 import * as fs from 'fs';
 import { ApiKit } from './ApiKit'
 import { ApiConfig } from './ApiConfig'
@@ -6,11 +5,9 @@ import { MsgController } from './MsgController'
 import { AccessToken } from './AccessToken'
 import { TemplateData } from './template/TemplateData';
 import { MenuManager } from './menu/MenuManager';
-import { HttpKit } from './HttpKit';
 import { AccessTokenApi } from './AccessTokenApi';
 import { ApiConfigKit } from './ApiConfigKit';
 import { WeChat } from './WeChat';
-import { response } from 'express';
 
 const express = require('express');
 const app = express();
