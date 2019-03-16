@@ -5,13 +5,13 @@
   "main": "express.js",
   "scripts": {
     "dev": "supervisor -w build ./build/App.js",
-    "serve": "node build/express.js",
+    "serve": "node build/App.js",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "express": "^4.16.4",
     "xml2js": "^0.4.19"
