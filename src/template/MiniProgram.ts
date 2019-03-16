@@ -1,18 +1,23 @@
 export class MiniProgram {
-    private appid!: string;
-    private pagepath!: string;
+    private appid: string;
+    private pagepath: string;
 
-    public get appId(): string {
+    constructor(appId?: string, pagePath?: string) {
+        this.appid = appId || "";
+        this.pagepath = pagePath || "";
+    }
+
+    public get getAppId(): string {
         return this.appid;
     }
-    public set appId(appid: string) {
+    public set setAppId(appid: string) {
         this.appid = appid;
     }
 
-    public get pagePath(): string {
+    public get getPagePath(): string {
         return this.pagepath;
     }
-    public set pagePath(pagepath: string) {
+    public set getPagePath(pagepath: string) {
         this.pagepath = pagepath;
     }
 }

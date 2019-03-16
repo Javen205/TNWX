@@ -25,52 +25,70 @@ export class ApiConfigKit {
         if (this.CFG_MAP.size == 0) {
             this.CFG_MAP.set(this.DEFAULT_CFG_KEY, apiConfig);
         }
-        return this.CFG_MAP.set(apiConfig.appId, apiConfig);
+        return this.CFG_MAP.set(apiConfig.getAppId, apiConfig);
     }
 
     public static removeApiConfigByConfig(apiConfig: ApiConfig): boolean {
-        return this.removeApiConfig(apiConfig.appId);
+        return this.removeApiConfig(apiConfig.getAppId);
     }
 
     public static removeApiConfig(appId: string): boolean {
         return this.CFG_MAP.delete(appId);
     }
 
-    public static setCurrentAppId(appId: string) {
-        if (!appId) {
-            let config = this.CFG_MAP.get(this.DEFAULT_CFG_KEY);
-            if (config) {
-                appId = config.appId;
+    public static setCurrentAppId(appId?: string) {
+        if (appId) {
+            this.currentAppId = appId;
+        } else {
+            let apiConfig = this.CFG_MAP.get(this.DEFAULT_CFG_KEY);
+            if (apiConfig) {
+                appId = apiConfig.getAppId;
+                this.currentAppId = appId;
             }
         }
-        this.currentAppId = appId;
     }
 
     public static removeCurrentAppId() {
         this.currentAppId = '';
     }
 
-    public static get appId(): string {
+    public static get getAppId(): string {
         let appId: string = this.currentAppId;
         if (!appId) {
-            let config = this.CFG_MAP.get(this.DEFAULT_CFG_KEY);
-            if (config) {
-                appId = config.appId;
+            let apiConfig = this.CFG_MAP.get(this.DEFAULT_CFG_KEY);
+            if (apiConfig) {
+                appId = apiConfig.getAppId;
             }
         }
         return appId;
     }
 
-    public static get apiConfig(): ApiConfig {
-        return this.getApiConfig(this.appId);
+    public static get getToken(): string {
+        let token!: string;
+        if (!this.currentAppId) {
+            let apiConfig = this.CFG_MAP.get(this.DEFAULT_CFG_KEY);
+            if (apiConfig) {
+                token = apiConfig.getToken;
+            }
+        }
+        if (!token) {
+            throw new Error("需事先调用 ApiConfigKit.putApiConfig(apiConfig) 将 appId 对应的 ApiConfig 对象存入后, " +
+                "才可以使用 ApiConfigKit.getToken 系列方法");
+        }
+        return token;
     }
 
-    public static getApiConfig(appId: string): ApiConfig {
+
+    public static get getApiConfig(): ApiConfig {
+        return this.getApiConfigByAppId(this.getAppId);
+    }
+
+    public static getApiConfigByAppId(appId: string): ApiConfig {
         console.debug("appId: " + appId);
         let cfg = this.CFG_MAP.get(appId);
         if (!cfg)
-            throw new Error("需事先调用 ApiConfigKit.putApiConfig(apiConfig) 将 appId对应的 ApiConfig 对象存入后, " +
-                "才可以使用 ApiConfigKit.getApiConfig() 系列方法");
+            throw new Error("需事先调用 ApiConfigKit.putApiConfig(apiConfig) 将 appId 对应的 ApiConfig 对象存入后, " +
+                "才可以使用 ApiConfigKit.getApiConfig 系列方法");
         return cfg;
     }
 

@@ -1,18 +1,23 @@
 export class Button {
-    private name!: string;
-    private type!: string;
+    private name: string;
+    private type: string;
 
-    public get Name(): string {
+    constructor(name?: string, type?: string) {
+        this.name = name || '';
+        this.type = type || '';
+    }
+
+    public get getName(): string {
         return this.name;
     }
-    public set Name(name: string) {
+    public set setName(name: string) {
         this.name = name;
     }
 
-    public get Type(): string {
+    public get getType(): string {
         return this.type;
     }
-    public set Type(type: string) {
+    public set setType(type: string) {
         this.type = type;
     }
 }

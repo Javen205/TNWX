@@ -8,17 +8,13 @@ export class TemplateData {
     private miniprogram!: MiniProgram;
     private data!: Map<string, TemplateItem>;
 
-    constructor() {
-
-    }
-
     public New(): TemplateData {
         this.data = new Map<string, TemplateItem>();
         this.miniprogram = new MiniProgram();
         return this;
     }
 
-    public get toUser(): string {
+    public get getToUser(): string {
         return this.touser;
     }
 
@@ -27,7 +23,7 @@ export class TemplateData {
         return this;
     }
 
-    public get templateId(): string {
+    public get getTemplateId(): string {
         return this.template_id;
     }
 
@@ -36,7 +32,7 @@ export class TemplateData {
         return this;
     }
 
-    public get templateUrl(): string {
+    public get getTemplateUrl(): string {
         return this.url;
     }
 
@@ -45,7 +41,7 @@ export class TemplateData {
         return this;
     }
 
-    public get miniProgram(): MiniProgram {
+    public get getMiniProgram(): MiniProgram {
         return this.miniprogram;
     }
 
@@ -61,7 +57,7 @@ export class TemplateData {
 
     public build(): string {
         let temp = {
-            "touser": this.toUser,
+            "touser": this.touser,
             "template_id": this.template_id,
             "url": this.url,
             "miniprogram": this.miniprogram,

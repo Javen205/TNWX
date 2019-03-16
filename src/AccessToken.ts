@@ -12,13 +12,12 @@ export class AccessToken {
 
 
     private expired_time!: number;
-    private jsonstr!: string;
+    private json!: string;
 
 
-    constructor(jsonStr: string) {
-        this.jsonstr = jsonStr;
-        let accessToken = JSON.parse(jsonStr);
-        console.log('accessToken', accessToken);
+    constructor(json: string) {
+        this.json = json;
+        let accessToken = JSON.parse(json);
         this.access_token = accessToken.access_token;
         this.expires_in = accessToken.expires_in;
         this.errcode = accessToken.errcode;
@@ -31,12 +30,11 @@ export class AccessToken {
         if (accessToken.expired_time) {
             this.expired_time = accessToken.expired_time;
         }
-
     }
 
 
     public get getCacheJson(): string {
-        let temp = JSON.parse(this.jsonstr);
+        let temp = JSON.parse(this.json);
         temp.expired_time = this.expired_time;
         return JSON.stringify(temp);
     }
@@ -52,37 +50,40 @@ export class AccessToken {
         return this.access_token != null;
     }
 
-    public get accessToken(): string {
+    public get getAccessToken(): string {
         return this.access_token;
     }
-    public set accessToken(access_token: string) {
+
+    public set setAccessToken(access_token: string) {
         this.access_token = access_token;
     }
 
-    public get expiresIn(): number {
+    public get getExpiresIn(): number {
         return this.expires_in;
     }
-    public set expiresIn(expires_in: number) {
+
+    public set setExpiresIn(expires_in: number) {
         this.expires_in = expires_in;
     }
 
-    public get errCode(): number {
+    public get getErrCode(): number {
         return this.errcode;
     }
-    public set errCode(errcode: number) {
+
+    public set setErrCode(errcode: number) {
         this.errcode = errcode;
     }
 
-    public get errMsg(): string {
+    public get getErrMsg(): string {
         return this.errmsg;
     }
-    public set errMsg(errmsg: string) {
+
+    public set setErrMsg(errmsg: string) {
         this.errmsg = errmsg;
     }
 
-
-    public get jsonStr(): string {
-        return this.jsonstr;
+    public get getJson(): string {
+        return this.json;
     }
 
 }

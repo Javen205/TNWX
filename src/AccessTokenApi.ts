@@ -3,7 +3,7 @@ import { AccessToken } from "./AccessToken";
 import { ApiConfig } from "./ApiConfig";
 import { IAccessTokenCache } from "./cache/IAccessTokenCache";
 import { ApiConfigKit } from "./ApiConfigKit";
-import { HttpTools } from "./HttpTools";
+import { HttpKit } from "./HttpKit";
 
 export class AccessTokenApi {
     static url: string = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s";
@@ -11,7 +11,7 @@ export class AccessTokenApi {
 
     public static async getAccessToken() {
         if (this.accesstoken) return this.accesstoken;
-        let ac: ApiConfig = ApiConfigKit.apiConfig;
+        let ac: ApiConfig = ApiConfigKit.getApiConfig;
         let accesstoken: AccessToken = this.getAvailableAccessToken(ac);
         if (accesstoken) {
             console.log("缓存中的accesstoken");
@@ -28,7 +28,7 @@ export class AccessTokenApi {
     private static getAvailableAccessToken(apiConfig: ApiConfig): AccessToken {
         let result!: AccessToken;
         let accessTokenCache: IAccessTokenCache = ApiConfigKit.accessTokenCache;
-        let accessTokenJson: string = accessTokenCache.get(apiConfig.appId);
+        let accessTokenJson: string = accessTokenCache.get(apiConfig.getAppId);
         if (accessTokenJson) {
             result = new AccessToken(accessTokenJson);
             if (result && result.isAvailable) {
@@ -42,15 +42,13 @@ export class AccessTokenApi {
     public static refreshAccessToken(ac: ApiConfig) {
         let that = this;
         return new Promise(function (resolve, reject) {
-            let url = util.format(that.url, ac.appId, ac.appScrect);
-            console.log("newAccessToken", url);
-
-            HttpTools.httpGet(url).then(function (data) {
+            let url = util.format(that.url, ac.getAppId, ac.getAppScrect);
+            HttpKit.httpGet(url).then(function (data) {
                 let json = <string>data;
                 if (json) {
                     let result: AccessToken = new AccessToken(json)
                     let accessTokenCache: IAccessTokenCache = ApiConfigKit.accessTokenCache;
-                    accessTokenCache.set(ac.appId, result.getCacheJson);
+                    accessTokenCache.set(ac.getAppId, result.getCacheJson);
                     resolve(result);
                 } else {
                     reject("获取accessToken异常")

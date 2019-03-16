@@ -1,12 +1,17 @@
 import { Button } from "./Button";
 
 export class ClickButton extends Button {
-    private key!: string;
+    private key: string;
 
-    public get Key(): string {
+    constructor(name?: string, type?: string, key?: string) {
+        super(name, type);
+        this.key = key || '';
+    }
+
+    public get getKey(): string {
         return this.key;
     }
-    public set Key(key: string) {
+    public set setKey(key: string) {
         this.key = key;
     }
 }

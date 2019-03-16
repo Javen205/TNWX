@@ -1,12 +1,17 @@
 import { Button } from "./Button";
 
 export class ViewButton extends Button {
-    private url!: string;
+    private url: string;
 
-    public get Url(): string {
+    constructor(name?: string, type?: string, url?: string) {
+        super(name, type);
+        this.url = url || '';
+    }
+
+    public get getUrl(): string {
         return this.url;
     }
-    public set Url(url: string) {
+    public set setUrl(url: string) {
         this.url = url;
     }
 }

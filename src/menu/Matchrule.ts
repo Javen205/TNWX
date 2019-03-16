@@ -15,4 +15,60 @@ export class Matchrule {
     private language!: string;
 
 
+    public get getGroupId(): string {
+        return this.group_id;
+    }
+
+    public set setGroupId(group_id: string) {
+        this.group_id = group_id;
+    }
+
+    public get getSex(): string {
+        return this.sex;
+    }
+
+    public set setSex(sex: string) {
+        this.sex = sex;
+    }
+
+    public get getCountry(): string {
+        return this.country;
+    }
+
+    public set setCountry(country: string) {
+        this.country = country;
+    }
+
+    public get getProvince(): string {
+        return this.province;
+    }
+
+    public set setProvince(province: string) {
+        this.province = province;
+    }
+
+    public get getCity(): string {
+        return this.city;
+    }
+
+    public set setCity(city: string) {
+        this.city = city;
+    }
+
+    public get getClientPlatformType(): string {
+        return this.client_platform_type;
+    }
+
+    public set setClientPlatformType(client_platform_type: string) {
+        this.client_platform_type = client_platform_type;
+    }
+
+    public get getLanguage(): string {
+        return this.language;
+    }
+
+    public set setLanguage(language: string) {
+        this.language = language;
+    }
+
 }

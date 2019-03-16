@@ -7,17 +7,17 @@ export class TemplateItem {
         this.color = color;
     }
 
-    public get Value(): string {
+    public get getValue(): string {
         return this.value;
     }
-    public set Value(value: string) {
+    public set setValue(value: string) {
         this.value = value;
     }
 
-    public get Color(): string {
+    public get getColor(): string {
         return this.color;
     }
-    public set Color(color: string) {
+    public set setColor(color: string) {
         this.color = color;
     }
 }

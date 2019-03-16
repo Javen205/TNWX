@@ -1,52 +1,57 @@
 
 export class ApiConfig {
-    private _token: string;
-    private _appId: string;
-    private _appScrect: string;
-    private _encryptMessage: boolean;
-    private _encodingAesKey: string;
+    private token: string;
+    private appId: string;
+    private appScrect: string;
+    private encryptMessage: boolean;
+    private encodingAesKey: string;
 
     constructor(token: string, appId: string, appScrect: string,
         encryptMessage: boolean, encodingAesKey: string) {
-        this._token = token;
-        this._appId = appId;
-        this._appScrect = appScrect;
-        this._encryptMessage = encryptMessage;
-        this._encodingAesKey = encodingAesKey;
+        this.token = token;
+        this.appId = appId;
+        this.appScrect = appScrect;
+        this.encryptMessage = encryptMessage;
+        this.encodingAesKey = encodingAesKey;
     }
 
-    public get token(): string {
-        return this._token;
-    }
-    public set token(token: string) {
-        this._token = token;
+    public get getToken(): string {
+        return this.token;
     }
 
-    public get appId(): string {
-        return this._appId;
-    }
-    public set appId(appId: string) {
-        this._appId = appId;
+    public set setToken(token: string) {
+        this.token = token;
     }
 
-    public get appScrect(): string {
-        return this._appScrect;
-    }
-    public set appScrect(appScrect: string) {
-        this._appScrect = appScrect;
+    public get getAppId(): string {
+        return this.appId;
     }
 
-    public get encryptMessage(): boolean {
-        return this._encryptMessage;
-    }
-    public set encryptMessage(encryptMessage: boolean) {
-        this._encryptMessage = encryptMessage;
+    public set setAppId(appId: string) {
+        this.appId = appId;
     }
 
-    public get encodingAesKey(): string {
-        return this._encodingAesKey;
+    public get getAppScrect(): string {
+        return this.appScrect;
     }
-    public set encodingAesKey(encodingAesKey: string) {
-        this._encodingAesKey = encodingAesKey;
+
+    public set setAppScrect(appScrect: string) {
+        this.appScrect = appScrect;
+    }
+
+    public get getEncryptMessage(): boolean {
+        return this.encryptMessage;
+    }
+
+    public set setEncryptMessage(encryptMessage: boolean) {
+        this.encryptMessage = encryptMessage;
+    }
+
+    public get getEncodingAesKey(): string {
+        return this.encodingAesKey;
+    }
+
+    public set setEncodingAesKey(encodingAesKey: string) {
+        this.encodingAesKey = encodingAesKey;
     }
 }

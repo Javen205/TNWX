@@ -5,17 +5,17 @@ export class Menu {
     private button!: Button[];
     private matchrule!: Matchrule;
 
-    public get Button(): Button[] {
+    public get getButton(): Button[] {
         return this.button;
     }
-    public set Button(button: Button[]) {
+    public set setButton(button: Button[]) {
         this.button = button;
     }
 
-    public get Matchrule(): Matchrule {
+    public get getMatchrule(): Matchrule {
         return this.matchrule;
     }
-    public set Matchrule(matchrule: Matchrule) {
+    public set setMatchrule(matchrule: Matchrule) {
         this.matchrule = matchrule;
     }
 }

@@ -1,7 +1,7 @@
 import * as urltil from 'url';
 import * as https from 'https';
 
-export class HttpTools {
+export class HttpKit {
     /**
      * 用于处理 https Get请求方法
      * @param {String} url 请求地址 

@@ -24,9 +24,9 @@ export class CryptoTools {
 
     constructor(request, config: ApiConfig) {
         this.aesModel = 'aes-256-cbc';
-        this.token = config.token;
-        this.appId = config.appId;
-        this.encodingAesKey = new Buffer(config.encodingAesKey + '=', 'base64');
+        this.token = config.getToken;
+        this.appId = config.getAppId;
+        this.encodingAesKey = new Buffer(config.getEncodingAesKey + '=', 'base64');
         this.iv = this.encodingAesKey.slice(0, 16);
         this.msgSignature = request.query.msg_signature;
         this.timestamp = request.query.timestamp;
