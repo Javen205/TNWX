@@ -8,6 +8,11 @@ import { InShortVideoMsg } from "./msg/in/InShortVideoMsg";
 import { InLocationMsg } from "./msg/in/InLocationMsg";
 import { InLinkMsg } from "./msg/in/InLinkMsg";
 import { InSpeechRecognitionResults } from "./msg/in/InSpeechRecognitionResults";
+import { InFollowEvent } from "./msg/in/event/InFollowEvent";
+import { InQrCodeEvent } from "./msg/in/event/InQrCodeEvent";
+import { InLocationEvent } from "./msg/in/event/InLocationEvent";
+import { InMenuEvent } from "./msg/in/event/InMenuEvent";
+import { InTemplateMsgEvent } from "./msg/in/event/InTemplateMsgEvent";
 
 export interface MsgAdapter {
     processInTextMsg(inTextMsg: InTextMsg): OutMsg;
@@ -19,4 +24,11 @@ export interface MsgAdapter {
     processInLinkMsg(inLinkMsg: InLinkMsg): OutMsg;
     processInSpeechRecognitionResults(inSpeechRecognitionResults: InSpeechRecognitionResults): OutMsg;
     processIsNotDefinedMsg(inNotDefinedMsg: InNotDefinedMsg): OutMsg;
+
+    processInFollowEvent(inFollowEvent: InFollowEvent): OutMsg;
+    processInQrCodeEvent(inQrCodeEvent: InQrCodeEvent): OutMsg;
+    processInLocationEvent(inLocationEvent: InLocationEvent): OutMsg;
+    processInMenuEvent(inMenuEvent: InMenuEvent): OutMsg;
+    processInTemplateMsgEvent(inTemplateMsgEvent: InTemplateMsgEvent): OutMsg;
+
 }

@@ -21,6 +21,11 @@ import { OutMusicMsg } from './msg/out/OutMusicMsg';
 import { OutNewsMsg } from './msg/out/OutNewsMsg';
 import { OutVideoMsg } from './msg/out/OutVideoMsg';
 import { OutVoiceMsg } from './msg/out/OutVoiceMsg';
+import { InFollowEvent } from './msg/in/event/InFollowEvent';
+import { InLocationEvent } from './msg/in/event/InLocationEvent';
+import { InMenuEvent } from './msg/in/event/InMenuEvent';
+import { InQrCodeEvent } from './msg/in/event/InQrCodeEvent';
+import { InTemplateMsgEvent } from './msg/in/event/InTemplateMsgEvent';
 
 export class WeChat {
 
@@ -101,6 +106,16 @@ export class WeChat {
                     outMsg = msgAdapter.processInVoiceMsg(<InVoiceMsg>inMsg);
                 } else if (inMsg instanceof InSpeechRecognitionResults) {
                     outMsg = msgAdapter.processInSpeechRecognitionResults(<InSpeechRecognitionResults>inMsg);
+                } else if (inMsg instanceof InFollowEvent) {
+                    outMsg = msgAdapter.processInFollowEvent(<InFollowEvent>inMsg);
+                } else if (inMsg instanceof InLocationEvent) {
+                    outMsg = msgAdapter.processInLocationEvent(<InLocationEvent>inMsg);
+                } else if (inMsg instanceof InMenuEvent) {
+                    outMsg = msgAdapter.processInMenuEvent(<InMenuEvent>inMsg);
+                } else if (inMsg instanceof InQrCodeEvent) {
+                    outMsg = msgAdapter.processInQrCodeEvent(<InQrCodeEvent>inMsg);
+                } else if (inMsg instanceof InTemplateMsgEvent) {
+                    outMsg = msgAdapter.processInTemplateMsgEvent(<InTemplateMsgEvent>inMsg);
                 }
                 else if (inMsg instanceof InNotDefinedMsg) {
                     if (ApiConfigKit.isDevMode()) {
