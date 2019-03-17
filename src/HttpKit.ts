@@ -30,7 +30,7 @@ export class HttpKit {
      * @param {String} url  请求地址
      * @param {JSON} data 提交的数据
      */
-    public static async httPost(url: string, data: string) {
+    public static async httpPost(url: string, data: string) {
         return new Promise(function (resolve, reject) {
             //解析 url 地址
             let urlData = urltil.parse(url);

@@ -1,6 +1,6 @@
 export class Matchrule {
     //用户分组id，可通过用户分组管理接口获取
-    private group_id!: string;
+    private tag_id!: string;
     //性别：男（1）女（2），不填则不做匹配
     private sex!: string;
     //国家信息
@@ -15,12 +15,12 @@ export class Matchrule {
     private language!: string;
 
 
-    public get getGroupId(): string {
-        return this.group_id;
+    public get getTagId(): string {
+        return this.tag_id;
     }
 
-    public set setGroupId(group_id: string) {
-        this.group_id = group_id;
+    public set setTagId(tag_id: string) {
+        this.tag_id = tag_id;
     }
 
     public get getSex(): string {

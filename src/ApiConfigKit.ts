@@ -65,11 +65,13 @@ export class ApiConfigKit {
 
     public static get getToken(): string {
         let token!: string;
-        if (!this.currentAppId) {
-            let apiConfig = this.CFG_MAP.get(this.DEFAULT_CFG_KEY);
-            if (apiConfig) {
-                token = apiConfig.getToken;
-            }
+        let appId: string = this.DEFAULT_CFG_KEY;
+        if (this.currentAppId) {
+            appId = this.currentAppId;
+        }
+        let apiConfig = this.CFG_MAP.get(appId);
+        if (apiConfig) {
+            token = apiConfig.getToken;
         }
         if (!token) {
             throw new Error("需事先调用 ApiConfigKit.putApiConfig(apiConfig) 将 appId 对应的 ApiConfig 对象存入后, " +
