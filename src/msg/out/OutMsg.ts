@@ -25,10 +25,10 @@ export abstract class OutMsg {
     }
 
     public toXml(): string {
-        let xmlContent = "<xml><ToUserName><![CDATA[" + this.toUserName + "]]></ToUserName>";
-        xmlContent += "<FromUserName><![CDATA[" + this.fromUserName + "]]></FromUserName>";
-        xmlContent += "<CreateTime>" + this.createTime + "</CreateTime>";
-        xmlContent += "<MsgType><![CDATA[" + this.msgType + "]]></MsgType>";
+        let xmlContent = "<xml>\n<ToUserName><![CDATA[" + this.toUserName + "]]></ToUserName>\n";
+        xmlContent += "<FromUserName><![CDATA[" + this.fromUserName + "]]></FromUserName>\n";
+        xmlContent += "<CreateTime>" + this.createTime + "</CreateTime>\n";
+        xmlContent += "<MsgType><![CDATA[" + this.msgType + "]]></MsgType>\n";
         return xmlContent;
     }
 

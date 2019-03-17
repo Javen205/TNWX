@@ -9,6 +9,18 @@ import { OutMsg } from './msg/out/OutMsg';
 import { InNotDefinedMsg } from './msg/in/InNotDefinedMsg';
 import { MsgAdapter } from './MsgAdapter';
 import { OutTextMsg } from './msg/out/OutTextMsg';
+import { InImageMsg } from './msg/in/InImageMsg';
+import { InLinkMsg } from './msg/in/InLinkMsg';
+import { InLocationMsg } from './msg/in/InLocationMsg';
+import { InShortVideoMsg } from './msg/in/InShortVideoMsg';
+import { InVideoMsg } from './msg/in/InVideoMsg';
+import { InVoiceMsg } from './msg/in/InVoiceMsg';
+import { InSpeechRecognitionResults } from './msg/in/InSpeechRecognitionResults';
+import { OutImageMsg } from './msg/out/OutImageMsg';
+import { OutMusicMsg } from './msg/out/OutMusicMsg';
+import { OutNewsMsg } from './msg/out/OutNewsMsg';
+import { OutVideoMsg } from './msg/out/OutVideoMsg';
+import { OutVoiceMsg } from './msg/out/OutVoiceMsg';
 
 export class WeChat {
 
@@ -34,7 +46,6 @@ export class WeChat {
     }
 
     public static handleMsg(request: any, response: any, msgAdapter: MsgAdapter) {
-        console.log('request.query', request.query);
         let buffer: Uint8Array[] = [];
         //实例微信消息加解密
         let cryptoTools: CryptoTools;
@@ -74,7 +85,24 @@ export class WeChat {
                 // 处理接收的消息
                 if (inMsg instanceof InTextMsg) {
                     outMsg = msgAdapter.processInTextMsg(<InTextMsg>inMsg);
-                } else if (inMsg instanceof InNotDefinedMsg) {
+                } else if (inMsg instanceof InImageMsg) {
+                    outMsg = msgAdapter.processInImageMsg(<InImageMsg>inMsg);
+                } else if (inMsg instanceof InLinkMsg) {
+                    outMsg = msgAdapter.processInLinkMsg(<InLinkMsg>inMsg);
+                } else if (inMsg instanceof InLocationMsg) {
+                    outMsg = msgAdapter.processInLocationMsg(<InLocationMsg>inMsg);
+                } else if (inMsg instanceof InShortVideoMsg) {
+                    outMsg = msgAdapter.processInShortVideoMsg(<InShortVideoMsg>inMsg);
+                } else if (inMsg instanceof InVideoMsg) {
+                    outMsg = msgAdapter.processInVideoMsg(<InVideoMsg>inMsg);
+                } else if (inMsg instanceof InVoiceMsg) {
+                    outMsg = msgAdapter.processInVoiceMsg(<InVoiceMsg>inMsg);
+                } else if (inMsg instanceof InVoiceMsg) {
+                    outMsg = msgAdapter.processInVoiceMsg(<InVoiceMsg>inMsg);
+                } else if (inMsg instanceof InSpeechRecognitionResults) {
+                    outMsg = msgAdapter.processInSpeechRecognitionResults(<InSpeechRecognitionResults>inMsg);
+                }
+                else if (inMsg instanceof InNotDefinedMsg) {
                     if (ApiConfigKit.isDevMode()) {
                         console.error("未能识别的消息类型。 消息 xml 内容为：\n");
                         console.error(result);
@@ -85,6 +113,16 @@ export class WeChat {
                 // 处理发送的消息
                 if (outMsg instanceof OutTextMsg) {
                     responseMsg = (<OutTextMsg>outMsg).toXml();
+                } else if (outMsg instanceof OutImageMsg) {
+                    responseMsg = (<OutImageMsg>outMsg).toXml();
+                } else if (outMsg instanceof OutMusicMsg) {
+                    responseMsg = (<OutMusicMsg>outMsg).toXml();
+                } else if (outMsg instanceof OutNewsMsg) {
+                    responseMsg = (<OutNewsMsg>outMsg).toXml();
+                } else if (outMsg instanceof OutVideoMsg) {
+                    responseMsg = (<OutVideoMsg>outMsg).toXml();
+                } else if (outMsg instanceof OutVoiceMsg) {
+                    responseMsg = (<OutVoiceMsg>outMsg).toXml();
                 }
                 //判断消息加解密方式，如果未加密则使用明文，对明文消息进行加密
                 responseMsg = isEncryptMessage ? cryptoTools.encryptMsg(responseMsg) : responseMsg;

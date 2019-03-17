@@ -14,7 +14,7 @@ export class OutTextMsg extends OutMsg {
         if (!this.content) {
             throw new Error("content is null");
         }
-        str += "<Content><![CDATA[" + this.content + "]]></Content></xml>\n";
+        str += "<Content><![CDATA[" + this.content + "]]></Content>\n</xml>\n";
         return str;
     }
 

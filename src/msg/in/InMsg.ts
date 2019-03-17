@@ -1,3 +1,9 @@
+/**
+ * @author Javen 
+ * @copyright 2019-03-17 14:44:47 javendev@126.com 
+ * @description 接收消息抽象类
+ */
+
 export abstract class InMsg {
     protected toUserName: string;//开发者微信号
     protected fromUserName: string;//发送方帐号openId

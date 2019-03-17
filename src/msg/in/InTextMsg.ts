@@ -1,3 +1,8 @@
+/**
+ * @author Javen 
+ * @copyright 2019-03-17 14:46:01 javendev@126.com 
+ * @description 接收文本消息
+ */
 import { InMsg } from "./InMsg";
 
 export class InTextMsg extends InMsg {
@@ -23,7 +28,4 @@ export class InTextMsg extends InMsg {
     public set setMsgId(msgId: string) {
         this.msgId = msgId;
     }
-
-
-
 }
