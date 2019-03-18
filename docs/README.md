@@ -1,8 +1,12 @@
-# 极速开发微信公众号
+# 微信公众号开发
 
-## 说明
 
-TypeScript + Node.js + Express 微信公众号开发 By Javen
+TNW: TypeScript(The) + Node.js(Next) + WeChat
+
+极速开发微信公众号但不止于微信公众号 By Javen
+
+>本项目算是我研究 TypeScript + Node.js 的一个小阶段的总结，为什么以公众号为载体呢？ 因为我对微信支付、公众号、小程序、小游戏有一定的研究，之前也参与过 jfinl-weixin 的开发，所以以公众号为载体再好不过了。后面在条件允许的情况下会扩展对支付、小程序甚至小游戏相关接口的支持。感谢您的关注:)
+
 
 
 ## 安装与运行
@@ -30,8 +34,7 @@ npm install
 4、编译并运行
 
 ```bash
-npm run build
-npm run run
+npm run build & npm run dev
 ```
 
 ## 示例 
