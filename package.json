@@ -1,16 +1,15 @@
 {
-  "name": "nwx",
+  "name": "tnw",
   "version": "1.0.0",
-  "description": "",
-  "main": "express.js",
+  "description": "TypeScript + Node.js 极速开发微信公众号 By Javen ",
+  "main": "App.js",
   "scripts": {
     "dev": "supervisor -w build ./build/App.js",
-    "serve": "node build/App.js",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["Node.js", "TypeScript", "WeChat", "微信公众号", "微信支付", "微信小程序"],
+  "author": "Javen",
   "license": "MIT",
   "dependencies": {
     "express": "^4.16.4",
