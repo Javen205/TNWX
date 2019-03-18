@@ -40,16 +40,16 @@ npm run build & npm run dev
 ## 示例 
 
 ```TypeScript
-import { ApiConfig } from './ApiConfig'
+import { ApiConfig } from '../entity/ApiConfig'
 import { MsgController } from './MsgController'
-import { AccessToken } from './AccessToken'
-import { TemplateData } from './template/TemplateData';
-import { MenuManager } from './menu/MenuManager';
-import { AccessTokenApi } from './AccessTokenApi';
-import { ApiConfigKit } from './ApiConfigKit';
-import { WeChat } from './WeChat';
-import { TemplateApi } from './api/TemplateApi';
-import { MenuApi } from './api/MenuApi';
+import { AccessToken } from '../AccessToken'
+import { TemplateData } from '../entity/template/TemplateData';
+import { MenuManager } from './MenuManager';
+import { AccessTokenApi } from '../AccessTokenApi';
+import { ApiConfigKit } from '../ApiConfigKit';
+import { WeChat } from '../WeChat';
+import { TemplateApi } from '../api/TemplateApi';
+import { MenuApi } from '../api/MenuApi';
 import fs from 'fs';
 import express from 'express';
 import { AddressInfo } from 'net';
@@ -117,6 +117,7 @@ app.get('/creatMenu', (req: any, res: any) => {
         }
         let fileData = data.toString();
         console.log(fileData);
+        // res.send(fileData)
         MenuApi.create(res, fileData);
     });
 });
@@ -134,7 +135,7 @@ app.get('/getAccessToken', (req: any, res: any) => {
     });
 });
 
-const server = app.listen(6666, "localhost", () => {
+const server = app.listen(8888, "localhost", () => {
     let addressInfo: AddressInfo = <AddressInfo>server.address();
     if (addressInfo) {
         let host = addressInfo.address;

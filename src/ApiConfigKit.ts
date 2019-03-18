@@ -1,4 +1,4 @@
-import { ApiConfig } from "./ApiConfig";
+import { ApiConfig } from "./entity/ApiConfig";
 import { IAccessTokenCache } from "./cache/IAccessTokenCache";
 import { DefaultAccessTokenCache } from "./cache/DefaultAccessTokenCache";
 

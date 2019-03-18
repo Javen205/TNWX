@@ -1,8 +1,8 @@
 import * as crypto from 'crypto';
 import * as xml2js from 'xml2js';
-import { ApiConfig } from "./ApiConfig";
+import { ApiConfig } from "../entity/ApiConfig";
 
-export class CryptoTools {
+export class CryptoKit {
     //用于构建 xml 结构
     static xmlParser = new xml2js.Builder({
         rootName: 'xml',
@@ -66,7 +66,7 @@ export class CryptoTools {
         //获取认证签名
         let msgSignature = this.getMsgSignature(encryptedMsg);
         //返回XML结果
-        return CryptoTools.xmlParser.buildObject({
+        return CryptoKit.xmlParser.buildObject({
             Encrypt: encryptedMsg,
             MsgSignature: msgSignature,
             TimeStamp: this.timestamp,
@@ -97,7 +97,7 @@ export class CryptoTools {
         //获取认证签名
         let msgSignature = this.getMsgSignature(encryptedMsg);
         //返回XML结果
-        return CryptoTools.xmlParser.buildObject({
+        return CryptoKit.xmlParser.buildObject({
             Encrypt: encryptedMsg,
             MsgSignature: msgSignature,
             TimeStamp: this.timestamp,

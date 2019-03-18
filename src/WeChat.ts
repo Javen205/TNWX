@@ -1,31 +1,31 @@
 import * as crypto from 'crypto';
 import { parseString } from 'xml2js';
-import { CryptoTools } from './CryptoTools';
+import { CryptoKit } from './kit/CryptoKit';
 import { ApiConfigKit } from './ApiConfigKit';
-import { InMsgParser } from './msg/InMsgParser';
-import { InMsg } from './msg/in/InMsg';
-import { InTextMsg } from './msg/in/InTextMsg';
-import { OutMsg } from './msg/out/OutMsg';
-import { InNotDefinedMsg } from './msg/in/InNotDefinedMsg';
-import { MsgAdapter } from './MsgAdapter';
-import { OutTextMsg } from './msg/out/OutTextMsg';
-import { InImageMsg } from './msg/in/InImageMsg';
-import { InLinkMsg } from './msg/in/InLinkMsg';
-import { InLocationMsg } from './msg/in/InLocationMsg';
-import { InShortVideoMsg } from './msg/in/InShortVideoMsg';
-import { InVideoMsg } from './msg/in/InVideoMsg';
-import { InVoiceMsg } from './msg/in/InVoiceMsg';
-import { InSpeechRecognitionResults } from './msg/in/InSpeechRecognitionResults';
-import { OutImageMsg } from './msg/out/OutImageMsg';
-import { OutMusicMsg } from './msg/out/OutMusicMsg';
-import { OutNewsMsg } from './msg/out/OutNewsMsg';
-import { OutVideoMsg } from './msg/out/OutVideoMsg';
-import { OutVoiceMsg } from './msg/out/OutVoiceMsg';
-import { InFollowEvent } from './msg/in/event/InFollowEvent';
-import { InLocationEvent } from './msg/in/event/InLocationEvent';
-import { InMenuEvent } from './msg/in/event/InMenuEvent';
-import { InQrCodeEvent } from './msg/in/event/InQrCodeEvent';
-import { InTemplateMsgEvent } from './msg/in/event/InTemplateMsgEvent';
+import { InMsgParser } from './entity/msg/InMsgParser';
+import { InMsg } from './entity/msg/in/InMsg';
+import { InTextMsg } from './entity/msg/in/InTextMsg';
+import { OutMsg } from './entity/msg/out/OutMsg';
+import { InNotDefinedMsg } from './entity/msg/in/InNotDefinedMsg';
+import { MsgAdapter } from './msgAdapter';
+import { OutTextMsg } from './entity/msg/out/OutTextMsg';
+import { InImageMsg } from './entity/msg/in/InImageMsg';
+import { InLinkMsg } from './entity/msg/in/InLinkMsg';
+import { InLocationMsg } from './entity/msg/in/InLocationMsg';
+import { InShortVideoMsg } from './entity/msg/in/InShortVideoMsg';
+import { InVideoMsg } from './entity/msg/in/InVideoMsg';
+import { InVoiceMsg } from './entity/msg/in/InVoiceMsg';
+import { InSpeechRecognitionResults } from './entity/msg/in/InSpeechRecognitionResults';
+import { OutImageMsg } from './entity/msg/out/OutImageMsg';
+import { OutMusicMsg } from './entity/msg/out/OutMusicMsg';
+import { OutNewsMsg } from './entity/msg/out/OutNewsMsg';
+import { OutVideoMsg } from './entity/msg/out/OutVideoMsg';
+import { OutVoiceMsg } from './entity/msg/out/OutVoiceMsg';
+import { InFollowEvent } from './entity/msg/in/event/InFollowEvent';
+import { InLocationEvent } from './entity/msg/in/event/InLocationEvent';
+import { InMenuEvent } from './entity/msg/in/event/InMenuEvent';
+import { InQrCodeEvent } from './entity/msg/in/event/InQrCodeEvent';
+import { InTemplateMsgEvent } from './entity/msg/in/event/InTemplateMsgEvent';
 
 export class WeChat {
 
@@ -53,7 +53,7 @@ export class WeChat {
     public static handleMsg(request: any, response: any, msgAdapter: MsgAdapter) {
         let buffer: Uint8Array[] = [];
         //实例微信消息加解密
-        let cryptoTools: CryptoTools;
+        let cryptoKit: CryptoKit;
 
         //监听 data 事件 用于接收数据
         request.on('data', function (data) {
@@ -72,9 +72,9 @@ export class WeChat {
                 //判断消息加解密方式
                 if (request.query.encrypt_type == 'aes') {
                     isEncryptMessage = true;
-                    cryptoTools = new CryptoTools(request, ApiConfigKit.getApiConfig);
+                    cryptoKit = new CryptoKit(request, ApiConfigKit.getApiConfig);
                     //对加密数据解密
-                    result = cryptoTools.decryptMsg(result.Encrypt);
+                    result = cryptoKit.decryptMsg(result.Encrypt);
                 }
 
                 if (ApiConfigKit.isDevMode()) {
@@ -140,7 +140,7 @@ export class WeChat {
                     responseMsg = (<OutVoiceMsg>outMsg).toXml();
                 }
                 //判断消息加解密方式，如果未加密则使用明文，对明文消息进行加密
-                responseMsg = isEncryptMessage ? cryptoTools.encryptMsg(responseMsg) : responseMsg;
+                responseMsg = isEncryptMessage ? cryptoKit.encryptMsg(responseMsg) : responseMsg;
                 if (ApiConfigKit.isDevMode()) {
                     console.log('发送消息');
                     console.log(responseMsg);

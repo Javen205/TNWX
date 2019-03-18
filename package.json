@@ -4,13 +4,21 @@
   "description": "TypeScript + Node.js 极速开发微信公众号 By Javen ",
   "main": "App.js",
   "scripts": {
-    "dev": "supervisor -w build ./build/App.js",
+    "dev": "supervisor -w build ./build/demos/App.js",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["Node.js", "TypeScript", "WeChat", "微信公众号", "微信支付", "微信小程序"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/javen205/TNW.git"
+  },
+  "keywords": ["tnw", "TNW", "Node.js", "TypeScript", "WeChat", "微信公众号", "微信支付", "微信小程序"],
   "author": "Javen",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/javen205/TNW/issues"
+  },
+  "homepage": "https://github.com/javen205/TNW#readme",
   "dependencies": {
     "express": "^4.16.4",
     "xml2js": "^0.4.19"

@@ -1,9 +1,9 @@
 import * as util from 'util';
 import { AccessToken } from "./AccessToken";
-import { ApiConfig } from "./ApiConfig";
+import { ApiConfig } from "./entity/ApiConfig";
 import { IAccessTokenCache } from "./cache/IAccessTokenCache";
 import { ApiConfigKit } from "./ApiConfigKit";
-import { HttpKit } from "./HttpKit";
+import { HttpKit } from "./kit/HttpKit";
 
 export class AccessTokenApi {
     static url: string = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s";

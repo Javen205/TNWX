@@ -1,15 +1,30 @@
-import { InTextMsg } from "./msg/in/InTextMsg";
-import { OutMsg } from "./msg/out/OutMsg";
-import { InNotDefinedMsg } from "./msg/in/InNotDefinedMsg";
-import { OutTextMsg } from "./msg/out/OutTextMsg";
-import { MsgAdapter } from "./MsgAdapter";
-import { OutVoiceMsg } from "./msg/out/OutVoiceMsg";
-import { OutVideoMsg } from "./msg/out/OutVideoMsg";
-import { OutImageMsg } from "./msg/out/OutImageMsg";
-import { OutNewsMsg } from "./msg/out/OutNewsMsg";
-import { InFollowEvent } from "./msg/in/event/InFollowEvent";
-import { InQrCodeEvent } from "./msg/in/event/InQrCodeEvent";
-import { InMsg } from "./msg/in/InMsg";
+/**
+ * @author Javen 
+ * @copyright 2019-03-18 16:21:39 javendev@126.com 
+ * @description 消息控制器---处理微信各种消息与事件
+ */
+import { InTextMsg } from "../entity/msg/in/InTextMsg";
+import { OutMsg } from "../entity/msg/out/OutMsg";
+import { InNotDefinedMsg } from "../entity/msg/in/InNotDefinedMsg";
+import { OutTextMsg } from "../entity/msg/out/OutTextMsg";
+import { MsgAdapter } from "../MsgAdapter";
+import { OutVoiceMsg } from "../entity/msg/out/OutVoiceMsg";
+import { OutVideoMsg } from "../entity/msg/out/OutVideoMsg";
+import { OutImageMsg } from "../entity/msg/out/OutImageMsg";
+import { OutNewsMsg } from "../entity/msg/out/OutNewsMsg";
+import { InFollowEvent } from "../entity/msg/in/event/InFollowEvent";
+import { InQrCodeEvent } from "../entity/msg/in/event/InQrCodeEvent";
+import { InMsg } from "../entity/msg/in/InMsg";
+import { InImageMsg } from "../entity/msg/in/InImageMsg";
+import { InVoiceMsg } from "../entity/msg/in/InVoiceMsg";
+import { InVideoMsg } from "../entity/msg/in/InVideoMsg";
+import { InShortVideoMsg } from "../entity/msg/in/InShortVideoMsg";
+import { InLocationMsg } from "../entity/msg/in/InLocationMsg";
+import { InLinkMsg } from "../entity/msg/in/InLinkMsg";
+import { InSpeechRecognitionResults } from "../entity/msg/in/InSpeechRecognitionResults";
+import { InLocationEvent } from "../entity/msg/in/event/InLocationEvent";
+import { InMenuEvent } from "../entity/msg/in/event/InMenuEvent";
+import { InTemplateMsgEvent } from "../entity/msg/in/event/InTemplateMsgEvent";
 
 export class MsgController implements MsgAdapter {
 
@@ -35,49 +50,46 @@ export class MsgController implements MsgAdapter {
 
 
 
-    processInImageMsg(inImageMsg: import("./msg/in/InImageMsg").InImageMsg): OutMsg {
+    processInImageMsg(inImageMsg: InImageMsg): OutMsg {
         let outMsg = new OutImageMsg(inImageMsg);
         outMsg.setMediaId = inImageMsg.getMediaId;
         return outMsg;
     }
-    processInVoiceMsg(inVoiceMsg: import("./msg/in/InVoiceMsg").InVoiceMsg): OutMsg {
+    processInVoiceMsg(inVoiceMsg: InVoiceMsg): OutMsg {
         let outMsg = new OutVoiceMsg(inVoiceMsg);
         outMsg.setMediaId = inVoiceMsg.getMediaId;
         return outMsg;
     }
-    processInVideoMsg(inVideoMsg: import("./msg/in/InVideoMsg").InVideoMsg): OutMsg {
+    processInVideoMsg(inVideoMsg: InVideoMsg): OutMsg {
         let outMsg = new OutVideoMsg(inVideoMsg);
         outMsg.setMediaId = inVideoMsg.getMediaId;
         outMsg.setDescription = "IJPay 让支付触手可及";
         outMsg.setTitle = "视频消息";
         return outMsg;
     }
-    processInShortVideoMsg(inShortVideoMsg: import("./msg/in/InShortVideoMsg").InShortVideoMsg): OutMsg {
+    processInShortVideoMsg(inShortVideoMsg: InShortVideoMsg): OutMsg {
         let outMsg = new OutVideoMsg(inShortVideoMsg);
         outMsg.setMediaId = inShortVideoMsg.getMediaId;
         outMsg.setDescription = "TypeScript + Node.js 开发微信公众号";
         outMsg.setTitle = "短视频消息";
         return outMsg;
     }
-    processInLocationMsg(inLocationMsg: import("./msg/in/InLocationMsg").InLocationMsg): OutMsg {
+    processInLocationMsg(inLocationMsg: InLocationMsg): OutMsg {
         return this.renderOutTextMsg(inLocationMsg,
             "位置消息... \n\nX:" + inLocationMsg.getLocation_X + " Y:" + inLocationMsg.getLocation_Y + "\n\n" + inLocationMsg.getLabel);
     }
-    processInLinkMsg(inLinkMsg: import("./msg/in/InLinkMsg").InLinkMsg): OutMsg {
+    processInLinkMsg(inLinkMsg: InLinkMsg): OutMsg {
         let text = new OutTextMsg(inLinkMsg);
         text.setContent("链接频消息..." + inLinkMsg.getUrl);
         return text;
     }
-    processInSpeechRecognitionResults(inSpeechRecognitionResults: import("./msg/in/InSpeechRecognitionResults").InSpeechRecognitionResults): OutMsg {
+    processInSpeechRecognitionResults(inSpeechRecognitionResults: InSpeechRecognitionResults): OutMsg {
         let text = new OutTextMsg(inSpeechRecognitionResults);
         text.setContent("语音识别消息..." + inSpeechRecognitionResults.getRecognition);
         return text;
     }
 
-
-
-
-    processInFollowEvent(inFollowEvent: import("./msg/in/event/InFollowEvent").InFollowEvent): OutMsg {
+    processInFollowEvent(inFollowEvent: InFollowEvent): OutMsg {
 
         if (InFollowEvent.EVENT_INFOLLOW_SUBSCRIBE == inFollowEvent.getEvent) {
             return this.renderOutTextMsg(inFollowEvent,
@@ -91,7 +103,7 @@ export class MsgController implements MsgAdapter {
         }
     }
 
-    processInQrCodeEvent(inQrCodeEvent: import("./msg/in/event/InQrCodeEvent").InQrCodeEvent): OutMsg {
+    processInQrCodeEvent(inQrCodeEvent: InQrCodeEvent): OutMsg {
         if (InQrCodeEvent.EVENT_INQRCODE_SUBSCRIBE == inQrCodeEvent.getEvent) {
             console.debug("扫码未关注：" + inQrCodeEvent.getFromUserName);
             return this.renderOutTextMsg(inQrCodeEvent,
@@ -104,19 +116,19 @@ export class MsgController implements MsgAdapter {
             return this.renderOutTextMsg(inQrCodeEvent);
         }
     }
-    processInLocationEvent(inLocationEvent: import("./msg/in/event/InLocationEvent").InLocationEvent): OutMsg {
+    processInLocationEvent(inLocationEvent: InLocationEvent): OutMsg {
         console.debug("发送地理位置事件：" + inLocationEvent.getFromUserName);
 
         return this.renderOutTextMsg(inLocationEvent,
             "地理位置是：" + inLocationEvent.getLatitude);
     }
-    processInMenuEvent(inMenuEvent: import("./msg/in/event/InMenuEvent").InMenuEvent): OutMsg {
+    processInMenuEvent(inMenuEvent: InMenuEvent): OutMsg {
         console.debug("菜单事件：" + inMenuEvent.getFromUserName);
 
         return this.renderOutTextMsg(inMenuEvent,
             "菜单事件内容是：" + inMenuEvent.getEventKey);
     }
-    processInTemplateMsgEvent(inTemplateMsgEvent: import("./msg/in/event/InTemplateMsgEvent").InTemplateMsgEvent): OutMsg {
+    processInTemplateMsgEvent(inTemplateMsgEvent: InTemplateMsgEvent): OutMsg {
         console.debug("模板消息事件：" + inTemplateMsgEvent.getFromUserName + " " + inTemplateMsgEvent.getStatus);
         return this.renderOutTextMsg(inTemplateMsgEvent,
             "消息发送状态：" + inTemplateMsgEvent.getStatus);

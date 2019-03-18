@@ -7,7 +7,7 @@
 import * as util from 'util';
 import { AccessTokenApi } from "../AccessTokenApi";
 import { AccessToken } from "../AccessToken";
-import { HttpKit } from '../HttpKit';
+import { HttpKit } from '../kit/HttpKit';
 
 export class MenuApi {
 
