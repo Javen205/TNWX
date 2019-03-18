@@ -5,7 +5,7 @@ TNW: TypeScript(The) + Node.js(Next) + WeChat
 
 极速开发微信公众号但不止于微信公众号 By Javen
 
->本项目算是我研究 TypeScript + Node.js 的一个小阶段的总结，为什么以公众号为载体呢？ 因为我对微信支付、公众号、小程序、小游戏有一定的研究，之前也参与过 jfinl-weixin 的开发，所以以公众号为载体再好不过了。后面在条件允许的情况下会扩展对支付、小程序甚至小游戏相关接口的支持。感谢您的关注:)
+本项目算是我研究 TypeScript + Node.js 的一个小阶段的总结，为什么以公众号为载体呢？ 因为我对 [微信支付](https://gitee.com/javen205/IJPay)、[公众号](https://mp.weixin.qq.com/wiki)、[小程序/小游戏](https://developers.weixin.qq.com/miniprogram/dev/index.html) 有一定的研究，之前也参与过 [jfinal-weixin](https://gitee.com/jfinal/jfinal-weixin) 的开发，所以以微信系为载体再好不过了。后面在条件允许的情况下会扩展对支付、小程序甚至小游戏相关接口的支持。感谢您的关注:)
 
 
 
