@@ -14,6 +14,7 @@ import { AddressInfo } from 'net';
 import { CustomServiceApi } from '../api/CustomServiceApi';
 import { MenuMsg } from '../entity/msg/out/MenuMsg';
 import { Article } from '../entity/msg/out/Article';
+import { QrcodeApi } from '../api/QrcodeApi';
 const app = express();
 
 // 被动消息回复控制器
@@ -154,6 +155,33 @@ app.get('/setCustomMsg', (req: any, res: any) => {
         default:
             break;
     }
+});
+
+app.get('/qrcode', (req: any, res: any) => {
+    let type: string = req.query.type;
+    let ticket: string = req.query.ticket;
+    console.log('type', type);
+    switch (parseInt(type)) {
+        case 0:
+            res.send(QrcodeApi.getShowQrcodeUrl(ticket));
+            break;
+        case 1:
+            QrcodeApi.createTemporary(res, 10, 1);
+            break;
+        case 2:
+            QrcodeApi.createTemporaryByStr(res, 10, "IJPay");
+            break;
+        case 3:
+            QrcodeApi.createPermanent(res, 666);
+            break;
+        case 4:
+            QrcodeApi.createPermanentByStr(res, "IJPay");
+            break;
+
+        default:
+            break;
+    }
+
 });
 
 const server = app.listen(8888, "localhost", () => {
