@@ -14,6 +14,7 @@ export class CustomServiceApi {
     private static getKfListUrl: string = "https://api.weixin.qq.com/cgi-bin/customservice/getkflist?access_token=%s";
     private static customMessageUrl: string = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=%s";
     private static typingUrl: string = "https://api.weixin.qq.com/cgi-bin/message/custom/typing?access_token=%s";
+    private static uploadKfHeadImgUrl: string = "http://api.weixin.qq.com/customservice/kfaccount/uploadheadimg?access_token=%s&kf_account=%s";
 
 
     /**
@@ -65,6 +66,21 @@ export class CustomServiceApi {
             response.send(data);
         });
     }
+    /**
+     * 设置客服帐号的头像
+     * @param response 
+     * @param kf_account 
+     * @param filePath 头像图片文件必须是jpg格式，推荐使用640*640大小的图片以达到最佳效果
+     */
+    public static async uploadKfAccountHeadImg(response: any, kf_account: string, filePath: string) {
+        let accessToken = await AccessTokenApi.getAccessToken();
+        let url = util.format(this.uploadKfHeadImgUrl, (<AccessToken>accessToken).getAccessToken, kf_account);
+        HttpKit.upload(url, "", filePath).then(function (data) {
+            response.send(data);
+        });
+    }
+
+
     /**
      * 获取所有客服账号
      * @param response 

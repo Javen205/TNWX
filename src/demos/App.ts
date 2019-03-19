@@ -148,6 +148,9 @@ app.get('/setCustomMsg', (req: any, res: any) => {
         case 10:
             CustomServiceApi.updateKfAccount(res, "javen205@gh_8746b7fa293e", "Javen", "123456");
             break;
+        case 11:
+            CustomServiceApi.uploadKfAccountHeadImg(res, "javen205@gh_8746b7fa293e", "/Users/Javen/Downloads/test.jpg");
+            break;
         default:
             break;
     }
