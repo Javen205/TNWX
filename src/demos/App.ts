@@ -11,14 +11,18 @@ import { MenuApi } from '../api/MenuApi';
 import fs from 'fs';
 import express from 'express';
 import { AddressInfo } from 'net';
+import { CustomServiceApi } from '../api/CustomServiceApi';
+import { MenuMsg } from '../entity/msg/out/MenuMsg';
+import { Article } from '../entity/msg/out/Article';
 const app = express();
 
 // 被动消息回复控制器
 const msgAdapter = new MsgController();
 
+app.use(express.static('views'));
 
 app.get('/', (req: any, res: any) => {
-    res.send("TypeScript + Node.js + Express 极速开发微信公众号 By Javen");
+    res.send("TypeScript + Node.js + Express 极速开发微信公众号 By Javen <br/><br/> 交流群：114196246");
 });
 
 /**
@@ -91,6 +95,62 @@ app.get('/getAccessToken', (req: any, res: any) => {
         let accessToken = <AccessToken>data;
         res.send(accessToken);
     });
+});
+
+
+app.get('/setCustomMsg', (req: any, res: any) => {
+    let type: string = req.query.type;
+    console.log('type', type);
+
+    let openId = "ofkJSuGtXgB8n23e-y0kqDjJLXxk";
+    switch (parseInt(type)) {
+        case 0:
+            CustomServiceApi.sendTyping(res, openId, "Typing");
+            break;
+        case 1:
+            CustomServiceApi.sendText(res, openId, "客服消息---IJPay 让支付触手可及", "javen@gh_8746b7fa293e");
+            break;
+        case 2:
+            // {errcode: 40200,errmsg: "invalid account type hint: [WDtfla05023942]"}
+            let list: MenuMsg[] = [];
+            list.push(new MenuMsg("101", "非常满意"));
+            list.push(new MenuMsg("102", "满意"));
+            // list.push(new MenuMsg("103", "有待提高"));
+            CustomServiceApi.sendMenu(res, openId, "您对本次服务是否满意呢?", list, "欢迎再次光临");
+            break;
+        case 3:
+            let articles: Article[] = [];
+            articles.push(new Article("聚合支付了解一下", "IJPay 让支付触手可及", "https://gitee.com/javen205/IJPay",
+                "https://gitee.com/javen205/IJPay/raw/master/assets/img/IJPay-t.png"));
+            CustomServiceApi.sendNews(res, openId, articles);
+            break;
+        case 4:
+            CustomServiceApi.sendImage(res, openId, "wqX8pTWl1KIr-8jZHYt4qK3USIzQNztrhmEQDx1BHaJtZrTdCN5KypVeuQ2z5skY");
+            break;
+        case 5:
+            CustomServiceApi.sendVoice(res, openId, "a_6HXIgnXkOXXFYY-S6clAfGEXyArfEens4_MBkFqqwnQ9-Qi9Ii7VRL67rmtsW6");
+            break;
+        case 6:
+            // 需要通过接口上传视频
+            CustomServiceApi.sendVideo(res, openId, "uTSuRGeUYpWlpyLyXdwYXqndfgbh4aRKOGwg4-wsgADANwhLYbM--faOAVurxp6G",
+                "客服消息发送视频", "一个有趣的视频");
+            break;
+        case 7:
+            CustomServiceApi.addKfAccount(res, "javen@gh_8746b7fa293e", "Javen", "123456");
+            CustomServiceApi.addKfAccount(res, "javen205@gh_8746b7fa293e", "Javen205", "123456");
+            break;
+        case 8:
+            CustomServiceApi.getKfList(res);
+            break;
+        case 9:
+            CustomServiceApi.delKfAccount(res, "javen@gh_8746b7fa293e");
+            break;
+        case 10:
+            CustomServiceApi.updateKfAccount(res, "javen205@gh_8746b7fa293e", "Javen", "123456");
+            break;
+        default:
+            break;
+    }
 });
 
 const server = app.listen(8888, "localhost", () => {

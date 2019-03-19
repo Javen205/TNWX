@@ -86,7 +86,9 @@ export class ApiConfigKit {
     }
 
     public static getApiConfigByAppId(appId: string): ApiConfig {
-        console.debug("appId: " + appId);
+        if (ApiConfigKit.isDevMode) {
+            console.debug("getApiConfigByAppId appId: " + appId);
+        }
         let cfg = this.CFG_MAP.get(appId);
         if (!cfg)
             throw new Error("需事先调用 ApiConfigKit.putApiConfig(apiConfig) 将 appId 对应的 ApiConfig 对象存入后, " +
