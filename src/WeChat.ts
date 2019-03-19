@@ -127,7 +127,12 @@ export class WeChat {
 
                 // 处理发送的消息
                 if (outMsg instanceof OutTextMsg) {
-                    responseMsg = (<OutTextMsg>outMsg).toXml();
+                    let outTextMsg = (<OutTextMsg>outMsg);
+                    if (outTextMsg.getContent.trim) {
+                        responseMsg = "";
+                    } else {
+                        responseMsg = outTextMsg.toXml();
+                    }
                 } else if (outMsg instanceof OutImageMsg) {
                     responseMsg = (<OutImageMsg>outMsg).toXml();
                 } else if (outMsg instanceof OutMusicMsg) {
