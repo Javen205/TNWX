@@ -11,14 +11,14 @@ import { HttpKit } from '../kit/HttpKit';
 
 export class MenuApi {
 
-    private static create_menu_url = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token=%s'
-    private static delete_menu_url = 'https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=%s';
-    private static get_menu_url = 'https://api.weixin.qq.com/cgi-bin/menu/get?access_token=s%';
-    private static get_current_selfmenu_info = 'https://api.weixin.qq.com/cgi-bin/get_current_selfmenu_info?access_token=s%';
+    private static createMenuUrl = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token=%s'
+    private static deleteMenuUrl = 'https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=%s';
+    private static getMenuUrl = 'https://api.weixin.qq.com/cgi-bin/menu/get?access_token=s%';
+    private static getSelfMenuInfoUrl = 'https://api.weixin.qq.com/cgi-bin/get_current_selfmenu_info?access_token=s%';
 
-    private static add_conditional = 'https://api.weixin.qq.com/cgi-bin/menu/addconditional?access_token=s%';
-    private static del_conditional = 'https://api.weixin.qq.com/cgi-bin/menu/delconditional?access_token=s%';
-    private static try_match_url = 'https://api.weixin.qq.com/cgi-bin/menu/trymatch?access_token=s%';
+    private static addConditionalUrl = 'https://api.weixin.qq.com/cgi-bin/menu/addconditional?access_token=s%';
+    private static delConditionalUrl = 'https://api.weixin.qq.com/cgi-bin/menu/delconditional?access_token=s%';
+    private static tryMatchUrl = 'https://api.weixin.qq.com/cgi-bin/menu/trymatch?access_token=s%';
 
 
     /**
@@ -26,43 +26,33 @@ export class MenuApi {
      * @param response 
      * @param menuJson 
      */
-    public static async create(response: any, menuJson: string) {
+    public static async create(menuJson: string) {
         let accessToken = await AccessTokenApi.getAccessToken();
-        //格式化请求连接
-        let url = util.format(this.create_menu_url, (<AccessToken>accessToken).getAccessToken);
-        // 使用 post 请求创建微信菜单
-        HttpKit.httpPost(url, menuJson).then(function (data) {
-            response.send(data);
-        });
+        let url = util.format(this.createMenuUrl, (<AccessToken>accessToken).getAccessToken);
+        return HttpKit.httpPost(url, menuJson);
     }
     /**
      * 删除菜单
      * @param response 
      */
-    public static async delete(response: any) {
+    public static async delete() {
         let accessToken = await AccessTokenApi.getAccessToken();
-        let url = util.format(this.delete_menu_url, (<AccessToken>accessToken).getAccessToken);
-        HttpKit.httpGet(url).then(function (data) {
-            response.send(data);
-        });
+        let url = util.format(this.deleteMenuUrl, (<AccessToken>accessToken).getAccessToken);
+        return HttpKit.httpGet(url);
     }
     /**
      * 查询菜单
      * @param response 
      */
-    public static async get(response: any) {
+    public static async get() {
         let accessToken = await AccessTokenApi.getAccessToken();
-        let url = util.format(this.get_menu_url, (<AccessToken>accessToken).getAccessToken);
-        HttpKit.httpGet(url).then(function (data) {
-            response.send(data);
-        });
+        let url = util.format(this.getMenuUrl, (<AccessToken>accessToken).getAccessToken);
+        return HttpKit.httpGet(url);
     }
-    public static async getCurrentSelfMenu(response: any) {
+    public static async getCurrentSelfMenu() {
         let accessToken = await AccessTokenApi.getAccessToken();
-        let url = util.format(this.get_current_selfmenu_info, (<AccessToken>accessToken).getAccessToken);
-        HttpKit.httpGet(url).then(function (data) {
-            response.send(data);
-        });
+        let url = util.format(this.getSelfMenuInfoUrl, (<AccessToken>accessToken).getAccessToken);
+        return HttpKit.httpGet(url);
     }
 
     /**
@@ -70,37 +60,31 @@ export class MenuApi {
      * @param response 
      * @param menuJson 
      */
-    public static async addConditional(response: any, menuJson: string) {
+    public static async addConditional(menuJson: string) {
         let accessToken = await AccessTokenApi.getAccessToken();
-        let url = util.format(this.add_conditional, (<AccessToken>accessToken).getAccessToken);
-        HttpKit.httpPost(url, menuJson).then(function (data) {
-            response.send(data);
-        });
+        let url = util.format(this.addConditionalUrl, (<AccessToken>accessToken).getAccessToken);
+        return HttpKit.httpPost(url, menuJson);
     }
 
     /**
      * 删除个性化菜单
      * @param response 
      */
-    public static async deleteConditional(response: any) {
+    public static async deleteConditional() {
         let accessToken = await AccessTokenApi.getAccessToken();
-        let url = util.format(this.del_conditional, (<AccessToken>accessToken).getAccessToken);
-        HttpKit.httpGet(url).then(function (data) {
-            response.send(data);
-        });
+        let url = util.format(this.delConditionalUrl, (<AccessToken>accessToken).getAccessToken);
+        return HttpKit.httpGet(url);
     }
     /**
      * 测试个性化菜单匹配结果
      * @param response 
      * @param openId 
      */
-    public static async tryMatch(response: any, openId: string) {
+    public static async tryMatch(openId: string) {
         let accessToken = await AccessTokenApi.getAccessToken();
-        let url = util.format(this.try_match_url, (<AccessToken>accessToken).getAccessToken);
-        HttpKit.httpPost(url, JSON.stringify({
+        let url = util.format(this.tryMatchUrl, (<AccessToken>accessToken).getAccessToken);
+        return HttpKit.httpPost(url, JSON.stringify({
             "user_id": openId
-        })).then(function (data) {
-            response.send(data);
-        });
+        }));
     }
 }

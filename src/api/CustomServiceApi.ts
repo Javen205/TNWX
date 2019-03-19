@@ -24,16 +24,14 @@ export class CustomServiceApi {
      * @param nickname 客服昵称，最长6个汉字或12个英文字符
      * @param password 客服账号登录密码，格式为密码明文的32位加密MD5值。该密码仅用于在公众平台官网的多客服功能中使用，若不使用多客服功能，则不必设置密码
      */
-    public static async addKfAccount(response: any, kf_account: string, nickname: string, password: string) {
+    public static async addKfAccount(kf_account: string, nickname: string, password: string) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.addKfAccountUrl, (<AccessToken>accessToken).getAccessToken);
-        HttpKit.httpPost(url, JSON.stringify({
+        return HttpKit.httpPost(url, JSON.stringify({
             "kf_account": kf_account,
             "nickname": nickname,
             "password": password
-        })).then(function (data) {
-            response.send(data);
-        });
+        }));
     }
     /**
      * 修改客服帐号
@@ -42,16 +40,14 @@ export class CustomServiceApi {
      * @param nickname 
      * @param password 
      */
-    public static async updateKfAccount(response: any, kf_account: string, nickname: string, password: string) {
+    public static async updateKfAccount(kf_account: string, nickname: string, password: string) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.updateKfAccountUrl, (<AccessToken>accessToken).getAccessToken);
-        HttpKit.httpPost(url, JSON.stringify({
+        return HttpKit.httpPost(url, JSON.stringify({
             "kf_account": kf_account,
             "nickname": nickname,
             "password": password
-        })).then(function (data) {
-            response.send(data);
-        });
+        }));
     }
 
     /**
@@ -59,12 +55,10 @@ export class CustomServiceApi {
      * @param response 
      * @param kf_account 
      */
-    public static async delKfAccount(response: any, kf_account: string) {
+    public static async delKfAccount(kf_account: string) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.delKfAccountUrl, (<AccessToken>accessToken).getAccessToken, kf_account);
-        HttpKit.httpGet(url).then(function (data) {
-            response.send(data);
-        });
+        return HttpKit.httpGet(url);
     }
     /**
      * 设置客服帐号的头像
@@ -72,12 +66,10 @@ export class CustomServiceApi {
      * @param kf_account 
      * @param filePath 头像图片文件必须是jpg格式，推荐使用640*640大小的图片以达到最佳效果
      */
-    public static async uploadKfAccountHeadImg(response: any, kf_account: string, filePath: string) {
+    public static async uploadKfAccountHeadImg(kf_account: string, filePath: string) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.uploadKfHeadImgUrl, (<AccessToken>accessToken).getAccessToken, kf_account);
-        HttpKit.upload(url, "", filePath).then(function (data) {
-            response.send(data);
-        });
+        return HttpKit.upload(url, "", filePath);
     }
 
 
@@ -88,9 +80,7 @@ export class CustomServiceApi {
     public static async getKfList(response: any) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.getKfListUrl, (<AccessToken>accessToken).getAccessToken);
-        HttpKit.httpGet(url).then(function (data) {
-            response.send(data);
-        });
+        return HttpKit.httpGet(url);
     }
 
     /**
@@ -99,7 +89,7 @@ export class CustomServiceApi {
      * @param json 各种消息的JSON数据包
      * @param kf_account 以某个客服帐号来发消息
      */
-    public static async sendMsg(response: any, msgObj: any, kf_account?: string) {
+    public static async sendMsg(msgObj: any, kf_account?: string) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.customMessageUrl, (<AccessToken>accessToken).getAccessToken);
         let json: string = '';
@@ -112,9 +102,7 @@ export class CustomServiceApi {
         if (ApiConfigKit.isDevMode) {
             console.log("发送客服消息JSON", json);
         }
-        HttpKit.httpPost(url, json).then(function (data) {
-            response.send(data);
-        });
+        return HttpKit.httpPost(url, json);
     }
     /**
      * 发送文本客服消息
@@ -122,8 +110,8 @@ export class CustomServiceApi {
      * @param openId 
      * @param text 
      */
-    public static async sendText(response: any, openId: string, text: string, kf_account?: string) {
-        return this.sendMsg(response, {
+    public static async sendText(openId: string, text: string, kf_account?: string) {
+        return this.sendMsg({
             "touser": openId,
             "msgtype": "text",
             "text":
@@ -138,8 +126,8 @@ export class CustomServiceApi {
      * @param openId 
      * @param text 
      */
-    public static async sendImage(response: any, openId: string, media_id: string, kf_account?: string) {
-        return this.sendMsg(response, {
+    public static async sendImage(openId: string, media_id: string, kf_account?: string) {
+        return this.sendMsg({
             "touser": openId,
             "msgtype": "image",
             "image":
@@ -154,8 +142,8 @@ export class CustomServiceApi {
      * @param openId 
      * @param media_id
      */
-    public static async sendVoice(response: any, openId: string, media_id: string, kf_account?: string) {
-        return this.sendMsg(response, {
+    public static async sendVoice(openId: string, media_id: string, kf_account?: string) {
+        return this.sendMsg({
             "touser": openId,
             "msgtype": "voice",
             "voice":
@@ -172,8 +160,8 @@ export class CustomServiceApi {
      * @param title 
      * @param description 
      */
-    public static async sendVideo(response: any, openId: string, media_id: string, title: string, description: string, kf_account?: string) {
-        return this.sendMsg(response, {
+    public static async sendVideo(openId: string, media_id: string, title: string, description: string, kf_account?: string) {
+        return this.sendMsg({
             "touser": openId,
             "msgtype": "video",
             "video":
@@ -194,9 +182,9 @@ export class CustomServiceApi {
      * @param hqmusicurl 
      * @param thumb_media_id 缩略图/小程序卡片图片的媒体ID，小程序卡片图片建议大小为520*416
      */
-    public static async sendMusic(response: any, openId: string, title: string, description: string, musicurl: string,
+    public static async sendMusic(openId: string, title: string, description: string, musicurl: string,
         hqmusicurl: string, thumb_media_id: string, kf_account?: string) {
-        return this.sendMsg(response, {
+        return this.sendMsg({
             "touser": openId,
             "msgtype": "music",
             "music":
@@ -215,8 +203,8 @@ export class CustomServiceApi {
      * @param openId 
      * @param articles 
      */
-    public static async sendNews(response: any, openId: string, articles: Article[], kf_account?: string) {
-        return this.sendMsg(response, {
+    public static async sendNews(openId: string, articles: Article[], kf_account?: string) {
+        return this.sendMsg({
             "touser": openId,
             "msgtype": "news",
             "news": {
@@ -230,8 +218,8 @@ export class CustomServiceApi {
      * @param openId 
      * @param media_id 
      */
-    public static async sendMpNews(response: any, openId: string, media_id: string, kf_account?: string) {
-        return this.sendMsg(response, {
+    public static async sendMpNews(openId: string, media_id: string, kf_account?: string) {
+        return this.sendMsg({
             "touser": openId,
             "msgtype": "mpnews",
             "mpnews":
@@ -248,9 +236,9 @@ export class CustomServiceApi {
      * @param list 
      * @param tail_content 
      */
-    public static async sendMenu(response: any, openId: string, head_content: string, list: MenuMsg[],
+    public static async sendMenu(openId: string, head_content: string, list: MenuMsg[],
         tail_content: string, kf_account?: string) {
-        return this.sendMsg(response, {
+        return this.sendMsg({
             "touser": openId,
             "msgtype": "msgmenu",
             "msgmenu": {
@@ -266,8 +254,8 @@ export class CustomServiceApi {
      * @param openId 
      * @param card_id 
      */
-    public static async sendCoupon(response: any, openId: string, card_id: string, kf_account?: string) {
-        return this.sendMsg(response, {
+    public static async sendCoupon(openId: string, card_id: string, kf_account?: string) {
+        return this.sendMsg({
             "touser": openId,
             "msgtype": "wxcard",
             "wxcard":
@@ -285,9 +273,9 @@ export class CustomServiceApi {
      * @param pagepath 
      * @param thumb_media_id 缩略图/小程序卡片图片的媒体ID，小程序卡片图片建议大小为520*416
      */
-    public static async sendMiniProgramPage(response: any, openId: string, title: string, appid: string,
+    public static async sendMiniProgramPage(openId: string, title: string, appid: string,
         pagepath: string, thumb_media_id: string, kf_account?: string) {
-        return this.sendMsg(response, {
+        return this.sendMsg({
             "touser": openId,
             "msgtype": "miniprogrampage",
             "miniprogrampage":
@@ -306,15 +294,13 @@ export class CustomServiceApi {
      * @param openId 
      * @param command "Typing"：对用户下发“正在输入"状态,"CancelTyping"：取消对用户的”正在输入"状态
      */
-    public static async sendTyping(response: any, openId: string, command: string) {
+    public static async sendTyping(openId: string, command: string) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.typingUrl, (<AccessToken>accessToken).getAccessToken);
-        HttpKit.httpPost(url, JSON.stringify({
+        return HttpKit.httpPost(url, JSON.stringify({
             "touser": openId,
             "command": command
-        })).then(function (data) {
-            response.send(data);
-        });
+        }));
     }
 
 }

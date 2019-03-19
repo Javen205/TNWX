@@ -22,12 +22,10 @@ export class TemplateApi {
      * @param response 
      * @param tempJson 
      */
-    public static async send(response: any, tempJson: string) {
+    public static async send(tempJson: string) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.sendTemplateUrl, (<AccessToken>accessToken).getAccessToken);
-        HttpKit.httpPost(url, tempJson).then(function (data) {
-            response.send(data);
-        });
+        return HttpKit.httpPost(url, tempJson);
     }
     /**
      * 设置所属行业
@@ -35,15 +33,13 @@ export class TemplateApi {
      * @param industry_id1 公众号模板消息所属行业编号
      * @param industry_id2 公众号模板消息所属行业编号
      */
-    public static async setIndustry(response: any, industry_id1: string, industry_id2: string) {
+    public static async setIndustry(industry_id1: string, industry_id2: string) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.setIndustryUrl, (<AccessToken>accessToken).getAccessToken);
-        HttpKit.httpPost(url, JSON.stringify({
+        return HttpKit.httpPost(url, JSON.stringify({
             "industry_id1": industry_id1,
             "industry_id2": industry_id2
-        })).then(function (data) {
-            response.send(data);
-        });
+        }));
     }
     /**
      * 获取设置的行业信息
@@ -52,23 +48,19 @@ export class TemplateApi {
     public static async getIndustry(response: any) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.getIndustryUrl, (<AccessToken>accessToken).getAccessToken);
-        HttpKit.httpGet(url).then(function (data) {
-            response.send(data);
-        });
+        return HttpKit.httpGet(url);
     }
     /**
      * 获取模板列表
      * @param response 
      * @param templateIdShort 模板库中模板的编号
      */
-    public static async getTemplateId(response: any, templateIdShort: string) {
+    public static async getTemplateId(templateIdShort: string) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.getTemplateIdUrl, (<AccessToken>accessToken).getAccessToken);
-        HttpKit.httpPost(url, JSON.stringify({
+        return HttpKit.httpPost(url, JSON.stringify({
             "template_id_short": templateIdShort
-        })).then(function (data) {
-            response.send(data);
-        });
+        }));
     }
     /**
      * 删除模板
@@ -77,9 +69,7 @@ export class TemplateApi {
     public static async delTemplate(response: any) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.delTemplateUrl, (<AccessToken>accessToken).getAccessToken);
-        HttpKit.httpGet(url).then(function (data) {
-            response.send(data);
-        });
+        return HttpKit.httpGet(url);
     }
     /**
      * 获取模板列表
@@ -88,10 +78,6 @@ export class TemplateApi {
     public static async getAllTemplate(response: any) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.getAllTemplateUrl, (<AccessToken>accessToken).getAccessToken);
-        HttpKit.httpGet(url).then(function (data) {
-            response.send(data);
-        });
+        return HttpKit.httpGet(url);
     }
-
-
 }
