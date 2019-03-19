@@ -8,11 +8,9 @@ export class QrcodeApi {
     private static showQrcodeUrl: string = "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=%s";
 
     public static async create(json: any) {
-        let that = this;
         let accessToken = await AccessTokenApi.getAccessToken();
-        let url = util.format(that.apiUrl, (<AccessToken>accessToken).getAccessToken);
+        let url = util.format(this.apiUrl, (<AccessToken>accessToken).getAccessToken);
         return HttpKit.httpPost(url, json);
-
     }
     /**
      * 临时二维码

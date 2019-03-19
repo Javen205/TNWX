@@ -16,6 +16,8 @@ import { MenuMsg } from '../entity/msg/out/MenuMsg';
 import { Article } from '../entity/msg/out/Article';
 import { QrcodeApi } from '../api/QrcodeApi';
 import { ShortUrlApi } from '../api/ShortUrlApi';
+import { TagApi } from '../api/TagApi';
+import { UserApi } from '../api/UserApi';
 
 const app = express();
 
@@ -228,7 +230,85 @@ app.get('/qrcode', (req: any, res: any) => {
 app.get('/shortUrl', (req: any, res: any) => {
     ShortUrlApi.longToShort("https://gitee.com/javen205/IJPay").then(data => {
         res.send(data);
-    })
+    });
+});
+
+app.get('/tagApi', (req: any, res: any) => {
+    let type: string = req.query.type;
+    console.log('type', type);
+
+    let openId = "ofkJSuGtXgB8n23e-y0kqDjJLXxk";
+    switch (parseInt(type)) {
+        case 0:
+            TagApi.get().then(data => {
+                res.send(data);
+            });
+            break;
+        case 1:
+            TagApi.create("会员").then(data => {
+                res.send(data);
+            });
+            TagApi.create("普通会员").then(data => {
+                res.send(data);
+            });
+            break;
+        case 2:
+            TagApi.update(101, "超级会员").then(data => {
+                res.send(data);
+            });
+            break;
+        case 3:
+            TagApi.delete(100).then(data => {
+                res.send(data);
+            });
+            break;
+        case 4:
+            TagApi.getUser(101).then(data => {
+                res.send(data);
+            });
+            break;
+        case 5:
+            TagApi.batchAddTag(101, [openId]).then(data => {
+                res.send(data);
+            });
+            break;
+        case 6:
+            TagApi.batchDelTag(101, [openId]).then(data => {
+                res.send(data);
+            });
+            break;
+        case 7:
+            TagApi.getUserTag(openId).then(data => {
+                res.send(data);
+            });
+            break;
+        default:
+            break;
+    }
+
+
+});
+
+app.get('/userApi', (req: any, res: any) => {
+    let type: string = req.query.type;
+    console.log('type', type);
+
+    let openId = "ofkJSuGtXgB8n23e-y0kqDjJLXxk";
+    switch (parseInt(type)) {
+        case 0:
+            UserApi.getUserInfo(openId).then(data => {
+                res.send(data);
+            });
+            break;
+        case 1:
+            UserApi.getFollowers().then(data => {
+                res.send(data);
+            });
+            break;
+
+        default:
+            break;
+    }
 });
 
 const server = app.listen(8888, "localhost", () => {
