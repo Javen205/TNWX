@@ -99,16 +99,16 @@ export class CustomServiceApi {
      * @param json 各种消息的JSON数据包
      * @param kf_account 以某个客服帐号来发消息
      */
-    public static async sendMsg(response: any, json: string, kf_account?: string) {
+    public static async sendMsg(response: any, msgObj: any, kf_account?: string) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.customMessageUrl, (<AccessToken>accessToken).getAccessToken);
+        let json: string = '';
         if (kf_account) {
-            let obj = JSON.parse(json);
-            obj.customservice = {
+            msgObj.customservice = {
                 "kf_account": kf_account
             }
-            json = JSON.stringify(obj);
         }
+        json = JSON.stringify(msgObj);
         if (ApiConfigKit.isDevMode) {
             console.log("发送客服消息JSON", json);
         }
@@ -123,14 +123,14 @@ export class CustomServiceApi {
      * @param text 
      */
     public static async sendText(response: any, openId: string, text: string, kf_account?: string) {
-        return this.sendMsg(response, JSON.stringify({
+        return this.sendMsg(response, {
             "touser": openId,
             "msgtype": "text",
             "text":
             {
                 "content": text
             }
-        }), kf_account);
+        }, kf_account);
     }
     /**
      * 发送图片消息
@@ -139,14 +139,14 @@ export class CustomServiceApi {
      * @param text 
      */
     public static async sendImage(response: any, openId: string, media_id: string, kf_account?: string) {
-        return this.sendMsg(response, JSON.stringify({
+        return this.sendMsg(response, {
             "touser": openId,
             "msgtype": "image",
             "image":
             {
                 "media_id": media_id
             }
-        }), kf_account);
+        }, kf_account);
     }
     /**
      * 发送语音消息
@@ -155,14 +155,14 @@ export class CustomServiceApi {
      * @param media_id
      */
     public static async sendVoice(response: any, openId: string, media_id: string, kf_account?: string) {
-        return this.sendMsg(response, JSON.stringify({
+        return this.sendMsg(response, {
             "touser": openId,
             "msgtype": "voice",
             "voice":
             {
                 "media_id": media_id
             }
-        }), kf_account);
+        }, kf_account);
     }
     /**
      * 发送视频消息
@@ -173,7 +173,7 @@ export class CustomServiceApi {
      * @param description 
      */
     public static async sendVideo(response: any, openId: string, media_id: string, title: string, description: string, kf_account?: string) {
-        return this.sendMsg(response, JSON.stringify({
+        return this.sendMsg(response, {
             "touser": openId,
             "msgtype": "video",
             "video":
@@ -182,7 +182,7 @@ export class CustomServiceApi {
                 "title": title,
                 "description": description
             }
-        }), kf_account);
+        }, kf_account);
     }
     /**
      * 发送音乐消息
@@ -196,7 +196,7 @@ export class CustomServiceApi {
      */
     public static async sendMusic(response: any, openId: string, title: string, description: string, musicurl: string,
         hqmusicurl: string, thumb_media_id: string, kf_account?: string) {
-        return this.sendMsg(response, JSON.stringify({
+        return this.sendMsg(response, {
             "touser": openId,
             "msgtype": "music",
             "music":
@@ -207,7 +207,7 @@ export class CustomServiceApi {
                 "hqmusicurl": hqmusicurl,
                 "thumb_media_id": thumb_media_id
             }
-        }), kf_account);
+        }, kf_account);
     }
     /**
      * 发送图文消息
@@ -216,13 +216,13 @@ export class CustomServiceApi {
      * @param articles 
      */
     public static async sendNews(response: any, openId: string, articles: Article[], kf_account?: string) {
-        return this.sendMsg(response, JSON.stringify({
+        return this.sendMsg(response, {
             "touser": openId,
             "msgtype": "news",
             "news": {
                 "articles": articles
             }
-        }), kf_account);
+        }, kf_account);
     }
     /**
      * 发送图文消息（点击跳转到图文消息页面）
@@ -231,14 +231,14 @@ export class CustomServiceApi {
      * @param media_id 
      */
     public static async sendMpNews(response: any, openId: string, media_id: string, kf_account?: string) {
-        return this.sendMsg(response, JSON.stringify({
+        return this.sendMsg(response, {
             "touser": openId,
             "msgtype": "mpnews",
             "mpnews":
             {
                 "media_id": media_id
             }
-        }), kf_account);
+        }, kf_account);
     }
     /**
      * 发送菜单消息
@@ -250,7 +250,7 @@ export class CustomServiceApi {
      */
     public static async sendMenu(response: any, openId: string, head_content: string, list: MenuMsg[],
         tail_content: string, kf_account?: string) {
-        return this.sendMsg(response, JSON.stringify({
+        return this.sendMsg(response, {
             "touser": openId,
             "msgtype": "msgmenu",
             "msgmenu": {
@@ -258,7 +258,7 @@ export class CustomServiceApi {
                 "list": list,
                 "tail_content": tail_content
             }
-        }), kf_account);
+        }, kf_account);
     }
     /**
      * 发送卡券
@@ -267,14 +267,14 @@ export class CustomServiceApi {
      * @param card_id 
      */
     public static async sendCoupon(response: any, openId: string, card_id: string, kf_account?: string) {
-        return this.sendMsg(response, JSON.stringify({
+        return this.sendMsg(response, {
             "touser": openId,
             "msgtype": "wxcard",
             "wxcard":
             {
                 "card_id": card_id
             }
-        }), kf_account);
+        }, kf_account);
     }
     /**
      * 发送小程序卡片（要求小程序与公众号已关联）
@@ -287,7 +287,7 @@ export class CustomServiceApi {
      */
     public static async sendMiniProgramPage(response: any, openId: string, title: string, appid: string,
         pagepath: string, thumb_media_id: string, kf_account?: string) {
-        return this.sendMsg(response, JSON.stringify({
+        return this.sendMsg(response, {
             "touser": openId,
             "msgtype": "miniprogrampage",
             "miniprogrampage":
@@ -297,7 +297,7 @@ export class CustomServiceApi {
                 "pagepath": pagepath,
                 "thumb_media_id": thumb_media_id
             }
-        }), kf_account);
+        }, kf_account);
     }
 
     /**
