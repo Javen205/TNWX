@@ -18,6 +18,7 @@ import { QrcodeApi } from '../api/QrcodeApi';
 import { ShortUrlApi } from '../api/ShortUrlApi';
 import { TagApi } from '../api/TagApi';
 import { UserApi } from '../api/UserApi';
+import { BatchUserInfo } from '../entity/BatchUserInfo';
 
 const app = express();
 
@@ -303,6 +304,15 @@ app.get('/userApi', (req: any, res: any) => {
         case 1:
             UserApi.getFollowers().then(data => {
                 res.send(data);
+            });
+            break;
+        case 2:
+            let userList: BatchUserInfo[] = [];
+            userList.push(new BatchUserInfo(openId, "zh_CN"));
+            UserApi.batchGetUserInfo(userList).then(data => {
+                res.send(data);
+            }).catch(reason => {
+                res.send(reason);
             });
             break;
 
