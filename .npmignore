@@ -1,0 +1,9 @@
+config/
+docs/
+example/
+src/
+views/
+.vscode
+.travis.yml
+tsconfig.json
+
