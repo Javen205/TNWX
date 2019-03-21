@@ -63,10 +63,6 @@
     "./src/**/*"
   ],
   "exclude": [
-    "views",
-    "static",
-    "node_modules",
-    "docs",
-    "config"
+    "./src/example/**/*"
   ]
 }

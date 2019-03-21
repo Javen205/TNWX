@@ -1,80 +1,23 @@
-# 微信公众号开发
 
 
-TNW: TypeScript(The) + Node.js(Next) + WeChat
-
-极速开发微信公众号但不止于微信公众号 By Javen
-
-本项目算是我研究 TypeScript + Node.js 的一个小阶段的总结，为什么以公众号为载体呢？ 因为我对 [微信支付](https://gitee.com/javen205/IJPay)、[公众号](https://mp.weixin.qq.com/wiki)、[小程序/小游戏](https://developers.weixin.qq.com/miniprogram/dev/index.html) 有一定的研究，之前也参与过 [jfinal-weixin](https://gitee.com/jfinal/jfinal-weixin) 的开发，所以以微信系为载体再好不过了。后面在条件允许的情况下会扩展对支付、小程序甚至小游戏相关接口的支持。感谢您的关注:)
-
-
-
-## 安装与运行
-
-### 源码方式
-
-1、安装 typescript 编译器
-
-```bash
-npm install -g typescript
-```
-
-2、安装 supervisor 模块
-
-```bash
-npm install -g supervisor
-```
-
-3、下载项目并安装依赖
-
-```bash
-git clone https://github.com/Javen205/TNW.git
-cd TNW
-npm install 
-```
-
-4、编译并运行
-
-```bash
-npm run build & npm run dev
-```
-
-5、example
-
-完整示例 [请点击这里](https://github.com/Javen205/TNW/tree/master/src/example) 
-
-### NPM 依赖方式
-
-1、下载
-
-```bash 
-npm i tnw
-```
-
-2、example
-
-以下是部分示例,完整示例 [请点击这里](https://github.com/Javen205/TNW/tree/master/example) 
-
-```JavaScript
-// App.js
 'use strict';
 
 const MsgController = require('./MsgController').MsgController;
 const MenuManager = require('./MenuManager').MenuManager;
-const ApiConfigKit = require('tnw').ApiConfigKit;
-const ApiConfig = require('tnw').ApiConfig;
-const TemplateData = require('tnw').TemplateData;
-const WeChat = require('tnw').WeChat;
-const TemplateApi = require('tnw').TemplateApi;
-const MenuApi = require('tnw').MenuApi;
-const AccessTokenApi = require('tnw').AccessTokenApi;
-const CustomServiceApi = require('tnw').CustomServiceApi;
-const MenuMsg = require('tnw').MenuMsg;
-const Article = require('tnw').Article;
-const QrcodeApi = require('tnw').QrcodeApi;
-const ShortUrlApi = require('tnw').ShortUrlApi;
-const TagApi = require('tnw').TagApi;
-const UserApi = require('tnw').UserApi;
+const ApiConfigKit = require('../index').ApiConfigKit;
+const ApiConfig = require('../index').ApiConfig;
+const TemplateData = require('../index').TemplateData;
+const WeChat = require('../index').WeChat;
+const TemplateApi = require('../index').TemplateApi;
+const MenuApi = require('../index').MenuApi;
+const AccessTokenApi = require('../index').AccessTokenApi;
+const CustomServiceApi = require('../index').CustomServiceApi;
+const MenuMsg = require('../index').MenuMsg;
+const Article = require('../index').Article;
+const QrcodeApi = require('../index').QrcodeApi;
+const ShortUrlApi = require('../index').ShortUrlApi;
+const TagApi = require('../index').TagApi;
+const UserApi = require('../index').UserApi;
 
 const express = require('express');
 const fs = require('fs');
@@ -396,17 +339,3 @@ const server = app.listen(8888, "localhost", () => {
         }
     }
 });
-```
-
-## 交流群
-
-群号:[ 114196246](https:shang.qq.com/wpa/qunwpa?idkey=a1e4fd8c71008961bd4fc8eeea224e726afd5e5eae7bf1d96d3c77897388bf24)
-
-
-## 推荐与参考资料
-
-- [Node.js & Express 教程](http://www.runoob.com/nodejs/nodejs-tutorial.html)
-- [Java 版 jfinal-weixin](https://gitee.com/jfinal/jfinal-weixin)
-- [JavaScript + Node.js 版](https://github.com/SilenceHVK/wechatByNode)
-- [wechat-dev-with-nodejs](https://github.com/i5ting/wechat-dev-with-nodejs/blob/master/stuq.md)
-
