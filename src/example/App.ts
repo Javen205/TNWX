@@ -19,6 +19,7 @@ import { ShortUrlApi } from '../api/ShortUrlApi';
 import { TagApi } from '../api/TagApi';
 import { UserApi } from '../api/UserApi';
 import { BatchUserInfo } from '../entity/BatchUserInfo';
+import { AutoReplyInfoApi } from '../api/AutoReplyInfoApi';
 
 const app = express();
 
@@ -331,6 +332,13 @@ app.get('/userApi', (req: any, res: any) => {
             break;
         case 5:
             UserApi.batchUnBlackList([openId]).then(data => {
+                res.send(data);
+            }).catch(reason => {
+                res.send(reason);
+            });
+            break;
+        case 6:
+            AutoReplyInfoApi.getCurrent().then(data => {
                 res.send(data);
             }).catch(reason => {
                 res.send(reason);
