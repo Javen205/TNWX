@@ -12,6 +12,7 @@ module.exports.ShortUrlApi = require('./dist/api/ShortUrlApi').ShortUrlApi;
 module.exports.TagApi = require('./dist/api/TagApi').TagApi;
 module.exports.TemplateApi = require('./dist/api/TemplateApi').TemplateApi;
 module.exports.UserApi = require('./dist/api/UserApi').UserApi;
+module.exports.AutoReplyInfoApi = require('./dist/api/AutoReplyInfoApi').AutoReplyInfoApi;
 
 
 module.exports.DefaultAccessTokenCache = require('./dist/cache/DefaultAccessTokenCache').DefaultAccessTokenCache;
@@ -50,6 +51,23 @@ module.exports.InNotDefinedEvent = require('./dist/entity/msg/in/event/InNotDefi
 module.exports.InQrCodeEvent = require('./dist/entity/msg/in/event/InQrCodeEvent').InQrCodeEvent;
 module.exports.InTemplateMsgEvent = require('./dist/entity/msg/in/event/InTemplateMsgEvent').InTemplateMsgEvent;
 module.exports.ScanCodeInfo = require('./dist/entity/msg/in/event/ScanCodeInfo').ScanCodeInfo;
+module.exports.InCustomEvent = require('./dist/entity/msg/in/event/InCustomEvent').InCustomEvent;
+module.exports.InMassEvent = require('./dist/entity/msg/in/event/InMassEvent').InMassEvent;
+module.exports.InPoiCheckNotifyEvent = require('./dist/entity/msg/in/event/InPoiCheckNotifyEvent').InPoiCheckNotifyEvent;
+module.exports.InVerifyFailEvent = require('./dist/entity/msg/in/event/InVerifyFailEvent').InVerifyFailEvent;
+module.exports.InVerifySuccessEvent = require('./dist/entity/msg/in/event/InVerifySuccessEvent').InVerifySuccessEvent;
+module.exports.InWifiEvent = require('./dist/entity/msg/in/event/InWifiEvent').InWifiEvent;
+
+module.exports.InCardPassCheckEvent = require('./dist/entity/msg/in/card/InCardPassCheckEvent').InCardPassCheckEvent;
+module.exports.InCardPayOrderEvent = require('./dist/entity/msg/in/card/InCardPayOrderEvent').InCardPayOrderEvent;
+module.exports.InCardSkuRemindEvent = require('./dist/entity/msg/in/card/InCardSkuRemindEvent').InCardSkuRemindEvent;
+module.exports.InMerChantOrderEvent = require('./dist/entity/msg/in/card/InMerChantOrderEvent').InMerChantOrderEvent;
+module.exports.InUpdateMemberCardEvent = require('./dist/entity/msg/in/card/InUpdateMemberCardEvent').InUpdateMemberCardEvent;
+module.exports.InUserCardEvent = require('./dist/entity/msg/in/card/InUserCardEvent').InUserCardEvent;
+module.exports.InUserConsumeCardEvent = require('./dist/entity/msg/in/card/InUserConsumeCardEvent').InUserConsumeCardEvent;
+module.exports.InUserGetCardEvent = require('./dist/entity/msg/in/card/InUserGetCardEvent').InUserGetCardEvent;
+module.exports.InUserGiftingCardEvent = require('./dist/entity/msg/in/card/InUserGiftingCardEvent').InUserGiftingCardEvent;
+module.exports.InUserPayFromCardEvent = require('./dist/entity/msg/in/card/InUserPayFromCardEvent').InUserPayFromCardEvent;
 
 // 被动回复消息
 module.exports.Article = require('./dist/entity/msg/out/Article').Article;
@@ -62,6 +80,8 @@ module.exports.OutNewsMsg = require('./dist/entity/msg/out/OutNewsMsg').OutNewsM
 module.exports.OutTextMsg = require('./dist/entity/msg/out/OutTextMsg').OutTextMsg;
 module.exports.OutVideoMsg = require('./dist/entity/msg/out/OutVideoMsg').OutVideoMsg;
 module.exports.OutVoiceMsg = require('./dist/entity/msg/out/OutVoiceMsg').OutVoiceMsg;
+module.exports.OutCustomMsg = require('./dist/entity/msg/out/OutCustomMsg').OutCustomMsg;
+module.exports.TransInfo = require('./dist/entity/msg/out/TransInfo').TransInfo;
 
 // 模板消息 
 module.exports.MiniProgram = require('./dist/entity/template/MiniProgram').MiniProgram;

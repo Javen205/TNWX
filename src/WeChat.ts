@@ -26,6 +26,7 @@ import { InLocationEvent } from './entity/msg/in/event/InLocationEvent';
 import { InMenuEvent } from './entity/msg/in/event/InMenuEvent';
 import { InQrCodeEvent } from './entity/msg/in/event/InQrCodeEvent';
 import { InTemplateMsgEvent } from './entity/msg/in/event/InTemplateMsgEvent';
+import { OutCustomMsg } from './entity/msg/out/OutCustomMsg';
 
 export class WeChat {
 
@@ -143,6 +144,8 @@ export class WeChat {
                     responseMsg = (<OutVideoMsg>outMsg).toXml();
                 } else if (outMsg instanceof OutVoiceMsg) {
                     responseMsg = (<OutVoiceMsg>outMsg).toXml();
+                } else if (outMsg instanceof OutCustomMsg) {
+                    responseMsg = (<OutCustomMsg>outMsg).toXml();
                 }
                 //判断消息加解密方式，如果未加密则使用明文，对明文消息进行加密
                 responseMsg = isEncryptMessage ? cryptoKit.encryptMsg(responseMsg) : responseMsg;

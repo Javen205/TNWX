@@ -25,6 +25,7 @@ import { InSpeechRecognitionResults } from "../entity/msg/in/InSpeechRecognition
 import { InLocationEvent } from "../entity/msg/in/event/InLocationEvent";
 import { InMenuEvent } from "../entity/msg/in/event/InMenuEvent";
 import { InTemplateMsgEvent } from "../entity/msg/in/event/InTemplateMsgEvent";
+import { OutCustomMsg } from "../entity/msg/out/OutCustomMsg";
 
 export class MsgController implements MsgAdapter {
 
@@ -42,8 +43,12 @@ export class MsgController implements MsgAdapter {
             outMsg.addArticle("jfinal-weixin", "极速开发微信公众号",
                 "https://gitee.com/javen205/IJPay/raw/master/assets/img/IJPay-t.png", "https://gitee.com/JFinal/jfinal-weixin")
         } else {
-            outMsg = new OutTextMsg(inTextMsg);
-            outMsg.setContent(content);
+            // outMsg = new OutTextMsg(inTextMsg);
+            // outMsg.setContent(content);
+            // 转发给多客服PC客户端
+            outMsg = new OutCustomMsg(inTextMsg);
+            console.log("转发给多客服PC客户端");
+
         }
         return outMsg;
     }

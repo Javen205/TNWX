@@ -1,6 +1,8 @@
 import { EventInMsg } from "./EventInMsg";
 
 export class InLocationEvent extends EventInMsg {
+    public static EVENT: string = "LOCATION";
+
     private latitude!: string;
     private longitude!: string;
     private precision!: string;

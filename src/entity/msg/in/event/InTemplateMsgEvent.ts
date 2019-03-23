@@ -1,12 +1,13 @@
 import { EventInMsg } from "./EventInMsg";
 
 export class InTemplateMsgEvent extends EventInMsg {
+    public static EVENT: string = "TEMPLATESENDJOBFINISH";
     //"success": 成功
-    public static EVENT_INTEMPLATEMSG_STATUS_SUCCESS = "success";
+    public static EVENT_INTEMPLATEMSG_STATUS_SUCCESS: string = "success";
     //"block": 用户拒绝接收
-    public static EVENT_INTEMPLATEMSG_STATUS_BLOCK = "block";
+    public static EVENT_INTEMPLATEMSG_STATUS_BLOCK: string = "block";
     //"failed: system failed": 发送失败（非用户拒绝）
-    public static EVENT_INTEMPLATEMSG_STATUS_FAILED = "failed: system failed";
+    public static EVENT_INTEMPLATEMSG_STATUS_FAILED: string = "failed: system failed";
 
     private msgId!: string;
     private status!: string;
