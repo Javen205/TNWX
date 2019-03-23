@@ -402,8 +402,15 @@ const server = app.listen(8888, "localhost", () => {
 
 群号:[ 114196246](https:shang.qq.com/wpa/qunwpa?idkey=a1e4fd8c71008961bd4fc8eeea224e726afd5e5eae7bf1d96d3c77897388bf24)
 
+## 开源推荐
 
-## 推荐与参考资料
+- `IJPay` 让支付触手可及：https://gitee.com/javen205/IJPay
+- SpringBoot 微服务高效开发 `mica` 工具集：https://gitee.com/596392912/mica
+- `Avue` 一款基于 vue 可配置化的神奇框架：https://gitee.com/smallweigit/avue
+- `pig` 宇宙最强微服务（架构师必备）：https://gitee.com/log4j/pig
+- `SpringBlade` 完整的线上解决方案（企业开发必备）：https://gitee.com/smallc/SpringBlade
+
+## 参考资料
 
 - [Node.js & Express 教程](http://www.runoob.com/nodejs/nodejs-tutorial.html)
 - [Java 版 jfinal-weixin](https://gitee.com/jfinal/jfinal-weixin)
