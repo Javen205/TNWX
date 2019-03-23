@@ -1,10 +1,10 @@
 {
   "name": "tnw",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "TypeScript + Node.js 极速开发微信公众号 By Javen ",
   "main": "index.js",
   "scripts": {
-    "dev": "supervisor -w build ./build/demos/App.js",
+    "dev": "supervisor -w build ./dist/example/App.js",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

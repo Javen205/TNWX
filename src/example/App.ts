@@ -315,6 +315,27 @@ app.get('/userApi', (req: any, res: any) => {
                 res.send(reason);
             });
             break;
+        case 3:
+            UserApi.getBlackList().then(data => {
+                res.send(data);
+            }).catch(reason => {
+                res.send(reason);
+            });
+            break;
+        case 4:
+            UserApi.batchBlackList([openId]).then(data => {
+                res.send(data);
+            }).catch(reason => {
+                res.send(reason);
+            });
+            break;
+        case 5:
+            UserApi.batchUnBlackList([openId]).then(data => {
+                res.send(data);
+            }).catch(reason => {
+                res.send(reason);
+            });
+            break;
 
         default:
             break;
