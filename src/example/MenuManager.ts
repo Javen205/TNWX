@@ -1,7 +1,4 @@
-import { ClickButton } from '../entity/menu/ClickButton';
-import { ViewButton } from '../entity/menu/ViewButton';
-import { ComButton } from '../entity/menu/ComButton';
-import { Menu } from '../entity/menu/Menu';
+import { Menu, ClickButton, ViewButton, ComButton } from '../entity/menu/Menu';
 
 
 export class MenuManager {

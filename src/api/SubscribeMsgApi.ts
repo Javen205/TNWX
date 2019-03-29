@@ -33,9 +33,13 @@ export class SubscribeMsgApi {
      * @param subscribeMsg 
      */
     public static async send(subscribeMsg: SubscribeMsg) {
+        return this.sendMsg(JSON.stringify(subscribeMsg));
+    }
+
+    public static async sendMsg(json: string) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.subscribeUrl, (<AccessToken>accessToken).getAccessToken);
-        return HttpKit.httpPost(url, JSON.stringify(subscribeMsg));
+        return HttpKit.httpPost(url, json);
     }
 
 }

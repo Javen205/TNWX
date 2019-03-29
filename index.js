@@ -14,22 +14,23 @@ module.exports.TemplateApi = require('./dist/api/TemplateApi').TemplateApi;
 module.exports.UserApi = require('./dist/api/UserApi').UserApi;
 module.exports.AutoReplyInfoApi = require('./dist/api/AutoReplyInfoApi').AutoReplyInfoApi;
 module.exports.SubscribeMsgApi = require('./dist/api/SubscribeMsgApi').SubscribeMsgApi;
+module.exports.SnsAccessTokenApi = require('./dist/api/SnsAccessTokenApi').SnsAccessTokenApi;
 
 
 module.exports.DefaultAccessTokenCache = require('./dist/cache/DefaultAccessTokenCache').DefaultAccessTokenCache;
 module.exports.IAccessTokenCache = require('./dist/cache/IAccessTokenCache').IAccessTokenCache;
 
 module.exports.ApiConfig = require('./dist/entity/ApiConfig').ApiConfig;
-module.exports.BatchUserInfo = require('./dist/entity/BatchUserInfo').BatchUserInfo;
+module.exports.BatchUserInfo = require('./dist/api/UserApi').BatchUserInfo;
 
 // 菜单
-module.exports.Button = require('./dist/entity/menu/Button').Button;
-module.exports.ClickButton = require('./dist/entity/menu/ClickButton').ClickButton;
-module.exports.ComButton = require('./dist/entity/menu/ComButton').ComButton;
-module.exports.Matchrule = require('./dist/entity/menu/Matchrule').Matchrule;
-module.exports.MediaButton = require('./dist/entity/menu/MediaButton').MediaButton;
+module.exports.Button = require('./dist/entity/menu/Menu').Button;
+module.exports.ClickButton = require('./dist/entity/menu/Menu').ClickButton;
+module.exports.ComButton = require('./dist/entity/menu/Menu').ComButton;
+module.exports.Matchrule = require('./dist/entity/menu/Menu').Matchrule;
+module.exports.MediaButton = require('./dist/entity/menu/Menu').MediaButton;
 module.exports.Menu = require('./dist/entity/menu/Menu').Menu;
-module.exports.ViewButton = require('./dist/entity/menu/ViewButton').ViewButton;
+module.exports.ViewButton = require('./dist/entity/menu/Menu').ViewButton;
 
 // 接收消息
 module.exports.InMsgParser = require('./dist/entity/msg/InMsgParser').InMsgParser;
@@ -85,10 +86,14 @@ module.exports.OutCustomMsg = require('./dist/entity/msg/out/OutCustomMsg').OutC
 module.exports.TransInfo = require('./dist/entity/msg/out/TransInfo').TransInfo;
 
 // 模板消息 
-module.exports.MiniProgram = require('./dist/entity/template/MiniProgram').MiniProgram;
+module.exports.MiniProgram = require('./dist/entity/template/TemplateData').MiniProgram;
+module.exports.TemplateData = require('./dist/entity/template/TemplateData').TemplateData;
+module.exports.TemplateItem = require('./dist/entity/template/TemplateData').TemplateItem;
 // 订阅消息
 module.exports.SubscribeMsg = require('./dist/entity/subscribe/SubscribeMsg').SubscribeMsg;
-
+module.exports.Content = require('./dist/entity/subscribe/SubscribeMsg').Content;
+module.exports.Data = require('./dist/entity/subscribe/SubscribeMsg').Data;
+module.exports.MiniProgram = require('./dist/entity/subscribe/SubscribeMsg').MiniProgram;
 
 module.exports.AccessToken = require('./dist/AccessToken').AccessToken;
 module.exports.AccessTokenApi = require('./dist/AccessTokenApi').AccessTokenApi;

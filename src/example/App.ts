@@ -17,11 +17,11 @@ import { Article } from '../entity/msg/out/Article';
 import { QrcodeApi } from '../api/QrcodeApi';
 import { ShortUrlApi } from '../api/ShortUrlApi';
 import { TagApi } from '../api/TagApi';
-import { UserApi } from '../api/UserApi';
-import { BatchUserInfo } from '../entity/BatchUserInfo';
+import { UserApi, BatchUserInfo } from '../api/UserApi';
 import { AutoReplyInfoApi } from '../api/AutoReplyInfoApi';
 import { SubscribeMsgApi } from '../api/SubscribeMsgApi';
 import { SubscribeMsg, Data, Content } from '../entity/subscribe/SubscribeMsg';
+import { SnsAccessTokenApi, ScopeEnum, Lang } from '../api/SnsAccessTokenApi';
 
 const app = express();
 
@@ -67,6 +67,38 @@ app.post('/msg', function (req: any, res: any) {
     }
     // 接收消息并响应对应的回复
     WeChat.handleMsg(req, res, msgAdapter);
+});
+app.get('/toAuth', (req, res) => {
+    let url = SnsAccessTokenApi.getAuthorizeUrl("http://wx.frp.qianfanggaoneng.net/auth", ScopeEnum.SNSAPI_USERINFO, "IJPay");
+    console.log("授权URL:", url);
+    res.redirect(url);
+});
+// 授权回调
+app.get('/auth', (req, res) => {
+    let code = req.query.code;
+    let state = req.query.state;
+    console.log("code:", code, " state:", state);
+
+    SnsAccessTokenApi.getSnsAccessToken(code).then(data => {
+        let temp = JSON.parse(data.toString());
+        // 判断 access_token 是否获取成功
+        if (temp.errcode) {
+            // access_token 获取失败
+            res.send(temp);
+            return;
+        }
+
+        let access_token = temp.access_token;
+        let openid = temp.openid;
+        let scope = temp.scope;
+        if (scope == ScopeEnum.SNSAPI_USERINFO) {
+            SnsAccessTokenApi.getUserInfo(access_token, openid, Lang.ZH_CN).then(data => {
+                res.send(data);
+            });
+        } else {
+            res.send(temp);
+        }
+    })
 });
 
 app.get('/subscribe', function (req: any, res: any) {
