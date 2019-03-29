@@ -22,6 +22,7 @@ import { AutoReplyInfoApi } from '../api/AutoReplyInfoApi';
 import { SubscribeMsgApi } from '../api/SubscribeMsgApi';
 import { SubscribeMsg, Data, Content } from '../entity/subscribe/SubscribeMsg';
 import { SnsAccessTokenApi, ScopeEnum, Lang } from '../api/SnsAccessTokenApi';
+import { SemanticApi } from '../api/SemanticApi';
 
 const app = express();
 
@@ -100,6 +101,37 @@ app.get('/auth', (req, res) => {
         }
     })
 });
+
+app.get('/semantic', function (req: any, res: any) {
+    let type: string = req.query.type;
+    let jsonStr;
+    switch (parseInt(type)) {
+        case 0:
+            jsonStr = JSON.stringify({
+                "query": "查一下明天从北京到上海的南航机票",
+                "city": "北京",
+                "category": "flight,hotel",
+                "appid": "wx614c453e0d1dcd12",
+                "uid": "ofkJSuGtXgB8n23e-y0kqDjJLXxk"
+            });
+            break;
+        case 1:
+            jsonStr = JSON.stringify({
+                "query": "查一下明天深圳的天气",
+                "city": "深圳",
+                "category": "weather",
+                "appid": "wx614c453e0d1dcd12",
+                "uid": "ofkJSuGtXgB8n23e-y0kqDjJLXxk"
+            });
+            break;
+        default:
+            break;
+    }
+    SemanticApi.search(jsonStr).then(data => {
+        res.send(data);
+    })
+});
+
 
 app.get('/subscribe', function (req: any, res: any) {
     let type: string = req.query.type;

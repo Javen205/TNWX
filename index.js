@@ -15,6 +15,7 @@ module.exports.UserApi = require('./dist/api/UserApi').UserApi;
 module.exports.AutoReplyInfoApi = require('./dist/api/AutoReplyInfoApi').AutoReplyInfoApi;
 module.exports.SubscribeMsgApi = require('./dist/api/SubscribeMsgApi').SubscribeMsgApi;
 module.exports.SnsAccessTokenApi = require('./dist/api/SnsAccessTokenApi').SnsAccessTokenApi;
+module.exports.SemanticApi = require('./dist/api/SemanticApi').SemanticApi;
 
 
 module.exports.DefaultAccessTokenCache = require('./dist/cache/DefaultAccessTokenCache').DefaultAccessTokenCache;
