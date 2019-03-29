@@ -1,5 +1,3 @@
-import { MiniProgram } from "./MiniProgram";
-import { TemplateItem } from "./TemplateItem";
 
 export class TemplateData {
     private touser!: string;
@@ -80,5 +78,54 @@ export class TemplateData {
             strMap.set(k, obj[k]);
         }
         return strMap;
+    }
+}
+
+
+export class MiniProgram {
+    private appid: string;
+    private pagepath: string;
+
+    constructor(appId?: string, pagePath?: string) {
+        this.appid = appId || "";
+        this.pagepath = pagePath || "";
+    }
+
+    public get getAppId(): string {
+        return this.appid;
+    }
+    public set setAppId(appid: string) {
+        this.appid = appid;
+    }
+
+    public get getPagePath(): string {
+        return this.pagepath;
+    }
+    public set getPagePath(pagepath: string) {
+        this.pagepath = pagepath;
+    }
+}
+
+export class TemplateItem {
+    private value: string;
+    private color: string;
+
+    constructor(value: string, color: string) {
+        this.value = value;
+        this.color = color;
+    }
+
+    public get getValue(): string {
+        return this.value;
+    }
+    public set setValue(value: string) {
+        this.value = value;
+    }
+
+    public get getColor(): string {
+        return this.color;
+    }
+    public set setColor(color: string) {
+        this.color = color;
     }
 }

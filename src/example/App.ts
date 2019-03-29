@@ -20,6 +20,8 @@ import { TagApi } from '../api/TagApi';
 import { UserApi } from '../api/UserApi';
 import { BatchUserInfo } from '../entity/BatchUserInfo';
 import { AutoReplyInfoApi } from '../api/AutoReplyInfoApi';
+import { SubscribeMsgApi } from '../api/SubscribeMsgApi';
+import { SubscribeMsg, Data, Content } from '../entity/subscribe/SubscribeMsg';
 
 const app = express();
 
@@ -65,6 +67,30 @@ app.post('/msg', function (req: any, res: any) {
     }
     // 接收消息并响应对应的回复
     WeChat.handleMsg(req, res, msgAdapter);
+});
+
+app.get('/subscribe', function (req: any, res: any) {
+    let type: string = req.query.type;
+    console.log('type', type);
+    let templateId = "模板Id";
+    let redirectUrl = "授权回调地址";
+    let scene = 666;
+    let reserved = "reserved";
+    let openId = "ofkJSuGtXgB8n23e-y0kqDjJLXxk";
+    switch (parseInt(type)) {
+        case 0:
+            res.send(SubscribeMsgApi.getAuthorizeURL(scene, templateId, redirectUrl, reserved));
+            break;
+        case 1:
+            SubscribeMsgApi.send(new SubscribeMsg(openId, templateId, scene,
+                "订阅消息", new Data(new Content("IJPay 让支付触手可及", "#000000")))).then(data => {
+                    res.send(data);
+                })
+            break;
+        default:
+            break;
+    }
+
 });
 
 // 发送模板消息

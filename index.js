@@ -13,6 +13,7 @@ module.exports.TagApi = require('./dist/api/TagApi').TagApi;
 module.exports.TemplateApi = require('./dist/api/TemplateApi').TemplateApi;
 module.exports.UserApi = require('./dist/api/UserApi').UserApi;
 module.exports.AutoReplyInfoApi = require('./dist/api/AutoReplyInfoApi').AutoReplyInfoApi;
+module.exports.SubscribeMsgApi = require('./dist/api/SubscribeMsgApi').SubscribeMsgApi;
 
 
 module.exports.DefaultAccessTokenCache = require('./dist/cache/DefaultAccessTokenCache').DefaultAccessTokenCache;
@@ -85,8 +86,8 @@ module.exports.TransInfo = require('./dist/entity/msg/out/TransInfo').TransInfo;
 
 // 模板消息 
 module.exports.MiniProgram = require('./dist/entity/template/MiniProgram').MiniProgram;
-module.exports.TemplateData = require('./dist/entity/template/TemplateData').TemplateData;
-module.exports.TemplateItem = require('./dist/entity/template/TemplateItem').TemplateItem;
+// 订阅消息
+module.exports.SubscribeMsg = require('./dist/entity/subscribe/SubscribeMsg').SubscribeMsg;
 
 
 module.exports.AccessToken = require('./dist/AccessToken').AccessToken;
