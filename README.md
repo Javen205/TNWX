@@ -21,9 +21,9 @@
 - [x] 用户管理
 - [x] 生带参数的二维码
 - [x] 长连接转短连接
-- [ ] 微信网页授权
+- [x] 微信网页授权
+- [x] 一次性订阅消息
 - [ ] 素材管理
-- [ ] 一次性订阅消息
 - [ ] ....
 
 ## 安装与运行
@@ -44,33 +44,23 @@ npm i tnw
 
 ### 源码方式
 
-1、安装 typescript 编译器
+1、、下载项目并安装依赖
 
 ```bash
-npm install -g typescript
-```
-
-2、安装 supervisor 模块
-
-```bash
-npm install -g supervisor
-```
-
-3、下载项目并安装依赖
-
-```bash
-git clone https://github.com/Javen205/TNW.git
+git clone https://github.com/Javen205/TNW.git 
+或者 
+git clone https://gitee.com/Javen205/TNW.git 
 cd TNW
 npm install 
 ```
 
-4、编译并运行
+2、编译并运行
 
 ```bash
 npm run build & npm run dev
 ```
 
-5、完整示例
+3、完整示例
 
 - [Gitee 请点击这里](https://gitee.com/Javen205/TNW/tree/master/src/example) 
 - [GitHub 请点击这里](https://github.com/Javen205/TNW/tree/master/src/example) 
