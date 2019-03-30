@@ -22,16 +22,17 @@ export class CryptoKit {
     timestamp: string;
     nonce: string;
 
-    constructor(request, config: ApiConfig) {
+    constructor(config: ApiConfig, msgSignature: string, timestamp: string, nonce: string) {
         this.aesModel = 'aes-256-cbc';
         this.token = config.getToken;
         this.appId = config.getAppId;
         this.encodingAesKey = new Buffer(config.getEncodingAesKey + '=', 'base64');
         this.iv = this.encodingAesKey.slice(0, 16);
-        this.msgSignature = request.query.msg_signature;
-        this.timestamp = request.query.timestamp;
-        this.nonce = request.query.nonce;
+        this.msgSignature = msgSignature;
+        this.timestamp = timestamp;
+        this.nonce = nonce;
     }
+
     getMsgSignature(encryptedMsg: string): string {
         //将token、timestamp、nonce、cryptedMsg 四个参数进行字典序排序，并拼接成一个字符串
         let tempStr = [this.token, this.timestamp, this.nonce, encryptedMsg].sort().join('');
@@ -42,12 +43,13 @@ export class CryptoKit {
         //将 sha1 加密的签名字符串返回
         return tempSignature;
     }
+
     /**
      * 微信消息解密
      * @param {String} encryptMsg 加密字符串
      * @return {JSON} 解密后的JSON对象
      */
-    decryptMsg(xmlMsg): string {
+    decryptMsg(xmlMsg: string): string {
         //声明 16位的随机字符串
         let random = crypto.randomBytes(8).toString('hex');
         let text = new Buffer(xmlMsg);
@@ -78,7 +80,7 @@ export class CryptoKit {
      * 微信消息加密
      * @param xmlMsg 
      */
-    encryptMsg(xmlMsg): string {
+    encryptMsg(xmlMsg: string): string {
         //声明 16位的随机字符串
         let random = crypto.randomBytes(8).toString('hex');
         let text = new Buffer(xmlMsg);
@@ -105,7 +107,7 @@ export class CryptoKit {
         });
     }
 
-    KCS7Encoder(textLength): string {
+    KCS7Encoder(textLength: number): string {
         let blockSize = 32
         // 计算需要填充的位数
         let amountToPad = blockSize - (textLength % blockSize);

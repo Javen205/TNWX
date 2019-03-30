@@ -29,14 +29,15 @@ import { InTemplateMsgEvent } from './entity/msg/in/event/InTemplateMsgEvent';
 import { OutCustomMsg } from './entity/msg/out/OutCustomMsg';
 
 export class WeChat {
-
-    public static checkSignature(request: any, response: any) {
-        //微信服务器 get 请求的参数 signature、timestamp、nonce、echostr
-        let signature = request.query.signature,//微信加密签名
-            timestamp = request.query.timestamp,//时间戳
-            nonce = request.query.nonce,//随机数
-            echostr = request.query.echostr;//随机字符串
-
+    /**
+     * 验证成为开发者
+     * @param signature 
+     * @param timestamp 
+     * @param nonce 
+     * @param echostr 
+     */
+    public static checkSignature(signature: string, timestamp: string,
+        nonce: string, echostr: string): string {
         //将 token、timestamp、nonce 三个参数进行字典序排序，并拼接成一个字符串
         let tempStr = [ApiConfigKit.getToken, timestamp, nonce].sort().join('');
         //创建加密类型 
@@ -45,24 +46,23 @@ export class WeChat {
         let tempSignature = hashCode.update(tempStr, 'utf8').digest('hex');
         //校验签名
         if (tempSignature === signature) {
-            response.send(echostr);
+            return echostr;
         } else {
-            response.send("签名异常");
+            return "签名异常";
         }
     }
-
-    public static handleMsg(request: any, response: any, msgAdapter: MsgAdapter) {
-        let buffer: Uint8Array[] = [];
+    /**
+     * 处理消息
+     * @param msgAdapter 
+     * @param msgXml 
+     * @param msgSignature 
+     * @param timestamp 
+     * @param nonce 
+     */
+    public static handleMsg(msgAdapter: MsgAdapter, msgXml: string, msgSignature?: string, timestamp?: string, nonce?: string) {
         //实例微信消息加解密
         let cryptoKit: CryptoKit;
-
-        //监听 data 事件 用于接收数据
-        request.on('data', function (data) {
-            buffer.push(data);
-        });
-
-        request.on('end', function () {
-            let msgXml = Buffer.concat(buffer).toString('utf-8');
+        return new Promise(function (resolve, reject) {
             parseString(msgXml, { explicitArray: false }, function (err, result) {
                 if (err) {
                     console.log(err);
@@ -71,9 +71,10 @@ export class WeChat {
                 result = result.xml;
                 let isEncryptMessage: boolean = false;
                 //判断消息加解密方式
-                if (request.query.encrypt_type == 'aes') {
+                if (ApiConfigKit.getApiConfig.getEncryptMessage) {
                     isEncryptMessage = true;
-                    cryptoKit = new CryptoKit(request, ApiConfigKit.getApiConfig);
+                    cryptoKit = new CryptoKit(ApiConfigKit.getApiConfig, msgSignature || '',
+                        timestamp || '', nonce || '');
                     //对加密数据解密
                     result = cryptoKit.decryptMsg(result.Encrypt);
                 }
@@ -129,10 +130,10 @@ export class WeChat {
                 // 处理发送的消息
                 if (outMsg instanceof OutTextMsg) {
                     let outTextMsg = (<OutTextMsg>outMsg);
-                    if (outTextMsg.getContent.trim) {
-                        responseMsg = "";
-                    } else {
+                    if (outTextMsg.getContent.trim()) {
                         responseMsg = outTextMsg.toXml();
+                    } else {
+                        responseMsg = "";
                     }
                 } else if (outMsg instanceof OutImageMsg) {
                     responseMsg = (<OutImageMsg>outMsg).toXml();
@@ -155,7 +156,7 @@ export class WeChat {
                     console.log('--------------------------------------------------------\n');
                 }
                 //返回给微信服务器
-                response.send(responseMsg);
+                resolve(responseMsg);
             });
         });
     }

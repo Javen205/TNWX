@@ -50,13 +50,19 @@ app.get('/', (req: any, res: any) => {
  * http://域名/msg 或者 http://域名/msg?appId = xxxx
  */
 app.get('/msg', (req: any, res: any) => {
-    let appId: string = req.query.appId;
-    console.log('get....appId', appId);
+    console.log('get query...', req.query);
 
+    let appId: string = req.query.appId;
     if (appId) {
         ApiConfigKit.setCurrentAppId(appId);
     }
-    WeChat.checkSignature(req, res);
+
+    let signature = req.query.signature,//微信加密签名
+        timestamp = req.query.timestamp,//时间戳
+        nonce = req.query.nonce,//随机数
+        echostr = req.query.echostr;//随机字符串
+    res.send(WeChat.checkSignature(signature, timestamp,
+        nonce, echostr));
 });
 
 // 接收微信消息入口
@@ -67,8 +73,26 @@ app.post('/msg', function (req: any, res: any) {
     if (appId) {
         ApiConfigKit.setCurrentAppId(appId);
     }
-    // 接收消息并响应对应的回复
-    WeChat.handleMsg(req, res, msgAdapter);
+
+    let msgSignature = req.query.msg_signature,
+        timestamp = req.query.timestamp,
+        nonce = req.query.nonce;
+
+    //监听 data 事件 用于接收数据
+    let buffer: Uint8Array[] = [];
+    req.on('data', function (data: any) {
+        buffer.push(data);
+    });
+
+    req.on('end', function () {
+        let msgXml = Buffer.concat(buffer).toString('utf-8');
+        // 接收消息并响应对应的回复
+        WeChat.handleMsg(msgAdapter, msgXml,
+            msgSignature, timestamp, nonce).then(data => {
+                res.send(data);
+            });
+    });
+
 });
 app.get('/toAuth', (req, res) => {
     let url = SnsAccessTokenApi.getAuthorizeUrl("http://wx.frp.qianfanggaoneng.net/auth", ScopeEnum.SNSAPI_USERINFO, "IJPay");
