@@ -1,12 +1,14 @@
+/**
+ * @author Javen 
+ * @copyright 2019-03-30 javendev@126.com 
+ * @description http 工具封装
+ */
 import * as urltil from 'url';
 import * as https from 'https';
 import * as fs from 'fs';
-export class HttpKit {
-    /**
-     * 用于处理 https Get请求方法
-     * @param {String} url 请求地址 
-     */
-    public static async httpGet(url: string) {
+
+export class DefaultHttpKit implements HttpDelegate {
+    httpGet(url: string): Promise<any> {
         return new Promise(function (resolve, reject) {
             https.get(url, function (res) {
                 let buffer: Array<any> = [], result = "";
@@ -25,12 +27,7 @@ export class HttpKit {
             });
         });
     }
-    /**
-     * 用于处理 https Post请求方法
-     * @param {String} url  请求地址
-     * @param {JSON} data 提交的数据
-     */
-    public static async httpPost(url: string, data: string) {
+    httpPost(url: string, data: string): Promise<any> {
         return new Promise(function (resolve, reject) {
             //解析 url 地址
             let urlData = urltil.parse(url);
@@ -70,8 +67,7 @@ export class HttpKit {
             req.end();
         });
     }
-
-    public static async upload(url: string, data: string, filePath: string) {
+    upload(url: string, filePath: string, data: string): Promise<any> {
         let boundaryKey = new Date().getTime();
         return new Promise(function (resolve, reject) {
             //解析 url 地址
@@ -124,4 +120,22 @@ export class HttpKit {
             req.write(data);
         });
     }
+}
+
+export class HttpKit {
+    private static delegate: HttpDelegate = new DefaultHttpKit();
+
+    public static get getHttpDelegate(): HttpDelegate {
+        return this.delegate;
+    }
+
+    public static set setHttpDelegate(delegate: HttpDelegate) {
+        this.delegate = delegate;
+    }
+}
+
+export interface HttpDelegate {
+    httpGet(url: string): Promise<any>;
+    httpPost(url: string, data: string): Promise<any>;
+    upload(url: string, filePath: string, data: string): Promise<any>;
 }

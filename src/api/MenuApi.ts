@@ -29,7 +29,7 @@ export class MenuApi {
     public static async create(menuJson: string) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.createMenuUrl, (<AccessToken>accessToken).getAccessToken);
-        return HttpKit.httpPost(url, menuJson);
+        return HttpKit.getHttpDelegate.httpPost(url, menuJson);
     }
     /**
      * 删除菜单
@@ -38,7 +38,7 @@ export class MenuApi {
     public static async delete() {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.deleteMenuUrl, (<AccessToken>accessToken).getAccessToken);
-        return HttpKit.httpGet(url);
+        return HttpKit.getHttpDelegate.httpGet(url);
     }
     /**
      * 查询菜单
@@ -47,12 +47,12 @@ export class MenuApi {
     public static async get() {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.getMenuUrl, (<AccessToken>accessToken).getAccessToken);
-        return HttpKit.httpGet(url);
+        return HttpKit.getHttpDelegate.httpGet(url);
     }
     public static async getCurrentSelfMenu() {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.getSelfMenuInfoUrl, (<AccessToken>accessToken).getAccessToken);
-        return HttpKit.httpGet(url);
+        return HttpKit.getHttpDelegate.httpGet(url);
     }
 
     /**
@@ -63,7 +63,7 @@ export class MenuApi {
     public static async addConditional(menuJson: string) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.addConditionalUrl, (<AccessToken>accessToken).getAccessToken);
-        return HttpKit.httpPost(url, menuJson);
+        return HttpKit.getHttpDelegate.httpPost(url, menuJson);
     }
 
     /**
@@ -73,7 +73,7 @@ export class MenuApi {
     public static async deleteConditional() {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.delConditionalUrl, (<AccessToken>accessToken).getAccessToken);
-        return HttpKit.httpGet(url);
+        return HttpKit.getHttpDelegate.httpGet(url);
     }
     /**
      * 测试个性化菜单匹配结果
@@ -83,7 +83,7 @@ export class MenuApi {
     public static async tryMatch(openId: string) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.tryMatchUrl, (<AccessToken>accessToken).getAccessToken);
-        return HttpKit.httpPost(url, JSON.stringify({
+        return HttpKit.getHttpDelegate.httpPost(url, JSON.stringify({
             "user_id": openId
         }));
     }

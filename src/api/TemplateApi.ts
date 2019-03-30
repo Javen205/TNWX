@@ -25,7 +25,7 @@ export class TemplateApi {
     public static async send(tempJson: string) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.sendTemplateUrl, (<AccessToken>accessToken).getAccessToken);
-        return HttpKit.httpPost(url, tempJson);
+        return HttpKit.getHttpDelegate.httpPost(url, tempJson);
     }
     /**
      * 设置所属行业
@@ -36,7 +36,7 @@ export class TemplateApi {
     public static async setIndustry(industry_id1: string, industry_id2: string) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.setIndustryUrl, (<AccessToken>accessToken).getAccessToken);
-        return HttpKit.httpPost(url, JSON.stringify({
+        return HttpKit.getHttpDelegate.httpPost(url, JSON.stringify({
             "industry_id1": industry_id1,
             "industry_id2": industry_id2
         }));
@@ -48,7 +48,7 @@ export class TemplateApi {
     public static async getIndustry(response: any) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.getIndustryUrl, (<AccessToken>accessToken).getAccessToken);
-        return HttpKit.httpGet(url);
+        return HttpKit.getHttpDelegate.httpGet(url);
     }
     /**
      * 获取模板列表
@@ -58,7 +58,7 @@ export class TemplateApi {
     public static async getTemplateId(templateIdShort: string) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.getTemplateIdUrl, (<AccessToken>accessToken).getAccessToken);
-        return HttpKit.httpPost(url, JSON.stringify({
+        return HttpKit.getHttpDelegate.httpPost(url, JSON.stringify({
             "template_id_short": templateIdShort
         }));
     }
@@ -69,7 +69,7 @@ export class TemplateApi {
     public static async delTemplate(response: any) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.delTemplateUrl, (<AccessToken>accessToken).getAccessToken);
-        return HttpKit.httpGet(url);
+        return HttpKit.getHttpDelegate.httpGet(url);
     }
     /**
      * 获取模板列表
@@ -78,6 +78,6 @@ export class TemplateApi {
     public static async getAllTemplate(response: any) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.getAllTemplateUrl, (<AccessToken>accessToken).getAccessToken);
-        return HttpKit.httpGet(url);
+        return HttpKit.getHttpDelegate.httpGet(url);
     }
 }

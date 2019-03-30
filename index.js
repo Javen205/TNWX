@@ -19,7 +19,7 @@ module.exports.SemanticApi = require('./dist/api/SemanticApi').SemanticApi;
 
 
 module.exports.DefaultAccessTokenCache = require('./dist/cache/DefaultAccessTokenCache').DefaultAccessTokenCache;
-module.exports.IAccessTokenCache = require('./dist/cache/IAccessTokenCache').IAccessTokenCache;
+module.exports.IAccessTokenCache = require('./dist/cache/IAccessTokenCache');
 
 module.exports.ApiConfig = require('./dist/entity/ApiConfig').ApiConfig;
 module.exports.BatchUserInfo = require('./dist/api/UserApi').BatchUserInfo;

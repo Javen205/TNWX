@@ -43,7 +43,7 @@ export class AccessTokenApi {
         let that = this;
         return new Promise(function (resolve, reject) {
             let url = util.format(that.url, ac.getAppId, ac.getAppScrect);
-            HttpKit.httpGet(url).then(function (data) {
+            HttpKit.getHttpDelegate.httpGet(url).then(function (data) {
                 let json = <string>data;
                 if (json) {
                     let result: AccessToken = new AccessToken(json)

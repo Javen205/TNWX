@@ -32,10 +32,11 @@ const msgAdapter = new MsgController();
 app.use(express.static('views'));
 
 app.get('/', (req: any, res: any) => {
-    res.send("TypeScript + Node.js + Express 极速开发微信公众号 <a href='https://javen.blog.csdn.net'>By Javen</a> <br/><br/> " +
+    res.send("TNW 极速开发微信公众号案例 <a href='https://javen.blog.csdn.net'>By Javen</a> <br/> " +
+        "此案例使用的技术栈为: TypeScript+ Node.js + Express </br></br>" +
         "交流群：<a href='https://github.com/Javen205/shang.qq.com/wpa/qunwpa?idkey=a1e4fd8c71008961bd4fc8eeea224e726afd5e5eae7bf1d96d3c77897388bf24'>114196246</a><br/><br/>" +
         "开源推荐：<br/>" +
-        "1、IJPay 让支付触手可及：<a href=\"https://gitee.com/javen205/IJPay\">https://gitee.com/javen205/IJPay</a><br/>" +
+        "1、IJPay 让支付触手可及（聚合支付SDK）：<a href=\"https://gitee.com/javen205/IJPay\">https://gitee.com/javen205/IJPay</a><br/>" +
         "2、SpringBoot 微服务高效开发 mica 工具集：<a href=\"https://gitee.com/596392912/mica\">https://gitee.com/596392912/mica</a><br/>" +
         "3、pig 宇宙最强微服务（架构师必备）：<a href=\"https://gitee.com/log4j/pig\">https://gitee.com/log4j/pig</a><br/>" +
         "4、SpringBlade 完整的线上解决方案（企业开发必备）：<a href=\"https://gitee.com/smallc/SpringBlade\">https://gitee.com/smallc/SpringBlade</a><br/>" +

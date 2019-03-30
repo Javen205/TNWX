@@ -9,6 +9,6 @@ export class SemanticApi {
     public static async search(jsonStr: string) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.searchUrl, (<AccessToken>accessToken).getAccessToken);
-        return HttpKit.httpPost(url, jsonStr);
+        return HttpKit.getHttpDelegate.httpPost(url, jsonStr);
     }
 }

@@ -10,7 +10,7 @@ export class QrcodeApi {
     public static async create(json: any) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.apiUrl, (<AccessToken>accessToken).getAccessToken);
-        return HttpKit.httpPost(url, json);
+        return HttpKit.getHttpDelegate.httpPost(url, json);
     }
     /**
      * 临时二维码

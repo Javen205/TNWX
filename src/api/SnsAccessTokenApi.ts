@@ -31,7 +31,7 @@ export class SnsAccessTokenApi {
     public static async getSnsAccessToken(code: string) {
         let url = util.format(this.accessTokenUrl, ApiConfigKit.getApiConfig.getAppId,
             ApiConfigKit.getApiConfig.getAppScrect, code);
-        return HttpKit.httpGet(url);
+        return HttpKit.getHttpDelegate.httpGet(url);
     }
     /**
      * 刷新access_token
@@ -39,7 +39,7 @@ export class SnsAccessTokenApi {
      */
     public static async refreshAccessToken(refreshToken: string) {
         let url = util.format(this.refreshTokenUrl, ApiConfigKit.getApiConfig.getAppId, refreshToken);
-        return HttpKit.httpGet(url);
+        return HttpKit.getHttpDelegate.httpGet(url);
     }
     /**
      * 检验授权凭证（access_token）是否有效
@@ -48,7 +48,7 @@ export class SnsAccessTokenApi {
      */
     public static async checkAccessToken(accessToken: string, openId: string) {
         let url = util.format(this.checkTokenUrl, accessToken, openId);
-        return HttpKit.httpGet(url);
+        return HttpKit.getHttpDelegate.httpGet(url);
     }
     /**
      * 拉取用户信息(需scope为 snsapi_userinfo)
@@ -58,7 +58,7 @@ export class SnsAccessTokenApi {
      */
     public static async getUserInfo(accessToken: string, openId: string, lang: Lang) {
         let url = util.format(this.userInfoUrl, accessToken, openId, lang);
-        return HttpKit.httpGet(url);
+        return HttpKit.getHttpDelegate.httpGet(url);
     }
 
 }

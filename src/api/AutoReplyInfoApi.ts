@@ -14,6 +14,6 @@ export class AutoReplyInfoApi {
     public static async getCurrent() {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.getCurrentAutoreplyInfoUrl, (<AccessToken>accessToken).getAccessToken);
-        return HttpKit.httpGet(url);
+        return HttpKit.getHttpDelegate.httpGet(url);
     }
 }

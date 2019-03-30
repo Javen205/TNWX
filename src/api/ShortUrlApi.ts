@@ -9,7 +9,7 @@ export class ShortUrlApi {
     public static async getShorturl(json: string) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.apiUrl, (<AccessToken>accessToken).getAccessToken);
-        return HttpKit.httpPost(url, json);
+        return HttpKit.getHttpDelegate.httpPost(url, json);
     }
 
     public static async longToShort(longUrl: string) {

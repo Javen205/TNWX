@@ -21,7 +21,7 @@ export class UserApi {
     public static async updateRemark(openId: string, remark: string) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.updateRemarkUrl, (<AccessToken>accessToken).getAccessToken);
-        return HttpKit.httpPost(url, JSON.stringify({
+        return HttpKit.getHttpDelegate.httpPost(url, JSON.stringify({
             "openid": openId,
             "remark": remark
         }));
@@ -37,7 +37,7 @@ export class UserApi {
         if (nextOpenid) {
             url += "&next_openid=" + nextOpenid;
         }
-        return HttpKit.httpGet(url);
+        return HttpKit.getHttpDelegate.httpGet(url);
     }
     /**
      * 获取用户基本信息（包括UnionID机制）
@@ -50,7 +50,7 @@ export class UserApi {
         if (lang) {
             url += "&lang=" + lang;
         }
-        return HttpKit.httpGet(url);
+        return HttpKit.getHttpDelegate.httpGet(url);
     }
     /**
      * 批量获取用户基本信息
@@ -69,7 +69,7 @@ export class UserApi {
     public static async batchUserInfo(json: string) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.batchGetUrl, (<AccessToken>accessToken).getAccessToken);
-        return HttpKit.httpPost(url, json);
+        return HttpKit.getHttpDelegate.httpPost(url, json);
     }
 
     /**
@@ -79,7 +79,7 @@ export class UserApi {
     public static async getBlackList(beginOpenId?: string) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.getBlackListUrl, (<AccessToken>accessToken).getAccessToken);
-        return HttpKit.httpPost(url, JSON.stringify({
+        return HttpKit.getHttpDelegate.httpPost(url, JSON.stringify({
             "begin_openid": beginOpenId || ''
         }));
     }
@@ -90,7 +90,7 @@ export class UserApi {
     public static async batchBlackList(openidList: string[]) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.batchBlackListUrl, (<AccessToken>accessToken).getAccessToken);
-        return HttpKit.httpPost(url, JSON.stringify({
+        return HttpKit.getHttpDelegate.httpPost(url, JSON.stringify({
             "openid_list": openidList
         }));
     }
@@ -102,7 +102,7 @@ export class UserApi {
     public static async batchUnBlackList(openidList: string[]) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.batchUnBlackListUrl, (<AccessToken>accessToken).getAccessToken);
-        return HttpKit.httpPost(url, JSON.stringify({
+        return HttpKit.getHttpDelegate.httpPost(url, JSON.stringify({
             "openid_list": openidList
         }));
     }

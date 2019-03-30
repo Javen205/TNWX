@@ -39,7 +39,7 @@ export class SubscribeMsgApi {
     public static async sendMsg(json: string) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.subscribeUrl, (<AccessToken>accessToken).getAccessToken);
-        return HttpKit.httpPost(url, json);
+        return HttpKit.getHttpDelegate.httpPost(url, json);
     }
 
 }

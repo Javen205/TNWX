@@ -27,7 +27,7 @@ export class CustomServiceApi {
     public static async addKfAccount(kf_account: string, nickname: string, password: string) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.addKfAccountUrl, (<AccessToken>accessToken).getAccessToken);
-        return HttpKit.httpPost(url, JSON.stringify({
+        return HttpKit.getHttpDelegate.httpPost(url, JSON.stringify({
             "kf_account": kf_account,
             "nickname": nickname,
             "password": password
@@ -43,7 +43,7 @@ export class CustomServiceApi {
     public static async updateKfAccount(kf_account: string, nickname: string, password: string) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.updateKfAccountUrl, (<AccessToken>accessToken).getAccessToken);
-        return HttpKit.httpPost(url, JSON.stringify({
+        return HttpKit.getHttpDelegate.httpPost(url, JSON.stringify({
             "kf_account": kf_account,
             "nickname": nickname,
             "password": password
@@ -58,7 +58,7 @@ export class CustomServiceApi {
     public static async delKfAccount(kf_account: string) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.delKfAccountUrl, (<AccessToken>accessToken).getAccessToken, kf_account);
-        return HttpKit.httpGet(url);
+        return HttpKit.getHttpDelegate.httpGet(url);
     }
     /**
      * 设置客服帐号的头像
@@ -69,7 +69,7 @@ export class CustomServiceApi {
     public static async uploadKfAccountHeadImg(kf_account: string, filePath: string) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.uploadKfHeadImgUrl, (<AccessToken>accessToken).getAccessToken, kf_account);
-        return HttpKit.upload(url, "", filePath);
+        return HttpKit.getHttpDelegate.upload(url, filePath, "");
     }
 
 
@@ -80,7 +80,7 @@ export class CustomServiceApi {
     public static async getKfList(response: any) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.getKfListUrl, (<AccessToken>accessToken).getAccessToken);
-        return HttpKit.httpGet(url);
+        return HttpKit.getHttpDelegate.httpGet(url);
     }
 
     /**
@@ -102,7 +102,7 @@ export class CustomServiceApi {
         if (ApiConfigKit.isDevMode) {
             console.log("发送客服消息JSON", json);
         }
-        return HttpKit.httpPost(url, json);
+        return HttpKit.getHttpDelegate.httpPost(url, json);
     }
     /**
      * 发送文本客服消息
@@ -297,7 +297,7 @@ export class CustomServiceApi {
     public static async sendTyping(openId: string, command: string) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.typingUrl, (<AccessToken>accessToken).getAccessToken);
-        return HttpKit.httpPost(url, JSON.stringify({
+        return HttpKit.getHttpDelegate.httpPost(url, JSON.stringify({
             "touser": openId,
             "command": command
         }));

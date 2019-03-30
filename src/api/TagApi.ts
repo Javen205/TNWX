@@ -19,7 +19,7 @@ export class TagApi {
     public static async create(tagName: string) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.createTagUrl, (<AccessToken>accessToken).getAccessToken);
-        return HttpKit.httpPost(url, JSON.stringify({
+        return HttpKit.getHttpDelegate.httpPost(url, JSON.stringify({
             "tag": {
                 "name": tagName
             }
@@ -31,7 +31,7 @@ export class TagApi {
     public static async get() {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.getTagUrl, (<AccessToken>accessToken).getAccessToken);
-        return HttpKit.httpGet(url);
+        return HttpKit.getHttpDelegate.httpGet(url);
     }
     /**
      * 编辑标签
@@ -41,7 +41,7 @@ export class TagApi {
     public static async update(tagId: number, tagName: string) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.updateTagUrl, (<AccessToken>accessToken).getAccessToken);
-        return HttpKit.httpPost(url, JSON.stringify({
+        return HttpKit.getHttpDelegate.httpPost(url, JSON.stringify({
             "tag": {
                 "id": tagId,
                 "name": tagName
@@ -55,7 +55,7 @@ export class TagApi {
     public static async delete(tagId: number) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.deleteTagUrl, (<AccessToken>accessToken).getAccessToken);
-        return HttpKit.httpPost(url, JSON.stringify({
+        return HttpKit.getHttpDelegate.httpPost(url, JSON.stringify({
             "tag": {
                 "id": tagId
             }
@@ -69,7 +69,7 @@ export class TagApi {
     public static async getUser(tagId: number, nextOpenid?: string) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.getUserTagUrl, (<AccessToken>accessToken).getAccessToken);
-        return HttpKit.httpPost(url, JSON.stringify({
+        return HttpKit.getHttpDelegate.httpPost(url, JSON.stringify({
             "tagid": tagId,
             "next_openid": nextOpenid
         }));
@@ -82,7 +82,7 @@ export class TagApi {
     public static async batchAddTag(tagId: number, openIdList: string[]) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.batchTaggingUrl, (<AccessToken>accessToken).getAccessToken);
-        return HttpKit.httpPost(url, JSON.stringify({
+        return HttpKit.getHttpDelegate.httpPost(url, JSON.stringify({
             "openid_list": openIdList,
             "tagid": tagId
         }));
@@ -95,7 +95,7 @@ export class TagApi {
     public static async batchDelTag(tagId: number, openIdList: string[]) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.batchUnTaggingUrl, (<AccessToken>accessToken).getAccessToken);
-        return HttpKit.httpPost(url, JSON.stringify({
+        return HttpKit.getHttpDelegate.httpPost(url, JSON.stringify({
             "openid_list": openIdList,
             "tagid": tagId
         }));
@@ -107,7 +107,7 @@ export class TagApi {
     public static async getUserTag(openId: string) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.getIdListUrl, (<AccessToken>accessToken).getAccessToken);
-        return HttpKit.httpPost(url, JSON.stringify({
+        return HttpKit.getHttpDelegate.httpPost(url, JSON.stringify({
             "openid": openId
         }));
     }
