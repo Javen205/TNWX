@@ -16,7 +16,30 @@ export class CustomServiceApi {
     private static typingUrl: string = "https://api.weixin.qq.com/cgi-bin/message/custom/typing?access_token=%s";
     private static uploadKfHeadImgUrl: string = "http://api.weixin.qq.com/customservice/kfaccount/uploadheadimg?access_token=%s&kf_account=%s";
 
+    private static inviteUrl: string = "https://api.weixin.qq.com/customservice/kfaccount/inviteworker?access_token=%s";
+    private static getOnlineUrl: string = "https://api.weixin.qq.com/cgi-bin/customservice/getonlinekflist?access_token=%s";
 
+    /**
+     * 邀请绑定客服帐号
+     * @param kf_account 完整客服帐号，格式为：帐号前缀@公众号微信号
+     * @param inviteWx 接收绑定邀请的客服微信号
+     */
+    public static async inviteWorker(kf_account: string, inviteWx: string) {
+        let accessToken = await AccessTokenApi.getAccessToken();
+        let url = util.format(this.inviteUrl, (<AccessToken>accessToken).getAccessToken);
+        return HttpKit.getHttpDelegate.httpPost(url, JSON.stringify({
+            "kf_account": kf_account,
+            "invite_wx": inviteWx
+        }));
+    }
+    /**
+     * 获取在线客服
+     */
+    public static async getOnlineKfList() {
+        let accessToken = await AccessTokenApi.getAccessToken();
+        let url = util.format(this.getOnlineUrl, (<AccessToken>accessToken).getAccessToken);
+        return HttpKit.getHttpDelegate.httpGet(url);
+    }
     /**
      * 添加客服帐号
      * @param response 
