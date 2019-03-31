@@ -1,38 +1,21 @@
 
-# TNW
+<p align="center">
+  <a href="https://www.npmjs.com/package/tnw" target="blank"><img src="./docs/img/logo.png" width="410" alt="TNW Logo" /></a>
+</p>
+ <p align="center">
+ <a href="https://www.npmjs.com/package/tnw" target="_blank"><img src="https://img.shields.io/npm/l/tnw.svg?style=flat-square" alt="Package License" /></a>
+<a href="https://www.npmjs.com/package/tnw" target="_blank"><img src="https://img.shields.io/npm/v/tnw.svg?style=flat-square" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/package/tnw" target="_blank"><img src="https://img.shields.io/npm/dt/tnw.svg?style=flat-square" alt="NPM Downloads" /></a>
+<a href="https://javen205.gitee.io/ijpay/doc/contact.html" target="_blank"><img src="https://img.shields.io/badge/Donate-WeChat-%23ff3f59.svg?style=flat-square" alt="Donate-WeChat" /></a>
+</p>
 
-[![](https://img.shields.io/npm/v/tnw.svg?style=flat-square)](https://www.npmjs.com/package/tnw)
-[![](https://img.shields.io/npm/l/tnw.svg?style=flat-square)](https://www.npmjs.com/package/tnw)
-[![](https://img.shields.io/npm/dt/tnw.svg?style=flat-square)](https://www.npmjs.com/package/tnw)
-[![](https://img.shields.io/badge/Donate-WeChat-%23ff3f59.svg?style=flat-square)](https://javen205.gitee.io/ijpay/doc/contact.html)
-
-
->TNW: TypeScript(The) + Node.js(Next) + WeChat 极速开发微信公众号
 
 ## 简介
+
+**TNW: TypeScript(The) + Node.js(Next) + WeChat 微信公众号开发脚手架,支持 http 模块扩展、支持任何 Node.js 的 MVC 服务端框架**
+
+
 本项目是我研究 TypeScript + Node.js 的阶段性总结，因为我对 [微信支付](https://gitee.com/javen205/IJPay)、[公众号](https://mp.weixin.qq.com/wiki)、[小程序/小游戏](https://developers.weixin.qq.com/miniprogram/dev/index.html) 有一定的研究，之前也参与过 [jfinal-weixin](https://gitee.com/jfinal/jfinal-weixin) 的开发，所以以微信系为载体再好不过了，后面也会扩展对支付、小程序甚至小游戏相关接口的支持，感谢您的关注:)
-
-## 开发进度
-
-- [x] 多公众号
-- [x] 各种消息交互
-- [x] 自定义菜单
-- [x] 模板消息
-- [x] 客服消息
-- [x] 用户管理
-- [x] 生带参数的二维码
-- [x] 长连接转短连接
-- [x] 微信网页授权
-- [x] 一次性订阅消息
-- [ ] 素材管理
-- [ ] 微信卡券
-- [ ] 微信门店
-- [ ] 微信摇一摇
-- [ ] 微信连WiFi
-- [ ] 微信扫一扫
-- [ ] 微信发票
-- [ ] 微信设备功能
-- [ ] ....
 
 ## 安装与运行
 
@@ -73,6 +56,32 @@ $ npm run dev
 - [Gitee 请点击这里](https://gitee.com/Javen205/TNW/tree/master/src/example) 
 - [GitHub 请点击这里](https://github.com/Javen205/TNW/tree/master/src/example) 
 
+### Nest 示例
+
+- [Gitee 请点击这里](https://gitee.com/Javen205/TNW/tree/master/nest)
+- [GitHub 请点击这里](https://github.com/Javen205/TNW/tree/master/nest)
+
+## 开发进度
+
+- [x] 多公众号
+- [x] 各种消息交互
+- [x] 自定义菜单
+- [x] 模板消息
+- [x] 客服消息
+- [x] 用户管理
+- [x] 生带参数的二维码
+- [x] 长连接转短连接
+- [x] 微信网页授权
+- [x] 一次性订阅消息
+- [ ] 素材管理
+- [ ] 微信卡券
+- [ ] 微信门店
+- [ ] 微信摇一摇
+- [ ] 微信连WiFi
+- [ ] 微信扫一扫
+- [ ] 微信发票
+- [ ] 微信设备功能
+- [ ] ....
 
 ## 交流群
 
