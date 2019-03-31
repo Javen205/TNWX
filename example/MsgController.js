@@ -2,13 +2,13 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-const OutTextMsg = require('../index').OutTextMsg;
-const OutVoiceMsg = require('../index').OutVoiceMsg;
-const OutVideoMsg = require('../index').OutVideoMsg;
-const OutImageMsg = require('../index').OutImageMsg;
-const OutNewsMsg = require('../index').OutNewsMsg;
-const InFollowEvent = require('../index').InFollowEvent;
-const InQrCodeEvent = require('../index').InQrCodeEvent;
+const OutTextMsg = require('tnw').OutTextMsg;
+const OutVoiceMsg = require('tnw').OutVoiceMsg;
+const OutVideoMsg = require('tnw').OutVideoMsg;
+const OutImageMsg = require('tnw').OutImageMsg;
+const OutNewsMsg = require('tnw').OutNewsMsg;
+const InFollowEvent = require('tnw').InFollowEvent;
+const InQrCodeEvent = require('tnw').InQrCodeEvent;
 class MsgController {
     processInTextMsg(inTextMsg) {
         let outMsg;

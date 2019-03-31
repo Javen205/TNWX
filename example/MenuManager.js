@@ -2,10 +2,10 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-const ClickButton = require("../index").ClickButton;
-const ViewButton = require("../index").ViewButton;
-const ComButton = require("../index").ComButton;
-const Menu = require("../index").Menu;
+const ClickButton = require("tnw").ClickButton;
+const ViewButton = require("tnw").ViewButton;
+const ComButton = require("tnw").ComButton;
+const Menu = require("tnw").Menu;
 class MenuManager {
     static getMenu() {
         let btn11 = new ClickButton();

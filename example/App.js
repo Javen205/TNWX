@@ -1,34 +1,74 @@
-
-
 'use strict';
+
+// const MsgController = require('./MsgController').MsgController;
+// const MenuManager = require('./MenuManager').MenuManager;
+// const ApiConfigKit = require('../index').ApiConfigKit;
+// const ApiConfig = require('../index').ApiConfig;
+// const TemplateData = require('../index').TemplateData;
+// const WeChat = require('../index').WeChat;
+// const TemplateApi = require('../index').TemplateApi;
+// const MenuApi = require('../index').MenuApi;
+// const AccessTokenApi = require('../index').AccessTokenApi;
+// const CustomServiceApi = require('../index').CustomServiceApi;
+// const MenuMsg = require('../index').MenuMsg;
+// const Article = require('../index').Article;
+// const QrcodeApi = require('../index').QrcodeApi;
+// const ShortUrlApi = require('../index').ShortUrlApi;
+// const TagApi = require('../index').TagApi;
+// const UserApi = require('../index').UserApi;
+// const SnsAccessTokenApi = require("../index").SnsAccessTokenApi;
+// const ScopeEnum = require("../index").ScopeEnum;
+// const Lang = require("../index").Lang;
+// const SubscribeMsgApi = require("../index").SubscribeMsgApi;
+// const SubscribeMsg = require("../index").SubscribeMsg;
+// const Data = require("../index").Data;
+// const Content = require("../index").Content;
+
 
 const MsgController = require('./MsgController').MsgController;
 const MenuManager = require('./MenuManager').MenuManager;
-const ApiConfigKit = require('../index').ApiConfigKit;
-const ApiConfig = require('../index').ApiConfig;
-const TemplateData = require('../index').TemplateData;
-const WeChat = require('../index').WeChat;
-const TemplateApi = require('../index').TemplateApi;
-const MenuApi = require('../index').MenuApi;
-const AccessTokenApi = require('../index').AccessTokenApi;
-const CustomServiceApi = require('../index').CustomServiceApi;
-const MenuMsg = require('../index').MenuMsg;
-const Article = require('../index').Article;
-const QrcodeApi = require('../index').QrcodeApi;
-const ShortUrlApi = require('../index').ShortUrlApi;
-const TagApi = require('../index').TagApi;
-const UserApi = require('../index').UserApi;
+const ApiConfigKit = require('tnw').ApiConfigKit;
+const ApiConfig = require('tnw').ApiConfig;
+const TemplateData = require('tnw').TemplateData;
+const WeChat = require('tnw').WeChat;
+const TemplateApi = require('tnw').TemplateApi;
+const MenuApi = require('tnw').MenuApi;
+const AccessTokenApi = require('tnw').AccessTokenApi;
+const CustomServiceApi = require('tnw').CustomServiceApi;
+const MenuMsg = require('tnw').MenuMsg;
+const Article = require('tnw').Article;
+const QrcodeApi = require('tnw').QrcodeApi;
+const ShortUrlApi = require('tnw').ShortUrlApi;
+const TagApi = require('tnw').TagApi;
+const UserApi = require('tnw').UserApi;
+const SnsAccessTokenApi = require("tnw").SnsAccessTokenApi;
+const ScopeEnum = require("tnw").ScopeEnum;
+const Lang = require("tnw").Lang;
+const SubscribeMsgApi = require("tnw").SubscribeMsgApi;
+const SubscribeMsg = require("tnw").SubscribeMsg;
+const Data = require("tnw").Data;
+const Content = require("tnw").Content;
+
 
 const express = require('express');
 const fs = require('fs');
 
 const app = express();
-
+// 被动消息回复控制器
+const msgAdapter = new MsgController();
 
 app.use(express.static('views'));
 
 app.get('/', (req, res) => {
-    res.send("TypeScript + Node.js + Express 极速开发微信公众号 By Javen <br/><br/> 交流群：114196246");
+    res.send("TNW 极速开发微信公众号案例 <a href='https://javen.blog.csdn.net'>By Javen</a> <br/> " +
+        "此案例使用的技术栈为: TypeScript+ Node.js + Express </br></br>" +
+        "交流群：<a href='https://github.com/Javen205/shang.qq.com/wpa/qunwpa?idkey=a1e4fd8c71008961bd4fc8eeea224e726afd5e5eae7bf1d96d3c77897388bf24'>114196246</a><br/><br/>" +
+        "开源推荐：<br/>" +
+        "1、IJPay 让支付触手可及（聚合支付SDK）：<a href=\"https://gitee.com/javen205/IJPay\">https://gitee.com/javen205/IJPay</a><br/>" +
+        "2、SpringBoot 微服务高效开发 mica 工具集：<a href=\"https://gitee.com/596392912/mica\">https://gitee.com/596392912/mica</a><br/>" +
+        "3、pig 宇宙最强微服务（架构师必备）：<a href=\"https://gitee.com/log4j/pig\">https://gitee.com/log4j/pig</a><br/>" +
+        "4、SpringBlade 完整的线上解决方案（企业开发必备）：<a href=\"https://gitee.com/smallc/SpringBlade\">https://gitee.com/smallc/SpringBlade</a><br/>" +
+        "5、Avue 一款基于 vue 可配置化的神奇框架：<a href=\"https://gitee.com/smallweigit/avue\">https://gitee.com/smallweigit/avue</a> ");
 });
 
 
@@ -38,25 +78,40 @@ app.get('/', (req, res) => {
  * http://域名/msg 或者 http://域名/msg?appId = xxxx
  */
 app.get('/msg', (req, res) => {
+    console.log('get query...', req.query);
     let appId = req.query.appId;
-    console.log('get....appId', appId);
-
     if (appId) {
         ApiConfigKit.setCurrentAppId(appId);
     }
-    WeChat.checkSignature(req, res);
+    let signature = req.query.signature, //微信加密签名
+        timestamp = req.query.timestamp, //时间戳
+        nonce = req.query.nonce, //随机数
+        echostr = req.query.echostr; //随机字符串
+    res.send(WeChat.checkSignature(signature, timestamp, nonce, echostr));
 });
 
 // 接收微信消息入口
 app.post('/msg', function (req, res) {
     console.log('post...', req.query);
-
     let appId = req.query.appId;
     if (appId) {
         ApiConfigKit.setCurrentAppId(appId);
     }
-    // 接收消息并响应对应的回复
-    WeChat.handleMsg(req, res, new MsgController());
+    let msgSignature = req.query.msg_signature,
+        timestamp = req.query.timestamp,
+        nonce = req.query.nonce;
+    //监听 data 事件 用于接收数据
+    let buffer = [];
+    req.on('data', function (data) {
+        buffer.push(data);
+    });
+    req.on('end', function () {
+        let msgXml = Buffer.concat(buffer).toString('utf-8');
+        // 接收消息并响应对应的回复
+        WeChat.handleMsg(msgAdapter, msgXml, msgSignature, timestamp, nonce).then(data => {
+            res.send(data);
+        });
+    });
 });
 
 // 发送模板消息
@@ -78,7 +133,36 @@ app.get('/sendTemplate', (req, res) => {
         res.send(data);
     });
 });
-
+app.get('/toAuth', (req, res) => {
+    let url = SnsAccessTokenApi.getAuthorizeUrl("http://wx.frp.qianfanggaoneng.net/auth", ScopeEnum.SNSAPI_USERINFO, "IJPay");
+    console.log("授权URL:", url);
+    res.redirect(url);
+});
+// 授权回调
+app.get('/auth', (req, res) => {
+    let code = req.query.code;
+    let state = req.query.state;
+    console.log("code:", code, " state:", state);
+    SnsAccessTokenApi.getSnsAccessToken(code).then(data => {
+        let temp = JSON.parse(data.toString());
+        // 判断 access_token 是否获取成功
+        if (temp.errcode) {
+            // access_token 获取失败
+            res.send(temp);
+            return;
+        }
+        let access_token = temp.access_token;
+        let openid = temp.openid;
+        let scope = temp.scope;
+        if (scope == ScopeEnum.SNSAPI_USERINFO) {
+            SnsAccessTokenApi.getUserInfo(access_token, openid, Lang.ZH_CN).then(data => {
+                res.send(data);
+            });
+        } else {
+            res.send(temp);
+        }
+    });
+});
 
 // 读取配置文件来创建自定义菜单
 app.get('/creatMenu', (req, res) => {
@@ -187,6 +271,30 @@ app.get('/sendCustomMsg', (req, res) => {
             break;
         case 11:
             CustomServiceApi.uploadKfAccountHeadImg("javen205@gh_8746b7fa293e", "/Users/Javen/Downloads/test.jpg").then(data => {
+                res.send(data);
+            });
+            break;
+        default:
+            break;
+    }
+});
+
+app.get('/subscribe', function (req, res) {
+    let type = req.query.type;
+    console.log('type', type);
+    let templateId = "模板Id";
+    let redirectUrl = "授权回调地址";
+    let scene = 666;
+    let reserved = "reserved";
+    let openId = "ofkJSuGtXgB8n23e-y0kqDjJLXxk";
+    switch (parseInt(type)) {
+        case 0:
+            res.send(SubscribeMsgApi.getAuthorizeURL(scene, templateId,
+                redirectUrl, reserved));
+            break;
+        case 1:
+            SubscribeMsgApi.send(new SubscribeMsg(openId, templateId, scene, "订阅消息",
+                new Data(new Content("IJPay 让支付触手可及", "#000000")))).then(data => {
                 res.send(data);
             });
             break;
