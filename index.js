@@ -15,6 +15,8 @@ module.exports.UserApi = require('./dist/api/UserApi').UserApi;
 module.exports.AutoReplyInfoApi = require('./dist/api/AutoReplyInfoApi').AutoReplyInfoApi;
 module.exports.SubscribeMsgApi = require('./dist/api/SubscribeMsgApi').SubscribeMsgApi;
 module.exports.SnsAccessTokenApi = require('./dist/api/SnsAccessTokenApi').SnsAccessTokenApi;
+module.exports.ScopeEnum = require('./dist/api/SnsAccessTokenApi').ScopeEnum;
+module.exports.Lang = require('./dist/api/SnsAccessTokenApi').Lang;
 module.exports.SemanticApi = require('./dist/api/SemanticApi').SemanticApi;
 
 
@@ -99,6 +101,4 @@ module.exports.MiniProgram = require('./dist/entity/subscribe/SubscribeMsg').Min
 module.exports.AccessToken = require('./dist/AccessToken').AccessToken;
 module.exports.AccessTokenApi = require('./dist/AccessTokenApi').AccessTokenApi;
 module.exports.ApiConfigKit = require('./dist/ApiConfigKit').ApiConfigKit;
-module.exports.MsgAdapter = require('./dist/MsgAdapter').MsgAdapter;
-module.exports.SnsAccessTokenApi = require('./dist/SnsAccessTokenApi').SnsAccessTokenApi;
 module.exports.WeChat = require('./dist/WeChat').WeChat;

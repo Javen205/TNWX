@@ -4,6 +4,7 @@
 [![](https://img.shields.io/npm/v/tnw.svg?style=flat-square)](https://www.npmjs.com/package/tnw)
 [![](https://img.shields.io/npm/l/tnw.svg?style=flat-square)](https://www.npmjs.com/package/tnw)
 [![](https://img.shields.io/npm/dt/tnw.svg?style=flat-square)](https://www.npmjs.com/package/tnw)
+[![](https://img.shields.io/badge/Donate-WeChat-%23ff3f59.svg?style=flat-square)](https://javen205.gitee.io/ijpay/doc/contact.html)
 
 
 >TNW: TypeScript(The) + Node.js(Next) + WeChat 极速开发微信公众号
@@ -24,6 +25,13 @@
 - [x] 微信网页授权
 - [x] 一次性订阅消息
 - [ ] 素材管理
+- [ ] 微信卡券
+- [ ] 微信门店
+- [ ] 微信摇一摇
+- [ ] 微信连WiFi
+- [ ] 微信扫一扫
+- [ ] 微信发票
+- [ ] 微信设备功能
 - [ ] ....
 
 ## 安装与运行
@@ -33,31 +41,31 @@
 1、下载
 
 ```bash 
-npm i tnw
+$ npm init -y
+$ npm i tnw
 ```
 
 2、完整示例
- 
-
 - [Gitee 请点击这里](https://gitee.com/Javen205/TNW/tree/master/example) 
 - [Github 请点击这里](https://github.com/Javen205/TNW/tree/master/example) 
 
 ### 源码方式
 
-1、、下载项目并安装依赖
+1、下载项目并安装依赖
 
 ```bash
-git clone https://github.com/Javen205/TNW.git 
+$ git clone https://github.com/Javen205/TNW.git 
 或者 
-git clone https://gitee.com/Javen205/TNW.git 
-cd TNW
-npm install 
+$ git clone https://gitee.com/Javen205/TNW.git 
+$ cd TNW
+$ npm install 
 ```
 
 2、编译并运行
 
 ```bash
-npm run build & npm run dev
+$ npm run build 
+$ npm run dev
 ```
 
 3、完整示例
