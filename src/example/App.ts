@@ -23,6 +23,12 @@ import { SubscribeMsgApi } from '../api/SubscribeMsgApi';
 import { SubscribeMsg, Data, Content } from '../entity/subscribe/SubscribeMsg';
 import { SnsAccessTokenApi, ScopeEnum, Lang } from '../api/SnsAccessTokenApi';
 import { SemanticApi } from '../api/SemanticApi';
+import { HttpDelegate, HttpKit } from '../kit/HttpKit';
+import { DefaultHttpKit } from '../kit/DefaultHttpKit';
+import { MediaApi, MediaType, MediaArticles } from '../api/MediaApi';
+import { DefaultAccessTokenCache } from '../cache/DefaultAccessTokenCache';
+import { MessageApi } from '../api/MessageApi';
+import { CallbackApi } from '../api/CallbackApi';
 
 const app = express();
 
@@ -31,17 +37,18 @@ const msgAdapter = new MsgController();
 
 app.use(express.static('views'));
 
+const msg = "TNW 极速开发微信公众号案例 <a href='https://javen.blog.csdn.net'>By Javen</a> <br/> " +
+    "此案例使用的技术栈为: TypeScript+ Node.js + Express </br></br>" +
+    "交流群：<a href='https://github.com/Javen205/shang.qq.com/wpa/qunwpa?idkey=a1e4fd8c71008961bd4fc8eeea224e726afd5e5eae7bf1d96d3c77897388bf24'>114196246</a><br/><br/>" +
+    "开源推荐：<br/>" +
+    "1、IJPay 让支付触手可及（聚合支付SDK）：<a href=\"https://gitee.com/javen205/IJPay\">https://gitee.com/javen205/IJPay</a><br/>" +
+    "2、SpringBoot 微服务高效开发 mica 工具集：<a href=\"https://gitee.com/596392912/mica\">https://gitee.com/596392912/mica</a><br/>" +
+    "3、pig 宇宙最强微服务（架构师必备）：<a href=\"https://gitee.com/log4j/pig\">https://gitee.com/log4j/pig</a><br/>" +
+    "4、SpringBlade 完整的线上解决方案（企业开发必备）：<a href=\"https://gitee.com/smallc/SpringBlade\">https://gitee.com/smallc/SpringBlade</a><br/>" +
+    "5、Avue 一款基于 vue 可配置化的神奇框架：<a href=\"https://gitee.com/smallweigit/avue\">https://gitee.com/smallweigit/avue</a> ";
+
 app.get('/', (req: any, res: any) => {
-    res.send("TNW 极速开发微信公众号案例 <a href='https://javen.blog.csdn.net'>By Javen</a> <br/> " +
-        "此案例使用的技术栈为: TypeScript+ Node.js + Express </br></br>" +
-        "交流群：<a href='https://github.com/Javen205/shang.qq.com/wpa/qunwpa?idkey=a1e4fd8c71008961bd4fc8eeea224e726afd5e5eae7bf1d96d3c77897388bf24'>114196246</a><br/><br/>" +
-        "开源推荐：<br/>" +
-        "1、IJPay 让支付触手可及（聚合支付SDK）：<a href=\"https://gitee.com/javen205/IJPay\">https://gitee.com/javen205/IJPay</a><br/>" +
-        "2、SpringBoot 微服务高效开发 mica 工具集：<a href=\"https://gitee.com/596392912/mica\">https://gitee.com/596392912/mica</a><br/>" +
-        "3、pig 宇宙最强微服务（架构师必备）：<a href=\"https://gitee.com/log4j/pig\">https://gitee.com/log4j/pig</a><br/>" +
-        "4、SpringBlade 完整的线上解决方案（企业开发必备）：<a href=\"https://gitee.com/smallc/SpringBlade\">https://gitee.com/smallc/SpringBlade</a><br/>" +
-        "5、Avue 一款基于 vue 可配置化的神奇框架：<a href=\"https://gitee.com/smallweigit/avue\">https://gitee.com/smallweigit/avue</a> "
-    );
+    res.send(msg);
 });
 
 /**
@@ -269,7 +276,7 @@ app.get('/sendCustomMsg', (req: any, res: any) => {
             });
             break;
         case 4:
-            CustomServiceApi.sendImage(openId, "wqX8pTWl1KIr-8jZHYt4qK3USIzQNztrhmEQDx1BHaJtZrTdCN5KypVeuQ2z5skY").then(data => {
+            CustomServiceApi.sendImage(openId, "EUIf6vWuKACnuc92ZEIrF8oOnTOIWID8jiJnZKp5xJC0e8lNbMNv48IdFA8z8tnM").then(data => {
                 res.send(data);
             });
             break;
@@ -473,6 +480,178 @@ app.get('/userApi', (req: any, res: any) => {
     }
 });
 
+app.get('/mediaApi', (req: any, res: any) => {
+    let type: string = req.query.type;
+    console.log('type', type);
+    switch (parseInt(type)) {
+        case 0:
+            MediaApi.uploadMedia("/Users/Javen/Downloads/test.jpg", MediaType.IMAGE).then(data => {
+                res.send("临时素材<br/><br/>" + JSON.stringify(data));
+                // wi-phzLx7HrrLuH-FYx6gKMuuP2A5dTIZ5zQQjCWPlJztk_KCDNU-vkpGqJx_SVh
+            });
+            break;
+        case 1:
+            MediaApi.addMaterial("/Users/Javen/Downloads/pic/IJPay.png", MediaType.IMAGE).then(data => {
+                res.send("永久素材<br/><br/>" + JSON.stringify(data));
+                // ZR8Ec1ZsIFzGh8OZsAGILz5NRlMxnFd65FqU-6jM8mI
+            });
+            break;
+        case 2:
+            MediaApi.addMaterial("/Users/Javen/Downloads/pic/IJPay.png", MediaType.THUMB).then(data => {
+                res.send("永久素材<br/><br/>" + JSON.stringify(data));
+                // ZR8Ec1ZsIFzGh8OZsAGIL8gNf9ulydmdb_Qo-KJs8vI
+            });
+            break;
+        case 3:
+            let mediaArticles: MediaArticles[] = [];
+            mediaArticles.push(new MediaArticles("优秀开源推荐", "ZR8Ec1ZsIFzGh8OZsAGILz5NRlMxnFd65FqU-6jM8mI",
+                false, msg, "https://gitee.com/javen205/IJPay", "Javen", "加入如梦技术一起见证成长", 1, 0));
+            mediaArticles.push(new MediaArticles("聚合支付了解一下", "ZR8Ec1ZsIFzGh8OZsAGILz5NRlMxnFd65FqU-6jM8mI",
+                true, "IJPay 让支付触手可及", "https://gitee.com/javen205/IJPay", "Javen", "微信、支付宝、银联支付", 0));
+            MediaApi.uploadNews(mediaArticles).then(data => {
+                res.send(data);
+            });
+            break;
+        case 4:
+            MediaApi.getMedia("wi-phzLx7HrrLuH-FYx6gKMuuP2A5dTIZ5zQQjCWPlJztk_KCDNU-vkpGqJx_SVh").then(data => {
+                res.send(data);
+            });
+            break;
+        case 5:
+            MediaApi.getMaterial("ZR8Ec1ZsIFzGh8OZsAGILztgs0yKao2eUe_pVr9MHp0").then(data => {
+                res.send(data);
+            });
+            break;
+        case 6:
+            let articles = new MediaArticles("聚合支付了解一下", "ZR8Ec1ZsIFzGh8OZsAGILz5NRlMxnFd65FqU-6jM8mI",
+                true, "IJPay 让支付触手可及 By Javen", "https://gitee.com/javen205/IJPay", "Javen", "微信、支付宝、银联支付", 1, 0);
+            MediaApi.updateNews("ZR8Ec1ZsIFzGh8OZsAGILxBn7u_-vuJYcY64T2MQnl0", 1, articles).then(data => {
+                res.send(data);
+            });
+        case 7:
+            MediaApi.delMaterial("ZR8Ec1ZsIFzGh8OZsAGILztgs0yKao2eUe_pVr9MHp0").then(data => {
+                res.send(data);
+            });
+            break;
+        case 8:
+            MediaApi.getMaterialCount().then(data => {
+                res.send(data);
+            });
+            break;
+        case 9:
+            MediaApi.batchGetMaterial(MediaType.IMAGE, 0, 20).then(data => {
+                res.send(data);
+            });
+            break;
+        case 10:
+            MediaApi.batchGetMaterial(MediaType.NEWS, 0, 20).then(data => {
+                res.send(data);
+            });
+            break;
+        default:
+            break;
+    }
+});
+
+app.get('/messageApi', (req: any, res: any) => {
+    let type: string = req.query.type;
+    console.log('type', type);
+    let openId = "ofkJSuGtXgB8n23e-y0kqDjJLXxk";
+    switch (parseInt(type)) {
+        case 0:
+            MessageApi.preview(JSON.stringify({
+                "touser": openId,
+                "mpnews": {
+                    "media_id": "ZR8Ec1ZsIFzGh8OZsAGILxBn7u_-vuJYcY64T2MQnl0"
+                },
+                "msgtype": "mpnews"
+            })).then(data => {
+                res.send(data);
+            });
+            break;
+        case 1:
+            MessageApi.getSpeed().then(data => {
+                res.send(data);
+            });
+            break;
+        case 2:
+            MessageApi.setSpeed(4).then(data => {
+                res.send(data);
+            });
+            break;
+        case 3:
+            // 测试号没有权限
+            MessageApi.sendAll(JSON.stringify({
+                "filter": {
+                    "is_to_all": true,
+                },
+                "mpnews": {
+                    "media_id": "ZR8Ec1ZsIFzGh8OZsAGILxBn7u_-vuJYcY64T2MQnl0"
+                },
+                "msgtype": "mpnews",
+                "send_ignore_reprint": 0
+            })).then(data => {
+                res.send(data);
+            });
+            break;
+        case 4:
+            MessageApi.sendAll(JSON.stringify({
+                "filter": {
+                    "is_to_all": false,
+                    "tag_id": 101
+                },
+                "text": {
+                    "content": "IJPay https://gitee.com/javen205/IJPay"
+                },
+                "msgtype": "text"
+            })).then(data => {
+                res.send(data);
+            });
+            break;
+        case 5:
+            MessageApi.sendAll(JSON.stringify({
+                "filter": {
+                    "is_to_all": false,
+                    "tag_id": 2
+                },
+                "image": {
+                    "media_id": "ZR8Ec1ZsIFzGh8OZsAGILz5NRlMxnFd65FqU-6jM8mI"
+                },
+                "msgtype": "image"
+            })).then(data => {
+                res.send(data);
+            });
+            break;
+        case 6:
+            MessageApi.get("1000000002").then(data => {
+                res.send(data);
+            });
+            break;
+        default:
+            break;
+    }
+});
+
+
+app.get('/callbackApi', (req: any, res: any) => {
+    let type: string = req.query.type;
+    console.log('type', type);
+    switch (parseInt(type)) {
+        case 0:
+            CallbackApi.getCallbackIp().then(data => {
+                res.send(data);
+            });
+            break;
+        case 1:
+            CallbackApi.check().then(data => {
+                res.send(data);
+            });
+            break;
+        default:
+            break;
+    }
+});
+
 const server = app.listen(8888, "localhost", () => {
     let addressInfo: AddressInfo = <AddressInfo>server.address();
     if (addressInfo) {
@@ -485,6 +664,8 @@ const server = app.listen(8888, "localhost", () => {
         ApiConfigKit.setCurrentAppId();
         // 开启开发模式,方便调试
         ApiConfigKit.devMode = true;
+        // ApiConfigKit.accessTokenCache(new DefaultAccessTokenCache());
+        // HttpKit.setHttpDelegate(new DefaultHttpKit());
         if (ApiConfigKit.devMode) {
             console.log("服务器已启动, 地址是：http://%s:%s", host, port);
         }

@@ -92,7 +92,7 @@ export class CustomServiceApi {
     public static async uploadKfAccountHeadImg(kf_account: string, filePath: string) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.uploadKfHeadImgUrl, (<AccessToken>accessToken).getAccessToken, kf_account);
-        return HttpKit.getHttpDelegate.upload(url, filePath, "");
+        return HttpKit.getHttpDelegate.upload(url, filePath);
     }
 
 
