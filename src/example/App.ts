@@ -29,6 +29,7 @@ import { MediaApi, MediaType, MediaArticles } from '../api/MediaApi';
 import { DefaultAccessTokenCache } from '../cache/DefaultAccessTokenCache';
 import { MessageApi } from '../api/MessageApi';
 import { CallbackApi } from '../api/CallbackApi';
+import { DatacubeApi } from '../api/DatacubeApi';
 
 const app = express();
 
@@ -644,6 +645,24 @@ app.get('/callbackApi', (req: any, res: any) => {
             break;
         case 1:
             CallbackApi.check().then(data => {
+                res.send(data);
+            });
+            break;
+        default:
+            break;
+    }
+});
+app.get('/DatacubeApi', (req: any, res: any) => {
+    let type: string = req.query.type;
+    console.log('type', type);
+    switch (parseInt(type)) {
+        case 0:
+            DatacubeApi.getUserSummary("2019-04-01", "2019-04-02").then(data => {
+                res.send(data);
+            });
+            break;
+        case 1:
+            DatacubeApi.getUserCumulate("2019-04-01", "2019-04-02").then(data => {
                 res.send(data);
             });
             break;
