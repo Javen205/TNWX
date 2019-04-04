@@ -18,6 +18,14 @@ module.exports.SnsAccessTokenApi = require('./dist/api/SnsAccessTokenApi').SnsAc
 module.exports.ScopeEnum = require('./dist/api/SnsAccessTokenApi').ScopeEnum;
 module.exports.Lang = require('./dist/api/SnsAccessTokenApi').Lang;
 module.exports.SemanticApi = require('./dist/api/SemanticApi').SemanticApi;
+module.exports.CallbackApi = require('./dist/api/CallbackApi').CallbackApi;
+module.exports.CheckAction = require('./dist/api/CallbackApi').CheckAction;
+module.exports.CheckOperator = require('./dist/api/CallbackApi').CheckOperator;
+module.exports.DatacubeApi = require('./dist/api/DatacubeApi').DatacubeApi;
+module.exports.MediaApi = require('./dist/api/MediaApi').MediaApi;
+module.exports.MediaArticles = require('./dist/api/MediaApi').MediaArticles;
+module.exports.MediaType = require('./dist/api/MediaApi').MediaType;
+module.exports.MessageApi = require('./dist/api/MessageApi').MessageApi;
 
 
 module.exports.DefaultAccessTokenCache = require('./dist/cache/DefaultAccessTokenCache').DefaultAccessTokenCache;
