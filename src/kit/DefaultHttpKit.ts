@@ -1,4 +1,3 @@
-import Promise from 'bluebird';
 import * as request from 'request';
 import * as fs from 'fs';
 import { HttpDelegate } from "./HttpKit";

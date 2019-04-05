@@ -27,7 +27,6 @@ import { InMenuEvent } from './entity/msg/in/event/InMenuEvent';
 import { InQrCodeEvent } from './entity/msg/in/event/InQrCodeEvent';
 import { InTemplateMsgEvent } from './entity/msg/in/event/InTemplateMsgEvent';
 import { OutCustomMsg } from './entity/msg/out/OutCustomMsg';
-import Promise from 'bluebird';
 
 
 export class WeChat {
