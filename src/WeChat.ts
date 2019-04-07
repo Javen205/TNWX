@@ -27,9 +27,25 @@ import { InMenuEvent } from './entity/msg/in/event/InMenuEvent';
 import { InQrCodeEvent } from './entity/msg/in/event/InQrCodeEvent';
 import { InTemplateMsgEvent } from './entity/msg/in/event/InTemplateMsgEvent';
 import { OutCustomMsg } from './entity/msg/out/OutCustomMsg';
+import { JsTicketApi, JsApiType } from './api/JsTicketApi';
 
 
 export class WeChat {
+    /**
+     * JSSDK签名
+     * @param jsapi_ticket 
+     * @param nonce_str 
+     * @param timestamp 
+     * @param url 
+     */
+    public static async jssdkSignature(nonce_str: string,
+        timestamp: string, url: string, jsapi_ticket?: string, ) {
+        let str = "jsapi_ticket=" + jsapi_ticket +
+            "&noncestr=" + nonce_str +
+            "&timestamp=" + timestamp +
+            "&url=" + url;
+        return crypto.createHash('sha1').update(str, 'utf8').digest('hex');
+    }
     /**
      * 验证成为开发者
      * @param signature 

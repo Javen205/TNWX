@@ -27,7 +27,7 @@ export class AccessTokenApi {
 
     private static getAvailableAccessToken(apiConfig: ApiConfig): AccessToken {
         let result!: AccessToken;
-        let accessTokenCache: IAccessTokenCache = ApiConfigKit.accessTokenCache;
+        let accessTokenCache: IAccessTokenCache = ApiConfigKit.getAccessTokenCache;
         let accessTokenJson: string = accessTokenCache.get(apiConfig.getAppId);
         if (accessTokenJson) {
             result = new AccessToken(accessTokenJson);
@@ -39,21 +39,16 @@ export class AccessTokenApi {
     }
 
 
-    public static refreshAccessToken(ac: ApiConfig) {
-        let that = this;
-        return new Promise(function (resolve, reject) {
-            let url = util.format(that.url, ac.getAppId, ac.getAppScrect);
-            HttpKit.getHttpDelegate.httpGet(url).then(function (data) {
-                let json = <string>data;
-                if (json) {
-                    let result: AccessToken = new AccessToken(json)
-                    let accessTokenCache: IAccessTokenCache = ApiConfigKit.accessTokenCache;
-                    accessTokenCache.set(ac.getAppId, result.getCacheJson);
-                    resolve(result);
-                } else {
-                    reject("获取accessToken异常")
-                }
-            });
-        });
+    public static async refreshAccessToken(ac: ApiConfig) {
+        let url = util.format(this.url, ac.getAppId, ac.getAppScrect);
+        let data = await HttpKit.getHttpDelegate.httpGet(url);
+        if (data) {
+            let accessToken: AccessToken = new AccessToken(data)
+            let accessTokenCache: IAccessTokenCache = ApiConfigKit.getAccessTokenCache;
+            accessTokenCache.set(ac.getAppId, accessToken.getCacheJson);
+            return accessToken;
+        } else {
+            return "获取accessToken异常";
+        }
     }
 }

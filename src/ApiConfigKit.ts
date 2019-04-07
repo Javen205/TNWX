@@ -96,11 +96,11 @@ export class ApiConfigKit {
         return cfg;
     }
 
-    public static get accessTokenCache(): IAccessTokenCache {
+    public static get getAccessTokenCache(): IAccessTokenCache {
         return this._accessTokenCache;
     }
 
-    public static set accessTokenCache(accessTokenCache: IAccessTokenCache) {
+    public static set setAccessTokenCache(accessTokenCache: any) {
         this._accessTokenCache = accessTokenCache;
     }
 

@@ -6,6 +6,6 @@
 
 export interface IAccessTokenCache {
     get(key: string): string;
-    set(key: string, jsonValue: string): any;
-    remove(key: string): any;
+    set(key: string, jsonValue: string): void;
+    remove(key: string): void;
 }

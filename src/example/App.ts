@@ -23,13 +23,12 @@ import { SubscribeMsgApi } from '../api/SubscribeMsgApi';
 import { SubscribeMsg, Data, Content } from '../entity/subscribe/SubscribeMsg';
 import { SnsAccessTokenApi, ScopeEnum, Lang } from '../api/SnsAccessTokenApi';
 import { SemanticApi } from '../api/SemanticApi';
-import { HttpDelegate, HttpKit } from '../kit/HttpKit';
-import { DefaultHttpKit } from '../kit/DefaultHttpKit';
 import { MediaApi, MediaType, MediaArticles } from '../api/MediaApi';
-import { DefaultAccessTokenCache } from '../cache/DefaultAccessTokenCache';
 import { MessageApi } from '../api/MessageApi';
 import { CallbackApi } from '../api/CallbackApi';
 import { DatacubeApi } from '../api/DatacubeApi';
+import { PoiApi } from '../api/PoiApi';
+import { JsTicketApi, JsApiType } from '../api/JsTicketApi';
 
 const app = express();
 
@@ -241,7 +240,7 @@ app.get('/getAccessToken', (req: any, res: any) => {
     });
 });
 
-
+// 客服消息
 app.get('/sendCustomMsg', (req: any, res: any) => {
     let type: string = req.query.type;
     console.log('type', type);
@@ -325,7 +324,7 @@ app.get('/sendCustomMsg', (req: any, res: any) => {
             break;
     }
 });
-
+// 生成带参数的二维码
 app.get('/qrcode', (req: any, res: any) => {
     let type: string = req.query.type;
     let ticket: string = req.query.ticket;
@@ -359,13 +358,13 @@ app.get('/qrcode', (req: any, res: any) => {
             break;
     }
 });
-
+// 短链接
 app.get('/shortUrl', (req: any, res: any) => {
     ShortUrlApi.longToShort("https://gitee.com/javen205/IJPay").then(data => {
         res.send(data);
     });
 });
-
+// 用户标签管理
 app.get('/tagApi', (req: any, res: any) => {
     let type: string = req.query.type;
     console.log('type', type);
@@ -421,7 +420,7 @@ app.get('/tagApi', (req: any, res: any) => {
 
 
 });
-
+// 用户管理
 app.get('/userApi', (req: any, res: any) => {
     let type: string = req.query.type;
     console.log('type', type);
@@ -480,7 +479,7 @@ app.get('/userApi', (req: any, res: any) => {
             break;
     }
 });
-
+// 素材管理
 app.get('/mediaApi', (req: any, res: any) => {
     let type: string = req.query.type;
     console.log('type', type);
@@ -554,6 +553,7 @@ app.get('/mediaApi', (req: any, res: any) => {
     }
 });
 
+// 群发消息
 app.get('/messageApi', (req: any, res: any) => {
     let type: string = req.query.type;
     console.log('type', type);
@@ -633,7 +633,7 @@ app.get('/messageApi', (req: any, res: any) => {
     }
 });
 
-
+// 微信服务器
 app.get('/callbackApi', (req: any, res: any) => {
     let type: string = req.query.type;
     console.log('type', type);
@@ -652,6 +652,7 @@ app.get('/callbackApi', (req: any, res: any) => {
             break;
     }
 });
+// 数据统计
 app.get('/DatacubeApi', (req: any, res: any) => {
     let type: string = req.query.type;
     console.log('type', type);
@@ -670,6 +671,64 @@ app.get('/DatacubeApi', (req: any, res: any) => {
             break;
     }
 });
+// 微信门店接口 测试号没有权限
+app.get('/poiApi', (req: any, res: any) => {
+    let type: string = req.query.type;
+    console.log('type', type);
+    switch (parseInt(type)) {
+        case 0:
+            PoiApi.getWxCategory().then(data => {
+                res.send(data);
+            });
+            break;
+        case 1:
+            PoiApi.addPoi(JSON.stringify({
+                "business": {
+                    "base_info": {
+                        "sid": "123456789",
+                        "business_name": "TNW 微信公众号开发脚手架",
+                        "branch_name": "IJPay 聚合支付",
+                        "province": "广东",
+                        "city": "深圳",
+                        "district": "Javen",
+                        "address": "福田体育公园",
+                        "telephone": "123456789012",
+                        "categories": [
+                            "美食,小吃快餐"
+                        ],
+                        "offset_type": 1,
+                        "longitude": 115.32375,
+                        "latitude": 25.097486,
+                        "photo_list": [
+                            {
+                                "photo_url": "http://mmbiz.qpic.cn/mmbiz_png/bA46Xts9ibwyxicFANHAnA2iaonNed1oTIoAfjNrDicVLVia8fWpSuNx7UsiboektD0fd6IoUsO7o24m6ClWnAefKWPA/0?wx_fmt=png"
+                            },
+                            {
+                                "photo_url": "http://mmbiz.qpic.cn/mmbiz_png/bA46Xts9ibwyxicFANHAnA2iaonNed1oTIoAfjNrDicVLVia8fWpSuNx7UsiboektD0fd6IoUsO7o24m6ClWnAefKWPA/0?wx_fmt=png"
+                            }
+                        ],
+                        "recommend": "不超过200字。麦辣鸡腿堡套餐，麦乐鸡，全家桶",
+                        "special": "不超过200字。免费wifi，外卖服务",
+                        "introduction": "不超过300字。麦当劳是全球大型跨国连锁餐厅,1940 年创立于美国，在世界上大约拥有3 万间分店。主要售卖汉堡包，以及薯条、炸鸡、汽水、冰品、沙拉、 水果等快餐食品",
+                        "open_time": "8:00-20:00",
+                        "avg_price": 35
+                    }
+                }
+            })).then(data => {
+                res.send(data);
+            });
+            break;
+        default:
+            break;
+    }
+});
+
+app.get('/jsTicketApi', (req: any, res: any) => {
+    JsTicketApi.getTicket(JsApiType.JSAPI).then(data => {
+        res.send(data);
+    })
+});
+
 
 const server = app.listen(8888, "localhost", () => {
     let addressInfo: AddressInfo = <AddressInfo>server.address();
@@ -683,8 +742,6 @@ const server = app.listen(8888, "localhost", () => {
         ApiConfigKit.setCurrentAppId();
         // 开启开发模式,方便调试
         ApiConfigKit.devMode = true;
-        // ApiConfigKit.accessTokenCache(new DefaultAccessTokenCache());
-        // HttpKit.setHttpDelegate(new DefaultHttpKit());
         if (ApiConfigKit.devMode) {
             console.log("服务器已启动, 地址是：http://%s:%s", host, port);
         }
