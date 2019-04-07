@@ -26,20 +26,19 @@ export class JsTicketApi {
         let jsTicketJson = accessTokenCache.get(key);
         if (jsTicketJson) {
             console.log('缓存中获取api_ticket...');
-            return jsTicketJson;
+            return new JsTicket(jsTicketJson);
         }
         // 通过接口获取
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.getTicketUrl, (<AccessToken>accessToken).getAccessToken, type);
         let data = await HttpKit.getHttpDelegate.httpGet(url);
         if (data) {
-            let jsTicket: JsTicket = new JsTicket(data)
+            let jsTicket: JsTicket = new JsTicket(data);
             let accessTokenCache: IAccessTokenCache = ApiConfigKit.getAccessTokenCache;
             accessTokenCache.set(key, jsTicket.getCacheJson);
             console.log('通过接口获取api_ticket...');
             return jsTicket;
         }
-        return "api_ticket get error";
     }
 }
 export enum JsApiType {

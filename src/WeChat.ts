@@ -28,6 +28,7 @@ import { InQrCodeEvent } from './entity/msg/in/event/InQrCodeEvent';
 import { InTemplateMsgEvent } from './entity/msg/in/event/InTemplateMsgEvent';
 import { OutCustomMsg } from './entity/msg/out/OutCustomMsg';
 import { JsTicketApi, JsApiType } from './api/JsTicketApi';
+import { JsTicket } from './JsTicket';
 
 
 export class WeChat {
@@ -40,6 +41,15 @@ export class WeChat {
      */
     public static async jssdkSignature(nonce_str: string,
         timestamp: string, url: string, jsapi_ticket?: string, ) {
+        if (!jsapi_ticket) {
+            let jsTicket = await JsTicketApi.getTicket(JsApiType.JSAPI);
+            if (jsTicket) {
+                jsapi_ticket = jsTicket.getTicket;
+                if (ApiConfigKit.isDevMode) {
+                    console.log('jsapi_ticket:', jsapi_ticket);
+                }
+            }
+        }
         let str = "jsapi_ticket=" + jsapi_ticket +
             "&noncestr=" + nonce_str +
             "&timestamp=" + timestamp +

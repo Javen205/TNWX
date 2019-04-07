@@ -724,9 +724,22 @@ app.get('/poiApi', (req: any, res: any) => {
 });
 
 app.get('/jsTicketApi', (req: any, res: any) => {
-    JsTicketApi.getTicket(JsApiType.JSAPI).then(data => {
-        res.send(data);
-    })
+    let type: string = req.query.type;
+    console.log('type', type);
+    switch (parseInt(type)) {
+        case 0:
+            JsTicketApi.getTicket(JsApiType.JSAPI).then(data => {
+                res.send(data);
+            });
+            break;
+        case 1:
+            WeChat.jssdkSignature("1111", "1111", "https://gitee.com/javen205/TNW").then(data => {
+                res.send(data);
+            });
+            break;
+        default:
+            break;
+    }
 });
 
 
