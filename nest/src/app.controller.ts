@@ -1,4 +1,4 @@
-import { Controller, Get, Req, Res, Post } from '@nestjs/common';
+import { Controller, Get, Req, Res, Post, Render } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Request, Response } from 'express';
 import {
@@ -12,6 +12,7 @@ import {
 } from 'tnw';
 import { MsgController } from './MsgController';
 import { MenuManager } from './MenuManager';
+import uuid = require('uuid');
 
 
 @Controller()
@@ -23,9 +24,26 @@ export class AppController {
     this.msgAdapter = new MsgController();
   }
 
+  @Get('jssdk')
+  @Render('jssdk.hbs')
+  async jssdk(@Req() request: Request, @Res() response: Response) {
+    let appId = ApiConfigKit.getApiConfig.getAppId;
+    let timestamp = new Date().getTime() / 1000;
+    let nonceStr = uuid.v1();
+    let url = "http://xxxx/jssdk";//填写完整页面的URL
+    let signature = await WeChat.jssdkSignature(nonceStr, timestamp, url);
+    return {
+      appId: appId,
+      timestamp: timestamp,
+      nonceStr: nonceStr,
+      signature: signature
+    };
+  }
+
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Render('index.hbs')
+  getHello() {
+    return {};
   }
 
   @Get('/msg')
