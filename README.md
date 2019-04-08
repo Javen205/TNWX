@@ -6,7 +6,7 @@
  <a href="https://www.npmjs.com/package/tnw" target="_blank"><img src="https://img.shields.io/npm/l/tnw.svg?style=flat-square" alt="Package License" /></a>
 <a href="https://www.npmjs.com/package/tnw" target="_blank"><img src="https://img.shields.io/npm/v/tnw.svg?style=flat-square" alt="NPM Version" /></a>
 <a href="https://www.npmjs.com/package/tnw" target="_blank"><img src="https://img.shields.io/npm/dt/tnw.svg?style=flat-square" alt="NPM Downloads" /></a>
-<a href="https://javen205.gitee.io/ijpay/doc/contact.html" target="_blank"><img src="https://img.shields.io/badge/Donate-WeChat-%23ff3f59.svg?style=flat-square" alt="Donate-WeChat" /></a>
+<a href="https://github.com/Javen205/donate" target="_blank"><img src="https://img.shields.io/badge/Donate-WeChat-%23ff3f59.svg?style=flat-square" alt="Donate" /></a>
 </p>
 
 
