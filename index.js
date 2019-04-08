@@ -26,7 +26,11 @@ module.exports.MediaApi = require('./dist/api/MediaApi').MediaApi;
 module.exports.MediaArticles = require('./dist/api/MediaApi').MediaArticles;
 module.exports.MediaType = require('./dist/api/MediaApi').MediaType;
 module.exports.MessageApi = require('./dist/api/MessageApi').MessageApi;
-
+module.exports.CardApi = require('./dist/api/CardApi').CardApi;
+module.exports.JsTicketApi = require('./dist/api/JsTicketApi').JsTicketApi;
+module.exports.JsApiType = require('./dist/api/JsTicketApi').JsApiType;
+module.exports.JsTicket = require('./dist/JsTicket').JsTicket;
+module.exports.PoiApi = require('./dist/api/PoiApi').PoiApi;
 
 module.exports.DefaultAccessTokenCache = require('./dist/cache/DefaultAccessTokenCache').DefaultAccessTokenCache;
 module.exports.IAccessTokenCache = require('./dist/cache/IAccessTokenCache');
