@@ -1,7 +1,6 @@
 config/
 docs/
 example/
-nest/
 src/
 views/
 .vscode

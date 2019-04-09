@@ -29,8 +29,8 @@ $ npm i tnw
 ```
 
 2、完整示例
-- [Gitee 请点击这里](https://gitee.com/Javen205/TNW/tree/master/example) 
-- [Github 请点击这里](https://github.com/Javen205/TNW/tree/master/example) 
+- [Gitee 请点击这里](https://gitee.com/Javen205/TNW/tree/master/example/js) 
+- [Github 请点击这里](https://github.com/Javen205/TNW/tree/master/example/js) 
 
 ### 源码方式
 
@@ -58,8 +58,8 @@ $ npm run dev
 
 ### Nest 示例
 
-- [Gitee 请点击这里](https://gitee.com/Javen205/TNW/tree/master/nest)
-- [GitHub 请点击这里](https://github.com/Javen205/TNW/tree/master/nest)
+- [Gitee 请点击这里](https://gitee.com/Javen205/TNW/tree/master/example/nest)
+- [GitHub 请点击这里](https://github.com/Javen205/TNW/tree/master/example/nest)
 
 ## 开发进度
 
