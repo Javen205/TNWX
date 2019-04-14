@@ -1,4 +1,5 @@
 import { DefaultHttpKit } from './DefaultHttpKit';
+import { AxiosHttpKit } from './AxiosHttpKit';
 
 /**
  * @author Javen 
@@ -6,7 +7,7 @@ import { DefaultHttpKit } from './DefaultHttpKit';
  * @description http 工具封装
  */
 export class HttpKit {
-    private static delegate: HttpDelegate = new DefaultHttpKit();
+    private static delegate: HttpDelegate = new AxiosHttpKit();
 
     public static get getHttpDelegate(): HttpDelegate {
         return this.delegate;

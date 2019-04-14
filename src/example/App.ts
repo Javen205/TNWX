@@ -29,6 +29,8 @@ import { CallbackApi } from '../api/CallbackApi';
 import { DatacubeApi } from '../api/DatacubeApi';
 import { PoiApi } from '../api/PoiApi';
 import { JsTicketApi, JsApiType } from '../api/JsTicketApi';
+import { HttpKit } from '../kit/HttpKit';
+import { AxiosHttpKit } from '../kit/AxiosHttpKit';
 
 const app = express();
 
