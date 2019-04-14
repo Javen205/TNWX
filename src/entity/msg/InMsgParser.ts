@@ -8,7 +8,6 @@ import { InShortVideoMsg } from "./in/InShortVideoMsg";
 import { InLocationMsg } from "./in/InLocationMsg";
 import { InLinkMsg } from "./in/InLinkMsg";
 import { InVoiceMsg } from "./in/InVoiceMsg";
-import { OutMsg } from "./out/OutMsg";
 import { InFollowEvent } from "./in/event/InFollowEvent";
 import { InQrCodeEvent } from "./in/event/InQrCodeEvent";
 import { InLocationEvent } from "./in/event/InLocationEvent";
@@ -32,6 +31,7 @@ import { InUserConsumeCardEvent } from "./in/card/InUserConsumeCardEvent";
 import { InUserGetCardEvent } from "./in/card/InUserGetCardEvent";
 import { InUserGiftingCardEvent } from "./in/card/InUserGiftingCardEvent";
 import { InUserCardEvent } from "./in/card/InUserCardEvent";
+import { InShakearoundUserShakeEvent } from "./in/event/InShakearoundUserShakeEvent";
 
 export class InMsgParser {
 
@@ -258,6 +258,17 @@ export class InMsgParser {
             e.setToKfAccount == obj.ToKfAccount;
             return e;
         }
+        // 微信摇一摇事件
+        if ("ShakearoundUserShake" == event) {
+            let e = new InShakearoundUserShakeEvent(obj.ToUserName, obj.FromUserName, obj.CreateTime, event);
+            e.setEvent = event;
+            e.setUuid = obj.ChosenBeacon.Uuid;
+            e.setMajor = obj.ChosenBeacon.Major;
+            e.setMinor = obj.ChosenBeacon.Minor;
+            e.setDistance = obj.ChosenBeacon.Distance;
+            e.setAroundBeaconList = obj.AroundBeacons;
+            return e;
+        }
         // 资质认证成功 || 名称认证成功 || 年审通知 || 认证过期失效通知
         if ("qualification_verify_success" == event || "naming_verify_success" == event
             || "annual_renew" == event || "verify_expired" == event) {
@@ -365,21 +376,21 @@ export class InMsgParser {
         // 库存报警事件
         if (InCardSkuRemindEvent.EVENT == event) {
             let e = new InCardSkuRemindEvent(obj.ToUserName, obj.FromUserName, obj.CreateTime, event);
-            e.setCardId= obj.CardId;
-            e.setDetail= obj.Detail;
+            e.setCardId = obj.CardId;
+            e.setDetail = obj.Detail;
             return e;
         }
         // 卡券核销事件推送
         if (InUserConsumeCardEvent.EVENT == event) {
             let e = new InUserConsumeCardEvent(obj.ToUserName, obj.FromUserName, obj.CreateTime, event);
-            e.setCardId= obj.CardId;
-            e.setUserCardCode= obj.UserCardCode;
-            e.setConsumeSource= obj.ConsumeSource;
-            e.setLocationName= obj.LocationName;
-            e.setStaffOpenId= obj.StaffOpenId;
-            e.setVerifyCode= obj.VerifyCode;
-            e.setRemarkAmount= obj.RemarkAmount;
-            e.setOuterStr= obj.OuterStr;
+            e.setCardId = obj.CardId;
+            e.setUserCardCode = obj.UserCardCode;
+            e.setConsumeSource = obj.ConsumeSource;
+            e.setLocationName = obj.LocationName;
+            e.setStaffOpenId = obj.StaffOpenId;
+            e.setVerifyCode = obj.VerifyCode;
+            e.setRemarkAmount = obj.RemarkAmount;
+            e.setOuterStr = obj.OuterStr;
             return e;
         }
         // 卡券删除事件推送

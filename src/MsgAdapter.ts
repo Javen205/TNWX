@@ -13,6 +13,7 @@ import { InQrCodeEvent } from "./entity/msg/in/event/InQrCodeEvent";
 import { InLocationEvent } from "./entity/msg/in/event/InLocationEvent";
 import { InMenuEvent } from "./entity/msg/in/event/InMenuEvent";
 import { InTemplateMsgEvent } from "./entity/msg/in/event/InTemplateMsgEvent";
+import { InShakearoundUserShakeEvent } from "./entity/msg/in/event/InShakearoundUserShakeEvent";
 
 export interface MsgAdapter {
     processInTextMsg(inTextMsg: InTextMsg): OutMsg;
@@ -30,5 +31,5 @@ export interface MsgAdapter {
     processInLocationEvent(inLocationEvent: InLocationEvent): OutMsg;
     processInMenuEvent(inMenuEvent: InMenuEvent): OutMsg;
     processInTemplateMsgEvent(inTemplateMsgEvent: InTemplateMsgEvent): OutMsg;
-
+    processInShakearoundUserShakeEvent(inShakearoundUserShakeEvent: InShakearoundUserShakeEvent): OutMsg;
 }

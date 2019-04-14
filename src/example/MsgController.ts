@@ -26,8 +26,10 @@ import { InLocationEvent } from "../entity/msg/in/event/InLocationEvent";
 import { InMenuEvent } from "../entity/msg/in/event/InMenuEvent";
 import { InTemplateMsgEvent } from "../entity/msg/in/event/InTemplateMsgEvent";
 import { OutCustomMsg } from "../entity/msg/out/OutCustomMsg";
+import { InShakearoundUserShakeEvent } from "../entity/msg/in/event/InShakearoundUserShakeEvent";
 
 export class MsgController implements MsgAdapter {
+
 
     processInTextMsg(inTextMsg: InTextMsg): OutMsg {
         let outMsg: any;
@@ -139,6 +141,11 @@ export class MsgController implements MsgAdapter {
             "消息发送状态：" + inTemplateMsgEvent.getStatus);
     }
 
+    processInShakearoundUserShakeEvent(inShakearoundUserShakeEvent: InShakearoundUserShakeEvent): OutMsg {
+        console.debug("摇一摇事件：" + inShakearoundUserShakeEvent.getFromUserName + " " + inShakearoundUserShakeEvent.getUuid);
+        return this.renderOutTextMsg(inShakearoundUserShakeEvent,
+            "uuid：" + inShakearoundUserShakeEvent.getUuid);
+    }
 
     processIsNotDefinedMsg(inNotDefinedMsg: InNotDefinedMsg): OutMsg {
         return this.renderOutTextMsg(inNotDefinedMsg,

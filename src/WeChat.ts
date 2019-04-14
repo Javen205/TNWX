@@ -28,8 +28,7 @@ import { InQrCodeEvent } from './entity/msg/in/event/InQrCodeEvent';
 import { InTemplateMsgEvent } from './entity/msg/in/event/InTemplateMsgEvent';
 import { OutCustomMsg } from './entity/msg/out/OutCustomMsg';
 import { JsTicketApi, JsApiType } from './api/JsTicketApi';
-import { JsTicket } from './JsTicket';
-
+import { InShakearoundUserShakeEvent } from './entity/msg/in/event/InShakearoundUserShakeEvent';
 
 export class WeChat {
     /**
@@ -145,8 +144,9 @@ export class WeChat {
                     outMsg = msgAdapter.processInQrCodeEvent(<InQrCodeEvent>inMsg);
                 } else if (inMsg instanceof InTemplateMsgEvent) {
                     outMsg = msgAdapter.processInTemplateMsgEvent(<InTemplateMsgEvent>inMsg);
-                }
-                else if (inMsg instanceof InNotDefinedMsg) {
+                } else if (inMsg instanceof InShakearoundUserShakeEvent) {
+                    outMsg = msgAdapter.processInShakearoundUserShakeEvent(<InShakearoundUserShakeEvent>inMsg);
+                } else if (inMsg instanceof InNotDefinedMsg) {
                     if (ApiConfigKit.isDevMode()) {
                         console.error("未能识别的消息类型。 消息 xml 内容为：\n");
                         console.error(result);
