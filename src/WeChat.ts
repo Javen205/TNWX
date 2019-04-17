@@ -97,7 +97,7 @@ export class WeChat {
                 result = result.xml;
                 let isEncryptMessage: boolean = false;
                 //判断消息加解密方式
-                if (ApiConfigKit.getApiConfig.getEncryptMessage) {
+                if (ApiConfigKit.getApiConfig.getEncryptMessage && ApiConfigKit.getApiConfig.getEncodingAesKey) {
                     isEncryptMessage = true;
                     cryptoKit = new CryptoKit(ApiConfigKit.getApiConfig, msgSignature || '',
                         timestamp || '', nonce || '');
@@ -106,7 +106,7 @@ export class WeChat {
                 }
 
                 if (ApiConfigKit.isDevMode()) {
-                    console.log('接收消息');
+                    console.log('接收消息 isEncryptMessage=', isEncryptMessage);
                     console.log(result);
                     console.log('------------------------\n');
                 }

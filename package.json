@@ -1,6 +1,6 @@
 {
   "name": "tnw",
-  "version": "0.0.4",
+  "version": "1.0.0",
   "description": "TypeScript + Node.js 极速开发微信公众号 By Javen ",
   "main": "index.js",
   "scripts": {

@@ -27,6 +27,7 @@ import { InMenuEvent } from "../entity/msg/in/event/InMenuEvent";
 import { InTemplateMsgEvent } from "../entity/msg/in/event/InTemplateMsgEvent";
 import { OutCustomMsg } from "../entity/msg/out/OutCustomMsg";
 import { InShakearoundUserShakeEvent } from "../entity/msg/in/event/InShakearoundUserShakeEvent";
+import { ApiConfigKit } from "../ApiConfigKit";
 
 export class MsgController implements MsgAdapter {
 
@@ -34,11 +35,19 @@ export class MsgController implements MsgAdapter {
     processInTextMsg(inTextMsg: InTextMsg): OutMsg {
         let outMsg: any;
         let content: string = "IJPay 让支付触手可及 \n\nhttps://gitee.com/javen205/IJPay";
-        if ("1" == inTextMsg.getContent) {
-            content = "极速开发微信公众号 \n\nhttps://github.com/javen205/TNW"
-            outMsg = new OutTextMsg(inTextMsg);
-            outMsg.setContent(content);
-        } else if ("2" == inTextMsg.getContent) {
+        if ("极速开发微信公众号" == inTextMsg.getContent) {
+            // 多公众号支持 分别给不同的公众号发送不同的消息
+            if (ApiConfigKit.getApiConfig.getAppId == 'wx614c453e0d1dcd12') {
+                content = "极速开发微信公众号 \n\nhttps://github.com/javen205/weixin_guide"
+                outMsg = new OutTextMsg(inTextMsg);
+                outMsg.setContent(content);
+            } else {
+                content = "极速开发微信公众号 \n\nhttps://github.com/javen205/TNW"
+                outMsg = new OutTextMsg(inTextMsg);
+                outMsg.setContent(content);
+            }
+
+        } else if ("聚合支付" == inTextMsg.getContent) {
             outMsg = new OutNewsMsg(inTextMsg);
             outMsg.addArticle("聚合支付了解下", "IJPay 让支付触手可及",
                 "https://gitee.com/javen205/IJPay/raw/master/assets/img/IJPay-t.png", "https://gitee.com/javen205/IJPay")
