@@ -7,12 +7,12 @@ export class ApiConfig {
     private encodingAesKey: string;
 
     constructor(token: string, appId: string, appScrect: string,
-        encryptMessage: boolean, encodingAesKey: string) {
+        encryptMessage: boolean = false, encodingAesKey?: string) {
         this.token = token;
         this.appId = appId;
         this.appScrect = appScrect;
         this.encryptMessage = encryptMessage;
-        this.encodingAesKey = encodingAesKey;
+        this.encodingAesKey = encodingAesKey || '';
     }
 
     public get getToken(): string {

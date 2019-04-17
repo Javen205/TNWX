@@ -751,7 +751,7 @@ const server = app.listen(8888, "localhost", () => {
         let host = addressInfo.address;
         let port = addressInfo.port;
         // 亦可以读取配置文件
-        let apiConfig = new ApiConfig("Javen", "wx614c453e0d1dcd12", "19a02e4927d346484fc70327970457f9", false, "xxxx");
+        let apiConfig = new ApiConfig("Javen", "wx614c453e0d1dcd12", "19a02e4927d346484fc70327970457f9");
         // 支持多公众号
         ApiConfigKit.putApiConfig(apiConfig);
         ApiConfigKit.setCurrentAppId();
