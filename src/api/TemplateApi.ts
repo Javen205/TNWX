@@ -19,7 +19,6 @@ export class TemplateApi {
 
     /**
      * 发送模板消息
-     * @param response 
      * @param tempJson 
      */
     public static async send(tempJson: string) {
@@ -29,7 +28,6 @@ export class TemplateApi {
     }
     /**
      * 设置所属行业
-     * @param response 
      * @param industry_id1 公众号模板消息所属行业编号
      * @param industry_id2 公众号模板消息所属行业编号
      */
@@ -43,16 +41,14 @@ export class TemplateApi {
     }
     /**
      * 获取设置的行业信息
-     * @param response 
      */
-    public static async getIndustry(response: any) {
+    public static async getIndustry() {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.getIndustryUrl, (<AccessToken>accessToken).getAccessToken);
         return HttpKit.getHttpDelegate.httpGet(url);
     }
     /**
      * 获取模板列表
-     * @param response 
      * @param templateIdShort 模板库中模板的编号
      */
     public static async getTemplateId(templateIdShort: string) {
@@ -64,18 +60,16 @@ export class TemplateApi {
     }
     /**
      * 删除模板
-     * @param response 
      */
-    public static async delTemplate(response: any) {
+    public static async delTemplate() {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.delTemplateUrl, (<AccessToken>accessToken).getAccessToken);
         return HttpKit.getHttpDelegate.httpGet(url);
     }
     /**
      * 获取模板列表
-     * @param response 
      */
-    public static async getAllTemplate(response: any) {
+    public static async getAllTemplate() {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.getAllTemplateUrl, (<AccessToken>accessToken).getAccessToken);
         return HttpKit.getHttpDelegate.httpGet(url);

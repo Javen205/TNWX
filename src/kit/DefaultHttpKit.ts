@@ -1,7 +1,11 @@
+/**
+ * @author Javen 
+ * @copyright 2019-04-28 19:18:59 javendev@126.com 
+ * @description request 实现 http 请求
+ */
 import * as request from 'request';
 import * as fs from 'fs';
-import { HttpDelegate } from "./HttpKit";
-
+import { HttpDelegate } from './HttpKit';
 
 export class DefaultHttpKit implements HttpDelegate {
 

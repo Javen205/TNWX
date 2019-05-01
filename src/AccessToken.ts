@@ -9,11 +9,8 @@ export class AccessToken {
     private expires_in!: number;
     private errcode!: number;
     private errmsg!: string;
-
-
     private expired_time!: number;
     private json!: string;
-
 
     constructor(json: string) {
         this.json = json;
@@ -32,21 +29,16 @@ export class AccessToken {
         }
     }
 
-
     public get getCacheJson(): string {
         let temp = JSON.parse(this.json);
         temp.expired_time = this.expired_time;
         return JSON.stringify(temp);
     }
 
-
     public isAvailable(): boolean {
-        if (this.expired_time == null)
-            return false;
-        if (this.errcode != null)
-            return false;
-        if (this.expired_time < new Date().getTime())
-            return false;
+        if (this.expired_time == null) return false;
+        if (this.errcode != null) return false;
+        if (this.expired_time < new Date().getTime()) return false;
         return this.access_token != null;
     }
 
