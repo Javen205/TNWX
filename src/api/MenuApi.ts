@@ -23,7 +23,6 @@ export class MenuApi {
 
     /**
      * 创建菜单
-     * @param response 
      * @param menuJson 
      */
     public static async create(menuJson: string) {
@@ -33,7 +32,6 @@ export class MenuApi {
     }
     /**
      * 删除菜单
-     * @param response 
      */
     public static async delete() {
         let accessToken = await AccessTokenApi.getAccessToken();
@@ -42,7 +40,6 @@ export class MenuApi {
     }
     /**
      * 查询菜单
-     * @param response 
      */
     public static async get() {
         let accessToken = await AccessTokenApi.getAccessToken();
@@ -57,7 +54,6 @@ export class MenuApi {
 
     /**
      * 添加个性化菜单
-     * @param response 
      * @param menuJson 
      */
     public static async addConditional(menuJson: string) {
@@ -68,7 +64,6 @@ export class MenuApi {
 
     /**
      * 删除个性化菜单
-     * @param response 
      */
     public static async deleteConditional() {
         let accessToken = await AccessTokenApi.getAccessToken();
@@ -77,7 +72,6 @@ export class MenuApi {
     }
     /**
      * 测试个性化菜单匹配结果
-     * @param response 
      * @param openId 
      */
     public static async tryMatch(openId: string) {
