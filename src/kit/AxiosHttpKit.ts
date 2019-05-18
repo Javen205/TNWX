@@ -33,6 +33,11 @@ export class AxiosHttpKit implements HttpDelegate {
                 });
         });
     }
+
+    httpPostWithCert(url: string, data: string, certFileContent: Buffer, caFileContent: Buffer, passphrase: string): Promise<any> {
+        throw new Error("Method not implemented.");
+    }
+
     // TODO 存在问题
     upload(url: string, filePath: string, params?: string | undefined): Promise<any> {
         return new Promise(function (resolve, reject) {

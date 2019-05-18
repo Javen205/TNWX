@@ -29,6 +29,8 @@ import { CallbackApi } from '../api/CallbackApi';
 import { DatacubeApi } from '../api/DatacubeApi';
 import { PoiApi } from '../api/PoiApi';
 import { JsTicketApi, JsApiType } from '../api/JsTicketApi';
+import { Kits } from '../kit/Kits';
+import { WxPay } from '../api/WxPay';
 
 const app = express();
 
@@ -48,7 +50,34 @@ const msg = "TNW 极速开发微信公众号案例 <a href='https://javen.blog.c
     "5、Avue 一款基于 vue 可配置化的神奇框架：<a href=\"https://gitee.com/smallweigit/avue\">https://gitee.com/smallweigit/avue</a> ";
 
 app.get('/', (req: any, res: any) => {
-    res.send(msg);
+    let obj = { author: "Javen", IJPay: 'https://gitee.com/javen205/IJPay' };
+    Kits.obj2xml(obj)
+        .then((xml) => {
+            console.log(xml);
+            console.log('MD5 ', Kits.md5('123'));
+            console.log('', Kits.hmacsha256('123', 'IJPay'));
+            console.log(Kits.generateStr());
+            Kits.xml2obj(xml.toString())
+                .then((obj) => {
+                    console.log(JSON.stringify(obj));
+                    res.send(msg);
+                })
+                .catch((error) => console.log(error))
+        })
+        .catch((error) => console.log(error))
+
+});
+
+app.get('/wxpay', (req: any, res: any) => {
+    console.log('to wxpay...');
+
+    WxPay.getSignKey('1445388302', 'CQtr0JyC4XiTPMXhxED93MsbcPM7zG83')
+        .then((data) => {
+            Kits.xml2obj(String(data)).then((data) => {
+                res.send(JSON.stringify(data));
+            })
+        })
+        .catch((error) => console.log(error))
 });
 
 /**

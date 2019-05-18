@@ -36,6 +36,28 @@ export class DefaultHttpKit implements HttpDelegate {
         });
     }
 
+    httpPostWithCert(url: string, data: string, certFileContent: Buffer, caFileContent: Buffer, passphrase: string): Promise<any> {
+        return new Promise(function (resolve, reject) {
+            let options = {
+                url: url,
+                timeout: 10000,
+                body: data,
+                agentOptions: {
+                    ca: certFileContent,
+                    pfx: caFileContent,
+                    passphrase: passphrase
+                }
+            };
+            request.post(options, function (error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    resolve(body);
+                } else {
+                    reject(error);
+                }
+            });
+        });
+    }
+
     upload(url: string, filePath: string, params?: string): Promise<any> {
         let form = {};
         //构造表单
