@@ -29,8 +29,9 @@ import { CallbackApi } from '../api/CallbackApi';
 import { DatacubeApi } from '../api/DatacubeApi';
 import { PoiApi } from '../api/PoiApi';
 import { JsTicketApi, JsApiType } from '../api/JsTicketApi';
-import { Kits } from '../kit/Kits';
+import { Kits, SIGN_TYPE } from '../kit/Kits';
 import { WxPay } from '../api/WxPay';
+import { HttpKit } from '../kit/HttpKit';
 
 const app = express();
 
@@ -68,16 +69,61 @@ app.get('/', (req: any, res: any) => {
 
 });
 
-app.get('/wxpay', (req: any, res: any) => {
-    console.log('to wxpay...');
+app.get('/wxpay', async (req: any, res: any) => {
 
-    WxPay.getSignKey('1445388302', 'CQtr0JyC4XiTPMXhxED93MsbcPM7zG83')
-        .then((data) => {
-            Kits.xml2obj(String(data)).then((data) => {
-                res.send(JSON.stringify(data));
+    let type: string = req.query.type;
+    console.log('to wxpay...' + type);
+    let apiKey = 'apiKey';
+    let mchId = 'mchId';
+    let appId = 'appId';
+    switch (parseInt(type)) {
+        case 1:
+            WxPay.getSignKey(mchId, apiKey)
+                .then((xml) => {
+                    Kits.xml2obj(String(xml))
+                        .then((obj) => {
+                            console.log(obj);
+                        }).catch((error) => console.log(error))
+                }).catch((error) => console.log(error))
+            res.send('请求控制台查看日志...By https://gitee.com/Javen205/TNW');
+            break;
+        case 2:
+            let reqObj = {
+                appid: appId,
+                mch_id: mchId,
+                nonce_str: Kits.generateStr(),//生成随机字符串
+                body: 'IJPay 让支付触手可及',
+                attach: 'TNW 微信公众号开发脚手架',
+                out_trade_no: Kits.generateStr(),
+                total_fee: 666,
+                spbill_create_ip: '127.0.0.1',
+                notify_url: 'https://gitee.com/Javen205/TNW',
+                trade_type: 'JSAPI',
+            }
+            // 生成签名
+            let sign: string = Kits.generateSignature(reqObj, apiKey, SIGN_TYPE.SIGN_TYPE_MD5);
+            reqObj['sign'] = sign;
+            console.log('请求对象>' + JSON.stringify(reqObj));
+            // obj 对象转化为 xml
+            Kits.obj2xml(reqObj).then((xml) => {
+                console.log('请求xml>' + xml);
+                HttpKit.getHttpDelegate.httpPost(WxPay.UNIFIEDORDER_URL, xml.toString())
+                    .then((data) => {
+                        console.log('响应的结果>' + data);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    })
+            }).catch((error) => {
+                console.log(error);
             })
-        })
-        .catch((error) => console.log(error))
+            res.send('请求控制台查看日志...By https://gitee.com/Javen205/TNW');
+            break;
+        default:
+            res.send(msg);
+            break
+    }
+
 });
 
 /**

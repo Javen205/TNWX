@@ -2,32 +2,47 @@ import { Kits, SIGN_TYPE } from "../kit/Kits";
 import { HttpKit } from "../kit/HttpKit";
 
 export class WxPay {
-    // URL
-    private static MICROPAY_URL: string = 'https://api.mch.weixin.qq.com/pay/micropay';
-    private static UNIFIEDORDER_URL: string = 'https://api.mch.weixin.qq.com/pay/unifiedorder';
-    private static ORDERQUERY_URL: string = 'https://api.mch.weixin.qq.com/pay/orderquery';
-    private static REVERSE_URL: string = 'https://api.mch.weixin.qq.com/secapi/pay/reverse';
-    private static CLOSEORDER_URL: string = 'https://api.mch.weixin.qq.com/pay/closeorder';
-    private static REFUND_URL: string = 'https://api.mch.weixin.qq.com/secapi/pay/refund';
-    private static REFUNDQUERY_URL: string = 'https://api.mch.weixin.qq.com/pay/refundquery';
-    private static DOWNLOADBILL_URL: string = 'https://api.mch.weixin.qq.com/pay/downloadbill';
-    private static REPORT_URL: string = 'https://api.mch.weixin.qq.com/payitil/report';
-    private static SHORTURL_URL: string = 'https://api.mch.weixin.qq.com/tools/shorturl';
-    private static AUTHCODETOOPENID_URL: string = 'https://api.mch.weixin.qq.com/tools/authcodetoopenid';
+    // WxPay URL
+    // 提交付款码支付
+    public static MICROPAY_URL: string = 'https://api.mch.weixin.qq.com/pay/micropay';
+    // 统一下单
+    public static UNIFIEDORDER_URL: string = 'https://api.mch.weixin.qq.com/pay/unifiedorder';
+    // 查询订单
+    public static ORDERQUERY_URL: string = 'https://api.mch.weixin.qq.com/pay/orderquery';
+    // 撤销订单
+    public static REVERSEORDER_URL: string = 'https://api.mch.weixin.qq.com/secapi/pay/reverse';
+    // 关闭订单
+    public static CLOSEORDER_URL: string = 'https://api.mch.weixin.qq.com/pay/closeorder';
+    // 申请退款
+    public static REFUND_URL: string = 'https://api.mch.weixin.qq.com/secapi/pay/refund';
+    // 查询退款
+    public static REFUNDQUERY_URL: string = 'https://api.mch.weixin.qq.com/pay/refundquery';
+    // 下载对账单
+    public static DOWNLOADBILL_URL: string = 'https://api.mch.weixin.qq.com/pay/downloadbill';
+    // 下载资金账单
+    public static DOWNLOADFUNDFLOW_URL: string = 'https://api.mch.weixin.qq.com/pay/downloadfundflow';
+    // 交易保障
+    public static REPORT_URL: string = 'https://api.mch.weixin.qq.com/payitil/report';
+    // 转换短链接
+    public static SHORTURL_URL: string = 'https://api.mch.weixin.qq.com/tools/shorturl';
+    // 授权码查询openid
+    public static AUTHCODETOOPENID_URL: string = 'https://api.mch.weixin.qq.com/tools/authcodetoopenid';
+    // 拉取订单评价数据
+    public static BATCHQUERYCOMMENT_URL: string = 'https://api.mch.weixin.qq.com/billcommentsp/batchquerycomment';
 
-    // Sandbox URL
-    private static SANDBOX_GETSIGNKEY_URL: string = 'https://api.mch.weixin.qq.com/sandboxnew/pay/getsignkey';
-    private static SANDBOX_MICROPAY_URL: string = 'https://api.mch.weixin.qq.com/sandboxnew/pay/micropay';
-    private static SANDBOX_UNIFIEDORDER_URL: string = 'https://api.mch.weixin.qq.com/sandboxnew/pay/unifiedorder';
-    private static SANDBOX_ORDERQUERY_URL: string = 'https://api.mch.weixin.qq.com/sandboxnew/pay/orderquery';
-    private static SANDBOX_REVERSE_URL: string = 'https://api.mch.weixin.qq.com/sandboxnew/secapi/pay/reverse';
-    private static SANDBOX_CLOSEORDER_URL: string = 'https://api.mch.weixin.qq.com/sandboxnew/pay/closeorder';
-    private static SANDBOX_REFUND_URL: string = 'https://api.mch.weixin.qq.com/sandboxnew/secapi/pay/refund';
-    private static SANDBOX_REFUNDQUERY_URL: string = 'https://api.mch.weixin.qq.com/sandboxnew/pay/refundquery';
-    private static SANDBOX_DOWNLOADBILL_URL: string = 'https://api.mch.weixin.qq.com/sandboxnew/pay/downloadbill';
-    private static SANDBOX_REPORT_URL: string = 'https://api.mch.weixin.qq.com/sandboxnew/payitil/report';
-    private static SANDBOX_SHORTURL_URL: string = 'https://api.mch.weixin.qq.com/sandboxnew/tools/shorturl';
-    private static SANDBOX_AUTHCODETOOPENID_URL: string = 'https://api.mch.weixin.qq.com/sandboxnew/tools/authcodetoopenid';
+    // WxPay Sandbox URL
+    public static SANDBOX_GETSIGNKEY_URL: string = 'https://api.mch.weixin.qq.com/sandboxnew/pay/getsignkey';
+    public static SANDBOX_MICROPAY_URL: string = 'https://api.mch.weixin.qq.com/sandboxnew/pay/micropay';
+    public static SANDBOX_UNIFIEDORDER_URL: string = 'https://api.mch.weixin.qq.com/sandboxnew/pay/unifiedorder';
+    public static SANDBOX_ORDERQUERY_URL: string = 'https://api.mch.weixin.qq.com/sandboxnew/pay/orderquery';
+    public static SANDBOX_REVERSE_URL: string = 'https://api.mch.weixin.qq.com/sandboxnew/secapi/pay/reverse';
+    public static SANDBOX_CLOSEORDER_URL: string = 'https://api.mch.weixin.qq.com/sandboxnew/pay/closeorder';
+    public static SANDBOX_REFUND_URL: string = 'https://api.mch.weixin.qq.com/sandboxnew/secapi/pay/refund';
+    public static SANDBOX_REFUNDQUERY_URL: string = 'https://api.mch.weixin.qq.com/sandboxnew/pay/refundquery';
+    public static SANDBOX_DOWNLOADBILL_URL: string = 'https://api.mch.weixin.qq.com/sandboxnew/pay/downloadbill';
+    public static SANDBOX_REPORT_URL: string = 'https://api.mch.weixin.qq.com/sandboxnew/payitil/report';
+    public static SANDBOX_SHORTURL_URL: string = 'https://api.mch.weixin.qq.com/sandboxnew/tools/shorturl';
+    public static SANDBOX_AUTHCODETOOPENID_URL: string = 'https://api.mch.weixin.qq.com/sandboxnew/tools/authcodetoopenid';
 
     public static getSignKey(mchId: string, key: string) {
         let that = this;

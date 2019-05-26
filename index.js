@@ -33,11 +33,14 @@ module.exports.JsTicket = require('./dist/JsTicket').JsTicket;
 module.exports.PoiApi = require('./dist/api/PoiApi').PoiApi;
 module.exports.ShakeAroundApi = require('./dist/api/shakearound/ShakeAroundApi').ShakeAroundApi;
 module.exports.MaterialType = require('./dist/api/shakearound/ShakeAroundApi').MaterialType;
-module.ShakeAroundDeviceApi = require('./dist/api/shakearound/ShakeAroundDeviceApi').ShakeAroundDeviceApi;
-module.DeviceIdentifier = require('./dist/api/shakearound/ShakeAroundDeviceApi').DeviceIdentifier;
-module.ShakeAroundPageApi = require('./dist/api/shakearound/ShakeAroundPageApi').ShakeAroundPageApi;
-module.ShakeAroundStatisticsApi = require('./dist/api/shakearound/ShakeAroundStatisticsApi').ShakeAroundStatisticsApi;
-module.ShakeAroundUserApi = require('./dist/api/shakearound/ShakeAroundUserApi').ShakeAroundUserApi;
+module.exports.ShakeAroundDeviceApi = require('./dist/api/shakearound/ShakeAroundDeviceApi').ShakeAroundDeviceApi;
+module.exports.DeviceIdentifier = require('./dist/api/shakearound/ShakeAroundDeviceApi').DeviceIdentifier;
+module.exports.ShakeAroundPageApi = require('./dist/api/shakearound/ShakeAroundPageApi').ShakeAroundPageApi;
+module.exports.ShakeAroundStatisticsApi = require('./dist/api/shakearound/ShakeAroundStatisticsApi').ShakeAroundStatisticsApi;
+module.exports.ShakeAroundUserApi = require('./dist/api/shakearound/ShakeAroundUserApi').ShakeAroundUserApi;
+
+module.exports.WxPay = require('./dist/api/WxPay').WxPay;
+module.exports.Kits = require('./dist/kit/Kits').Kits;
 
 module.exports.DefaultAccessTokenCache = require('./dist/cache/DefaultAccessTokenCache').DefaultAccessTokenCache;
 module.exports.IAccessTokenCache = require('./dist/cache/IAccessTokenCache');
