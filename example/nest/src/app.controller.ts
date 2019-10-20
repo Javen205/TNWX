@@ -8,7 +8,8 @@ import {
   SubscribeMsg, Data, Content, SubscribeMsgApi,
   TagApi, ShortUrlApi, QrcodeApi, Article, SemanticApi,
   TemplateApi, TemplateData, MenuApi, AccessTokenApi, AccessToken,
-  CustomServiceApi, MenuMsg, UserApi, BatchUserInfo, AutoReplyInfoApi
+  CustomServiceApi, MenuMsg, UserApi, BatchUserInfo, AutoReplyInfoApi,
+  WxPay, WX_API_TYPE, WX_DOMAIN
 } from 'tnw';
 import { MsgController } from './MsgController';
 import { MenuManager } from './MenuManager';
@@ -31,7 +32,7 @@ export class AppController {
     let timestamp = new Date().getTime() / 1000;
     let nonceStr = uuid.v1();
     let url = "http://xxxx/jssdk";//填写完整页面的URL
-    let signature = await WeChat.jssdkSignature(nonceStr, timestamp, url);
+    let signature = await WeChat.jssdkSignature(nonceStr, String(timestamp), url);
     return {
       appId: appId,
       timestamp: timestamp,
@@ -44,6 +45,14 @@ export class AppController {
   @Render('index.hbs')
   getHello() {
     return {};
+  }
+
+  @Get("wxPay")
+  wxPay(@Req() request: Request, @Res() response: Response) {
+    WxPay.getSignKey("1444446802", "hebeiruiziwangluokejiyouxiangong")
+      .then((data) => {
+        response.send(data);
+      }).catch((error) => console.log(error))
   }
 
   @Get('/msg')

@@ -30,8 +30,10 @@ import { DatacubeApi } from '../api/DatacubeApi';
 import { PoiApi } from '../api/PoiApi';
 import { JsTicketApi, JsApiType } from '../api/JsTicketApi';
 import { Kits, SIGN_TYPE } from '../kit/Kits';
-import { WxPay } from '../api/WxPay';
+import { WxPay } from '../api/wxpay/WxPay';
 import { HttpKit } from '../kit/HttpKit';
+import { WX_DOMAIN } from '../api/wxpay/WxDomain';
+import { WX_API_TYPE } from '../api/wxpay/WxApiType';
 
 const app = express();
 
@@ -58,7 +60,7 @@ app.get('/', (req: any, res: any) => {
             console.log('MD5 ', Kits.md5('123'));
             console.log('', Kits.hmacsha256('123', 'IJPay'));
             console.log(Kits.generateStr());
-            Kits.xml2obj(xml.toString())
+            Kits.xml2obj(String(xml))
                 .then((obj) => {
                     console.log(JSON.stringify(obj));
                     res.send(msg);
@@ -107,7 +109,7 @@ app.get('/wxpay', async (req: any, res: any) => {
             // obj 对象转化为 xml
             Kits.obj2xml(reqObj).then((xml) => {
                 console.log('请求xml>' + xml);
-                HttpKit.getHttpDelegate.httpPost(WxPay.UNIFIEDORDER_URL, xml.toString())
+                HttpKit.getHttpDelegate.httpPost(WX_DOMAIN.CHINA.concat(WX_API_TYPE.UNIFIED_ORDER), String(xml))
                     .then((data) => {
                         console.log('响应的结果>' + data);
                     })

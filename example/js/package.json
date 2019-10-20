@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "tnw": "0.0.2"
+    "tnw": "1.1.2"
   }
 }

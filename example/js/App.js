@@ -1,32 +1,5 @@
 'use strict';
 
-// const MsgController = require('./MsgController').MsgController;
-// const MenuManager = require('./MenuManager').MenuManager;
-// const ApiConfigKit = require('../index').ApiConfigKit;
-// const ApiConfig = require('../index').ApiConfig;
-// const TemplateData = require('../index').TemplateData;
-// const WeChat = require('../index').WeChat;
-// const TemplateApi = require('../index').TemplateApi;
-// const MenuApi = require('../index').MenuApi;
-// const AccessTokenApi = require('../index').AccessTokenApi;
-// const CustomServiceApi = require('../index').CustomServiceApi;
-// const MenuMsg = require('../index').MenuMsg;
-// const Article = require('../index').Article;
-// const QrcodeApi = require('../index').QrcodeApi;
-// const ShortUrlApi = require('../index').ShortUrlApi;
-// const TagApi = require('../index').TagApi;
-// const UserApi = require('../index').UserApi;
-// const SnsAccessTokenApi = require("../index").SnsAccessTokenApi;
-// const ScopeEnum = require("../index").ScopeEnum;
-// const Lang = require("../index").Lang;
-// const SubscribeMsgApi = require("../index").SubscribeMsgApi;
-// const SubscribeMsg = require("../index").SubscribeMsg;
-// const Data = require("../index").Data;
-// const Content = require("../index").Content;
-
-
-const MsgController = require('./MsgController').MsgController;
-const MenuManager = require('./MenuManager').MenuManager;
 const ApiConfigKit = require('tnw').ApiConfigKit;
 const ApiConfig = require('tnw').ApiConfig;
 const TemplateData = require('tnw').TemplateData;
@@ -48,7 +21,8 @@ const SubscribeMsgApi = require("tnw").SubscribeMsgApi;
 const SubscribeMsg = require("tnw").SubscribeMsg;
 const Data = require("tnw").Data;
 const Content = require("tnw").Content;
-
+const MsgController = require('./MsgController').MsgController;
+const MenuManager = require('./MenuManager').MenuManager;
 
 const express = require('express');
 const fs = require('fs');

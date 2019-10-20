@@ -9,11 +9,15 @@ import {
     OutNewsMsg, InFollowEvent, InQrCodeEvent, InMsg,
     InImageMsg, InVoiceMsg, InVideoMsg, InShortVideoMsg,
     InLocationMsg, InLinkMsg, InSpeechRecognitionResults,
-    InLocationEvent, InMenuEvent, InTemplateMsgEvent, OutCustomMsg
-
+    InLocationEvent, InMenuEvent, InTemplateMsgEvent,
+    OutCustomMsg, InShakearoundUserShakeEvent
 } from "tnw";
 
 export class MsgController implements MsgAdapter {
+    processInShakearoundUserShakeEvent(inShakearoundUserShakeEvent: InShakearoundUserShakeEvent): OutMsg {
+        return this.renderOutTextMsg(inShakearoundUserShakeEvent,
+            "处理摇一摇周边事件");
+    }
 
     processInTextMsg(inTextMsg: InTextMsg): OutMsg {
         let outMsg: any;
