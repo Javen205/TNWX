@@ -58,9 +58,9 @@
     "watch": true
   },
   "include": [
-    "./src/**/*"
+    "./src/index.ts",
   ],
   "exclude": [
-    // "./src/example/**/*"
+    "./src/example/**/*"
   ]
 }

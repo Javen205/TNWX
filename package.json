@@ -1,12 +1,13 @@
 {
   "name": "tnw",
-  "version": "1.0.1",
-  "description": "TypeScript + Node.js 极速开发微信公众号 By Javen ",
-  "main": "index.js",
+  "version": "1.1.2",
+  "description": "TNW 微信公众号开发脚手架 By Javen ",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "dev": "supervisor -w dist ./dist/example/App.js",
     "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\""
   },
   "repository": {
     "type": "git",
