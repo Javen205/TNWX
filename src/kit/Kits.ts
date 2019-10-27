@@ -16,6 +16,34 @@ export enum SIGN_TYPE {
 export class Kits {
     public static FIELD_SIGN = 'sign';
     public static FIELD_SIGN_TYPE = 'sign_type';
+    /**
+     * 加密方法
+     * @param key  加密key
+     * @param iv   向量
+     * @param data 需要加密的数据
+     */
+    public static aes128cbcEncrypt(key: Buffer, iv: Buffer, data: string) {
+        let cipher = crypto.createCipheriv('aes-128-cbc', key, iv);
+        let crypted = cipher.update(data, 'utf8', 'binary');
+        crypted += cipher.final('binary');
+        crypted = new Buffer(crypted, 'binary').toString('base64');
+        return crypted;
+    }
+    /**
+     * 解密方法
+     * @param key      解密的key
+     * @param iv       向量
+     * @param crypted  密文
+     */
+    public static aes128cbcDecrypt(key: Buffer, iv: Buffer, crypted: string) {
+        crypted = new Buffer(crypted, 'base64').toString('binary');
+        let decipher = crypto.createDecipheriv('aes-128-cbc', key, iv);
+        // 设置自动 padding 为 true，删除填充补位
+        decipher.setAutoPadding(true)
+        let decoded = decipher.update(crypted, 'binary', 'utf8');
+        decoded += decipher.final('utf8');
+        return decoded;
+    }
 
     /**
      * hmacsha256 加密
@@ -26,7 +54,14 @@ export class Kits {
         return crypto.createHmac('sha256', key).update(data, 'utf8').digest('hex').toUpperCase();
     }
     /**
-     * md6 加密
+     * sha1加密
+     * @param data 
+     */
+    public static sha1(data: string) {
+        return crypto.createHash('sha1').update(data).digest('hex').toUpperCase();
+    }
+    /**
+     * md5 加密
      * @param data 
      */
     public static md5(data: string | Buffer | Array<number>): string {
