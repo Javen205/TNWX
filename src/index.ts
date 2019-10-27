@@ -96,10 +96,10 @@ export { WxPay } from './api/wxpay/WxPay'
 export { WX_API_TYPE } from './api/wxpay/WxApiType'
 export { WX_DOMAIN } from './api/wxpay/WxDomain'
 
-
-
 export { ShakeAroundApi, MaterialType } from './api/shakearound/ShakeAroundApi'
 export { ShakeAroundDeviceApi, DeviceIdentifier } from './api/shakearound/ShakeAroundDeviceApi'
 export { ShakeAroundPageApi } from './api/shakearound/ShakeAroundPageApi'
 export { ShakeAroundStatisticsApi } from './api/shakearound/ShakeAroundStatisticsApi'
 export { ShakeAroundUserApi } from './api/shakearound/ShakeAroundUserApi'
+
+export { WxMiniGameApi, WxMiniGameMediaType } from './api/wxminigame/WxMiniGameApi'

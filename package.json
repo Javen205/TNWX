@@ -1,7 +1,7 @@
 {
   "name": "tnw",
-  "version": "1.1.2",
-  "description": "TNW 微信公众号开发脚手架 By Javen ",
+  "version": "1.2.0",
+  "description": "TNW 微信系开发脚手架 By Javen ",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -21,7 +21,8 @@
     "WeChat",
     "微信公众号",
     "微信支付",
-    "微信小程序"
+    "微信小程序",
+    "微信小游戏"
   ],
   "author": "Javen",
   "license": "MIT",

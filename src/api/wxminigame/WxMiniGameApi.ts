@@ -44,7 +44,7 @@ export class WxMiniGameApi {
     public static async imgSecCheck(imgPath: string) {
         let accessToken = await AccessTokenApi.getAccessToken();
         let url = util.format(this.imgSecCheckUrl, (<AccessToken>accessToken).getAccessToken);
-        return HttpKit.getHttpDelegate.upload(url, imgPath, null);
+        return HttpKit.getHttpDelegate.upload(url, imgPath, '');
     }
 
     private static mediaCheckAsyncUrl: string = "https://api.weixin.qq.com/wxa/media_check_async?access_token=%s";

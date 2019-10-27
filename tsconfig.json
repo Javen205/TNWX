@@ -59,6 +59,7 @@
   },
   "include": [
     "./src/index.ts",
+    // "./src/example/**/*"
   ],
   "exclude": [
     "./src/example/**/*"
