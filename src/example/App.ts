@@ -1,3 +1,4 @@
+import { WxMiniGameApi, WxMiniGameMediaType } from '../api/wxminigame/WxMiniGameApi';
 import { ApiConfig } from '../entity/ApiConfig'
 import { MsgController } from './MsgController'
 import { AccessToken } from '../AccessToken'
@@ -123,6 +124,77 @@ app.get('/wxpay', async (req: any, res: any) => {
             break;
         default:
             res.send(msg);
+            break
+    }
+
+});
+
+app.get('/miniProgram', async (req: any, res: any) => {
+
+    let type: string = req.query.type;
+    let code: string = req.query.code;
+    let openId: string = req.query.openId;
+    let signature: string = req.query.signature;
+    let sigMethod: string = 'hmac_sha256';
+
+
+
+
+    console.log('to miniProgram...' + type);
+
+    switch (parseInt(type)) {
+        case 1:
+            WxMiniGameApi.imgSecCheck('/Users/Javen/Documents/pic/test.jpeg')
+                .then((data) => {
+                    res.send(data);
+                }).catch((error) => console.log(error))
+            break;
+        case 2:
+            WxMiniGameApi.mediaCheckAsync('/Users/Javen/Documents/pic/test.jpeg', WxMiniGameMediaType.IMG)
+                .then((data) => {
+                    res.send(data);
+                }).catch((error) => console.log(error))
+            break;
+        case 3:
+            WxMiniGameApi.msgSecCheck('TNW 微信系开发脚手架')
+                .then((data) => {
+                    res.send(data);
+                }).catch((error) => console.log(error))
+            break;
+        case 4:
+            console.info("getAppId>", ApiConfigKit.getAppId);
+            console.info("getAppScrect>", ApiConfigKit.getApiConfig.getAppScrect);
+
+            WxMiniGameApi.code2Session(ApiConfigKit.getAppId, ApiConfigKit.getApiConfig.getAppScrect, code)
+                .then((data) => {
+                    res.send(data);
+                }).catch((error) => console.log(error))
+            break;
+        case 5:
+            WxMiniGameApi.checkSessionKey(openId, signature, sigMethod)
+                .then((data) => {
+                    res.send(data);
+                }).catch((error) => console.log(error))
+            break;
+        case 6:
+            signature = 'bc404eedffb75c8d3cf3346acaf92466a7a793a1';
+            let rawData = '{"nickName":"Javen","gender":1,"language":"zh_CN","city":"Shenzhen","province":"Guangdong","country":"China","avatarUrl":"https://wx.qlogo.cn/mmopen/vi_32/icc2nhPAgI52Yx52hWXknQzYC122WeVIAoE1F9Tia3ZFmj8TUEr6M4rY10GDf4qTFT9RvdM3icDibq9BQ7kooYMW5g/132"}';
+            let session_key = 'syOEZf6faXl3JqAKh9FfvQ==';
+            let iv = 'wGZm1/t99wRHb4oiwDbybQ==';
+            let encryptedData = 'r9UTG7Yo3xlXZ1++2atDr/7So5b+GevtC4ZkxXeL+vCjYoMp50YB004IcCuPdbZlzd06Pvx0Yd6B92188ttbvkhCYb2uE8Wa8Nr1a/M72984gHj37TX4dX5f8/IMAXGqSPOMVjx14LZPMg8YDFYY5lUlYtHRvsOLl8zboZ9fR2B5+p3juPsnzyxuZZkUHYclRJ3qQzffZHMrelP7IHdMbUHVmsgpfwJc5Is6zhSpi/DKjHJxdIfHjl0wusP1Dy55WymSfxUfaEi63Fln9m8fUXF0mZprbFGl54sxKdabQuaQIL7aeETpMhNEmWBdtIetTuC3bkfBXLlW1b/JkUjBRdU2ZF4tRKHT24I6LnwfQMmXrEcbHA0JdU2CvU/TeF+iqYud4mgo115THVy76jxIPJXm65zbLuUVG6CvzOUSEOyWVSNQ7nbcwA3qrDiEuL4nYPusyoQpsZCxs+FUTEImmATD12R0/6Q1N557Ica59Wo=';
+            let key = new Buffer(session_key, 'base64');
+            let baseIv = new Buffer(iv, 'base64');
+
+            let signature2 = Kits.sha1(rawData + session_key).toLocaleLowerCase();
+
+            if (signature2 === signature) {
+                let ecrypt = Kits.aes128cbcDecrypt(key, baseIv, encryptedData);
+                res.send(ecrypt);
+            } else {
+                res.send('签名错误');
+            }
+            break
+        default:
             break
     }
 
@@ -828,10 +900,13 @@ const server = app.listen(8888, "localhost", () => {
         // 亦可以读取配置文件
         let devApiConfig = new ApiConfig("Javen", "wx614c453e0d1dcd12", "19a02e4927d346484fc70327970457f9");
         let proApiConfig = new ApiConfig("Javen", "wx0ac22947e8d7f437", "cd35d0cd5783a2fd47c488a80d5aa807", true, "GFLxP8ppqcgQbI0yivtMkY4pkOAOiapHhQsCOgYUnYK");
+        let miniApiConfig = new ApiConfig("Javen", "wxf30d9b9b316d5de4", "bf0f1a06ba7cc16be643a250ca40213b");
+
         // 支持多公众号
         ApiConfigKit.putApiConfig(devApiConfig);
         ApiConfigKit.putApiConfig(proApiConfig);
-        ApiConfigKit.setCurrentAppId();
+        ApiConfigKit.putApiConfig(miniApiConfig);
+        ApiConfigKit.setCurrentAppId("wxf30d9b9b316d5de4");
         // 开启开发模式,方便调试
         ApiConfigKit.devMode = true;
         if (ApiConfigKit.devMode) {
