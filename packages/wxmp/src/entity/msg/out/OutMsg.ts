@@ -8,14 +8,14 @@ export abstract class OutMsg {
 	// 消息创建时间
 	protected createTime: number;
 	/**
-   * 被动响应消息类型
-   * 1：text 文本消息
-   * 2：image 图片消息
-   * 3：voice 语音消息
-   * 4：video 视频消息
-   * 5：music 音乐消息
-   * 6：news 图文消息
-   */
+	 *  被动响应消息类型
+	 *  1：text 文本消息
+	 *  2：image 图片消息
+	 *  3：voice 语音消息
+	 *  4：video 视频消息
+	 *  5：music 音乐消息
+	 *  6：news 图文消息
+	 */
 	protected msgType: string;
 
 	constructor(inMsg: InMsg) {

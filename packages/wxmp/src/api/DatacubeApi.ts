@@ -29,20 +29,20 @@ export class DatacubeApi {
 	}
 
 	/**
-   * 获取用户增减数据 最大时间跨度：7天
-   * @param beginDate 获取数据的起始日期
-   * @param endDate 获取数据的结束日期
-   */
+	 *  获取用户增减数据 最大时间跨度：7天
+	 *  @param beginDate 获取数据的起始日期
+	 *  @param endDate 获取数据的结束日期
+	 */
 	public static async getUserSummary(beginDate: string, endDate: string) {
 		let accessToken: AccessToken = await AccessTokenApi.getAccessToken();
 		let url = util.format(this.getUserSummaryUrl, accessToken.getAccessToken);
 		return this.getData(url, beginDate, endDate);
 	}
 	/**
-   * 获取累计用户数据 最大时间跨度：7天
-   * @param beginDate 获取数据的起始日期
-   * @param endDate 获取数据的结束日期
-   */
+	 *  获取累计用户数据 最大时间跨度：7天
+	 *  @param beginDate 获取数据的起始日期
+	 *  @param endDate 获取数据的结束日期
+	 */
 	public static async getUserCumulate(beginDate: string, endDate: string) {
 		let accessToken: AccessToken = await AccessTokenApi.getAccessToken();
 		let url = util.format(this.getUserCumulateUrl, accessToken.getAccessToken);
@@ -50,10 +50,10 @@ export class DatacubeApi {
 	}
 
 	/**
-   * 获取图文群发每日数据，最大跨度1天
-   * @param beginDate
-   * @param endDate
-   */
+	 *  获取图文群发每日数据，最大跨度1天
+	 *  @param beginDate
+	 *  @param endDate
+	 */
 	public static async getArticleSummary(beginDate: string, endDate: string) {
 		let accessToken: AccessToken = await AccessTokenApi.getAccessToken();
 		let url = util.format(this.getArticleSummaryUrl, accessToken.getAccessToken);
@@ -61,10 +61,10 @@ export class DatacubeApi {
 	}
 
 	/**
-   * 获取图文群发总数据，最大跨度1天
-   * @param beginDate
-   * @param endDate
-   */
+	 *  获取图文群发总数据，最大跨度1天
+	 *  @param beginDate
+	 *  @param endDate
+	 */
 	public static async getArticleTotal(beginDate: string, endDate: string) {
 		let accessToken: AccessToken = await AccessTokenApi.getAccessToken();
 		let url = util.format(this.getArticleTotalUrl, accessToken.getAccessToken);
@@ -72,10 +72,10 @@ export class DatacubeApi {
 	}
 
 	/**
-   * 获取图文统计数据 最大跨度3天
-   * @param beginDate
-   * @param endDate
-   */
+	 *  获取图文统计数据 最大跨度3天
+	 *  @param beginDate
+	 *  @param endDate
+	 */
 	public static async getUserRead(beginDate: string, endDate: string) {
 		let accessToken: AccessToken = await AccessTokenApi.getAccessToken();
 		let url = util.format(this.getUserReadUrl, accessToken.getAccessToken);
@@ -83,10 +83,10 @@ export class DatacubeApi {
 	}
 
 	/**
-   * 获取图文统计分时数据 最大跨度1天
-   * @param beginDate
-   * @param endDate
-   */
+	 *  获取图文统计分时数据 最大跨度1天
+	 *  @param beginDate
+	 *  @param endDate
+	 */
 	public static async getUserReadHour(beginDate: string, endDate: string) {
 		let accessToken: AccessToken = await AccessTokenApi.getAccessToken();
 		let url = util.format(this.getUserReadHourUrl, accessToken.getAccessToken);
@@ -94,10 +94,10 @@ export class DatacubeApi {
 	}
 
 	/**
-   * 获取图文分享转发数据 最大跨度7天
-   * @param beginDate
-   * @param endDate
-   */
+	 *  获取图文分享转发数据 最大跨度7天
+	 *  @param beginDate
+	 *  @param endDate
+	 */
 	public static async getUserShare(beginDate: string, endDate: string) {
 		let accessToken: AccessToken = await AccessTokenApi.getAccessToken();
 		let url = util.format(this.getUserShareUrl, accessToken.getAccessToken);
@@ -105,10 +105,10 @@ export class DatacubeApi {
 	}
 
 	/**
-   * 获取图文分享转发分时数据 最大跨度1天
-   * @param beginDate
-   * @param endDate
-   */
+	 *  获取图文分享转发分时数据 最大跨度1天
+	 *  @param beginDate
+	 *  @param endDate
+	 */
 	public static async getUserShareHour(beginDate: string, endDate: string) {
 		let accessToken: AccessToken = await AccessTokenApi.getAccessToken();
 		let url = util.format(this.getUserShareHourUrl, accessToken.getAccessToken);
@@ -125,10 +125,10 @@ export class DatacubeApi {
 	private static getInterFaceSummaryUrl: string = 'https://api.weixin.qq.com/datacube/getinterfacesummary?access_token=%s';
 	private static getInterFaceSummaryHourUrl: string = 'https://api.weixin.qq.com/datacube/getinterfacesummaryhour?access_token=%s';
 	/**
-   * 获取消息发送概况数据 最大跨度7天
-   * @param beginDate
-   * @param endDate
-   */
+	 *  获取消息发送概况数据 最大跨度7天
+	 *  @param beginDate
+	 *  @param endDate
+	 */
 	public static async getUpStreamMsg(beginDate: string, endDate: string) {
 		let accessToken: AccessToken = await AccessTokenApi.getAccessToken();
 		let url = util.format(this.getUpStreamMsgUrl, accessToken.getAccessToken);
@@ -136,10 +136,10 @@ export class DatacubeApi {
 	}
 
 	/**
-   * 获取消息分送分时数据 最大跨度1天
-   * @param beginDate
-   * @param endDate
-   */
+	 *  获取消息分送分时数据 最大跨度1天
+	 *  @param beginDate
+	 *  @param endDate
+	 */
 	public static async getUpStreamMsgHour(beginDate: string, endDate: string) {
 		let accessToken: AccessToken = await AccessTokenApi.getAccessToken();
 		let url = util.format(this.getUpStreamMsgHourUrl, accessToken.getAccessToken);
@@ -147,10 +147,10 @@ export class DatacubeApi {
 	}
 
 	/**
-   * 获取消息发送周数据 最大跨度30天
-   * @param beginDate
-   * @param endDate
-   */
+	 *  获取消息发送周数据 最大跨度30天
+	 *  @param beginDate
+	 *  @param endDate
+	 */
 	public static async getUpStreamMsgWeekMsg(beginDate: string, endDate: string) {
 		let accessToken: AccessToken = await AccessTokenApi.getAccessToken();
 		let url = util.format(this.getUpStreamMsgWeekMsgUrl, accessToken.getAccessToken);
@@ -158,10 +158,10 @@ export class DatacubeApi {
 	}
 
 	/**
-   * 获取消息发送月数据 最大跨度30天
-   * @param beginDate
-   * @param endDate
-   */
+	 *  获取消息发送月数据 最大跨度30天
+	 *  @param beginDate
+	 *  @param endDate
+	 */
 	public static async getUpStreamMsgMonth(beginDate: string, endDate: string) {
 		let accessToken: AccessToken = await AccessTokenApi.getAccessToken();
 		let url = util.format(this.getUpStreamMsgMonthUrl, accessToken.getAccessToken);
@@ -169,10 +169,10 @@ export class DatacubeApi {
 	}
 
 	/**
-   * 获取消息发送分布数据 最大跨度15天
-   * @param beginDate
-   * @param endDate
-   */
+	 *  获取消息发送分布数据 最大跨度15天
+	 *  @param beginDate
+	 *  @param endDate
+	 */
 	public static async getUpStreamMsgDist(beginDate: string, endDate: string) {
 		let accessToken: AccessToken = await AccessTokenApi.getAccessToken();
 		let url = util.format(this.getUpStreamMsgDistUrl, accessToken.getAccessToken);
@@ -180,20 +180,20 @@ export class DatacubeApi {
 	}
 
 	/**
-   * 获取消息发送分布周数据 最大跨度30天
-   * @param beginDate
-   * @param endDate
-   */
+	 *  获取消息发送分布周数据 最大跨度30天
+	 *  @param beginDate
+	 *  @param endDate
+	 */
 	public static async getUpStreamMsgDistWeek(beginDate: string, endDate: string) {
 		let accessToken: AccessToken = await AccessTokenApi.getAccessToken();
 		let url = util.format(this.getUpStreamMsgDistWeekUrl, accessToken.getAccessToken);
 		return this.getData(url, beginDate, endDate);
 	}
 	/**
-   * 获取消息发送分布月数据 最大跨度30天
-   * @param beginDate
-   * @param endDate
-   */
+	 *  获取消息发送分布月数据 最大跨度30天
+	 *  @param beginDate
+	 *  @param endDate
+	 */
 	public static async getUpStreamMsgDistMonth(beginDate: string, endDate: string) {
 		let accessToken: AccessToken = await AccessTokenApi.getAccessToken();
 		let url = util.format(this.getUpStreamMsgDistMonthUrl, accessToken.getAccessToken);
@@ -201,10 +201,10 @@ export class DatacubeApi {
 	}
 
 	/**
-   * 获取接口分析数据 最大跨度30天
-   * @param beginDate
-   * @param endDate
-   */
+	 *  获取接口分析数据 最大跨度30天
+	 *  @param beginDate
+	 *  @param endDate
+	 */
 	public static async getInterFaceSummary(beginDate: string, endDate: string) {
 		let accessToken: AccessToken = await AccessTokenApi.getAccessToken();
 		let url = util.format(this.getInterFaceSummaryUrl, accessToken.getAccessToken);
@@ -212,10 +212,10 @@ export class DatacubeApi {
 	}
 
 	/**
-   * 获取接口分析分时数据 最大跨度1天
-   * @param beginDate
-   * @param endDate
-   */
+	 *  获取接口分析分时数据 最大跨度1天
+	 *  @param beginDate
+	 *  @param endDate
+	 */
 	public static async getInterFaceSummaryHour(beginDate: string, endDate: string) {
 		let accessToken: AccessToken = await AccessTokenApi.getAccessToken();
 		let url = util.format(this.getInterFaceSummaryHourUrl, accessToken.getAccessToken);

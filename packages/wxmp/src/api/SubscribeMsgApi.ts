@@ -15,12 +15,12 @@ export class SubscribeMsgApi {
 	private static authorizeUrl: string = 'https://mp.weixin.qq.com/mp/subscribemsg?action=get_confirm&appid=%s&scene=%d&template_id=%s&redirect_url=%s';
 	private static subscribeUrl: string = 'https://api.weixin.qq.com/cgi-bin/message/template/subscribe?access_token=%s';
 	/**
-   * 获取授权URL
-   * @param scene  0-10000 场景值
-   * @param templateId 订阅消息模板ID
-   * @param redirectUrl
-   * @param reserved 可以填写a-zA-Z0-9的参数值
-   */
+	 *  获取授权URL
+	 *  @param scene  0-10000 场景值
+	 *  @param templateId 订阅消息模板ID
+	 *  @param redirectUrl
+	 *  @param reserved 可以填写a-zA-Z0-9的参数值
+	 */
 	public static getAuthorizeURL(scene: number, templateId: string, redirectUrl: string, reserved?: string): string {
 		let url = util.format(
 			this.authorizeUrl,
@@ -35,9 +35,9 @@ export class SubscribeMsgApi {
 		return url + '#wechat_redirect';
 	}
 	/**
-   * 推送订阅模板消息给到授权微信用户
-   * @param subscribeMsg
-   */
+	 *  推送订阅模板消息给到授权微信用户
+	 *  @param subscribeMsg
+	 */
 	public static async send(subscribeMsg: SubscribeMsg) {
 		return this.sendMsg(JSON.stringify(subscribeMsg));
 	}

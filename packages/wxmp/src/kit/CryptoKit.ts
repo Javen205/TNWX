@@ -45,10 +45,10 @@ export class CryptoKit {
 	}
 
 	/**
-   * 微信消息解密
-   * @param encryptMsg 加密字符串
-   * @param encodingAESKey 消息加解密密钥
-   */
+	 *  微信消息解密
+	 *  @param encryptMsg 加密字符串
+	 *  @param encodingAESKey 消息加解密密钥
+	 */
 	decryptMsg(encryptMsg: string): any {
 		//获取签名认证
 		var tempSignature = this.getMsgSignature(encryptMsg);
@@ -73,9 +73,9 @@ export class CryptoKit {
 	}
 
 	/**
-   * 微信消息加密
-   * @param xmlMsg
-   */
+	 *  微信消息加密
+	 *  @param xmlMsg
+	 */
 	encryptMsg(xmlMsg: string): string {
 		//声明 16位的随机字符串
 		let random = crypto.randomBytes(8).toString('hex');

@@ -20,10 +20,10 @@ export class UserApi {
 	private static batchUnBlackListUrl: string = 'https://api.weixin.qq.com/cgi-bin/tags/members/batchunblacklist?access_token=%s';
 
 	/**
-   * 设置用户备注名
-   * @param openId
-   * @param remark
-   */
+	 *  设置用户备注名
+	 *  @param openId
+	 *  @param remark
+	 */
 	public static async updateRemark(openId: string, remark: string) {
 		let accessToken: AccessToken = await AccessTokenApi.getAccessToken();
 		let url = util.format(this.updateRemarkUrl, accessToken.getAccessToken);
@@ -36,10 +36,10 @@ export class UserApi {
 		);
 	}
 	/**
-   * 获取用户列表
-   * @param openId
-   * @param remark
-   */
+	 *  获取用户列表
+	 *  @param openId
+	 *  @param remark
+	 */
 	public static async getFollowers(nextOpenid?: string) {
 		let accessToken: AccessToken = await AccessTokenApi.getAccessToken();
 		let url = util.format(this.getUserUrl, accessToken.getAccessToken);
@@ -49,10 +49,10 @@ export class UserApi {
 		return HttpKit.getHttpDelegate.httpGet(url);
 	}
 	/**
-   * 获取用户基本信息（包括UnionID机制）
-   * @param openId
-   * @param lang
-   */
+	 *  获取用户基本信息（包括UnionID机制）
+	 *  @param openId
+	 *  @param lang
+	 */
 	public static async getUserInfo(openId: string, lang?: string) {
 		let accessToken: AccessToken = await AccessTokenApi.getAccessToken();
 		let url = util.format(this.getUserInfoUrl, accessToken.getAccessToken, openId);
@@ -62,9 +62,9 @@ export class UserApi {
 		return HttpKit.getHttpDelegate.httpGet(url);
 	}
 	/**
-   * 批量获取用户基本信息
-   * @param userList
-   */
+	 *  批量获取用户基本信息
+	 *  @param userList
+	 */
 	public static async batchGetUserInfo(userList: BatchUserInfo[]) {
 		return this.batchUserInfo(
 			JSON.stringify({
@@ -74,9 +74,9 @@ export class UserApi {
 	}
 
 	/**
-   * 批量获取用户基本信息
-   * @param json
-   */
+	 *  批量获取用户基本信息
+	 *  @param json
+	 */
 	public static async batchUserInfo(json: string) {
 		let accessToken: AccessToken = await AccessTokenApi.getAccessToken();
 		let url = util.format(this.batchGetUrl, accessToken.getAccessToken);
@@ -84,9 +84,9 @@ export class UserApi {
 	}
 
 	/**
-   * 获取公众号的黑名单列表
-   * @param beginOpenId 为空时默认从开头拉取
-   */
+	 *  获取公众号的黑名单列表
+	 *  @param beginOpenId 为空时默认从开头拉取
+	 */
 	public static async getBlackList(beginOpenId?: string) {
 		let accessToken: AccessToken = await AccessTokenApi.getAccessToken();
 		let url = util.format(this.getBlackListUrl, accessToken.getAccessToken);
@@ -98,9 +98,9 @@ export class UserApi {
 		);
 	}
 	/**
-   * 拉黑用户
-   * @param openidList  需要拉入黑名单的用户的openid，一次拉黑最多允许20个
-   */
+	 *  拉黑用户
+	 *  @param openidList  需要拉入黑名单的用户的openid，一次拉黑最多允许20个
+	 */
 	public static async batchBlackList(openidList: string[]) {
 		let accessToken: AccessToken = await AccessTokenApi.getAccessToken();
 		let url = util.format(this.batchBlackListUrl, accessToken.getAccessToken);
@@ -113,9 +113,9 @@ export class UserApi {
 	}
 
 	/**
-   * 取消拉黑用户
-   * @param openidList
-   */
+	 *  取消拉黑用户
+	 *  @param openidList
+	 */
 	public static async batchUnBlackList(openidList: string[]) {
 		let accessToken: AccessToken = await AccessTokenApi.getAccessToken();
 		let url = util.format(this.batchUnBlackListUrl, accessToken.getAccessToken);

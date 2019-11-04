@@ -17,18 +17,18 @@ export class PoiApi {
 	private static getWxCategoryUrl: string = 'http://api.weixin.qq.com/cgi-bin/poi/getwxcategory?access_token=%s';
 
 	/**
-   * 创建门店
-   * @param jsonStr
-   */
+	 *  创建门店
+	 *  @param jsonStr
+	 */
 	public static async addPoi(jsonStr: string) {
 		let accessToken: AccessToken = await AccessTokenApi.getAccessToken();
 		let url = util.format(this.addPoiUrl, accessToken.getAccessToken);
 		return HttpKit.getHttpDelegate.httpPost(url, jsonStr);
 	}
 	/**
-   * 查询门店信息
-   * @param poiId
-   */
+	 *  查询门店信息
+	 *  @param poiId
+	 */
 	public static async getPoi(poiId: string) {
 		let accessToken: AccessToken = await AccessTokenApi.getAccessToken();
 		let url = util.format(this.getPoiUrl, accessToken.getAccessToken);
@@ -40,10 +40,10 @@ export class PoiApi {
 		);
 	}
 	/**
-   * 查询门店列表
-   * @param begin 开始位置，0 即为从第一条开始查询
-   * @param limit 返回数据条数，最大允许50，默认为20
-   */
+	 *  查询门店列表
+	 *  @param begin 开始位置，0 即为从第一条开始查询
+	 *  @param limit 返回数据条数，最大允许50，默认为20
+	 */
 	public static async getPoiList(begin: number = 0, limit: number = 20) {
 		let accessToken: AccessToken = await AccessTokenApi.getAccessToken();
 		let url = util.format(this.getPoiListUrl, accessToken.getAccessToken);
@@ -56,18 +56,18 @@ export class PoiApi {
 		);
 	}
 	/**
-   * 修改门店服务信息
-   * @param jsonStr
-   */
+	 *  修改门店服务信息
+	 *  @param jsonStr
+	 */
 	public static async updatePoi(jsonStr: string) {
 		let accessToken: AccessToken = await AccessTokenApi.getAccessToken();
 		let url = util.format(this.updatePoiUrl, accessToken.getAccessToken);
 		return HttpKit.getHttpDelegate.httpPost(url, jsonStr);
 	}
 	/**
-   * 删除门店
-   * @param poiId
-   */
+	 *  删除门店
+	 *  @param poiId
+	 */
 	public static async delPoi(poiId: string) {
 		let accessToken: AccessToken = await AccessTokenApi.getAccessToken();
 		let url = util.format(this.delPoiUrl, accessToken.getAccessToken);
@@ -79,8 +79,8 @@ export class PoiApi {
 		);
 	}
 	/**
-   * 门店类目表
-   */
+	 *  门店类目表
+	 */
 	public static async getWxCategory() {
 		let accessToken: AccessToken = await AccessTokenApi.getAccessToken();
 		let url = util.format(this.getWxCategoryUrl, accessToken.getAccessToken);

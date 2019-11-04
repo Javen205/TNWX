@@ -36,10 +36,10 @@ export class WxPay {
 	}
 
 	/**
-   * 判断异步通知中的 sign 是否有效
-   * @param notifyData
-   * @param key api key
-   */
+	 * 判断异步通知中的 sign 是否有效
+	 * @param notifyData
+	 * @param key api key
+	 */
 	public static notifySignatureValid(notifyData: any, key: string) {
 		let signType: SIGN_TYPE;
 		let signTypeInData = notifyData[Kits.FIELD_SIGN_TYPE];
@@ -60,11 +60,11 @@ export class WxPay {
 		return this.isSignatureValid(notifyData, key, signType);
 	}
 	/**
-   * 验证签名
-   * @param data
-   * @param key
-   * @param signTypeParam
-   */
+	 * 验证签名
+	 * @param data
+	 * @param key
+	 * @param signTypeParam
+	 */
 	public static isSignatureValid(data: any, key: string, signTypeParam: SIGN_TYPE) {
 		let signType = signTypeParam || SIGN_TYPE.SIGN_TYPE_MD5;
 		if (data === null || typeof data !== 'object') {

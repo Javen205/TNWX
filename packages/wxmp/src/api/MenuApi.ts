@@ -20,25 +20,25 @@ export class MenuApi {
 	private static tryMatchUrl = 'https://api.weixin.qq.com/cgi-bin/menu/trymatch?access_token=s%';
 
 	/**
-   * 创建菜单
-   * @param menuJson
-   */
+	 *  创建菜单
+	 *  @param menuJson
+	 */
 	public static async create(menuJson: string) {
 		let accessToken: AccessToken = await AccessTokenApi.getAccessToken();
 		let url = util.format(this.createMenuUrl, accessToken.getAccessToken);
 		return HttpKit.getHttpDelegate.httpPost(url, menuJson);
 	}
 	/**
-   * 删除菜单
-   */
+	 *  删除菜单
+	 */
 	public static async delete() {
 		let accessToken: AccessToken = await AccessTokenApi.getAccessToken();
 		let url = util.format(this.deleteMenuUrl, accessToken.getAccessToken);
 		return HttpKit.getHttpDelegate.httpGet(url);
 	}
 	/**
-   * 查询菜单
-   */
+	 *  查询菜单
+	 */
 	public static async get() {
 		let accessToken: AccessToken = await AccessTokenApi.getAccessToken();
 		let url = util.format(this.getMenuUrl, accessToken.getAccessToken);
@@ -51,9 +51,9 @@ export class MenuApi {
 	}
 
 	/**
-   * 添加个性化菜单
-   * @param menuJson
-   */
+	 *  添加个性化菜单
+	 *  @param menuJson
+	 */
 	public static async addConditional(menuJson: string) {
 		let accessToken: AccessToken = await AccessTokenApi.getAccessToken();
 		let url = util.format(this.addConditionalUrl, accessToken.getAccessToken);
@@ -61,17 +61,17 @@ export class MenuApi {
 	}
 
 	/**
-   * 删除个性化菜单
-   */
+	 *  删除个性化菜单
+	 */
 	public static async deleteConditional() {
 		let accessToken: AccessToken = await AccessTokenApi.getAccessToken();
 		let url = util.format(this.delConditionalUrl, accessToken.getAccessToken);
 		return HttpKit.getHttpDelegate.httpGet(url);
 	}
 	/**
-   * 测试个性化菜单匹配结果
-   * @param openId
-   */
+	 *  测试个性化菜单匹配结果
+	 *  @param openId
+	 */
 	public static async tryMatch(openId: string) {
 		let accessToken: AccessToken = await AccessTokenApi.getAccessToken();
 		let url = util.format(this.tryMatchUrl, accessToken.getAccessToken);

@@ -9,15 +9,15 @@ export abstract class InMsg {
 	protected fromUserName: string; //发送方帐号openId
 	protected createTime: number; //消息创建时间
 	/**
-   * 消息类型
-   * 1：text 文本消息
-   * 2：image 图片消息
-   * 3：voice 语音消息
-   * 4：video 视频消息
-   * 5：location 地址位置消息
-   * 6：link 链接消息
-   * 7：event 事件
-   */
+	 * 消息类型
+	 * 1：text 文本消息
+	 * 2：image 图片消息
+	 * 3：voice 语音消息
+	 * 4：video 视频消息
+	 * 5：location 地址位置消息
+	 * 6：link 链接消息
+	 * 7：event 事件
+	 */
 	protected msgType: string; //消息类型
 
 	constructor(toUserName: string, fromUserName: string, createTime: number, msgType: string) {

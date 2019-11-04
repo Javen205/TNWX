@@ -32,12 +32,12 @@ import { InShakearoundUserShakeEvent } from './entity/msg/in/event/InShakearound
 
 export class WeChat {
   /**
-   * JSSDK签名
-   * @param jsapi_ticket
-   * @param nonce_str
-   * @param timestamp
-   * @param url
-   */
+	 *  JSSDK签名
+	 *  @param jsapi_ticket
+	 *  @param nonce_str
+	 *  @param timestamp
+	 *  @param url
+	 */
   public static async jssdkSignature(nonce_str: string, timestamp: string, url: string, jsapi_ticket?: string) {
     if (!jsapi_ticket) {
       let jsTicket = await JsTicketApi.getTicket(JsApiType.JSAPI)
@@ -55,12 +55,12 @@ export class WeChat {
       .digest('hex')
   }
   /**
-   * 验证成为开发者
-   * @param signature
-   * @param timestamp
-   * @param nonce
-   * @param echostr
-   */
+	 *  验证成为开发者
+	 *  @param signature
+	 *  @param timestamp
+	 *  @param nonce
+	 *  @param echostr
+	 */
   public static checkSignature(signature: string, timestamp: string, nonce: string, echostr: string): string {
     //将 token、timestamp、nonce 三个参数进行字典序排序，并拼接成一个字符串
     let tempStr = [ApiConfigKit.getToken, timestamp, nonce].sort().join('')
@@ -76,13 +76,13 @@ export class WeChat {
     }
   }
   /**
-   * 处理消息
-   * @param msgAdapter
-   * @param msgXml
-   * @param msgSignature
-   * @param timestamp
-   * @param nonce
-   */
+	 *  处理消息
+	 *  @param msgAdapter
+	 *  @param msgXml
+	 *  @param msgSignature
+	 *  @param timestamp
+	 *  @param nonce
+	 */
   public static handleMsg(msgAdapter: MsgAdapter, msgXml: string, msgSignature?: string, timestamp?: string, nonce?: string) {
     //实例微信消息加解密
     let cryptoKit: CryptoKit
