@@ -5,7 +5,8 @@
   ],
   "scripts": {
     "tsc": "lerna run tsc --stream",
-    "tsc:watch": "lerna run watch --stream"
+    "tsc:watch": "lerna run watch --stream",
+    "publish": "lerna publish --access public"
   },
   "devDependencies": {
     "lerna": "^3.17.0",
