@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://www.npmjs.com/package/tnw" target="blank"><img src="./docs/img/logo.png" width="410" alt="TNW Logo" /></a>
+  <a href="https://www.npmjs.com/package/tnw" target="blank"><img src="./assets/img/logo.png" width="410" alt="TNW Logo" /></a>
 </p>
  <p align="center">
  <a href="https://www.npmjs.com/package/tnw" target="_blank"><img src="https://img.shields.io/npm/l/tnw.svg?style=flat-square" alt="Package License" /></a>
@@ -11,7 +11,18 @@
 
 ## 简介
 
-**TNW: TypeScript(The) + Node.js(Next) + WeChat 微信系(微信公众号、微信支付、微信小游戏)开发脚手架，支持 http 模块扩展、支持任何 Node.js 的服务端框架(Express、Nest、Egg、Koa 等)**
+**TNW: TypeScript(The) + Node.js(Next) + WeiXin 微信系(微信公众号、微信支付、微信小游戏)开发脚手架，支持 http 模块扩展、支持任何 Node.js 的服务端框架(Express、Nest、Egg、Koa 等)**
+
+### 活动
+
+ <p align="left">
+ 	  <a left="100" target="_blank" href="https://promotion.aliyun.com/ntms/act/qwbk.html?userCode=b1hkzv2x">
+        <img src="assets/img/aliYun.jpg" height="100" alt="">
+    </a>
+    <a left="100" target="_blank" href="https://cloud.tencent.com/act/cps/redirect?redirect=1048&cps_key=a21676d22e4b11a883893d54e158c1d3&from=console">
+        <img src="assets/img/tencent_11.jpg" height="100" alt="">
+    </a>
+ </p>
 
 ## TNW 博客
 
