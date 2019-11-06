@@ -32,14 +32,15 @@
     "url": "https://github.com/javen205/TNW/issues"
   },
   "dependencies": {
-    "@types/md5": "^2.1.33",
-    "@types/uuid": "^3.4.6",
-    "@types/xml2js": "^0.4.5",
     "md5": "^2.2.1",
     "request": "^2.88.0",
+    "uuid": "^3.3.3",
     "xml2js": "^0.4.22"
   },
   "devDependencies": {
-    "@types/request": "^2.48.3"
+    "@types/md5": "^2.1.33",
+    "@types/request": "^2.48.3",
+    "@types/uuid": "^3.4.6",
+    "@types/xml2js": "^0.4.5"
   }
 }
