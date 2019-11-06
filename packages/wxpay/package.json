@@ -1,10 +1,12 @@
 {
-  "name": "@tnw/wxpay",
+  "name": "@tnwx/wxpay",
   "version": "2.0.0",
-  "description": "@tnw/wxpay",
+  "description": "@tnwx/wxpay",
   "keywords": [
     "tnw",
-    "wxpay"
+    "tnwx",
+    "wxpay",
+    "微信支付"
   ],
   "author": "javen205 <javendev@126.com>",
   "homepage": "http://github.com/javen205/tnw",

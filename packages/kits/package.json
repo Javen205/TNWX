@@ -1,9 +1,10 @@
 {
-  "name": "@tnw/kits",
+  "name": "@tnwx/kits",
   "version": "2.0.0",
-  "description": "@tnw/kits",
+  "description": "@tnwx/kits",
   "keywords": [
-    "tnw"
+    "tnw",
+    "tnwx"
   ],
   "author": "javen205 <javendev@126.com>",
   "homepage": "http://github.com/javen205/tnw",

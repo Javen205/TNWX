@@ -1,9 +1,10 @@
 {
-  "name": "@tnw/wxmp",
+  "name": "@tnwx/wxmp",
   "version": "2.0.0",
-  "description": "@tnw/wxmp",
+  "description": "@tnwx/wxmp",
   "keywords": [
     "tnw",
+    "tnwx",
     "wxmp",
     "微信公众号"
   ],
