@@ -1,0 +1,42 @@
+{
+  "name": "@tnwx/accesstoken",
+  "version": "2.0.0",
+  "description": "获取微信 accesstoken  By Javen",
+  "keywords": [
+    "tnw",
+    "tnwx",
+    "wxpay",
+    "微信公众号",
+    "微信小程序",
+    "微信小游戏"
+  ],
+  "author": "javen205 <javendev@126.com>",
+  "homepage": "http://github.com/javen205/tnw",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "directories": {
+    "lib": "dist",
+    "test": "__tests__"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/javen205/TNW.git"
+  },
+  "scripts": {
+    "tsc": "tsc",
+    "watch": "tsc --watch"
+  },
+  "bugs": {
+    "url": "https://github.com/javen205/TNW/issues"
+  },
+  "dependencies": {
+    "@tnwx/kits": "^2.0.0"
+  }
+}
