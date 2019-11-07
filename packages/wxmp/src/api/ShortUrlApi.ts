@@ -1,7 +1,6 @@
 import * as util from 'util';
 import { HttpKit } from '@tnwx/kits';
-import { AccessTokenApi } from '../AccessTokenApi';
-import { AccessToken } from '../AccessToken';
+import { AccessToken, AccessTokenApi } from '@tnwx/accesstoken';
 
 export class ShortUrlApi {
 	private static apiUrl: string = 'https://api.weixin.qq.com/cgi-bin/shorturl?access_token=%s';

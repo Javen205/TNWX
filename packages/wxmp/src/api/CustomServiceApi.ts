@@ -1,10 +1,8 @@
 import * as util from 'util';
-import { AccessTokenApi } from '../AccessTokenApi';
-import { AccessToken } from '../AccessToken';
+import { AccessToken, AccessTokenApi, ApiConfigKit } from '@tnwx/accesstoken';
 import { HttpKit } from '@tnwx/kits';
 import { Article } from '../entity/msg/out/Article';
 import { MenuMsg } from '../entity/msg/out/MenuMsg';
-import { ApiConfigKit } from '../ApiConfigKit';
 
 export class CustomServiceApi {
 	private static addKfAccountUrl: string = 'https://api.weixin.qq.com/customservice/kfaccount/add?access_token=%s';
@@ -130,7 +128,7 @@ export class CustomServiceApi {
 		}
 		json = JSON.stringify(msgObj);
 		if (ApiConfigKit.isDevMode) {
-			console.log('发送客服消息JSON', json);
+			console.debug('发送客服消息JSON', json);
 		}
 		return HttpKit.getHttpDelegate.httpPost(url, json);
 	}

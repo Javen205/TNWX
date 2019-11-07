@@ -1,6 +1,6 @@
 import * as util from 'util';
 import * as urlencode from 'urlencode';
-import { ApiConfigKit } from '../ApiConfigKit';
+import { ApiConfigKit } from '@tnwx/accesstoken';
 import { HttpKit } from '@tnwx/kits';
 
 export class SnsAccessTokenApi {

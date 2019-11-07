@@ -4,8 +4,7 @@
  * @description 获取公众号的自动回复规则
  */
 import * as util from 'util';
-import { AccessTokenApi } from '../AccessTokenApi';
-import { AccessToken } from '../AccessToken';
+import { AccessToken, AccessTokenApi } from '@tnwx/accesstoken';
 import { HttpKit } from '@tnwx/kits';
 
 export class AutoReplyInfoApi {

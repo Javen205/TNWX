@@ -1,6 +1,6 @@
 import * as crypto from 'crypto';
 import * as xml2js from 'xml2js';
-import { ApiConfig } from '../entity/ApiConfig';
+import { ApiConfig } from '@tnwx/accesstoken';
 
 export class CryptoKit {
 	//用于构建 xml 结构

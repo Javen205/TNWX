@@ -1,16 +1,11 @@
 export { WeChat } from './WeChat';
 export { MsgAdapter } from './MsgAdapter';
 export { JsTicket } from './JsTicket';
-export { ApiConfigKit } from './ApiConfigKit';
-export { AccessTokenApi } from './AccessTokenApi';
-export { AccessToken } from './AccessToken';
-
 export { CryptoKit } from './kit/CryptoKit';
 
 export { TemplateData, MiniProgram, TemplateItem } from './entity/template/TemplateData';
 export { SubscribeMsg, Data, Content } from './entity/subscribe/SubscribeMsg';
 
-export { ApiConfig } from './entity/ApiConfig';
 export { InMsgParser } from './entity/msg/InMsgParser';
 export { Article } from './entity/msg/out/Article';
 export { MenuMsg } from './entity/msg/out/MenuMsg';
@@ -64,9 +59,6 @@ export { InUserGiftingCardEvent } from './entity/msg/in/card/InUserGiftingCardEv
 export { InUserPayFromCardEvent } from './entity/msg/in/card/InUserPayFromCardEvent';
 
 export { Menu, Button, ClickButton, ComButton, MediaButton, ViewButton, Matchrule } from './entity/menu/Menu';
-
-export { DefaultAccessTokenCache } from './cache/DefaultAccessTokenCache';
-export { IAccessTokenCache } from './cache/IAccessTokenCache';
 
 export { AutoReplyInfoApi } from './api/AutoReplyInfoApi';
 export { CallbackApi, CheckAction, CheckOperator } from './api/CallbackApi';

@@ -5,8 +5,7 @@
  */
 
 import * as util from 'util';
-import { AccessTokenApi } from '../../AccessTokenApi';
-import { AccessToken } from '../../AccessToken';
+import { AccessToken, AccessTokenApi } from '@tnwx/accesstoken';
 import { HttpKit } from '@tnwx/kits';
 
 export class ShakeAroundApi {

@@ -47,7 +47,7 @@ export class InMsgParser {
 		if ('link' == obj.MsgType) return this.parseInLinkMsg(obj);
 		if ('voice' == obj.MsgType) return this.parseInVoiceMsgAndInSpeechRecognitionResults(obj);
 		if ('event' == obj.MsgType) return this.parseInEvent(obj);
-		console.log('无法识别的消息类型 ' + obj.MsgType + '，请查阅微信公众平台开发文档 https://mp.weixin.qq.com/wiki');
+		console.debug('无法识别的消息类型 ' + obj.MsgType + '，请查阅微信公众平台开发文档 https://mp.weixin.qq.com/wiki');
 		return new InNotDefinedMsg(obj.ToUserName, obj.FromUserName, obj.CreateTime, obj.MsgType);
 	}
 

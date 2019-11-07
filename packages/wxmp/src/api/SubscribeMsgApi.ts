@@ -5,9 +5,7 @@
  */
 import * as util from 'util';
 import * as urlencode from 'urlencode';
-import { ApiConfigKit } from '../ApiConfigKit';
-import { AccessTokenApi } from '../AccessTokenApi';
-import { AccessToken } from '../AccessToken';
+import { AccessToken, AccessTokenApi, ApiConfigKit } from '@tnwx/accesstoken';
 import { HttpKit } from '@tnwx/kits';
 import { SubscribeMsg } from '../entity/subscribe/SubscribeMsg';
 

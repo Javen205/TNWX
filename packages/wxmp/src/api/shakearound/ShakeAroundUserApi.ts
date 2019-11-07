@@ -5,9 +5,9 @@
  */
 
 import * as util from 'util';
-import { AccessTokenApi } from '../../AccessTokenApi';
-import { AccessToken } from '../../AccessToken';
+import { AccessToken, AccessTokenApi } from '@tnwx/accesstoken';
 import { HttpKit } from '@tnwx/kits';
+
 export class ShakeAroundUserApi {
 	private static getShakeInfoUrl: string = 'https://api.weixin.qq.com/shakearound/user/getshakeinfo?access_token=%s';
 	/**

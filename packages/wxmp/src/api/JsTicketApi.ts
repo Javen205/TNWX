@@ -5,11 +5,8 @@
  */
 
 import * as util from 'util';
-import { AccessTokenApi } from '../AccessTokenApi';
-import { AccessToken } from '../AccessToken';
+import { AccessToken, AccessTokenApi, IAccessTokenCache, ApiConfigKit } from '@tnwx/accesstoken';
 import { HttpKit } from '@tnwx/kits';
-import { ApiConfigKit } from '../ApiConfigKit';
-import { IAccessTokenCache } from '../cache/IAccessTokenCache';
 import { JsTicket } from '../JsTicket';
 
 export class JsTicketApi {
@@ -25,7 +22,9 @@ export class JsTicketApi {
 		let accessTokenCache: IAccessTokenCache = ApiConfigKit.getAccessTokenCache;
 		let jsTicketJson = accessTokenCache.get(key);
 		if (jsTicketJson) {
-			console.log('缓存中获取api_ticket...');
+			if (ApiConfigKit.isDevMode) {
+				console.debug('缓存中获取api_ticket...');
+			}
 			return new JsTicket(jsTicketJson);
 		}
 		// 通过接口获取
@@ -36,7 +35,9 @@ export class JsTicketApi {
 			let jsTicket: JsTicket = new JsTicket(data);
 			let accessTokenCache: IAccessTokenCache = ApiConfigKit.getAccessTokenCache;
 			accessTokenCache.set(key, jsTicket.getCacheJson);
-			console.log('通过接口获取api_ticket...');
+			if (ApiConfigKit.isDevMode) {
+				console.debug('通过接口获取api_ticket...');
+			}
 			return jsTicket;
 		}
 	}
