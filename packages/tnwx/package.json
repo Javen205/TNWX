@@ -41,7 +41,9 @@
     "url": "https://github.com/javen205/TNW/issues"
   },
   "dependencies": {
+    "@tnwx/accesstoken": "^2.0.0",
     "@tnwx/kits": "^2.0.0",
+    "@tnwx/miniprogram": "^2.0.0",
     "@tnwx/wxmp": "^2.0.0",
     "@tnwx/wxpay": "^2.0.0"
   }
