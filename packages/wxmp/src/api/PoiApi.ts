@@ -6,7 +6,7 @@
 import * as util from 'util';
 import { AccessTokenApi } from '../AccessTokenApi';
 import { AccessToken } from '../AccessToken';
-import { HttpKit } from '@tnw/kits';
+import { HttpKit } from '@tnwx/kits';
 
 export class PoiApi {
 	private static addPoiUrl: string = 'http://api.weixin.qq.com/cgi-bin/poi/addpoi?access_token=%s';

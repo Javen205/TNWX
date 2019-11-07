@@ -1,7 +1,7 @@
 import * as util from 'util';
 import { AccessTokenApi } from '../AccessTokenApi';
 import { AccessToken } from '../AccessToken';
-import { HttpKit } from '@tnw/kits';
+import { HttpKit } from '@tnwx/kits';
 
 export class SemanticApi {
 	private static searchUrl = 'https://api.weixin.qq.com/semantic/semproxy/search?access_token=%s';

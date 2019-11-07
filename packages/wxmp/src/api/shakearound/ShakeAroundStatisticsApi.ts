@@ -6,7 +6,7 @@
 import * as util from 'util';
 import { AccessTokenApi } from '../../AccessTokenApi';
 import { AccessToken } from '../../AccessToken';
-import { HttpKit } from '@tnw/kits';
+import { HttpKit } from '@tnwx/kits';
 import { DeviceIdentifier } from './ShakeAroundDeviceApi';
 
 export class ShakeAroundStatisticsApi {

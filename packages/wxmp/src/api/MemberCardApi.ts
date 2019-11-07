@@ -6,7 +6,7 @@
 import * as util from 'util';
 import { AccessTokenApi } from '../AccessTokenApi';
 import { AccessToken } from '../AccessToken';
-import { HttpKit } from '@tnw/kits';
+import { HttpKit } from '@tnwx/kits';
 
 export class MemberCardApi {
 	private static activateUrl: string = 'https://api.weixin.qq.com/card/membercard/activate?access_token=%s';

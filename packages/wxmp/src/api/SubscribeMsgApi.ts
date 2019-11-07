@@ -8,7 +8,7 @@ import * as urlencode from 'urlencode';
 import { ApiConfigKit } from '../ApiConfigKit';
 import { AccessTokenApi } from '../AccessTokenApi';
 import { AccessToken } from '../AccessToken';
-import { HttpKit } from '@tnw/kits';
+import { HttpKit } from '@tnwx/kits';
 import { SubscribeMsg } from '../entity/subscribe/SubscribeMsg';
 
 export class SubscribeMsgApi {

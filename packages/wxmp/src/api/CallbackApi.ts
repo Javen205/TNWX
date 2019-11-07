@@ -6,7 +6,7 @@
 import * as util from 'util';
 import { AccessTokenApi } from '../AccessTokenApi';
 import { AccessToken } from '../AccessToken';
-import { HttpKit } from '@tnw/kits';
+import { HttpKit } from '@tnwx/kits';
 
 export class CallbackApi {
 	private static apiUrl: string = 'https://api.weixin.qq.com/cgi-bin/getcallbackip?access_token=%s';

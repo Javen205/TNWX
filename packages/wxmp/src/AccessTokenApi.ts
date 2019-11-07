@@ -9,7 +9,7 @@ import { AccessToken } from './AccessToken';
 import { ApiConfig } from './entity/ApiConfig';
 import { IAccessTokenCache } from './cache/IAccessTokenCache';
 import { ApiConfigKit } from './ApiConfigKit';
-import { HttpKit } from '@tnw/kits';
+import { HttpKit } from '@tnwx/kits';
 
 export class AccessTokenApi {
 	private static url: string = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s';

@@ -1,7 +1,7 @@
 import * as util from 'util';
 import { AccessTokenApi } from '../AccessTokenApi';
 import { AccessToken } from '../AccessToken';
-import { HttpKit } from '@tnw/kits';
+import { HttpKit } from '@tnwx/kits';
 import { Article } from '../entity/msg/out/Article';
 import { MenuMsg } from '../entity/msg/out/MenuMsg';
 import { ApiConfigKit } from '../ApiConfigKit';

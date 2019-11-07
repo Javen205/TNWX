@@ -1,7 +1,7 @@
 import * as util from 'util';
 import { AccessTokenApi } from '../AccessTokenApi';
 import { AccessToken } from '../AccessToken';
-import { HttpKit } from '@tnw/kits';
+import { HttpKit } from '@tnwx/kits';
 
 export class QrcodeApi {
 	private static apiUrl: string = 'https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=%s';

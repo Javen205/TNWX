@@ -35,7 +35,7 @@
     "url": "https://github.com/javen205/TNW/issues"
   },
   "dependencies": {
-    "@tnw/kits": "^2.0.0",
+    "@tnwx/kits": "^2.0.0",
     "urlencode": "^1.1.0"
   },
   "devDependencies": {

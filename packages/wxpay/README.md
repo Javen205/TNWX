@@ -1,1 +1,1 @@
-# @tnw/wxpay
+# @tnwx/wxpay

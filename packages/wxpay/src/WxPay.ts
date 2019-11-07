@@ -1,4 +1,4 @@
-import { HttpKit, Kits, SIGN_TYPE } from '@tnw/kits';
+import { HttpKit, Kits, SIGN_TYPE } from '@tnwx/kits';
 import { WX_API_TYPE } from './WxApiType';
 import { WX_DOMAIN } from './WxDomain';
 

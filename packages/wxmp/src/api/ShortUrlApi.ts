@@ -1,5 +1,5 @@
 import * as util from 'util';
-import { HttpKit } from '@tnw/kits';
+import { HttpKit } from '@tnwx/kits';
 import { AccessTokenApi } from '../AccessTokenApi';
 import { AccessToken } from '../AccessToken';
 
