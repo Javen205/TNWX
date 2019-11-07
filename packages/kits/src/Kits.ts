@@ -141,8 +141,6 @@ export class Kits {
 							obj[key] = data[key][0];
 						}
 					});
-					console.log(obj);
-
 					resolve(obj);
 				}
 			});
