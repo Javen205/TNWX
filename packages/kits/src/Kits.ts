@@ -53,7 +53,14 @@ export class Kits {
 		return crypto.createHmac('sha256', key).update(data, 'utf8').digest('hex').toUpperCase();
 	}
 	/**
-	 * md6 加密
+     * sha1加密
+     * @param data 
+     */
+	public static sha1(data: string) {
+		return crypto.createHash('sha1').update(data).digest('hex').toUpperCase();
+	}
+	/**
+	 * md5 加密
 	 * @param data
 	 */
 	public static md5(data: string | Buffer | Array<number>): string {
