@@ -14,9 +14,9 @@ export class ApiConfig {
 	constructor(
 		appId: string,
 		appScrect: string,
+		token?: string,
 		encryptMessage: boolean = false,
-		encodingAesKey?: string,
-		token?: string
+		encodingAesKey?: string
 	) {
 		this.appId = appId;
 		this.appScrect = appScrect;
