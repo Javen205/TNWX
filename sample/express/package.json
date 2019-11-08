@@ -1,0 +1,14 @@
+{
+  "name": "@express/tnwx",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "supervisor -w dist ./dist/App.js",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@types/express": "^4.17.2",
+    "express": "^4.17.1"
+  }
+}
