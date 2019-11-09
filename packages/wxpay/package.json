@@ -29,7 +29,8 @@
   },
   "scripts": {
     "tsc": "tsc",
-    "watch": "tsc --watch"
+    "watch": "tsc --watch",
+    "prettier": "prettier --check 'src/**/*.ts'"
   },
   "bugs": {
     "url": "https://github.com/javen205/TNW/issues"

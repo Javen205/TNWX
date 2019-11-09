@@ -1,13 +1,13 @@
-import * as util from 'util';
-import { AccessToken, AccessTokenApi } from '@tnwx/accesstoken';
-import { HttpKit } from '@tnwx/kits';
+import * as util from 'util'
+import { AccessToken, AccessTokenApi } from '@tnwx/accesstoken'
+import { HttpKit } from '@tnwx/kits'
 
 export class SemanticApi {
-	private static searchUrl = 'https://api.weixin.qq.com/semantic/semproxy/search?access_token=%s';
+  private static searchUrl = 'https://api.weixin.qq.com/semantic/semproxy/search?access_token=%s'
 
-	public static async search(jsonStr: string) {
-		let accessToken: AccessToken = await AccessTokenApi.getAccessToken();
-		let url = util.format(this.searchUrl, accessToken.getAccessToken);
-		return HttpKit.getHttpDelegate.httpPost(url, jsonStr);
-	}
+  public static async search(jsonStr: string) {
+    let accessToken: AccessToken = await AccessTokenApi.getAccessToken()
+    let url = util.format(this.searchUrl, accessToken.getAccessToken)
+    return HttpKit.getHttpDelegate.httpPost(url, jsonStr)
+  }
 }

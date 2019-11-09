@@ -1,1 +1,1 @@
-export { WxMiniGameApi, WxMiniGameMediaType } from './WxMiniGameApi';
+export { WxMiniGameApi, WxMiniGameMediaType } from './WxMiniGameApi'
