@@ -5,7 +5,6 @@
  */
 import { parseString, Builder } from 'xml2js';
 import * as crypto from 'crypto';
-import * as md5 from 'md5';
 import * as uuid from 'uuid';
 
 export enum SIGN_TYPE {
@@ -63,8 +62,8 @@ export class Kits {
 	 * md5 加密
 	 * @param data
 	 */
-	public static md5(data: string | Buffer | Array<number>): string {
-		return md5(data).toUpperCase();
+	public static md5(data: string): string {
+		return crypto.createHash('md5').update(data).digest('hex').toUpperCase();
 	}
 	/**
 	 * 随机生成字符串
