@@ -6,7 +6,7 @@
   "scripts": {
     "tsc": "lerna run tsc --stream",
     "tsc:watch": "lerna run watch --stream",
-    "publish": "lerna publish --access public"
+    "publish": "lerna publish --skip-git"
   },
   "devDependencies": {
     "lerna": "^3.17.0",
