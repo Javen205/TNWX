@@ -8,10 +8,9 @@
 <a href="https://github.com/Javen205/donate" target="_blank"><img src="https://img.shields.io/badge/Donate-WeChat-%23ff3f59.svg?style=flat-square" alt="Donate"/></a>
 </p>
 
-
 ## 简介
 
-**TNW: TypeScript(The) + Node.js(Next) + WeiXin 微信系(微信公众号、微信支付、微信小游戏)开发脚手架，支持 http 模块扩展、支持任何 Node.js 的服务端框架(Express、Nest、Egg、Koa 等)**
+**TNWX: TypeScript + Node.js + WeiXin 微信系开发脚手架，支持微信公众号、微信支付、微信小游戏(微信小程序、微信企业号敬请期待)。同时也支持 Http 模块扩展，最最最重要的是能快速的集成至任何 Node.js 框架(Express、Nest、Egg、Koa 等)**
 
 ### 活动
 
@@ -34,10 +33,7 @@
 - [TNW-微信公众号中如何使用 JSSDK](https://my.oschina.net/zyw205/blog/3046798)
 - [TNW-授权获取用户信息](https://my.oschina.net/zyw205/blog/3093807)
 
-[【开源中国】](https://www.oschina.net/p/TNWX)
-[【CSDN】](https://javen.blog.csdn.net/article/category/6665009)
-[【掘金】](https://juejin.im/user/57caa559a22b9d006b95af93/posts)
-[【简书】](https://www.jianshu.com/u/9be31238fda1)
+[【更多博客尽在开源中国】](https://www.oschina.net/p/TNWX)
 
 ## 开发进度
 
