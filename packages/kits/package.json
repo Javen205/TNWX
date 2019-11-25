@@ -28,7 +28,11 @@
   "scripts": {
     "tsc": "tsc",
     "watch": "tsc --watch",
-    "prettier": "prettier --check 'src/**/*.ts'"
+    "prettier": "prettier --check 'src/**/*.ts'",
+    "test": "jest"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "bugs": {
     "url": "https://github.com/javen205/TNW/issues"

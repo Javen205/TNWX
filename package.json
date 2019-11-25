@@ -4,13 +4,17 @@
     "packages/*"
   ],
   "scripts": {
+    "test": "lerna run test",
     "tsc": "lerna run tsc --stream",
     "tsc:watch": "lerna run watch --stream",
     "publish": "lerna publish --skip-git"
   },
   "devDependencies": {
+    "@types/jest": "^24.0.23",
+    "jest": "^24.9.0",
     "lerna": "^3.17.0",
     "prettier": "^1.18.2",
+    "ts-jest": "^24.2.0",
     "typescript": "^3.6.4"
   }
 }
