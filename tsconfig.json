@@ -3,7 +3,7 @@
     "module": "commonjs",
     "declaration": true,
     "noImplicitAny": false,
-    "removeComments": true,
+    "removeComments": false,
     "noLib": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -11,9 +11,5 @@
     "sourceMap": true,
     "lib": ["es6"]
   },
-  "exclude": [
-      "node_modules", 
-      "**/*.spec.ts",
-      "**/*.test.ts"
-    ]
+  "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.ts"]
 }
