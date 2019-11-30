@@ -28,7 +28,8 @@ export class MediaApi {
    */
   public static async getMedia(mediaId: string) {
     let accessToken: AccessToken = await AccessTokenApi.getAccessToken()
-    return util.format(this.getUrl, accessToken.getAccessToken, mediaId)
+    let url = util.format(this.getUrl, accessToken.getAccessToken, mediaId)
+    return HttpKit.getHttpDelegate.httpGet(url)
   }
 
   /**
@@ -40,7 +41,8 @@ export class MediaApi {
 
   public static async getJssdkMedia(mediaId: string) {
     let accessToken: AccessToken = await AccessTokenApi.getAccessToken()
-    return util.format(this.get_jssdk_url, accessToken.getAccessToken, mediaId)
+    let url = util.format(this.get_jssdk_url, accessToken.getAccessToken, mediaId)
+    return HttpKit.getHttpDelegate.httpGet(url)
   }
 
   private static add_news: string = 'https://api.weixin.qq.com/cgi-bin/material/add_news?access_token=%s'
