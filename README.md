@@ -1,10 +1,10 @@
 <p align="center">
-  <a href="https://www.npmjs.com/package/tnw" target="blank"><img src="./assets/img/logo.png" width="410" alt="TNW Logo" /></a>
+  <a href="https://www.npmjs.com/package/tnwx" target="blank"><img src="./assets/img/logo.png" width="410" alt="TNW Logo" /></a>
 </p>
  <p align="center">
- <a href="https://www.npmjs.com/package/tnw" target="_blank"><img src="https://img.shields.io/npm/l/tnw.svg?style=flat-square" alt="Package License" /></a>
-<a href="https://www.npmjs.com/package/tnw" target="_blank"><img src="https://img.shields.io/npm/v/tnw.svg?style=flat-square" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/package/tnw" target="_blank"><img src="https://img.shields.io/npm/dt/tnw.svg?style=flat-square" alt="NPM Downloads" /></a>
+ <a href="https://www.npmjs.com/package/tnwx" target="_blank"><img src="https://img.shields.io/npm/l/tnwx.svg?style=flat-square" alt="Package License" /></a>
+<a href="https://www.npmjs.com/package/tnwx" target="_blank"><img src="https://img.shields.io/npm/v/tnwx.svg?style=flat-square" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/package/tnwx" target="_blank"><img src="https://img.shields.io/npm/dt/tnwx.svg?style=flat-square" alt="NPM Downloads" /></a>
 <a href="https://github.com/Javen205/donate" target="_blank"><img src="https://img.shields.io/badge/Donate-WeChat-%23ff3f59.svg?style=flat-square" alt="Donate"/></a>
 </p>
 
@@ -26,15 +26,15 @@
     </a>
  </p>
 
-## TNW 博客
+## TNWX 博客
 
-- [TNW-开启公众号开发者模式](https://my.oschina.net/zyw205/blog/3038343)
-- [TNW-微信公众号各种消息交互](https://my.oschina.net/zyw205/blog/3043428)
-- [TNW-获取公众号的 access_token](https://my.oschina.net/zyw205/blog/3044608)
-- [TNW-微信公众号发送模板消息](https://my.oschina.net/zyw205/blog/3044716)
-- [TNW-微信公众号自定义菜单](https://my.oschina.net/zyw205/blog/3045638)
-- [TNW-微信公众号中如何使用 JSSDK](https://my.oschina.net/zyw205/blog/3046798)
-- [TNW-授权获取用户信息](https://my.oschina.net/zyw205/blog/3093807)
+- [TNWX-开启公众号开发者模式](https://my.oschina.net/zyw205/blog/3038343)
+- [TNWX-微信公众号各种消息交互](https://my.oschina.net/zyw205/blog/3043428)
+- [TNWX-获取公众号的 access_token](https://my.oschina.net/zyw205/blog/3044608)
+- [TNWX-微信公众号发送模板消息](https://my.oschina.net/zyw205/blog/3044716)
+- [TNWX-微信公众号自定义菜单](https://my.oschina.net/zyw205/blog/3045638)
+- [TNWX-微信公众号中如何使用 JSSDK](https://my.oschina.net/zyw205/blog/3046798)
+- [TNWX-授权获取用户信息](https://my.oschina.net/zyw205/blog/3093807)
 
 [【更多博客尽在开源中国】](https://www.oschina.net/p/TNWX)
 
