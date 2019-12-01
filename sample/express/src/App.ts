@@ -40,7 +40,8 @@ import {
     MediaType,
     MediaArticles,
     SIGN_TYPE,
-    WxMiniGameMediaType
+    WxMiniGameMediaType,
+    AxiosHttpKit
 } from 'tnwx';
 
 import * as express from 'express';
@@ -920,6 +921,7 @@ const server = app.listen(8888, "localhost", () => {
         ApiConfigKit.putApiConfig(proApiConfig);
         ApiConfigKit.putApiConfig(miniApiConfig);
         ApiConfigKit.setCurrentAppId("wxf30d9b9b316d5de4");
+        HttpKit.setHttpDelegate = new AxiosHttpKit();
         // 开启开发模式,方便调试
         ApiConfigKit.devMode = true;
         if (ApiConfigKit.devMode) {
