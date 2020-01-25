@@ -43,6 +43,7 @@ import {
     WxMiniGameMediaType,
     AxiosHttpKit,
     MinSubscribeMsgApi,
+    UniformMessageApi,
 } from 'tnwx';
 
 import * as express from 'express';
@@ -953,6 +954,52 @@ app.get('/MinSubscribeMsgApi', (req: any, res: any) => {
     }
 });
 
+app.get('/sendUniformMessage', (req: any, res: any) => {
+    let type: string = req.query.type;
+    console.log('type', type);
+    switch (parseInt(type)) {
+        case 0:
+            UniformMessageApi.sendUniformMessage("ofkJSuGtXgB8n23e-y0kqDjJLXxk",
+                {
+                    appid: ApiConfigKit.getApiConfig.getAppId,
+                    template_id: 'BzC8RvHu1ICOQfO4N7kp6EWz9VAbISJjV2fO5t7MiXE',
+                    url: 'https://gitee.com/javen205/TNWX',
+                    data: {
+                        first: {
+                            value: '恭喜你购买成功！',
+                            color:'#173177'
+                        },
+                        keyword1:{
+                            value:'IJPay 技术支持',
+                            color:'#173177'
+                        },
+                        keyword2:{
+                            value:'699元',
+                            color:'#173177'
+                        },
+                        keyword3:{
+                            value:'Javen',
+                            color:'#173177'
+                        },
+                        keyword4:{
+                            value:'2020年2月16日',
+                            color:'#173177'
+                        },
+                        remark:{
+                            value:'欢迎再次购买!',
+                            color:'#173177'
+                        }
+                    }
+                }
+            ).then(data => {
+                res.send(data);
+            });
+            break;
+        default:
+            break;
+    }
+});
+
 
 const server = app.listen(8888, "localhost", () => {
     let addressInfo: AddressInfo = <AddressInfo>server.address();
@@ -968,7 +1015,7 @@ const server = app.listen(8888, "localhost", () => {
         ApiConfigKit.putApiConfig(devApiConfig);
         ApiConfigKit.putApiConfig(proApiConfig);
         ApiConfigKit.putApiConfig(miniApiConfig);
-        ApiConfigKit.setCurrentAppId("wxf30d9b9b316d5de4");
+        ApiConfigKit.setCurrentAppId("wx614c453e0d1dcd12");
         HttpKit.setHttpDelegate = new AxiosHttpKit();
         // 开启开发模式,方便调试
         ApiConfigKit.devMode = true;

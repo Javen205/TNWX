@@ -36,7 +36,7 @@ export class MsgController implements MsgAdapter {
 		let outMsg: any;
 		let content: string = 'IJPay 让支付触手可及 \n\nhttps://gitee.com/javen205/IJPay';
 		if ('1' === inTextMsg.getContent) {
-			content = '极速开发微信公众号 \n\nhttps://github.com/javen205/TNW';
+			content = '极速开发微信公众号 \n\nhttps://github.com/javen205/TNWX';
 			outMsg = new OutTextMsg(inTextMsg);
 			outMsg.setContent(content);
 		} else if ('极速开发微信公众号' == inTextMsg.getContent) {
@@ -46,7 +46,7 @@ export class MsgController implements MsgAdapter {
 				outMsg = new OutTextMsg(inTextMsg);
 				outMsg.setContent(content);
 			} else {
-				content = '极速开发微信公众号 \n\nhttps://github.com/javen205/TNW';
+				content = '极速开发微信公众号 \n\nhttps://github.com/javen205/TNWX';
 				outMsg = new OutTextMsg(inTextMsg);
 				outMsg.setContent(content);
 			}
