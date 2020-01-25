@@ -5,6 +5,7 @@
   ],
   "scripts": {
     "test": "lerna run test",
+    "bootstrap": "lerna bootstrap",
     "tsc": "lerna run tsc --stream",
     "tsc:watch": "lerna run watch --stream",
     "publish": "lerna publish --skip-git"
