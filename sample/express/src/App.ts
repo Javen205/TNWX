@@ -41,7 +41,8 @@ import {
     MediaArticles,
     SIGN_TYPE,
     WxMiniGameMediaType,
-    AxiosHttpKit
+    AxiosHttpKit,
+    MinSubscribeMsgApi,
 } from 'tnwx';
 
 import * as express from 'express';
@@ -897,6 +898,53 @@ app.get('/jsTicketApi', (req: any, res: any) => {
             break;
         case 1:
             WeChat.jssdkSignature("1111", "1111", "https://gitee.com/javen205/TNW").then(data => {
+                res.send(data);
+            });
+            break;
+        default:
+            break;
+    }
+});
+
+app.get('/MinSubscribeMsgApi', (req: any, res: any) => {
+    let type: string = req.query.type;
+    console.log('type', type);
+    switch (parseInt(type)) {
+        case 0:
+            MinSubscribeMsgApi.getCategory().then(data => {
+                res.send(data);
+            });
+            break;
+        case 1:
+            MinSubscribeMsgApi.getTemplate().then(data => {
+                res.send(data);
+            });
+            break;
+        case 2:
+            MinSubscribeMsgApi.getPubTemplateTitles([616,612,298]).then(data => {
+                res.send(data);
+            });
+            break;
+        case 3:
+            MinSubscribeMsgApi.getPubTemplateKeyWords("99").then(data => {
+                res.send(data);
+            });
+            break;
+        case 4:
+            MinSubscribeMsgApi.addTemplate("99",[1,2,3,4,5],"TNWX").then(data => {
+                res.send(data);
+            });
+            break;
+        case 5:
+            MinSubscribeMsgApi.delTemplate("vXVOFkL6n63UMIEM5aCa1gMCbnwMMYUO06S6IGf7J8c").then(data => {
+                res.send(data);
+            });
+            break;
+        case 6:
+            MinSubscribeMsgApi.sendSubMessage(
+                "oUikW0Tmx9FYrSDc7SGMYqWJMClo",
+                "vXVOFkL6n63UMIEM5aCa1gMCbnwMMYUO06S6IGf7J8c",
+                "tmwx?author=Javen", {"phrase3":{"value":"允许参与"},"thing4":{"value":"TNWX 线下聚会"},"date5":{"value":"2020-02-02 14:30"},"thing6":{"value":"深圳"}}).then(data => {
                 res.send(data);
             });
             break;
