@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://www.npmjs.com/package/tnwx" target="blank"><img src="./assets/img/logo.png" width="410" alt="TNW Logo" /></a>
+  <a href="https://www.npmjs.com/package/tnwx" target="blank"><img src="https://gitee.com/javen205/TNWX/raw/master/assets/img/logo.png" width="410" alt="TNWX Logo" /></a>
 </p>
  <p align="center">
  <a href="https://www.npmjs.com/package/tnwx" target="_blank"><img src="https://img.shields.io/npm/l/tnwx.svg?style=flat-square" alt="Package License" /></a>
@@ -10,19 +10,19 @@
 
 ## 简介
 
-**TNWX: TypeScript + Node.js + WeiXin 微信系开发脚手架，支持微信公众号、微信支付、微信小游戏(微信小程序、微信企业号敬请期待)。同时也支持 Http 模块扩展，最最最重要的是能快速的集成至任何 Node.js 框架(Express、Nest、Egg、Koa 等)**
+**TNWX: TypeScript + Node.js + WeiXin 微信系开发脚手架，支持微信公众号、微信支付、微信小游戏、微信小程序、微信企业号。同时也支持 Http 模块扩展，最最最重要的是能快速的集成至任何 Node.js 框架(Express、Nest、Egg、Koa 等)**
 
 ### 活动
 
  <p align="left">
  	  <a left="100" target="_blank" href="https://promotion.aliyun.com/ntms/act/qwbk.html?userCode=b1hkzv2x">
-        <img src="assets/img/aliYun.jpg" height="100" alt="">
+        <img src="https://gitee.com/javen205/TNWX/raw/master/assets/img/aliYun.jpg" height="100" alt="">
     </a>
     <a left="100" target="_blank" href="https://cloud.tencent.com/act/cps/redirect?redirect=1048&cps_key=a21676d22e4b11a883893d54e158c1d3&from=console">
-        <img src="assets/img/tencent.jpg" height="100" alt="">
+        <img src="https://gitee.com/javen205/TNWX/raw/master/assets/img/tencent.jpg" height="100" alt="">
     </a>
     <a left="100" target="_blank" href="https://activity.huaweicloud.com/discount_area_v5/index.html?&fromuser=aHcxMTc2NTU3MQ==&utm_source=aHcxMTc2NTU3MQ==&utm_medium=cps&utm_campaign=201905">
-        <img src="assets/img/huawei.jpg" height="100" alt="">
+        <img src="https://gitee.com/javen205/TNWX/raw/master/assets/img/huawei.jpg" height="100" alt="">
     </a>
  </p>
 
