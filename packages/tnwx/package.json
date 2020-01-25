@@ -31,7 +31,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/javen205/TNW.git"
+    "url": "git+https://github.com/javen205/TNWX.git"
   },
   "scripts": {
     "tsc": "tsc",
@@ -39,10 +39,11 @@
     "prettier": "prettier --check 'src/**/*.ts'"
   },
   "bugs": {
-    "url": "https://github.com/javen205/TNW/issues"
+    "url": "https://github.com/javen205/TNWX/issues"
   },
   "dependencies": {
     "@tnwx/accesstoken": "^2.0.0",
+    "@tnwx/commons": "^2.0.0",
     "@tnwx/kits": "^2.0.0",
     "@tnwx/miniprogram": "^2.0.0",
     "@tnwx/wxmp": "^2.0.0",
