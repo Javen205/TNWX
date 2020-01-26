@@ -1,2 +1,3 @@
-export { WxMiniGameApi, WxMiniGameMediaType } from './WxMiniGameApi'
-export { MinSubscribeMsgApi } from './MinSubscribeMsgApi'
+export { MiniProgramMediaType, MiniProgramApi } from './MiniProgramApi'
+export { MiniSubscribeMsgApi } from './MiniSubscribeMsgApi'
+export { OCRApi, OCRType } from './OCRApi'
