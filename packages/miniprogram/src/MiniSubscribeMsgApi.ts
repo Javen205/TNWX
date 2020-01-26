@@ -7,7 +7,7 @@ import { HttpKit } from '@tnwx/kits'
  * @copyright javendev@126.com
  * @description 小程序订阅消息相关 API
  */
-export class MinSubscribeMsgApi {
+export class MiniSubscribeMsgApi {
   private static addTemplateUrl: string = 'https://api.weixin.qq.com/wxaapi/newtmpl/addtemplate?access_token=%s'
 
   /**

@@ -28,7 +28,6 @@ import {
 	WX_DOMAIN,
     Kits,
     HttpKit,
-    WxMiniGameApi,
     MessageApi,
     CallbackApi,
     PoiApi,
@@ -40,10 +39,12 @@ import {
     MediaType,
     MediaArticles,
     SIGN_TYPE,
-    WxMiniGameMediaType,
-    AxiosHttpKit,
-    MinSubscribeMsgApi,
+    MiniSubscribeMsgApi,
     UniformMessageApi,
+    MiniProgramApi,
+    MiniProgramMediaType,
+    OCRApi,
+    OCRType,
 } from 'tnwx';
 
 import * as express from 'express';
@@ -104,7 +105,7 @@ app.get('/wxpay', async (req: any, res: any) => {
                             console.log(obj);
                         }).catch((error) => console.log(error))
                 }).catch((error) => console.log(error))
-            res.send('请求控制台查看日志...By https://gitee.com/Javen205/TNW');
+            res.send('请求控制台查看日志...By https://gitee.com/Javen205/TNWX');
             break;
         case 2:
             let reqObj = {
@@ -112,11 +113,11 @@ app.get('/wxpay', async (req: any, res: any) => {
                 mch_id: mchId,
                 nonce_str: Kits.generateStr(),//生成随机字符串
                 body: 'IJPay 让支付触手可及',
-                attach: 'TNW 微信公众号开发脚手架',
+                attach: 'TNWX 微信公众号开发脚手架',
                 out_trade_no: Kits.generateStr(),
                 total_fee: 666,
                 spbill_create_ip: '127.0.0.1',
-                notify_url: 'https://gitee.com/Javen205/TNW',
+                notify_url: 'https://gitee.com/Javen205/TNWX',
                 trade_type: 'JSAPI',
             }
             // 生成签名
@@ -136,7 +137,7 @@ app.get('/wxpay', async (req: any, res: any) => {
             }).catch((error) => {
                 console.log(error);
             })
-            res.send('请求控制台查看日志...By https://gitee.com/Javen205/TNW');
+            res.send('请求控制台查看日志...By https://gitee.com/Javen205/TNWX');
             break;
         default:
             res.send(msg);
@@ -153,26 +154,23 @@ app.get('/miniProgram', async (req: any, res: any) => {
     let signature: string = req.query.signature;
     let sigMethod: string = 'hmac_sha256';
 
-
-
-
     console.log('to miniProgram...' + type);
 
     switch (parseInt(type)) {
         case 1:
-            WxMiniGameApi.imgSecCheck('/Users/Javen/Documents/pic/test.jpeg')
+            MiniProgramApi.imgSecCheck('/Users/Javen/Documents/pic/test.jpeg')
                 .then((data) => {
                     res.send(data);
                 }).catch((error) => console.log(error))
             break;
         case 2:
-            WxMiniGameApi.mediaCheckAsync('/Users/Javen/Documents/pic/test.jpeg', WxMiniGameMediaType.IMG)
+            MiniProgramApi.mediaCheckAsync('/Users/Javen/Documents/pic/test.jpeg', MiniProgramMediaType.IMG)
                 .then((data) => {
                     res.send(data);
                 }).catch((error) => console.log(error))
             break;
         case 3:
-            WxMiniGameApi.msgSecCheck('TNW 微信系开发脚手架')
+            MiniProgramApi.msgSecCheck('TNWX 微信系开发脚手架')
                 .then((data) => {
                     res.send(data);
                 }).catch((error) => console.log(error))
@@ -181,13 +179,13 @@ app.get('/miniProgram', async (req: any, res: any) => {
             console.info("getAppId>", ApiConfigKit.getAppId);
             console.info("getAppScrect>", ApiConfigKit.getApiConfig.getAppScrect);
 
-            WxMiniGameApi.code2Session(ApiConfigKit.getAppId, ApiConfigKit.getApiConfig.getAppScrect, code)
+            MiniProgramApi.code2Session(ApiConfigKit.getAppId, ApiConfigKit.getApiConfig.getAppScrect, code)
                 .then((data) => {
                     res.send(data);
                 }).catch((error) => console.log(error))
             break;
         case 5:
-            WxMiniGameApi.checkSessionKey(openId, signature, sigMethod)
+            MiniProgramApi.checkSessionKey(openId, signature, sigMethod)
                 .then((data) => {
                     res.send(data);
                 }).catch((error) => console.log(error))
@@ -198,8 +196,8 @@ app.get('/miniProgram', async (req: any, res: any) => {
             let session_key = 'syOEZf6faXl3JqAKh9FfvQ==';
             let iv = 'wGZm1/t99wRHb4oiwDbybQ==';
             let encryptedData = 'r9UTG7Yo3xlXZ1++2atDr/7So5b+GevtC4ZkxXeL+vCjYoMp50YB004IcCuPdbZlzd06Pvx0Yd6B92188ttbvkhCYb2uE8Wa8Nr1a/M72984gHj37TX4dX5f8/IMAXGqSPOMVjx14LZPMg8YDFYY5lUlYtHRvsOLl8zboZ9fR2B5+p3juPsnzyxuZZkUHYclRJ3qQzffZHMrelP7IHdMbUHVmsgpfwJc5Is6zhSpi/DKjHJxdIfHjl0wusP1Dy55WymSfxUfaEi63Fln9m8fUXF0mZprbFGl54sxKdabQuaQIL7aeETpMhNEmWBdtIetTuC3bkfBXLlW1b/JkUjBRdU2ZF4tRKHT24I6LnwfQMmXrEcbHA0JdU2CvU/TeF+iqYud4mgo115THVy76jxIPJXm65zbLuUVG6CvzOUSEOyWVSNQ7nbcwA3qrDiEuL4nYPusyoQpsZCxs+FUTEImmATD12R0/6Q1N557Ica59Wo=';
-            let key = new Buffer(session_key, 'base64');
-            let baseIv = new Buffer(iv, 'base64');
+            let key = Buffer.from(session_key, 'base64');
+            let baseIv = Buffer.from(iv, 'base64');
 
             let signature2 = Kits.sha1(rawData + session_key).toLocaleLowerCase();
 
@@ -210,6 +208,129 @@ app.get('/miniProgram', async (req: any, res: any) => {
                 res.send('签名错误');
             }
             break
+        case 7:
+            MiniProgramApi.getUnlimited('TNWX','IJPay?author=Javen')
+                .then((data) => {
+                    //写入文件
+                    fs.writeFile('/Users/Javen/Downloads/miniprogram_qrcode.png', data, function(err){
+                        if(err){
+                            res.send(err);
+                        }else{
+                            res.send('保存成功');
+                        }
+                    });
+                })
+                .catch((error) => console.log(error))
+            break;
+        case 8:
+            MiniProgramApi.createQRCode('IJPay?author=Javen')
+                .then((data) => {
+                    //写入文件
+                    fs.writeFile('/Users/Javen/Downloads/miniprogram_qrcode2.png', data, function(err){
+                        if(err){
+                            res.send(err);
+                        }else{
+                            res.send('保存成功');
+                        }
+                    });
+                })
+                .catch((error) => console.log(error))
+            break;
+        case 9:
+            MiniProgramApi.getWxAcode('IJPay?author=Javen')
+                .then((data) => {
+                    //写入文件
+                    fs.writeFile('/Users/Javen/Downloads/miniprogram_qrcode3.png', data, function(err){
+                        if(err){
+                            res.send(err);
+                        }else{
+                            res.send('保存成功');
+                        }
+                    });
+                })
+                .catch((error) => console.log(error))
+            break;
+        case 10:
+            MiniProgramApi.sendSubscribeMsg(
+                'oUikW0Tmx9FYrSDc7SGMYqWJMClo',
+                'vXVOFkL6n63UMIEM5aCa1gMCbnwMMYUO06S6IGf7J8c',
+                { phrase3: { value: '允许参与' }, thing4: { value: 'TNWX 线下聚会' }, date5: { value: '2020-02-02 14:30' }, thing6: { value: '深圳' } },
+                'tmwx?author=Javen')
+                    .then((data) => {
+                        res.send(data);
+                    })
+                    .catch((error) => console.log(error))
+            break;
+        case 11:
+            MiniProgramApi.createActivityId()
+                .then((data) => {
+                    res.send(data);
+                })
+                .catch((error) => console.log(error))
+            break;
+        case 12:
+            MiniProgramApi.setUpdatableMsg('1045_c/+flCjtpr3x+8zSc8v2U1Ce_qC2gZ3bc_2xYaA6JqeqLFitRJc5wB3IlktwOiEy3N_rDbDFONK2u4hH',
+                1, { parameter_list: [{name:'path',value:'IJPay?author=Javen'},{name:'version_type',value:'develop'}]})
+                .then((data) => {
+                    res.send(data);
+                })
+                .catch((error) => console.log(error))
+            break;
+        case 13:
+            MiniProgramApi.verifySoterSignature(
+                'oUikW0Tmx9FYrSDc7SGMYqWJMClo',
+                '{\"raw\":\"Javen Test\",\"counter\":3,\"uid\":\"dc11462476e67688389f66628f425e5d\",\"cpu_id\":\"46BAD991-CBCA-4EC5-8416-F7F1E466D9B2\"}',
+                'eFc37i97P15t64aLeTpxEShrP1meRIcj4A3YnEAb/5IIiD+m6wQSmUWVp9N6sb1lG/Sv2ai2nEewn576GhWGSbzIhJp7ZYGlhn2R6NvOxUwSEvpGcVtD0bsoXbOghWq7E/oDmUcY354N0FqYhbEYgGw9PVxrnwEFtzOLiA9IVRTYAzsAQiKkUIZEpF5JQUUdRRZS5mXz01MSlKoVHVf2MjIMEtjUG6oEGbXB0VfPSS92UQevkTudOSY3K1EtWupf0bM77oY/5JvSwkrjxTcE6DxqbNy3QbmFkb1yi1puTYvIso0q/veequhu7FEv8XKiIuxwMqY19Cera+OGxSAIXw==')
+                .then((data) => {
+                    res.send(data);
+                })
+                .catch((error) => console.log(error))
+            break;
+        case 14:
+            MiniProgramApi.submitPages([{path:'IJPay',query:'author=Javen'}])
+                .then((data) => {
+                    res.send(data);
+                })
+                .catch((error) => console.log(error))
+            break;
+        case 15:
+            MiniProgramApi.userLogSearch("20200125",new Date().getTime() - 2000,new Date().getTime())
+                .then((data) => {
+                    res.send(data);
+                })
+                .catch((error) => console.log(error))
+            break;
+        default:
+            break
+    }
+
+});
+
+app.get('/ocr', async (req: any, res: any) => {
+
+    let type: string = req.query.type;
+
+    console.log('to ocr...' + type);
+
+    switch (parseInt(type)) {
+        case 1:
+            OCRApi.ocrByUrl(OCRType.IDCARD,'https://up.enterdesk.com/edpic_360_360/28/bc/80/28bc80d62c84ea7797197a6d7cb03394.jpg')
+                .then((data) => {
+                    res.send(data);
+                }).catch((error) => console.log(error))
+            break;
+        case 2:
+            OCRApi.ocrByUrl(OCRType.PRINTEDTEXT,'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1724603202,554806693&fm=26&gp=0.jpg')
+                .then((data) => {
+                    res.send(data);
+                }).catch((error) => console.log(error))
+            break;
+        case 3:
+            OCRApi.ocrByFile(OCRType.PRINTEDTEXT,'/Users/Javen/Downloads/miniprogram_qrcode2.png')
+                .then((data) => {
+                    res.send(data);
+                }).catch((error) => console.log(error))
+            break;
         default:
             break
     }
@@ -851,7 +972,7 @@ app.get('/poiApi', (req: any, res: any) => {
                 "business": {
                     "base_info": {
                         "sid": "123456789",
-                        "business_name": "TNW 微信公众号开发脚手架",
+                        "business_name": "TNWX 微信公众号开发脚手架",
                         "branch_name": "IJPay 聚合支付",
                         "province": "广东",
                         "city": "深圳",
@@ -898,7 +1019,7 @@ app.get('/jsTicketApi', (req: any, res: any) => {
             });
             break;
         case 1:
-            WeChat.jssdkSignature("1111", "1111", "https://gitee.com/javen205/TNW").then(data => {
+            WeChat.jssdkSignature("1111", "1111", "https://gitee.com/Javen205/TNWX").then(data => {
                 res.send(data);
             });
             break;
@@ -907,42 +1028,42 @@ app.get('/jsTicketApi', (req: any, res: any) => {
     }
 });
 
-app.get('/MinSubscribeMsgApi', (req: any, res: any) => {
+app.get('/MiniSubscribeMsgApi', (req: any, res: any) => {
     let type: string = req.query.type;
     console.log('type', type);
     switch (parseInt(type)) {
         case 0:
-            MinSubscribeMsgApi.getCategory().then(data => {
+            MiniSubscribeMsgApi.getCategory().then(data => {
                 res.send(data);
             });
             break;
         case 1:
-            MinSubscribeMsgApi.getTemplate().then(data => {
+            MiniSubscribeMsgApi.getTemplate().then(data => {
                 res.send(data);
             });
             break;
         case 2:
-            MinSubscribeMsgApi.getPubTemplateTitles([616,612,298]).then(data => {
+            MiniSubscribeMsgApi.getPubTemplateTitles([616,612,298]).then(data => {
                 res.send(data);
             });
             break;
         case 3:
-            MinSubscribeMsgApi.getPubTemplateKeyWords("99").then(data => {
+            MiniSubscribeMsgApi.getPubTemplateKeyWords("99").then(data => {
                 res.send(data);
             });
             break;
         case 4:
-            MinSubscribeMsgApi.addTemplate("99",[1,2,3,4,5],"TNWX").then(data => {
+            MiniSubscribeMsgApi.addTemplate("99",[1,2,3,4,5],"TNWX").then(data => {
                 res.send(data);
             });
             break;
         case 5:
-            MinSubscribeMsgApi.delTemplate("vXVOFkL6n63UMIEM5aCa1gMCbnwMMYUO06S6IGf7J8c").then(data => {
+            MiniSubscribeMsgApi.delTemplate("vXVOFkL6n63UMIEM5aCa1gMCbnwMMYUO06S6IGf7J8c").then(data => {
                 res.send(data);
             });
             break;
         case 6:
-            MinSubscribeMsgApi.sendSubMessage(
+            MiniSubscribeMsgApi.sendSubMessage(
                 "oUikW0Tmx9FYrSDc7SGMYqWJMClo",
                 "vXVOFkL6n63UMIEM5aCa1gMCbnwMMYUO06S6IGf7J8c",
                 "tmwx?author=Javen", {"phrase3":{"value":"允许参与"},"thing4":{"value":"TNWX 线下聚会"},"date5":{"value":"2020-02-02 14:30"},"thing6":{"value":"深圳"}}).then(data => {
@@ -963,7 +1084,7 @@ app.get('/sendUniformMessage', (req: any, res: any) => {
                 {
                     appid: ApiConfigKit.getApiConfig.getAppId,
                     template_id: 'BzC8RvHu1ICOQfO4N7kp6EWz9VAbISJjV2fO5t7MiXE',
-                    url: 'https://gitee.com/javen205/TNWX',
+                    url: 'https://gitee.com/Javen205/TNWX',
                     data: {
                         first: {
                             value: '恭喜你购买成功！',
@@ -1015,8 +1136,7 @@ const server = app.listen(8888, "localhost", () => {
         ApiConfigKit.putApiConfig(devApiConfig);
         ApiConfigKit.putApiConfig(proApiConfig);
         ApiConfigKit.putApiConfig(miniApiConfig);
-        ApiConfigKit.setCurrentAppId("wx614c453e0d1dcd12");
-        HttpKit.setHttpDelegate = new AxiosHttpKit();
+        ApiConfigKit.setCurrentAppId("wxf30d9b9b316d5de4");
         // 开启开发模式,方便调试
         ApiConfigKit.devMode = true;
         if (ApiConfigKit.devMode) {
