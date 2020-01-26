@@ -4,7 +4,16 @@
   "description": "TNWX 工具集合 By Javen",
   "keywords": [
     "tnw",
-    "tnwx"
+    "tnwx",
+    "wxpay",
+    "wxmp",
+    "wechat",
+    "miniprogram",
+    "微信支付",
+    "微信公众号",
+    "微信小程序",
+    "微信小游戏",
+    "企业微信"
   ],
   "author": "javen205 <javendev@126.com>",
   "homepage": "http://github.com/javen205/tnw",
