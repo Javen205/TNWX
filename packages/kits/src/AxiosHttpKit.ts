@@ -1,3 +1,4 @@
+import { ApiConfigKit } from '@tnwx/accesstoken'
 /**
  * @author Javen
  * @copyright javendev@126.com
@@ -16,6 +17,7 @@ export class AxiosHttpKit implements HttpDelegate {
       axios
         .get(url)
         .then(response => {
+          if (ApiConfigKit.isDevMode) console.log(response)
           if (response.status === 200) {
             resolve(JSON.stringify(response.data))
           } else {
@@ -33,8 +35,27 @@ export class AxiosHttpKit implements HttpDelegate {
       axios
         .post(url, data)
         .then(response => {
+          if (ApiConfigKit.isDevMode) console.log(response)
           if (response.status === 200) {
             resolve(JSON.stringify(response.data))
+          } else {
+            reject(`error code ${response.status}`)
+          }
+        })
+        .catch(error => {
+          reject(error)
+        })
+    })
+  }
+
+  httpPostWitchOptions(url: string, data: string, options?: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      axios
+        .post(url, data, options)
+        .then(response => {
+          if (ApiConfigKit.isDevMode) console.log(response)
+          if (response.status === 200) {
+            resolve(response.data)
           } else {
             reject(`error code ${response.status}`)
           }

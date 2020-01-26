@@ -25,7 +25,7 @@ export class Kits {
     let cipher = crypto.createCipheriv('aes-128-cbc', key, iv)
     let crypted = cipher.update(data, 'utf8', 'binary')
     crypted += cipher.final('binary')
-    crypted = new Buffer(crypted, 'binary').toString('base64')
+    crypted = Buffer.from(crypted, 'binary').toString('base64')
     return crypted
   }
   /**
@@ -35,7 +35,7 @@ export class Kits {
    *  @param crypted  密文
    */
   public static aes128cbcDecrypt(key: Buffer, iv: Buffer, crypted: string) {
-    crypted = new Buffer(crypted, 'base64').toString('binary')
+    crypted = Buffer.from(crypted, 'base64').toString('binary')
     let decipher = crypto.createDecipheriv('aes-128-cbc', key, iv)
     // 设置自动 padding 为 true，删除填充补位
     decipher.setAutoPadding(true)
