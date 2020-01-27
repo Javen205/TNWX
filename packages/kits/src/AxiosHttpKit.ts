@@ -30,12 +30,29 @@ export class AxiosHttpKit implements HttpDelegate {
     })
   }
 
+  httpGetWitchOptions(url: string, options?: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      axios
+        .get(url, options)
+        .then(response => {
+          if (ApiConfigKit.isDevMode) console.log(response)
+          if (response.status === 200) {
+            resolve(response.data)
+          } else {
+            reject(`error code ${response.status}`)
+          }
+        })
+        .catch(error => {
+          reject(error)
+        })
+    })
+  }
+
   httpPost(url: string, data: string): Promise<any> {
     return new Promise((resolve, reject) => {
       axios
         .post(url, data)
         .then(response => {
-          if (ApiConfigKit.isDevMode) console.log(response)
           if (response.status === 200) {
             resolve(JSON.stringify(response.data))
           } else {
