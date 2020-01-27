@@ -10,9 +10,9 @@ import { HttpKit } from '@tnwx/kits'
 
 export class OCRApi {
   /**
-   * 银行卡 OCR 识别
+   * OCR 识别
    * @param OcrType 接口URL
-   * @param imgUrl 要检测的图片 url
+   * @param imgUrl 图片的URL
    */
   public static async ocrByUrl(OcrType: OCRType, imgUrl: string) {
     let accessToken = await AccessTokenApi.getAccessToken()
@@ -21,9 +21,9 @@ export class OCRApi {
   }
 
   /**
-   * 银行卡 OCR 识别
+   * OCR 识别
    * @param ocrType 接口URL
-   * @param filePath 要检测的图片文件路径
+   * @param filePath 图片的文件路径
    */
   public static async ocrByFile(ocrType: OCRType, filePath: string) {
     let accessToken = await AccessTokenApi.getAccessToken()
