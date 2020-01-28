@@ -1,7 +1,7 @@
 {
   "name": "@tnwx/wxpay",
   "version": "2.0.0",
-  "description": "微信支付 By Javen",
+  "description": "TNWX 微信系开发脚手架之微信支付",
   "keywords": [
     "tnw",
     "tnwx",
