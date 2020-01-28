@@ -6,13 +6,18 @@
 
 export class ApiConfig {
   private token: string
+  // 企业微信为 agentId
   private appId: string
+  // 企业ID
+  private corpId: string
   private appScrect: string
+  // 是否加密 企业号必须为 true 微信测试号必须非 false
   private encryptMessage: boolean
   private encodingAesKey: string
 
-  constructor(appId: string, appScrect: string, token?: string, encryptMessage: boolean = false, encodingAesKey?: string) {
+  constructor(appId: string, appScrect: string, token?: string, encryptMessage: boolean = false, encodingAesKey?: string, corpId?: string) {
     this.appId = appId
+    this.corpId = corpId
     this.appScrect = appScrect
     this.encryptMessage = encryptMessage
     this.encodingAesKey = encodingAesKey || ''
@@ -33,6 +38,14 @@ export class ApiConfig {
 
   public set setAppId(appId: string) {
     this.appId = appId
+  }
+
+  public get getCorpId(): string {
+    return this.corpId
+  }
+
+  public set setCorpId(corpId: string) {
+    this.corpId = corpId
   }
 
   public get getAppScrect(): string {

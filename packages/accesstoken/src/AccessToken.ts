@@ -37,7 +37,7 @@ export class AccessToken {
 
   public isAvailable(): boolean {
     if (this.expired_time == null) return false
-    if (this.errcode != null) return false
+    if (this.errcode) return false
     if (this.expired_time < new Date().getTime()) return false
     return this.access_token != null
   }

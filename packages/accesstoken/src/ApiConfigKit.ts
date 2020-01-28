@@ -84,7 +84,7 @@ export class ApiConfigKit {
 
   public static getApiConfigByAppId(appId: string): ApiConfig {
     if (ApiConfigKit.isDevMode) {
-      console.debug('getApiConfigByAppId appId: ' + appId)
+      console.debug(`getApiConfigByAppId appId: ${appId}`)
     }
     let cfg = this.CFG_MAP.get(appId)
     if (!cfg) {

@@ -1,7 +1,7 @@
 {
   "name": "@tnwx/accesstoken",
   "version": "2.0.0",
-  "description": "获取微信 accesstoken  By Javen",
+  "description": "TNWX 微信系开发脚手架之微信 accesstoken",
   "keywords": [
     "tnw",
     "tnwx",
