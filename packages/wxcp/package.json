@@ -1,7 +1,7 @@
 {
-  "name": "tnwx",
+  "name": "@tnwx/wxcp",
   "version": "2.0.0",
-  "description": "TNWX 微信系开发脚手架 By Javen",
+  "description": "TNWX 微信系开发脚手架之极速开发企业微信/企业号",
   "keywords": [
     "tnw",
     "tnwx",
@@ -16,7 +16,7 @@
     "企业微信"
   ],
   "author": "javen205 <javendev@126.com>",
-  "homepage": "http://github.com/javen205/tnw",
+  "homepage": "http://github.com/javen205/TNWX",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -37,18 +37,17 @@
   "scripts": {
     "tsc": "tsc",
     "watch": "tsc --watch",
-    "prettier": "prettier --check 'src/**/*.ts'"
+    "prettier": "prettier --check 'src/**/*.ts'",
+    "test": "jest"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "bugs": {
     "url": "https://github.com/javen205/TNWX/issues"
   },
   "dependencies": {
     "@tnwx/accesstoken": "^2.0.0",
-    "@tnwx/commons": "^2.0.0",
-    "@tnwx/kits": "^2.0.0",
-    "@tnwx/miniprogram": "^2.0.0",
-    "@tnwx/wxcp": "^2.0.0",
-    "@tnwx/wxmp": "^2.0.0",
-    "@tnwx/wxpay": "^2.0.0"
+    "@tnwx/kits": "^2.0.0"
   }
 }

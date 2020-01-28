@@ -17,6 +17,7 @@ import {
 	TemplateData,
 	MenuApi,
 	AccessTokenApi,
+	QyAccessTokenApi,
 	AccessToken,
 	CustomServiceApi,
 	MenuMsg,
@@ -45,6 +46,7 @@ import {
     MiniProgramMediaType,
     OCRApi,
     OCRType,
+    QyApiConfigKit,
 } from 'tnwx';
 
 import * as express from 'express';
@@ -521,6 +523,14 @@ app.get('/dynamicCreatMenu', (req: any, res: any) => {
 // 获取access_token
 app.get('/getAccessToken', (req: any, res: any) => {
     AccessTokenApi.getAccessToken().then(data => {
+        let accessToken = <AccessToken>data;
+        res.send(accessToken);
+    });
+});
+
+// 获取 access_token
+app.get('/getQyAccessToken', (req: any, res: any) => {
+    QyAccessTokenApi.getAccessToken().then(data => {
         let accessToken = <AccessToken>data;
         res.send(accessToken);
     });
@@ -1128,19 +1138,25 @@ const server = app.listen(8888, "localhost", () => {
         let host = addressInfo.address;
         let port = addressInfo.port;
         // 亦可以读取配置文件
-        let devApiConfig = new ApiConfig("wx614c453e0d1dcd12", "19a02e4927d346484fc70327970457f9","Javen");
-        let proApiConfig = new ApiConfig("wx0ac22947e8d7f437", "cd35d0cd5783a2fd47c488a80d5aa807", "Javen", true, "GFLxP8ppqcgQbI0yivtMkY4pkOAOiapHhQsCOgYUnYK");
-        let miniApiConfig = new ApiConfig("wxf30d9b9b316d5de4", "bf0f1a06ba7cc16be643a250ca40213b");
-
+        let devApiConfig = new ApiConfig('wx614c453e0d1dcd12', '19a02e4927d346484fc70327970457f9','Javen');
+        let proApiConfig = new ApiConfig('wx0ac22947e8d7f437', 'cd35d0cd5783a2fd47c488a80d5aa807', 'Javen', true, 'GFLxP8ppqcgQbI0yivtMkY4pkOAOiapHhQsCOgYUnYK');
+        let miniApiConfig = new ApiConfig('wxf30d9b9b316d5de4', 'bf0f1a06ba7cc16be643a250ca40213b');
+        let qyApiConfig = new ApiConfig('1000004', 'fs-wmeFEr4PCMY7WGYyv1rDKGwaPLTvWFFX3UL396QI','Javen',true,'GFLxP8ppqcgQbI0yivtMkY4pkOAOiapHhQsCOgYUnYK','wxdbc631b5210be89f');
+        console.log(qyApiConfig.getAppId);
+        console.log(qyApiConfig.getCorpId);
+        
         // 支持多公众号
         ApiConfigKit.putApiConfig(devApiConfig);
         ApiConfigKit.putApiConfig(proApiConfig);
         ApiConfigKit.putApiConfig(miniApiConfig);
-        ApiConfigKit.setCurrentAppId("wxf30d9b9b316d5de4");
+        ApiConfigKit.setCurrentAppId('wxf30d9b9b316d5de4');
+        QyApiConfigKit.putApiConfig(qyApiConfig);
+        QyApiConfigKit.setCurrentAppId(qyApiConfig.getAppId, qyApiConfig.getCorpId);
         // 开启开发模式,方便调试
         ApiConfigKit.devMode = true;
+        QyApiConfigKit.devMode = true;
         if (ApiConfigKit.devMode) {
-            console.log("服务器已启动, 地址是：http://%s:%s", host, port);
+            console.log('服务器已启动, 地址是：http://%s:%s', host, port);
         }
     }
 });

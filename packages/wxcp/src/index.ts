@@ -1,0 +1,1 @@
+export { QyWeChat } from './QyWeChat'
