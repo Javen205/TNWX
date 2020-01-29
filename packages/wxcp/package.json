@@ -48,6 +48,7 @@
   },
   "dependencies": {
     "@tnwx/accesstoken": "^2.0.0",
+    "@tnwx/commons": "^2.0.0",
     "@tnwx/kits": "^2.0.0"
   }
 }

@@ -1,3 +1,4 @@
+import * as urlencode from 'urlencode';
 import {
 	WeChat,
 	ApiConfigKit,
@@ -47,6 +48,7 @@ import {
     OCRApi,
     OCRType,
     QyApiConfigKit,
+    QyWeChat,
 } from 'tnwx';
 
 import * as express from 'express';
@@ -360,6 +362,23 @@ app.get('/msg', (req: any, res: any) => {
         nonce, echostr));
 });
 
+app.get('/qymsg', (req: any, res: any) => {
+    console.log('get query...', req.query);
+
+    let appId: string = req.query.appId;
+    let corpId: string = req.query.corpId;
+    if (appId && corpId) {
+        QyApiConfigKit.setCurrentAppId(appId,corpId);
+    }
+
+    let signature = urlencode.decode(req.query.msg_signature)//微信加密签名
+    let timestamp = urlencode.decode(req.query.timestamp)//时间戳
+    let nonce = urlencode.decode(req.query.nonce)//随机数
+    let echostr = urlencode.decode(req.query.echostr)//随机字符串
+
+    res.send(QyWeChat.checkSignature(signature, timestamp,nonce, echostr));
+});
+
 // 接收微信消息入口
 app.post('/msg', function (req: any, res: any) {
     console.log('post...', req.query);
@@ -389,6 +408,38 @@ app.post('/msg', function (req: any, res: any) {
     });
 
 });
+
+// 接收微信消息入口
+app.post('/qymsg', function (req: any, res: any) {
+    console.log('post...', req.query);
+
+    let appId: string = req.query.appId;
+    let corpId: string = req.query.corpId;
+    if (appId && corpId) {
+        QyApiConfigKit.setCurrentAppId(appId,corpId);
+    }
+    let msgSignature = req.query.msg_signature,
+        timestamp = req.query.timestamp,
+        nonce = req.query.nonce;
+
+    //监听 data 事件 用于接收数据
+    let buffer: Uint8Array[] = [];
+    req.on('data', function (data: any) {
+        buffer.push(data);
+    });
+
+    req.on('end', function () {
+        let msgXml = Buffer.concat(buffer).toString('utf-8');
+        console.log(`接收到的消息msgXml：${msgXml}`)
+
+        QyWeChat.handleMsg(msgAdapter, msgXml, msgSignature, timestamp, nonce)
+            .then(data => {
+                res.send(data);
+            });
+    });
+
+});
+
 app.get('/toAuth', (req, res) => {
     let url = SnsAccessTokenApi.getAuthorizeUrl("http://wx.frp.qianfanggaoneng.net/auth", ScopeEnum.SNSAPI_USERINFO, "IJPay");
     console.log("授权URL:", url);
@@ -1149,7 +1200,7 @@ const server = app.listen(8888, "localhost", () => {
         ApiConfigKit.putApiConfig(devApiConfig);
         ApiConfigKit.putApiConfig(proApiConfig);
         ApiConfigKit.putApiConfig(miniApiConfig);
-        ApiConfigKit.setCurrentAppId('wxf30d9b9b316d5de4');
+        ApiConfigKit.setCurrentAppId('wx614c453e0d1dcd12');
         QyApiConfigKit.putApiConfig(qyApiConfig);
         QyApiConfigKit.setCurrentAppId(qyApiConfig.getAppId, qyApiConfig.getCorpId);
         // 开启开发模式,方便调试

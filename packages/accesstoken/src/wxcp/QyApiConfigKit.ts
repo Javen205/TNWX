@@ -61,7 +61,6 @@ export class QyApiConfigKit {
     let appId: string
     if (this.currentAppId) {
       appId = this.currentAppId.split(this.SEPARATOR)[0]
-      console.debug(`getAppId: ${appId}`)
     }
     if (!appId) {
       throw new Error('需事先调用 QyApiConfigKit.putApiConfig(apiConfig) 将 appId 对应的 ApiConfig 对象存入后, 才可以使用 QyApiConfigKit.getAppId 系列方法')
