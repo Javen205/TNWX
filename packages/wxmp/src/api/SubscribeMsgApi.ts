@@ -7,7 +7,7 @@ import * as util from 'util'
 import * as urlencode from 'urlencode'
 import { AccessToken, AccessTokenApi, ApiConfigKit } from '@tnwx/accesstoken'
 import { HttpKit } from '@tnwx/kits'
-import { SubscribeMsg } from '../entity/subscribe/SubscribeMsg'
+import { SubscribeMsg } from '@tnwx/commons'
 
 export class SubscribeMsgApi {
   private static authorizeUrl: string = 'https://mp.weixin.qq.com/mp/subscribemsg?action=get_confirm&appid=%s&scene=%d&template_id=%s&redirect_url=%s'

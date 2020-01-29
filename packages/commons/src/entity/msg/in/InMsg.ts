@@ -8,6 +8,7 @@ export abstract class InMsg {
   protected toUserName: string //开发者微信号
   protected fromUserName: string //发送方帐号openId
   protected createTime: number //消息创建时间
+  protected agentId: string // 企业号的应用ID
   /**
    * 消息类型
    * 1：text 文本消息

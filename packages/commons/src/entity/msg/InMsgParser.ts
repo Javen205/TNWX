@@ -39,15 +39,17 @@ export class InMsgParser {
   }
 
   private static doParse(obj: any): InMsg {
-    if ('text' == obj.MsgType) return this.parseInTextMsg(obj)
-    if ('image' == obj.MsgType) return this.parseInImageMsg(obj)
-    if ('video' == obj.MsgType) return this.parseInVideoMsg(obj)
-    if ('shortvideo' == obj.MsgType) return this.parseInShortVideoMsg(obj)
-    if ('location' == obj.MsgType) return this.parseInLocationMsg(obj)
-    if ('link' == obj.MsgType) return this.parseInLinkMsg(obj)
-    if ('voice' == obj.MsgType) return this.parseInVoiceMsgAndInSpeechRecognitionResults(obj)
-    if ('event' == obj.MsgType) return this.parseInEvent(obj)
-    console.debug(`无法识别的消息类型 ${obj.MsgType}，请查阅微信公众平台开发文档 https://mp.weixin.qq.com/wiki`)
+    if ('text' === obj.MsgType) return this.parseInTextMsg(obj)
+    if ('image' === obj.MsgType) return this.parseInImageMsg(obj)
+    if ('video' === obj.MsgType) return this.parseInVideoMsg(obj)
+    if ('shortvideo' === obj.MsgType) return this.parseInShortVideoMsg(obj)
+    if ('location' === obj.MsgType) return this.parseInLocationMsg(obj)
+    if ('link' === obj.MsgType) return this.parseInLinkMsg(obj)
+    if ('voice' === obj.MsgType) return this.parseInVoiceMsgAndInSpeechRecognitionResults(obj)
+    if ('event' === obj.MsgType) return this.parseInEvent(obj)
+    console.debug(
+      `无法识别的消息类型 ${obj.MsgType}\n微信公众号开发文档:https://developers.weixin.qq.com/doc/offiaccount/Getting_Started/Overview.html\n企业微信号开发文档:https://work.weixin.qq.com/api/doc`
+    )
     return new InNotDefinedMsg(obj.ToUserName, obj.FromUserName, obj.CreateTime, obj.MsgType)
   }
 

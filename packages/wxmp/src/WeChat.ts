@@ -2,34 +2,35 @@ import * as crypto from 'crypto'
 import { parseString } from 'xml2js'
 import { CryptoKit } from './kit/CryptoKit'
 import { ApiConfigKit } from '@tnwx/accesstoken'
-import { InMsgParser } from './entity/msg/InMsgParser'
-import { InMsg } from './entity/msg/in/InMsg'
-import { InTextMsg } from './entity/msg/in/InTextMsg'
-import { OutMsg } from './entity/msg/out/OutMsg'
-import { InNotDefinedMsg } from './entity/msg/in/InNotDefinedMsg'
-import { MsgAdapter } from './msgAdapter'
-import { OutTextMsg } from './entity/msg/out/OutTextMsg'
-import { InImageMsg } from './entity/msg/in/InImageMsg'
-import { InLinkMsg } from './entity/msg/in/InLinkMsg'
-import { InLocationMsg } from './entity/msg/in/InLocationMsg'
-import { InShortVideoMsg } from './entity/msg/in/InShortVideoMsg'
-import { InVideoMsg } from './entity/msg/in/InVideoMsg'
-import { InVoiceMsg } from './entity/msg/in/InVoiceMsg'
-import { InSpeechRecognitionResults } from './entity/msg/in/InSpeechRecognitionResults'
-import { OutImageMsg } from './entity/msg/out/OutImageMsg'
-import { OutMusicMsg } from './entity/msg/out/OutMusicMsg'
-import { OutNewsMsg } from './entity/msg/out/OutNewsMsg'
-import { OutVideoMsg } from './entity/msg/out/OutVideoMsg'
-import { OutVoiceMsg } from './entity/msg/out/OutVoiceMsg'
-import { InFollowEvent } from './entity/msg/in/event/InFollowEvent'
-import { InLocationEvent } from './entity/msg/in/event/InLocationEvent'
-import { InMenuEvent } from './entity/msg/in/event/InMenuEvent'
-import { InQrCodeEvent } from './entity/msg/in/event/InQrCodeEvent'
-import { InTemplateMsgEvent } from './entity/msg/in/event/InTemplateMsgEvent'
-import { OutCustomMsg } from './entity/msg/out/OutCustomMsg'
+import {
+  MsgAdapter,
+  InMsgParser,
+  InMsg,
+  OutMsg,
+  InTextMsg,
+  InImageMsg,
+  InLinkMsg,
+  InLocationMsg,
+  InShortVideoMsg,
+  InVideoMsg,
+  InVoiceMsg,
+  InSpeechRecognitionResults,
+  InFollowEvent,
+  InLocationEvent,
+  InMenuEvent,
+  InQrCodeEvent,
+  InTemplateMsgEvent,
+  InShakearoundUserShakeEvent,
+  InNotDefinedMsg,
+  OutTextMsg,
+  OutImageMsg,
+  OutMusicMsg,
+  OutNewsMsg,
+  OutVideoMsg,
+  OutVoiceMsg,
+  OutCustomMsg
+} from '@tnwx/commons'
 import { JsTicketApi, JsApiType } from './api/JsTicketApi'
-import { InShakearoundUserShakeEvent } from './entity/msg/in/event/InShakearoundUserShakeEvent'
-
 export class WeChat {
   /**
    *  JSSDK签名

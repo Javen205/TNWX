@@ -1,8 +1,7 @@
 import * as util from 'util'
 import { AccessToken, AccessTokenApi, ApiConfigKit } from '@tnwx/accesstoken'
 import { HttpKit } from '@tnwx/kits'
-import { Article } from '../entity/msg/out/Article'
-import { MenuMsg } from '../entity/msg/out/MenuMsg'
+import { Article, MenuMsg } from '@tnwx/commons'
 
 export class CustomServiceApi {
   private static addKfAccountUrl: string = 'https://api.weixin.qq.com/customservice/kfaccount/add?access_token=%s'
