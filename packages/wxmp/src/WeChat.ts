@@ -1,8 +1,8 @@
 import * as crypto from 'crypto'
 import { parseString } from 'xml2js'
-import { CryptoKit } from './kit/CryptoKit'
 import { ApiConfigKit } from '@tnwx/accesstoken'
 import {
+  CryptoKit,
   MsgAdapter,
   InMsgParser,
   InMsg,
@@ -31,6 +31,7 @@ import {
   OutCustomMsg
 } from '@tnwx/commons'
 import { JsTicketApi, JsApiType } from './api/JsTicketApi'
+
 export class WeChat {
   /**
    *  JSSDK签名

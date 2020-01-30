@@ -1,3 +1,5 @@
+export { CryptoKit } from './CryptoKit'
+
 export { UniformMessageApi } from './UniformMessageApi'
 export { TemplateData, MiniProgram, TemplateItem } from './entity/template/TemplateData'
 export { SubscribeMsg, Data, Content } from './entity/subscribe/SubscribeMsg'

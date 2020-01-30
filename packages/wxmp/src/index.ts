@@ -1,6 +1,5 @@
 export { WeChat } from './WeChat'
 export { JsTicket } from './JsTicket'
-export { CryptoKit } from './kit/CryptoKit'
 
 export { AutoReplyInfoApi } from './api/AutoReplyInfoApi'
 export { CallbackApi, CheckAction, CheckOperator } from './api/CallbackApi'

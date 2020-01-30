@@ -44,26 +44,41 @@ export class CryptoKit {
     return tempSignature
   }
 
+  decrypt(echostr: string): string {
+    // 实例 AES 解密对象
+    let deCipheriv = crypto.createDecipheriv(this.aesModel, this.encodingAesKey, this.iv)
+    // 设置自定填充数据为 false
+    deCipheriv.setAutoPadding(false)
+    // 对密文解密对密文解密 并去除前 16 个随机字符串
+    let decipheredBuff = Buffer.concat([deCipheriv.update(echostr, 'base64'), deCipheriv.final()])
+    decipheredBuff = this.PKCS7Decoder(decipheredBuff)
+    // 移除头部16个随机字节
+    let len_netOrder_corpid = decipheredBuff.slice(16)
+    // 4个字节的 msg_len
+    let msg_len = len_netOrder_corpid.slice(0, 4).readUInt32BE(0)
+    // 截取 msg_len 长度的 msg
+    let result = len_netOrder_corpid.slice(4, msg_len + 4).toString()
+    return result
+  }
   /**
    *  微信消息解密
    *  @param encryptMsg 加密字符串
-   *  @param encodingAESKey 消息加解密密钥
    */
   decryptMsg(encryptMsg: string): any {
     //获取签名认证
-    var tempSignature = this.getMsgSignature(encryptMsg)
+    let tempSignature = this.getMsgSignature(encryptMsg)
     //判断消息是否来自微信服务器
     if (this.msgSignature !== tempSignature) {
       throw new Error('msgSignature is not invalid')
     }
     //实例 AES 解密对象
-    var deCipheriv = crypto.createDecipheriv(this.aesModel, this.encodingAesKey, this.iv)
+    let deCipheriv = crypto.createDecipheriv(this.aesModel, this.encodingAesKey, this.iv)
     //设置自定填充数据为 false
     deCipheriv.setAutoPadding(false)
-    //对密文解密对密文解密 并去除前 16 个随机字符串
-    var deEncryptedMsg = Buffer.concat([deCipheriv.update(encryptMsg, 'base64'), deCipheriv.final()]).toString('utf8')
+    //对密文解密 并去除前 16 个随机字符串
+    let deEncryptedMsg = Buffer.concat([deCipheriv.update(encryptMsg, 'base64'), deCipheriv.final()]).toString('utf8')
     //获取填充字符串的位置
-    var pad = deEncryptedMsg.charCodeAt(deEncryptedMsg.length - 1)
+    let pad = deEncryptedMsg.charCodeAt(deEncryptedMsg.length - 1)
     //对微信消息进行处理
     deEncryptedMsg = deEncryptedMsg.slice(20, -pad).replace(/<\/xml>.*/, '</xml>')
     //讲解密后的XML 转为 JSON 对象
@@ -113,6 +128,14 @@ export class CryptoKit {
       s: string[] = []
     for (let i = 0; i < amountToPad; i++) s.push(pad)
     return s.join('')
+  }
+
+  PKCS7Decoder(buff: Buffer) {
+    var pad = buff[buff.length - 1]
+    if (pad < 1 || pad > 32) {
+      pad = 0
+    }
+    return buff.slice(0, buff.length - pad)
   }
 
   parseXmlToObj(xml: string): any {
