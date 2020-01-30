@@ -49,6 +49,24 @@ import {
     OCRType,
     QyApiConfigKit,
     QyWeChat,
+    QySendMsgApi,
+    QyTextMsg,
+    QyText,
+    QyImageMsg,
+    QyMediaId,
+    QyVoiceMsg,
+    QyVideoMsg,
+    QyVideo,
+    QyFileMsg,
+    QyTextCardMsg,
+    QyTextCard,
+    QyNewsMsg,
+    QyArticles,
+    QyNews,
+    QyMpNewsMsg,
+    QyMpNews,
+    QyMpNewsArticles,
+    QyMarkDownMsg,
 } from 'tnwx';
 
 import * as express from 'express';
@@ -438,6 +456,164 @@ app.post('/qymsg', function (req: any, res: any) {
             });
     });
 
+});
+
+app.get('/sendMsg', (req, res) => {
+    let type: string = req.query.type;
+    let agentId = QyApiConfigKit.getApiConfig.getAppId
+    let toUser = 'Javen'
+    switch (parseInt(type)) {
+        case 0:
+            let text = new QyTextMsg(
+                new QyText('TNWX 微信系开发脚手架 \n https://gitee.com/javen205/TNWX'),
+                agentId,
+                toUser
+            )
+            QySendMsgApi.sendTextMessage(text)
+                .then(data => {
+                    res.send(data);
+                })
+                .catch(error =>console.log(error))
+            break;
+        case 1:
+            let image = new QyImageMsg(
+                new QyMediaId('1YEMm73EQnLInFTMu2684mxSiKDpV3vJh0eQwzPHPnkeybLeEWFrKsJzkGGFfa1LX'),
+                agentId,
+                toUser
+            )
+            QySendMsgApi.sendImageMessage(image)
+                .then(data => {
+                    res.send(data);
+                })
+                .catch(error =>console.log(error))
+            break;
+        case 2:
+            let voice = new QyVoiceMsg(
+                new QyMediaId('1mxRvPy6x2UkcxFZ22z1CssutVW-Ybez3Oj18N2FfUAY'),
+                agentId,
+                toUser
+            )
+            QySendMsgApi.sendVoiceMessage(voice)
+                .then(data => {
+                    res.send(data);
+                })
+                .catch(error =>console.log(error))
+            break;
+        case 3:
+            let video = new QyVideoMsg(
+                new QyVideo(
+                    '1EWVjcD-veu9ZMOduIEFVwh3IAraTa5JZi6XvCQ6Z4zJZup-2YrnHt4ZhEqjyvbtG',
+                    'TNWX 视频消息',
+                    'TNWX 微信系开发脚手架'
+                ),
+                agentId,
+                toUser
+            )
+            QySendMsgApi.sendVideoMessage(video)
+                .then(data => {
+                    res.send(data);
+                })
+                .catch(error =>console.log(error))
+            break;
+        case 4:
+            let file = new QyFileMsg(
+                new QyMediaId(
+                    '1YEMm73EQnLInFTMu2684mxSiKDpV3vJh0eQwzPHPnkeybLeEWFrKsJzkGGFfa1LX',
+                ),
+                agentId,
+                toUser
+            )
+            QySendMsgApi.sendFileMessage(file)
+                .then(data => {
+                    res.send(data);
+                })
+                .catch(error =>console.log(error))
+            break;
+        case 5:
+            let textcard = new QyTextCardMsg(
+                new QyTextCard(
+                    'TNWX 微信系开发脚手架',
+                    'TypeScript + Node.js + WeiXin 微信系开发脚手架，支持微信公众号、微信支付、微信小程序、微信小游戏、企业微信，支持 Http 模块扩展以及任何 Node.js 框架(Express、Nest、Egg、Koa 等)',
+                    'https://gitee.com/javen205/TNWX',
+                    '查看更多'
+                ),
+                agentId,
+                toUser
+            )
+            QySendMsgApi.sendTextCardMessage(textcard)
+                .then(data => {
+                    res.send(data);
+                })
+                .catch(error =>console.log(error))
+            break;
+        case 6:
+            let news = new QyNewsMsg(
+                new QyArticles(
+                    [
+                        new QyNews(
+                            'TNWX 微信系开发脚手架',
+                            'TypeScript + Node.js + WeiXin 微信系开发脚手架，支持微信公众号、微信支付、微信小程序、微信小游戏、企业微信，支持 Http 模块扩展以及任何 Node.js 框架(Express、Nest、Egg、Koa 等)',
+                            'https://gitee.com/javen205/TNWX/raw/master/assets/img/logo.png',
+                            'https://gitee.com/javen205/TNWX',    
+                        ),
+                        new QyNews(
+                            'IJPay 聚合支付SDK',
+                            '聚合支付，IJPay 让支付触手可及，封装了微信支付、QQ支付、支付宝支付、京东支付、银联支付常用的支付方式以及各种常用的接口。不依赖任何第三方 mvc 框架，仅仅作为工具使用简单快速完成支付模块的开发，可轻松嵌入到任何系统里。',
+                            'https://gitee.com/javen205/IJPay/raw/master/assets/img/logo.png',
+                            'https://javen205.gitee.io/ijpay',    
+                        ),
+                    ]
+                    
+                ),
+                agentId,
+                toUser
+            )
+            QySendMsgApi.sendNewsMessage(news)
+                .then(data => {
+                    res.send(data);
+                })
+                .catch(error =>console.log(error))
+            break;
+        case 7:
+            let mpnews = new QyMpNewsMsg(
+                new QyMpNewsArticles([
+                    new QyMpNews(
+                        'TNWX 微信系开发脚手架',
+                        '1YEMm73EQnLInFTMu2684mxSiKDpV3vJh0eQwzPHPnkeybLeEWFrKsJzkGGFfa1LX',
+                        'TypeScript + Node.js + WeiXin 微信系开发脚手架，支持微信公众号、微信支付、微信小程序、微信小游戏、企业微信，支持 Http 模块扩展以及任何 Node.js 框架(Express、Nest、Egg、Koa 等)',
+                        'Javen',
+                        'https://gitee.com/javen205/TNWX',
+                        '了解一下'
+                    )
+                ]),
+                agentId,
+                toUser
+            )
+            QySendMsgApi.sendMpNewsMessage(mpnews)
+                .then(data => {
+                    res.send(data);
+                })
+                .catch(error =>console.log(error))
+            break;
+        case 8:
+            let markDown = new QyMarkDownMsg(
+                new QyText(
+                    "开源项目列表:\n"+
+                    "[TNWX 微信系开发脚手架](https://gitee.com/javen205/TNWX)\n" +
+                    "[IJPay 让支付触手可及](https://gitee.com/javen205/IJPay)"
+                ),
+                agentId,
+                toUser
+            )
+            QySendMsgApi.sendMarkDownMessage(markDown)
+                .then(data => {
+                    res.send(data);
+                })
+                .catch(error =>console.log(error))
+            break;
+        default:
+            break;
+    }
 });
 
 app.get('/toAuth', (req, res) => {
