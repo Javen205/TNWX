@@ -1,6 +1,6 @@
 {
   "name": "@tnwx/miniprogram",
-  "version": "2.0.0",
+  "version": "2.1.1",
   "description": "TNWX 微信系开发脚手架之极速开发微信小程序",
   "keywords": [
     "tnw",
@@ -16,7 +16,7 @@
     "企业微信"
   ],
   "author": "javen205 <javendev@126.com>",
-  "homepage": "http://github.com/javen205/tnw",
+  "homepage": "http://gitee.com/javen205/TNWX",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -32,7 +32,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/javen205/TNWX.git"
+    "url": "git+http://gitee.com/javen205/TNWX.git"
   },
   "scripts": {
     "tsc": "tsc",
@@ -40,10 +40,11 @@
     "prettier": "prettier --check 'src/**/*.ts'"
   },
   "bugs": {
-    "url": "https://github.com/javen205/TNWX/issues"
+    "url": "http://gitee.com/javen205/TNWX/issues"
   },
   "dependencies": {
-    "@tnwx/accesstoken": "^2.0.0",
-    "@tnwx/kits": "^2.0.0"
-  }
+    "@tnwx/accesstoken": "^2.1.1",
+    "@tnwx/kits": "^2.1.1"
+  },
+  "gitHead": "6cc9fc14369772fd5f2bbaa1409f49885a277871"
 }

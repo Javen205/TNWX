@@ -1,4 +1,3 @@
-import { ApiConfigKit } from '@tnwx/accesstoken'
 /**
  * @author Javen
  * @copyright javendev@126.com
