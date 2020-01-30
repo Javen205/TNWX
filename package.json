@@ -8,7 +8,8 @@
     "bootstrap": "lerna bootstrap",
     "tsc": "lerna run tsc --stream",
     "tsc:watch": "lerna run watch --stream",
-    "publish": "lerna publish --skip-git"
+    "pub": "lerna publish --skip-git",
+    "del": "lerna exec -- rm -rf ./dist"
   },
   "devDependencies": {
     "@types/jest": "^24.0.23",
