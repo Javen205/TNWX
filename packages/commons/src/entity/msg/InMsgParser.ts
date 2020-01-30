@@ -1,3 +1,4 @@
+import { InTaskEvent } from './in/event/InTaskEvent'
 import { InSpeechRecognitionResults } from './in/InSpeechRecognitionResults'
 import { InMsg } from './in/InMsg'
 import { InImageMsg } from './in/InImageMsg'
@@ -32,6 +33,7 @@ import { InUserGetCardEvent } from './in/card/InUserGetCardEvent'
 import { InUserGiftingCardEvent } from './in/card/InUserGiftingCardEvent'
 import { InUserCardEvent } from './in/card/InUserCardEvent'
 import { InShakearoundUserShakeEvent } from './in/event/InShakearoundUserShakeEvent'
+import { InEnterAgentEvent } from './in/event/InEnterAgentEvent'
 
 export class InMsgParser {
   public static parse(obj: any): InMsg {
@@ -57,29 +59,37 @@ export class InMsgParser {
     let msg: InTextMsg = new InTextMsg(obj.ToUserName, obj.FromUserName, obj.CreateTime, obj.MsgType)
     msg.setContent = obj.Content
     msg.setMsgId = obj.MsgId
+    msg.setAgentId = obj.AgentID
     return msg
   }
+
   private static parseInImageMsg(obj: any): InMsg {
     let msg: InImageMsg = new InImageMsg(obj.ToUserName, obj.FromUserName, obj.CreateTime, obj.MsgType)
     msg.setPicUrl = obj.PicUrl
     msg.setMediaId = obj.MediaId
     msg.setMsgId = obj.MsgId
+    msg.setAgentId = obj.AgentID
     return msg
   }
+
   private static parseInVideoMsg(obj: any): InMsg {
     let msg: InVideoMsg = new InVideoMsg(obj.ToUserName, obj.FromUserName, obj.CreateTime, obj.MsgType)
     msg.setThumbMediaId = obj.ThumbMediaId
     msg.setMediaId = obj.MediaId
     msg.setMsgId = obj.MsgId
+    msg.setAgentId = obj.AgentID
     return msg
   }
+
   private static parseInShortVideoMsg(obj: any): InMsg {
     let msg: InShortVideoMsg = new InShortVideoMsg(obj.ToUserName, obj.FromUserName, obj.CreateTime, obj.MsgType)
     msg.setThumbMediaId = obj.ThumbMediaId
     msg.setMediaId = obj.MediaId
     msg.setMsgId = obj.MsgId
+    msg.setAgentId = obj.AgentID
     return msg
   }
+
   private static parseInLocationMsg(obj: any): InMsg {
     let msg: InLocationMsg = new InLocationMsg(obj.ToUserName, obj.FromUserName, obj.CreateTime, obj.MsgType)
     msg.setLocation_X = obj.Location_X
@@ -87,14 +97,17 @@ export class InMsgParser {
     msg.setScale = obj.Scale
     msg.setLabel = obj.Label
     msg.setMsgId = obj.MsgId
+    msg.setAgentId = obj.AgentID
     return msg
   }
+
   private static parseInLinkMsg(obj: any): InMsg {
     let msg: InLinkMsg = new InLinkMsg(obj.ToUserName, obj.FromUserName, obj.CreateTime, obj.MsgType)
     msg.setTitle = obj.Title
     msg.setDescription = obj.Description
     msg.setUrl = obj.Url
     msg.setMsgId = obj.MsgId
+    msg.setAgentId = obj.AgentID
     return msg
   }
 
@@ -103,27 +116,35 @@ export class InMsgParser {
     let mediaId: string = obj.MediaId
     let format: string = obj.Format
     let msgId: string = obj.MsgId
+    let agentId: string = obj.AgentID
+
     if (recognition) {
       let msg = new InVoiceMsg(obj.ToUserName, obj.FromUserName, obj.CreateTime, obj.MsgType)
       msg.setMediaId = mediaId
       msg.setFormat = format
       msg.setMsgId = msgId
+      msg.setAgentId = agentId
       return msg
     } else {
       let msg = new InSpeechRecognitionResults(obj.ToUserName, obj.FromUserName, obj.CreateTime, obj.MsgType)
       msg.setMediaId = mediaId
       msg.setFormat = format
       msg.setMsgId = msgId
+      msg.setAgentId = agentId
       msg.setRecognition = recognition
       return msg
     }
   }
+
   private static parseInEvent(obj: any): InMsg {
-    let event = obj.Event
-    let eventKey = obj.EventKey
+    let event: string = obj.Event
+    let eventKey: string = obj.EventKey
+    let agentId: string = obj.AgentID
+
     if ('unsubscribe' == event) {
       let e = new InFollowEvent(obj.ToUserName, obj.FromUserName, obj.CreateTime, event)
       e.setEventKey = eventKey
+      e.setAgentId = agentId
       return e
     }
     let ticket = obj.Ticket
@@ -145,6 +166,14 @@ export class InMsgParser {
     if (InFollowEvent.EVENT_INFOLLOW_SUBSCRIBE == event) {
       let e = new InFollowEvent(obj.ToUserName, obj.FromUserName, obj.CreateTime, event)
       e.setEventKey = eventKey
+      e.setAgentId = agentId
+      return e
+    }
+    // 进入应用
+    if (InEnterAgentEvent.EVENT == event) {
+      let e = new InEnterAgentEvent(obj.ToUserName, obj.FromUserName, obj.CreateTime, event)
+      e.setEventKey = eventKey
+      e.setAgentId = agentId
       return e
     }
     // 上报地理位置事件
@@ -153,24 +182,28 @@ export class InMsgParser {
       e.setLatitude = obj.Latitude
       e.setLongitude = obj.Longitude
       e.setPrecision = obj.Precision
+      e.setAgentId = agentId
       return e
     }
     // 自定义菜单事件之一 1：点击菜单拉取消息时的事件推送
-    if (InMenuEvent.EVENT_INMENU_CLICK == event) {
+    if (InMenuEvent.EVENT_INMENU_CLICK == event.toUpperCase()) {
       let e = new InMenuEvent(obj.ToUserName, obj.FromUserName, obj.CreateTime, event)
       e.setEventKey = eventKey
+      e.setAgentId = agentId
       return e
     }
     // 自定义菜单事件之二 2：点击菜单跳转链接时的事件推送
-    if (InMenuEvent.EVENT_INMENU_VIEW == event) {
+    if (InMenuEvent.EVENT_INMENU_VIEW == event.toUpperCase()) {
       let e = new InMenuEvent(obj.ToUserName, obj.FromUserName, obj.CreateTime, event)
       e.setEventKey = eventKey
+      e.setAgentId = agentId
       return e
     }
     // 扫码推事件 和 扫码推事件且弹出“消息接收中”提示框
     if ('scancode_push' == event || 'scancode_waitmsg' == event) {
       let e = new InMenuEvent(obj.ToUserName, obj.FromUserName, obj.CreateTime, event)
       e.setEventKey = eventKey
+      e.setAgentId = agentId
       let scanType = obj.ScanCodeInfo.ScanType
       let scanResult = obj.ScanCodeInfo.ScanResult
       e.setScanCodeInfo = new ScanCodeInfo(scanType, scanResult)
@@ -181,24 +214,28 @@ export class InMsgParser {
     if (InMenuEvent.EVENT_INMENU_PIC_SYSPHOTO == event) {
       let e = new InMenuEvent(obj.ToUserName, obj.FromUserName, obj.CreateTime, event)
       e.setEventKey = eventKey
+      e.setAgentId = agentId
       return e
     }
     // pic_photo_or_album：弹出拍照或者相册发图
     if (InMenuEvent.EVENT_INMENU_PIC_PHOTO_OR_ALBUM == event) {
       let e = new InMenuEvent(obj.ToUserName, obj.FromUserName, obj.CreateTime, event)
       e.setEventKey = eventKey
+      e.setAgentId = agentId
       return e
     }
     // pic_weixin：弹出微信相册发图器
     if (InMenuEvent.EVENT_INMENU_PIC_WEIXIN == event) {
       let e = new InMenuEvent(obj.ToUserName, obj.FromUserName, obj.CreateTime, event)
       e.setEventKey = eventKey
+      e.setAgentId = agentId
       return e
     }
     // location_select：弹出地理位置选择器
     if (InMenuEvent.EVENT_INMENU_LOCATION_SELECT == event) {
       let e = new InMenuEvent(obj.ToUserName, obj.FromUserName, obj.CreateTime, event)
       e.setEventKey = eventKey
+      e.setAgentId = agentId
       return e
     }
     // media_id：下发消息（除文本消息）
@@ -420,6 +457,14 @@ export class InMsgParser {
       e.setIsReturnBack = obj.IsReturnBack
       e.setFriendUserName = obj.FriendUserName
       e.setIsChatRoom = obj.IsChatRoom
+      return e
+    }
+    // 任务卡片事件推送
+    if (InTaskEvent.EVENT == event) {
+      let e = new InTaskEvent(obj.ToUserName, obj.FromUserName, obj.CreateTime, event)
+      e.setEventKey = eventKey
+      e.setTaskId = obj.TaskId
+      e.setAgentId = obj.AgentId
       return e
     }
     console.error('无法识别的事件类型' + event + '，请查阅微信公众平台开发文档 https://mp.weixin.qq.com/wiki')

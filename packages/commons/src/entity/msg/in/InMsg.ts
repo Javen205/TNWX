@@ -59,4 +59,12 @@ export abstract class InMsg {
   public set setMsgType(msgType: string) {
     this.msgType = msgType
   }
+
+  public get getAgentId(): string {
+    return this.agentId
+  }
+
+  public set setAgentId(agentId: string) {
+    this.agentId = agentId
+  }
 }

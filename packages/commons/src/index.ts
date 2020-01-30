@@ -29,6 +29,9 @@ export { InVideoMsg } from './entity/msg/in/InVideoMsg'
 export { InVoiceMsg } from './entity/msg/in/InVoiceMsg'
 
 export { EventInMsg } from './entity/msg/in/event/EventInMsg'
+export { InEnterAgentEvent } from './entity/msg/in/event/InEnterAgentEvent'
+export { InTaskEvent } from './entity/msg/in/event/InTaskEvent'
+
 export { InCustomEvent } from './entity/msg/in/event/InCustomEvent'
 export { InFollowEvent } from './entity/msg/in/event/InFollowEvent'
 export { InLocationEvent } from './entity/msg/in/event/InLocationEvent'
