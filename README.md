@@ -8,9 +8,36 @@
 <a href="https://github.com/Javen205/donate" target="_blank"><img src="https://img.shields.io/badge/Donate-WeChat-%23ff3f59.svg?style=flat-square" alt="Donate"/></a>
 </p>
 
-## 简介
+### 简介
 
-**TNWX: TypeScript + Node.js + WeiXin 微信系开发脚手架，支持微信公众号、微信支付、微信小游戏、微信小程序、微信企业号。同时也支持 Http 模块扩展，最最最重要的是能快速的集成至任何 Node.js 框架(Express、Nest、Egg、Koa 等)**
+**TNWX: TypeScript + Node.js + WeiXin 微信系开发脚手架，支持微信公众号、微信支付、微信小游戏、微信小程序、企业号/企业微信。最最最重要的是能快速的集成至任何 Node.js 框架(Express、Nest、Egg、Koa 等)**
+
+### 简易指南
+
+#### 下载源码并编译所有模块
+
+```
+$ git clone https://gitee.com/javen205/TNWX.git
+$ cd TNWX
+$ yarn bootstrap
+$ yarn tsc
+```
+
+#### 运行示例
+
+```
+$ cd sample/express && yarn
+$ yarn build
+$ yarn dev
+```
+
+### 文档
+
+[TNWX 微信系开发脚手架文档](https://javen205.gitee.io/tnwx)
+
+### 交流群
+
+群号: [114196246](https:shang.qq.com/wpa/qunwpa?idkey=a1e4fd8c71008961bd4fc8eeea224e726afd5e5eae7bf1d96d3c77897388bf24)
 
 ### 活动
 
@@ -26,48 +53,7 @@
     </a>
  </p>
 
-## TNWX 博客
-
-- [TNWX-开启公众号开发者模式](https://my.oschina.net/zyw205/blog/3038343)
-- [TNWX-微信公众号各种消息交互](https://my.oschina.net/zyw205/blog/3043428)
-- [TNWX-获取公众号的 access_token](https://my.oschina.net/zyw205/blog/3044608)
-- [TNWX-微信公众号发送模板消息](https://my.oschina.net/zyw205/blog/3044716)
-- [TNWX-微信公众号自定义菜单](https://my.oschina.net/zyw205/blog/3045638)
-- [TNWX-微信公众号中如何使用 JSSDK](https://my.oschina.net/zyw205/blog/3046798)
-- [TNWX-授权获取用户信息](https://my.oschina.net/zyw205/blog/3093807)
-
-[【更多博客尽在开源中国】](https://www.oschina.net/p/TNWX)
-
-## 开发进度
-
-- [x] 多公众号支持
-- [x] 各种消息交互
-- [x] 自定义菜单
-- [x] 模板消息
-- [x] 客服消息
-- [x] 用户管理
-- [x] 生带参数的二维码
-- [x] 长连接转短连接
-- [x] 微信网页授权
-- [x] 一次性订阅消息
-- [x] 素材管理
-- [x] 群发消息
-- [x] 数据统计
-- [x] 微信卡券
-- [x] 微信门店
-- [x] 微信摇一摇
-- [x] 微信支付
-- [ ] 微信连 WiFi
-- [ ] 微信扫一扫
-- [ ] 微信发票
-- [ ] 微信设备功能
-- [ ] ....
-
-## 交流群
-
-群号: [114196246](https:shang.qq.com/wpa/qunwpa?idkey=a1e4fd8c71008961bd4fc8eeea224e726afd5e5eae7bf1d96d3c77897388bf24)
-
-## 开源推荐
+### 开源推荐
 
 - `IJPay` 让支付触手可及：https://gitee.com/javen205/IJPay
 - SpringBoot 微服务高效开发 `mica` 工具集：https://gitee.com/596392912/mica
