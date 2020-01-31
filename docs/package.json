@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "docs of tnwx",
   "author": "Javen",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "private": true,
   "scripts": {
     "docs:dev": "vuepress dev docs",
