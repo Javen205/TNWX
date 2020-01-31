@@ -1,3 +1,5 @@
+import { DefaultAccessTokenCache } from './../../../packages/accesstoken/src/cache/DefaultAccessTokenCache';
+import { HttpDelegate } from './../../../packages/kits/src/HttpKit';
 import * as urlencode from 'urlencode';
 import {
 	WeChat,
@@ -1382,6 +1384,7 @@ const server = app.listen(8888, "localhost", () => {
         // 开启开发模式,方便调试
         ApiConfigKit.devMode = true;
         QyApiConfigKit.devMode = true;
+        ApiConfigKit.setAccessTokenCache(new DefaultAccessTokenCache());
         if (ApiConfigKit.devMode) {
             console.log('服务器已启动, 地址是：http://%s:%s', host, port);
         }
