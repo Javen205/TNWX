@@ -14,9 +14,9 @@
 
 ### 简易指南
 
-#### 下载源码并编译所有模块
+#### 尝鲜版
 
-```
+```bash
 $ git clone https://gitee.com/javen205/TNWX.git
 $ cd TNWX
 $ yarn bootstrap
@@ -25,10 +25,18 @@ $ yarn tsc
 
 #### 运行示例
 
-```
+```bash
 $ cd sample/express && yarn
 $ yarn build
 $ yarn dev
+```
+
+#### 稳定版
+
+```bash
+$ mkdir TNWX && cd TNWX
+$ yarn init -y
+$ yarn add tnwx
 ```
 
 ### 文档
