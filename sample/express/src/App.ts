@@ -71,6 +71,10 @@ import {
     QyMiniprogram,
     QyKv,
     AxiosHttpKit,
+    QyTaskCardMsg,
+    QyTaskCard,
+    QyTaskCardBtn,
+    QyWxApi,
 } from 'tnwx';
 
 import * as express from 'express';
@@ -640,6 +644,34 @@ app.get('/sendMsg', (req, res) => {
                 toUser
             )
             QySendMsgApi.sendMiniprogramNoticeMessage(miniprogram)
+                .then(data => {
+                    res.send(data);
+                })
+                .catch(error =>console.log(error))
+            break;
+        case 10:
+            let taskCard = new QyTaskCardMsg(
+                new QyTaskCard(
+                    '123456789',
+                    '邀请参加TNWX线下活动',
+                    '抽奖时间：15:00<br>礼品：TNWX 周边礼物',
+                    [
+                        new QyTaskCardBtn('receive', '同意', '已同意', 'red', true),
+                        new QyTaskCardBtn('cancel', '取消', '已取消'),
+                    ],
+                    'https://gitee.com/javen205/TNWX'
+                ),
+                agentId,
+                toUser
+            )
+            QySendMsgApi.sendTaskCardMessage(taskCard)
+                .then(data => {
+                    res.send(data);
+                })
+                .catch(error =>console.log(error))
+            break;
+        case 11:
+            QyWxApi.updateTaskCard('Javen',agentId,'123456789','receive')
                 .then(data => {
                     res.send(data);
                 })
