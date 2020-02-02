@@ -1,5 +1,5 @@
 import { QyApiConfigKit } from '@tnwx/accesstoken'
-import { CryptoKit } from '@tnwx/commons'
+import { CryptoKit, InTaskEvent, InEnterAgentEvent } from '@tnwx/commons'
 import { parseString } from 'xml2js'
 import {
   MsgAdapter,
@@ -30,6 +30,11 @@ import {
   OutCustomMsg
 } from '@tnwx/commons'
 
+/**
+ * @author Javen
+ * @copyright javendev@126.com
+ * @description 处理企业微信消息以及事件
+ */
 export class QyWeChat {
   /**
    *  验证成为开发者
@@ -106,6 +111,10 @@ export class QyWeChat {
           outMsg = msgAdapter.processInTemplateMsgEvent(<InTemplateMsgEvent>inMsg)
         } else if (inMsg instanceof InShakearoundUserShakeEvent) {
           outMsg = msgAdapter.processInShakearoundUserShakeEvent(<InShakearoundUserShakeEvent>inMsg)
+        } else if (inMsg instanceof InTaskEvent) {
+          outMsg = msgAdapter.processInTaskEvent(<InTaskEvent>inMsg)
+        } else if (inMsg instanceof InEnterAgentEvent) {
+          outMsg = msgAdapter.processInEnterAgentEvent(<InEnterAgentEvent>inMsg)
         } else if (inMsg instanceof InNotDefinedMsg) {
           if (QyApiConfigKit.isDevMode()) {
             console.debug(`未能识别的消息类型。消息 xml 内容为：\n ${result}`)

@@ -13,7 +13,11 @@ import { QyMpNewsMsg } from './entity/QyMpNewsMsg'
 import { QyTaskCardMsg } from './entity/QyTaskCardMsg'
 import { QyMiniProgramNoticeMsg } from './entity/QyMiNiProgramNoticeMsg'
 import { QyMarkDownMsg } from './entity/QyMarkDownMsg'
-
+/**
+ * @author Javen
+ * @copyright javendev@126.com
+ * @description 主动发送消息
+ */
 export class QySendMsgApi {
   private static sendMessageUrl: string = 'https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=%s'
   /**

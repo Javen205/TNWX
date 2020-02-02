@@ -20,6 +20,8 @@ import { InLocationEvent } from './entity/msg/in/event/InLocationEvent'
 import { InMenuEvent } from './entity/msg/in/event/InMenuEvent'
 import { InTemplateMsgEvent } from './entity/msg/in/event/InTemplateMsgEvent'
 import { InShakearoundUserShakeEvent } from './entity/msg/in/event/InShakearoundUserShakeEvent'
+import { InTaskEvent } from './entity/msg/in/event/InTaskEvent'
+import { InEnterAgentEvent } from './entity/msg/in/event/InEnterAgentEvent'
 
 export interface MsgAdapter {
   // 处理文本消息
@@ -53,4 +55,8 @@ export interface MsgAdapter {
   processInTemplateMsgEvent(inTemplateMsgEvent: InTemplateMsgEvent): OutMsg
   // 处理摇一摇周边事件
   processInShakearoundUserShakeEvent(inShakearoundUserShakeEvent: InShakearoundUserShakeEvent): OutMsg
+  // 任务卡片事件
+  processInTaskEvent(inTaskEvent: InTaskEvent): OutMsg
+  // 进入应用
+  processInEnterAgentEvent(inEnterAgentEvent: InEnterAgentEvent): OutMsg
 }
