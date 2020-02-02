@@ -1,5 +1,3 @@
-import { DefaultAccessTokenCache } from './../../../packages/accesstoken/src/cache/DefaultAccessTokenCache';
-import { HttpDelegate } from './../../../packages/kits/src/HttpKit';
 import * as urlencode from 'urlencode';
 import {
 	WeChat,
@@ -69,6 +67,10 @@ import {
     QyMpNews,
     QyMpNewsArticles,
     QyMarkDownMsg,
+    QyMiniProgramNoticeMsg,
+    QyMiniprogram,
+    QyKv,
+    AxiosHttpKit,
 } from 'tnwx';
 
 import * as express from 'express';
@@ -127,7 +129,8 @@ app.get('/wxpay', async (req: any, res: any) => {
                     Kits.xml2obj(String(xml))
                         .then((obj) => {
                             console.log(obj);
-                        }).catch((error) => console.log(error))
+                        })
+                        .catch((error) => console.log(error))
                 }).catch((error) => console.log(error))
             res.send('请求控制台查看日志...By https://gitee.com/Javen205/TNWX');
             break;
@@ -341,19 +344,22 @@ app.get('/ocr', async (req: any, res: any) => {
             OCRApi.ocrByUrl(OCRType.IDCARD,'https://up.enterdesk.com/edpic_360_360/28/bc/80/28bc80d62c84ea7797197a6d7cb03394.jpg')
                 .then((data) => {
                     res.send(data);
-                }).catch((error) => console.log(error))
+                })
+                .catch((error) => console.log(error))
             break;
         case 2:
             OCRApi.ocrByUrl(OCRType.PRINTEDTEXT,'https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1724603202,554806693&fm=26&gp=0.jpg')
                 .then((data) => {
                     res.send(data);
-                }).catch((error) => console.log(error))
+                })
+                .catch((error) => console.log(error))
             break;
         case 3:
             OCRApi.ocrByFile(OCRType.PRINTEDTEXT,'/Users/Javen/Downloads/miniprogram_qrcode2.png')
                 .then((data) => {
                     res.send(data);
-                }).catch((error) => console.log(error))
+                })
+                .catch((error) => console.log(error))
             break;
         default:
             break
@@ -422,9 +428,11 @@ app.post('/msg', function (req: any, res: any) {
         let msgXml = Buffer.concat(buffer).toString('utf-8');
         // 接收消息并响应对应的回复
         WeChat.handleMsg(msgAdapter, msgXml,
-            msgSignature, timestamp, nonce).then(data => {
+            msgSignature, timestamp, nonce)
+            .then(data => {
                 res.send(data);
-            });
+            })
+            .catch((error) => console.log(error));
     });
 
 });
@@ -455,7 +463,8 @@ app.post('/qymsg', function (req: any, res: any) {
         QyWeChat.handleMsg(msgAdapter, msgXml, msgSignature, timestamp, nonce)
             .then(data => {
                 res.send(data);
-            });
+            })
+            .catch((error) => console.log(error));
     });
 
 });
@@ -479,7 +488,7 @@ app.get('/sendMsg', (req, res) => {
             break;
         case 1:
             let image = new QyImageMsg(
-                new QyMediaId('1YEMm73EQnLInFTMu2684mxSiKDpV3vJh0eQwzPHPnkeybLeEWFrKsJzkGGFfa1LX'),
+                new QyMediaId('1X7ARFWFBZBnOgNEtpRbmSR46LdLuX1aDtoxbJgpBzRqT34EmnQtXxiPk9DfBXzSa'),
                 agentId,
                 toUser
             )
@@ -520,7 +529,7 @@ app.get('/sendMsg', (req, res) => {
         case 4:
             let file = new QyFileMsg(
                 new QyMediaId(
-                    '1YEMm73EQnLInFTMu2684mxSiKDpV3vJh0eQwzPHPnkeybLeEWFrKsJzkGGFfa1LX',
+                    '1X7ARFWFBZBnOgNEtpRbmSR46LdLuX1aDtoxbJgpBzRqT34EmnQtXxiPk9DfBXzSa',
                 ),
                 agentId,
                 toUser
@@ -535,9 +544,9 @@ app.get('/sendMsg', (req, res) => {
             let textcard = new QyTextCardMsg(
                 new QyTextCard(
                     'TNWX 微信系开发脚手架',
-                    'TypeScript + Node.js + WeiXin 微信系开发脚手架，支持微信公众号、微信支付、微信小程序、微信小游戏、企业微信，支持 Http 模块扩展以及任何 Node.js 框架(Express、Nest、Egg、Koa 等)',
+                    'TNWX: TypeScript + Node.js + WeiXin 微信系开发脚手架，支持微信公众号、微信支付、微信小游戏、微信小程序、企业微信/企业号。最最最重要的是能快速的集成至任何 Node.js 框架(Express、Nest、Egg、Koa 等)',
                     'https://gitee.com/javen205/TNWX',
-                    '查看更多'
+                    '了解更多'
                 ),
                 agentId,
                 toUser
@@ -554,8 +563,8 @@ app.get('/sendMsg', (req, res) => {
                     [
                         new QyNews(
                             'TNWX 微信系开发脚手架',
-                            'TypeScript + Node.js + WeiXin 微信系开发脚手架，支持微信公众号、微信支付、微信小程序、微信小游戏、企业微信，支持 Http 模块扩展以及任何 Node.js 框架(Express、Nest、Egg、Koa 等)',
-                            'https://gitee.com/javen205/TNWX/raw/master/assets/img/logo.png',
+                            'TNWX: TypeScript + Node.js + WeiXin 微信系开发脚手架，支持微信公众号、微信支付、微信小游戏、微信小程序、企业微信/企业号。最最最重要的是能快速的集成至任何 Node.js 框架(Express、Nest、Egg、Koa 等)',
+                            'https://s2.ax1x.com/2020/02/01/1J9I9P.jpg',
                             'https://gitee.com/javen205/TNWX',    
                         ),
                         new QyNews(
@@ -581,8 +590,8 @@ app.get('/sendMsg', (req, res) => {
                 new QyMpNewsArticles([
                     new QyMpNews(
                         'TNWX 微信系开发脚手架',
-                        '1YEMm73EQnLInFTMu2684mxSiKDpV3vJh0eQwzPHPnkeybLeEWFrKsJzkGGFfa1LX',
-                        'TypeScript + Node.js + WeiXin 微信系开发脚手架，支持微信公众号、微信支付、微信小程序、微信小游戏、企业微信，支持 Http 模块扩展以及任何 Node.js 框架(Express、Nest、Egg、Koa 等)',
+                        '1X7ARFWFBZBnOgNEtpRbmSR46LdLuX1aDtoxbJgpBzRqT34EmnQtXxiPk9DfBXzSa',
+                        'TNWX: TypeScript + Node.js + WeiXin 微信系开发脚手架，支持微信公众号、微信支付、微信小游戏、微信小程序、企业微信/企业号。最最最重要的是能快速的集成至任何 Node.js 框架(Express、Nest、Egg、Koa 等)',
                         'Javen',
                         'https://gitee.com/javen205/TNWX',
                         '了解一下'
@@ -600,14 +609,37 @@ app.get('/sendMsg', (req, res) => {
         case 8:
             let markDown = new QyMarkDownMsg(
                 new QyText(
-                    "开源项目列表:\n"+
+                    "Javen 开源项目列表:\n"+
                     "[TNWX 微信系开发脚手架](https://gitee.com/javen205/TNWX)\n" +
-                    "[IJPay 让支付触手可及](https://gitee.com/javen205/IJPay)"
+                    "[IJPay 让支付触手可及](https://gitee.com/javen205/IJPay)\n" +
+                    "[JPay 简易而不简单的支付 SDK](https://gitee.com/javen205/IJPay)\n"
                 ),
                 agentId,
                 toUser
             )
             QySendMsgApi.sendMarkDownMessage(markDown)
+                .then(data => {
+                    res.send(data);
+                })
+                .catch(error =>console.log(error))
+            break;
+        case 9:
+            let miniprogram = new QyMiniProgramNoticeMsg(
+                new QyMiniprogram(
+                    'wxf30d9b9b316d5de4',
+                    '老铁开源项目了解一下',
+                    [
+                        new QyKv('项目名称', 'TNWX'),
+                        new QyKv('参与人员', '所有开发者'),
+                    ],
+                    'pages/index',
+                    '2月2日 14:00',
+                    true
+                ),
+                agentId,
+                toUser
+            )
+            QySendMsgApi.sendMiniprogramNoticeMessage(miniprogram)
                 .then(data => {
                     res.send(data);
                 })
@@ -696,9 +728,11 @@ app.get('/subscribe', function (req: any, res: any) {
             break;
         case 1:
             SubscribeMsgApi.send(new SubscribeMsg(openId, templateId, scene,
-                "订阅消息", new Data(new Content("IJPay 让支付触手可及", "#000000")))).then(data => {
+                "订阅消息", new Data(new Content("IJPay 让支付触手可及", "#000000"))))
+                .then(data => {
                     res.send(data);
                 })
+                .catch((error) => console.log(error))
             break;
         default:
             break;
@@ -721,9 +755,11 @@ app.get('/sendTemplate', (req: any, res: any) => {
         add("remark", "请点击详情直接看课程直播，祝生活愉快", "#008000").
         build();
     console.log("templateJson", templateJson);
-    TemplateApi.send(templateJson).then(data => {
-        res.send(data);
-    });
+    TemplateApi.send(templateJson)
+        .then(data => {
+            res.send(data);
+        })
+        .catch((error) => console.log(error));
 });
 
 // 读取配置文件来创建自定义菜单
@@ -736,33 +772,41 @@ app.get('/creatMenu', (req: any, res: any) => {
         let fileData = data.toString();
         console.log(fileData);
         // res.send(fileData)
-        MenuApi.create(fileData).then(data => {
-            res.send(data);
-        });
+        MenuApi.create(fileData)
+            .then(data => {
+                res.send(data);
+            })
+            .catch((error) => console.log(error));
     });
 });
 
 // 动态创建自定义菜单
 app.get('/dynamicCreatMenu', (req: any, res: any) => {
-    MenuApi.create(JSON.stringify(MenuManager.getMenu())).then(data => {
-        res.send(data);
-    });
+    MenuApi.create(JSON.stringify(MenuManager.getMenu()))
+        .then(data => {
+            res.send(data);
+        })
+        .catch((error) => console.log(error));
 });
 
 // 获取access_token
 app.get('/getAccessToken', (req: any, res: any) => {
-    AccessTokenApi.getAccessToken().then(data => {
-        let accessToken = <AccessToken>data;
-        res.send(accessToken);
-    });
+    AccessTokenApi.getAccessToken()
+        .then(data => {
+            let accessToken = <AccessToken>data;
+            res.send(accessToken);
+        })
+        .catch((error) => console.log(error));
 });
 
 // 获取 access_token
 app.get('/getQyAccessToken', (req: any, res: any) => {
-    QyAccessTokenApi.getAccessToken().then(data => {
-        let accessToken = <AccessToken>data;
-        res.send(accessToken);
-    });
+    QyAccessTokenApi.getAccessToken()
+        .then(data => {
+            let accessToken = <AccessToken>data;
+            res.send(accessToken);
+        })
+        .catch((error) => console.log(error));
 });
 
 // 客服消息
@@ -773,14 +817,18 @@ app.get('/sendCustomMsg', (req: any, res: any) => {
     let openId = "ofkJSuGtXgB8n23e-y0kqDjJLXxk";
     switch (parseInt(type)) {
         case 0:
-            CustomServiceApi.sendTyping(openId, "Typing").then(data => {
-                res.send(data);
-            });
+            CustomServiceApi.sendTyping(openId, "Typing")
+                .then(data => {
+                    res.send(data);
+                })
+                .catch((error) => console.log(error));
             break;
         case 1:
-            CustomServiceApi.sendText(openId, "客服消息---IJPay 让支付触手可及", "javen@gh_8746b7fa293e").then(data => {
-                res.send(data);
-            });
+            CustomServiceApi.sendText(openId, "客服消息---IJPay 让支付触手可及", "javen@gh_8746b7fa293e")
+                .then(data => {
+                    res.send(data);
+                })
+                .catch((error) => console.log(error));
             break;
         case 2:
             // {errcode: 40200,errmsg: "invalid account type hint: [WDtfla05023942]"}
@@ -788,62 +836,84 @@ app.get('/sendCustomMsg', (req: any, res: any) => {
             list.push(new MenuMsg("101", "非常满意"));
             list.push(new MenuMsg("102", "满意"));
             // list.push(new MenuMsg("103", "有待提高"));
-            CustomServiceApi.sendMenu(openId, "您对本次服务是否满意呢?", list, "欢迎再次光临").then(data => {
-                res.send(data);
-            });
+            CustomServiceApi.sendMenu(openId, "您对本次服务是否满意呢?", list, "欢迎再次光临")
+                .then(data => {
+                    res.send(data);
+                })
+                .catch((error) => console.log(error));
             break;
         case 3:
             let articles: Article[] = [];
             articles.push(new Article("聚合支付了解一下", "IJPay 让支付触手可及", "https://gitee.com/javen205/IJPay",
                 "https://gitee.com/javen205/IJPay/raw/master/assets/img/IJPay-t.png"));
-            CustomServiceApi.sendNews(openId, articles).then(data => {
-                res.send(data);
-            });
+            CustomServiceApi.sendNews(openId, articles)
+                .then(data => {
+                    res.send(data);
+                })
+                .catch((error) => console.log(error));
             break;
         case 4:
-            CustomServiceApi.sendImage(openId, "EUIf6vWuKACnuc92ZEIrF8oOnTOIWID8jiJnZKp5xJC0e8lNbMNv48IdFA8z8tnM").then(data => {
-                res.send(data);
-            });
+            CustomServiceApi.sendImage(openId, "EUIf6vWuKACnuc92ZEIrF8oOnTOIWID8jiJnZKp5xJC0e8lNbMNv48IdFA8z8tnM")
+                .then(data => {
+                    res.send(data);
+                })
+                .catch((error) => console.log(error));
             break;
         case 5:
-            CustomServiceApi.sendVoice(openId, "a_6HXIgnXkOXXFYY-S6clAfGEXyArfEens4_MBkFqqwnQ9-Qi9Ii7VRL67rmtsW6").then(data => {
-                res.send(data);
-            });
+            CustomServiceApi.sendVoice(openId, "a_6HXIgnXkOXXFYY-S6clAfGEXyArfEens4_MBkFqqwnQ9-Qi9Ii7VRL67rmtsW6")
+                .then(data => {
+                    res.send(data);
+                })
+                .catch((error) => console.log(error));
             break;
         case 6:
             // 需要通过接口上传视频
             CustomServiceApi.sendVideo(openId, "uTSuRGeUYpWlpyLyXdwYXqndfgbh4aRKOGwg4-wsgADANwhLYbM--faOAVurxp6G",
-                "客服消息发送视频", "一个有趣的视频").then(data => {
+                "客服消息发送视频", "一个有趣的视频")
+                .then(data => {
                     res.send(data);
-                });
+                })
+                .catch((error) => console.log(error));
             break;
         case 7:
-            CustomServiceApi.addKfAccount("javen@gh_8746b7fa293e", "Javen", "123456").then(data => {
-                res.send(data);
-            });
-            CustomServiceApi.addKfAccount("javen205@gh_8746b7fa293e", "Javen205", "123456").then(data => {
-                res.send(data);
-            });
+            CustomServiceApi.addKfAccount("javen@gh_8746b7fa293e", "Javen", "123456")
+                .then(data => {
+                    res.send(data);
+                })
+                .catch((error) => console.log(error));
+            CustomServiceApi.addKfAccount("javen205@gh_8746b7fa293e", "Javen205", "123456")
+                .then(data => {
+                    res.send(data);
+                })
+                .catch((error) => console.log(error));
             break;
         case 8:
-            CustomServiceApi.getKfList(res).then(data => {
-                res.send(data);
-            });
+            CustomServiceApi.getKfList(res)
+                .then(data => {
+                    res.send(data);
+                })
+                .catch((error) => console.log(error));
             break;
         case 9:
-            CustomServiceApi.delKfAccount("javen@gh_8746b7fa293e").then(data => {
-                res.send(data);
-            });
+            CustomServiceApi.delKfAccount("javen@gh_8746b7fa293e")
+                .then(data => {
+                    res.send(data);
+                })
+                .catch((error) => console.log(error));
             break;
         case 10:
-            CustomServiceApi.updateKfAccount("javen205@gh_8746b7fa293e", "Javen", "123456").then(data => {
-                res.send(data);
-            });
+            CustomServiceApi.updateKfAccount("javen205@gh_8746b7fa293e", "Javen", "123456")
+                .then(data => {
+                    res.send(data);
+                })
+                .catch((error) => console.log(error));
             break;
         case 11:
-            CustomServiceApi.uploadKfAccountHeadImg("javen205@gh_8746b7fa293e", "/Users/Javen/Downloads/test.jpg").then(data => {
-                res.send(data);
-            });
+            CustomServiceApi.uploadKfAccountHeadImg("javen205@gh_8746b7fa293e", "/Users/Javen/Downloads/test.jpg")
+                .then(data => {
+                    res.send(data);
+                })
+                .catch((error) => console.log(error));
             break;
         default:
             break;
@@ -859,24 +929,32 @@ app.get('/qrcode', (req: any, res: any) => {
             res.send(QrcodeApi.getShowQrcodeUrl(ticket));
             break;
         case 1:
-            QrcodeApi.createTemporary(10, 1).then(data => {
-                res.send(data);
-            });
+            QrcodeApi.createTemporary(10, 1)
+                .then(data => {
+                    res.send(data);
+                })
+                .catch((error) => console.log(error));
             break;
         case 2:
-            QrcodeApi.createTemporaryByStr(10, "IJPay").then(data => {
-                res.send(data);
-            });
+            QrcodeApi.createTemporaryByStr(10, "IJPay")
+                .then(data => {
+                    res.send(data);
+                })
+                .catch((error) => console.log(error));
             break;
         case 3:
-            QrcodeApi.createPermanent(666).then(data => {
-                res.send(data);
-            });
+            QrcodeApi.createPermanent(666)
+                .then(data => {
+                    res.send(data);
+                })
+                .catch((error) => console.log(error));
             break;
         case 4:
-            QrcodeApi.createPermanentByStr("IJPay").then(data => {
-                res.send(data);
-            });
+            QrcodeApi.createPermanentByStr("IJPay")
+                .then(data => {
+                    res.send(data);
+                })
+                .catch((error) => console.log(error));
             break;
 
         default:
@@ -885,9 +963,11 @@ app.get('/qrcode', (req: any, res: any) => {
 });
 // 短链接
 app.get('/shortUrl', (req: any, res: any) => {
-    ShortUrlApi.longToShort("https://gitee.com/javen205/IJPay").then(data => {
-        res.send(data);
-    });
+    ShortUrlApi.longToShort("https://gitee.com/javen205/IJPay")
+        .then(data => {
+            res.send(data);
+        })
+        .catch((error) => console.log(error));
 });
 // 用户标签管理
 app.get('/tagApi', (req: any, res: any) => {
@@ -897,47 +977,65 @@ app.get('/tagApi', (req: any, res: any) => {
     let openId = "ofkJSuGtXgB8n23e-y0kqDjJLXxk";
     switch (parseInt(type)) {
         case 0:
-            TagApi.get().then(data => {
-                res.send(data);
-            });
+            TagApi.get()
+                .then(data => {
+                    res.send(data);
+                })
+                .catch((error) => console.log(error));
             break;
         case 1:
-            TagApi.create("会员").then(data => {
-                res.send(data);
-            });
-            TagApi.create("普通会员").then(data => {
-                res.send(data);
-            });
+            TagApi.create("会员")
+                .then(data => {
+                    res.send(data);
+                })
+                .catch((error) => console.log(error));
+            TagApi.create("普通会员")
+                .then(data => {
+                    res.send(data);
+                })
+                .catch((error) => console.log(error));
             break;
         case 2:
-            TagApi.update(101, "超级会员").then(data => {
-                res.send(data);
-            });
+            TagApi.update(101, "超级会员")
+                .then(data => {
+                    res.send(data);
+                })
+                .catch((error) => console.log(error));
             break;
         case 3:
-            TagApi.delete(100).then(data => {
-                res.send(data);
-            });
+            TagApi.delete(100)
+                .then(data => {
+                    res.send(data);
+                })
+                .catch((error) => console.log(error));
             break;
         case 4:
-            TagApi.getUser(101).then(data => {
-                res.send(data);
-            });
+            TagApi.getUser(101)
+                .then(data => {
+                    res.send(data);
+                })
+                .catch((error) => console.log(error));
             break;
         case 5:
-            TagApi.batchAddTag(101, [openId]).then(data => {
-                res.send(data);
-            });
+            TagApi.batchAddTag(101, [openId])
+                .then(data => {
+                    res.send(data);
+                })
+                .catch((error) => console.log(error));
             break;
         case 6:
-            TagApi.batchDelTag(101, [openId]).then(data => {
-                res.send(data);
-            });
+            TagApi.batchDelTag(101, [openId])
+                .then(data => {
+                    res.send(data);
+                })
+                .catch((error) => console.log(error));
             break;
         case 7:
-            TagApi.getUserTag(openId).then(data => {
-                res.send(data);
-            });
+            TagApi.getUserTag(openId)
+                .then(data => {
+                    res.send(data);
+                })
+                .catch((error) => console.log(error));
             break;
         default:
             break;
@@ -953,51 +1051,64 @@ app.get('/userApi', (req: any, res: any) => {
     let openId = "ofkJSuGtXgB8n23e-y0kqDjJLXxk";
     switch (parseInt(type)) {
         case 0:
-            UserApi.getUserInfo(openId).then(data => {
-                res.send(data);
-            });
+            UserApi.getUserInfo(openId)
+                .then(data => {
+                    res.send(data);
+                })
+                .catch((error) => console.log(error));
             break;
         case 1:
-            UserApi.getFollowers().then(data => {
-                res.send(data);
-            });
+            UserApi.getFollowers()
+                .then(data => {
+                    res.send(data);
+                })
+                .catch((error) => console.log(error));
             break;
         case 2:
             let userList: BatchUserInfo[] = [];
             userList.push(new BatchUserInfo(openId, "zh_CN"));
-            UserApi.batchGetUserInfo(userList).then(data => {
-                res.send(data);
-            }).catch(reason => {
+            UserApi.batchGetUserInfo(userList)
+                .then(data => {
+                    res.send(data);
+                })
+                .catch(reason => {
                 res.send(reason);
             });
             break;
         case 3:
-            UserApi.getBlackList().then(data => {
-                res.send(data);
-            }).catch(reason => {
-                res.send(reason);
-            });
+            UserApi.getBlackList()
+                .then(data => {
+                    res.send(data);
+                })
+                .catch(reason => {
+                    res.send(reason);
+                });
             break;
         case 4:
-            UserApi.batchBlackList([openId]).then(data => {
-                res.send(data);
-            }).catch(reason => {
-                res.send(reason);
-            });
+            UserApi.batchBlackList([openId])
+                .then(data => {
+                    res.send(data);
+                })
+                .catch(reason => {
+                    res.send(reason);
+                });
             break;
         case 5:
-            UserApi.batchUnBlackList([openId]).then(data => {
-                res.send(data);
-            }).catch(reason => {
-                res.send(reason);
-            });
+            UserApi.batchUnBlackList([openId])
+                .then(data => {
+                    res.send(data);
+                })
+                .catch(reason => {
+                    res.send(reason);
+                });
             break;
         case 6:
-            AutoReplyInfoApi.getCurrent().then(data => {
-                res.send(data);
-            }).catch(reason => {
-                res.send(reason);
-            });
+            AutoReplyInfoApi.getCurrent()
+                .then(data => {
+                    res.send(data);
+                }).catch(reason => {
+                    res.send(reason);
+                });
             break;
 
         default:
@@ -1371,6 +1482,7 @@ const server = app.listen(8888, "localhost", () => {
         let proApiConfig = new ApiConfig('wx0ac22947e8d7f437', 'cd35d0cd5783a2fd47c488a80d5aa807', 'Javen', true, 'GFLxP8ppqcgQbI0yivtMkY4pkOAOiapHhQsCOgYUnYK');
         let miniApiConfig = new ApiConfig('wxf30d9b9b316d5de4', 'bf0f1a06ba7cc16be643a250ca40213b');
         let qyApiConfig = new ApiConfig('1000004', 'fs-wmeFEr4PCMY7WGYyv1rDKGwaPLTvWFFX3UL396QI','Javen',true,'GFLxP8ppqcgQbI0yivtMkY4pkOAOiapHhQsCOgYUnYK','wxdbc631b5210be89f');
+        let qyMiniApiConfig = new ApiConfig('1000006', 'I9aenO-_rgAqrT_NGub-43_5bUCJvDL7YBTTcUb9nIg','Javen',true,'GFLxP8ppqcgQbI0yivtMkY4pkOAOiapHhQsCOgYUnYK','wxdbc631b5210be89f');
         console.log(qyApiConfig.getAppId);
         console.log(qyApiConfig.getCorpId);
         
@@ -1378,13 +1490,16 @@ const server = app.listen(8888, "localhost", () => {
         ApiConfigKit.putApiConfig(devApiConfig);
         ApiConfigKit.putApiConfig(proApiConfig);
         ApiConfigKit.putApiConfig(miniApiConfig);
-        ApiConfigKit.setCurrentAppId('wx614c453e0d1dcd12');
+        ApiConfigKit.setCurrentAppId(devApiConfig.getAppId);
         QyApiConfigKit.putApiConfig(qyApiConfig);
+        QyApiConfigKit.putApiConfig(qyMiniApiConfig);
         QyApiConfigKit.setCurrentAppId(qyApiConfig.getAppId, qyApiConfig.getCorpId);
+        // QyApiConfigKit.setCurrentAppId(qyMiniApiConfig.getAppId, qyMiniApiConfig.getCorpId);
         // 开启开发模式,方便调试
         ApiConfigKit.devMode = true;
         QyApiConfigKit.devMode = true;
-        ApiConfigKit.setAccessTokenCache(new DefaultAccessTokenCache());
+        // HttpKit.setHttpDelegate = new AxiosHttpKit();
+        // ApiConfigKit.setAccessTokenCache = new DefaultAccessTokenCache();
         if (ApiConfigKit.devMode) {
             console.log('服务器已启动, 地址是：http://%s:%s', host, port);
         }
