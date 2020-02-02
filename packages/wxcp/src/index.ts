@@ -13,3 +13,5 @@ export { QyMpNewsMsg, QyMpNews, QyMpNewsArticles } from './entity/QyMpNewsMsg'
 export { QyMarkDownMsg } from './entity/QyMarkDownMsg'
 export { QyMiniProgramNoticeMsg, QyMiniprogram, QyKv } from './entity/QyMiniProgramNoticeMsg'
 export { QyTaskCardMsg, QyTaskCardBtn, QyTaskCard } from './entity/QyTaskCardMsg'
+
+export { QyWxApi } from './QyWxApi'
