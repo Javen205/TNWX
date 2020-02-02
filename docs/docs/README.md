@@ -38,6 +38,15 @@ footer: Apache License 2.0 | Copyright © 2019-present Javen
      </a> 
 </p>
 
+### 安装
+
+**二者任选其一**
+
+```bash
+$ npm i tnwx 
+$ yarn add tnwx
+```
+
 ### 全民云计算
 
 [阿里云主机低至2折](https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=b1hkzv2x)

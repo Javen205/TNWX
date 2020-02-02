@@ -1,94 +1,24 @@
 # 开发者模式
 
-
-
 ## 简介
 
 **TNWX: TypeScript + Node.js + WeiXin 微信系开发脚手架，支持微信公众号、微信支付、微信小游戏、微信小程序、企业号/企业微信。最最最重要的是能快速的集成至任何 Node.js 框架(Express、Nest、Egg、Koa 等)**
 
-## 安装
-
-### NPM 依赖方式 
-
- ```bash
-$ mkdir TNWX && cd TNWX
-$ yarn init -y 
-$ yarn add tnwx
- ```
-
-### 源码方式
-
-1、下载项目并安装依赖
-
-```bash
-$ git clone https://github.com/Javen205/TNWX.git 
-或者 
-$ git clone https://gitee.com/Javen205/TNWX.git 
-$ cd TNWX
-$ yarn bootstrap
-$ yarn tsc 
-```
-
-2、编译并运行示例
-
-```bash
-$ cd sample/express && yarn
-$ yarn build
-$ yarn dev
-```
-
-3、完整示例
-
-- [Gitee 请点击这里](https://gitee.com/javen205/TNWX/tree/master/sample)
-- [GitHub 请点击这里](https://github.com/javen205/TNWX/tree/master/sample)
-
 ## 配置公众号参考
 
-```javascript
-  // 亦可以读取配置文件
-  let devApiConfig = new ApiConfig('wx614c453e0d1dcd12', '19a02e4927d346484fc70327970457f9','Javen');
-
-  // 支持多公众号
-  ApiConfigKit.putApiConfig(apiConfig);
-  // 开启开发模式,方便调试
-  ApiConfigKit.devMode = true;
-```
-
-**特别说明**
-
-1. 支持多公众号配置，如需要可以多实例化 `ApiConfig` 然后调用 `ApiConfigKit.putApiConfig(apiConfig)` 进行设置，企业号使用 `QyApiConfigKit.putApiConfig(qyApiConfig)`。
-
-2. `ApiConfig` 参数说明
-
-   第一个参数：开发者ID appId。 **企业微信时 appId 对应的值为 agentId**
-
-   第二个参数：开发者密码 appScrect
-
-   第三个参数：令牌 Token 可以任意填写
-
-   第四个参数：是否开启加密 encryptMessage  默认值为 false。**测试号必须为 false， 企业号必须为 true**
-
-   第五个参数：消息加解密密钥 encodingAesKey 非必须。 **encryptMessage 为 true 时必须**
-
-   第六个参数：企业ID 非必须。 **企业微信时必须**
-
-3. 设置多个公众号配置时默认使用第一个 `ApiConfig`
-
-4. 切换公众号配置可以调用 `ApiConfigKit.setCurrentAppId(appId)` 企业号使用 `QyApiConfigKit.setCurrentAppId(appId, corpId)`
-
-
+[请参考快速入门中的初始化与示例](../common/init)
 
 ## 公众号开启开发者模式 
 
  **TNWX** 中验证签名的关键接口如下：
 
-```javascript
+```TypeScript
 WeChat.checkSignature(signature, timestamp,nonce, echostr)
 ```
 
 **Express** 示例如下：
 
-```javascript
+```TypeScript
 app.get('/msg', (req: any, res: any) => {
     console.log('get query...', req.query);
 

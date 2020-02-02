@@ -14,7 +14,7 @@
 
 3、`access_token` 的有效时间可能会在未来有调整，所以中控服务器不仅需要内部定时主动刷新，还需要提供被动刷新 `access_token` 的接口，这样便于业务服务器在API调用获知 `access_token` 已超时的情况下，可以触发`access_token` 的刷新流程。
 
-公众号和小程序均可以使用 AppId 和 AppSecret 调用本接口来获取 `access_token`。AppId 和 AppSecret 可在“微信公众平台-开发-基本配置”页中获得（需要已经成为开发者，且帐号没有异常状态）。**调用接口时，请登录“微信公众平台-开发-基本配置”提前将服务器 IP 地址添加到 IP 白名单中，否则将无法调用成功。**小程序无需配置IP白名单。
+公众号和小程序均可以使用 AppId 和 AppSecret 调用本接口来获取 `access_token`。AppId 和 AppSecret 可在“微信公众平台-开发-基本配置”页中获得（需要已经成为开发者，且帐号没有异常状态）。**调用接口时，请登录“微信公众平台-开发-基本配置”提前将服务器 IP 地址添加到 IP 白名单中，否则将无法调用成功。** 小程序无需配置IP白名单。
 
 
 
@@ -22,15 +22,16 @@
 
 
 
-> 划重点：
->
-> - 调用 access_token 接口需要在微信公众平台配置 IP 白名单
-> - access_token 有效期为 7200 秒
-> - 可以提前刷新 access_token ，此时公众平台后台会保证在5分钟内新老  `access_token` 都可用
-
-
+:::warning 划重点
+- 调用 access_token 接口需要在微信公众平台配置 IP 白名单
+- access_token 有效期为 7200 秒
+- 可以提前刷新 access_token ，此时公众平台后台会保证在5分钟内新老  `access_token` 都可用
+- 以上策略同时适用于微信公众号、企业微信、微信小程序、微信小游戏
+:::
 
 ## TNWX 中实现方案
+
+[TNWX AccessToken 模块源码](https://gitee.com/javen205/TNWX/blob/master/packages/accesstoken/src/)
 
 ```typescript
 export class AccessTokenApi {
@@ -140,6 +141,12 @@ app.get('/getAccessToken', (req: any, res: any) => {
 });
 ```
 
+## 如何刷新？
+
+```typescript
+  AccessTokenApi.refreshAccessToken(ApiConfigKit.getApiConfig);
+```
+
 ## 替换默认缓存策略
 
 `DefaultAccessTokenCache`  替换为你的实现类即可 比如：缓存至文件、Redis 等
@@ -148,6 +155,25 @@ app.get('/getAccessToken', (req: any, res: any) => {
 ApiConfigKit.setAccessTokenCache(new DefaultAccessTokenCache());
 ```
 
+
+## 企业微信
+
+实现原理与微信公众号相同
+
+```typescript
+app.get('/getQyAccessToken', (req: any, res: any) => {
+    QyAccessTokenApi.getAccessToken()
+        .then(data => {
+            let accessToken = <AccessToken>data;
+            res.send(accessToken);
+        })
+        .catch((error) => console.log(error));
+});
+```
+
+```typescript
+  QyAccessTokenApi.refreshAccessToken(QyApiConfigKit.getApiConfig);
+```
 
 ## 开源推荐
 

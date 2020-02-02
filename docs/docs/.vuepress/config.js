@@ -33,7 +33,7 @@ module.exports = ctx => ( {
                 lastUpdated: '上次更新',
                 nav: require('./nav/zh'),
                 sidebar: {
-                    '/guide/': getGuideSidebar('微信公众号','企业微信','微信支付','微信小程序','微信小游戏','一杯咖啡'),
+                    '/guide/': getGuideSidebar('新手指南','微信公众号','企业微信','微信支付','微信小程序','微信小游戏','一杯咖啡'),
                 },
             },
         },
@@ -68,25 +68,26 @@ module.exports = ctx => ( {
     ]
 })
 
-function getGuideSidebar (groupA,groupB,groupC,groupD,groupE,groupF) {
+function getGuideSidebar (groupA,groupB,groupC,groupD,groupE,groupF,groupG) {
     return [
         {
             title: groupA,
             collapsable: false,
             children: [
-                'wxmp/callback',
-                'wxmp/accesstoken',
-                'wxmp/sendmsg',
-                'wxmp/custom_menu',
-                'wxmp/templatemsg',
-                'wxmp/oauth',
-                'wxmp/jssdk',
+                'common/init',
+                'common/accesstoken',
             ]
         },
         {
             title: groupB,
             collapsable: false,
             children: [
+                'wxmp/callback',
+                'wxmp/sendmsg',
+                'wxmp/custom_menu',
+                'wxmp/templatemsg',
+                'wxmp/oauth',
+                'wxmp/jssdk',
             ]
         },
         {
@@ -109,6 +110,12 @@ function getGuideSidebar (groupA,groupB,groupC,groupD,groupE,groupF) {
         },
         {
             title: groupF,
+            collapsable: false,
+            children: [
+            ]
+        },
+        {
+            title: groupG,
             collapsable: false,
             children: [
                 'donate/',
