@@ -94,6 +94,9 @@ function getGuideSidebar (groupA,groupB,groupC,groupD,groupE,groupF,groupG) {
             title: groupC,
             collapsable: false,
             children: [
+                'wxcp/callback',
+                'wxcp/handmsg',
+                'wxcp/sendmsg',
             ]
         },
         {
@@ -106,6 +109,10 @@ function getGuideSidebar (groupA,groupB,groupC,groupD,groupE,groupF,groupG) {
             title: groupE,
             collapsable: false,
             children: [
+                'miniprogram/login',
+                'miniprogram/subscribemsg',
+                'miniprogram/ocr',
+                'miniprogram/qrcode',
             ]
         },
         {

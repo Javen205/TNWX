@@ -1,4 +1,4 @@
-# 微信公众号各种消息交互
+# 各种消息交互
 
 
 ## 简介
@@ -13,14 +13,15 @@
 
 这里说的各种消息交互是指的 `开发者模式下的消息交互` [如何开启开发者模式](./callback)
 
+
+## 接收各种消息
+
 在 TNWX 中实现微信公众号各种消息交互非常简单，步骤如下：
 
 1. 接收各种消息
 2. 调用 `WeChat.handleMsg(...)` 方法处理分发消息
 3. 实现 `MsgAdapter` 接口，实现业务逻辑以及各种消息回复
 
-
-## 接收各种消息
 
 **开发者 URL 的 POST 方法下接收各种消息** 具体实现代码如下
 
@@ -145,7 +146,7 @@ export interface MsgAdapter {
 
 
 
-`InXxxxMsg` 统一继承自 `InMsg` ，`InXxxxEvent` 统一继承自 `EventInMsg`  而  `EventInMsg`  又继承自  `InMsg` ，所以在任何的 `inXxxxx` 中都很容易获取到 `toUserName(开发者微信号即appId)`、 `fromUserName(发送方帐号openId)` 。 **TNW 支持多公众，后面会使用到此 appId 来实现不同公众号回复不同的消息**
+`InXxxxMsg` 统一继承自 `InMsg` ，`InXxxxEvent` 统一继承自 `EventInMsg`  而  `EventInMsg`  又继承自  `InMsg` ，所以在任何的 `inXxxxx` 中都很容易获取到 `toUserName(开发者微信号即appId)`、 `fromUserName(发送方帐号openId)` 。 **TNWX 支持多公众号，后面会使用到此 appId 来实现不同公众号回复不同的消息**
 
 
 
@@ -170,7 +171,7 @@ export class MsgController implements MsgAdapter {
                 outMsg = new OutTextMsg(inTextMsg);
                 outMsg.setContent(content);
             } else {
-                content = "极速开发微信公众号 \n\nhttps://github.com/javen205/TNW"
+                content = "极速开发微信公众号 \n\nhttps://github.com/javen205/TNWX"
                 outMsg = new OutTextMsg(inTextMsg);
                 outMsg.setContent(content);
             }
