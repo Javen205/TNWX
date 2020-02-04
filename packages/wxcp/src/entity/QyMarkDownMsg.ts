@@ -12,7 +12,7 @@ export class QyMarkDownMsg extends QyBaseMsg {
 
   constructor(
     markdown: QyText,
-    agentId: string,
+    agentId?: string,
     toUser?: string,
     toParty?: string,
     toTag?: string,

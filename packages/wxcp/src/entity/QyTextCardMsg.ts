@@ -11,7 +11,7 @@ export class QyTextCardMsg extends QyBaseMsg {
 
   constructor(
     textCard: QyTextCard,
-    agentId: string,
+    agentId?: string,
     toUser?: string,
     toParty?: string,
     toTag?: string,

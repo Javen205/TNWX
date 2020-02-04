@@ -11,7 +11,7 @@ export class QyNewsMsg extends QyBaseMsg {
 
   constructor(
     news: QyArticles,
-    agentId: string,
+    agentId?: string,
     toUser?: string,
     toParty?: string,
     toTag?: string,

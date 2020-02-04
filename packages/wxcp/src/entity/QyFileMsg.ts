@@ -11,7 +11,7 @@ export class QyFileMsg extends QyBaseMsg {
 
   constructor(
     file: QyMediaId,
-    agentId: string,
+    agentId?: string,
     toUser?: string,
     toParty?: string,
     toTag?: string,

@@ -11,7 +11,7 @@ export class QyImageMsg extends QyBaseMsg {
 
   constructor(
     image: QyMediaId,
-    agentId: string,
+    agentId?: string,
     toUser?: string,
     toParty?: string,
     toTag?: string,

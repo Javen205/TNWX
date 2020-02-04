@@ -15,3 +15,5 @@ export { QyMiniProgramNoticeMsg, QyMiniprogram, QyKv } from './entity/QyMiniProg
 export { QyTaskCardMsg, QyTaskCardBtn, QyTaskCard } from './entity/QyTaskCardMsg'
 
 export { QyWxApi } from './QyWxApi'
+export { AgentApi } from './AgentApi'
+export { AppChatApi } from './AppChatApi'

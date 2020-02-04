@@ -4,6 +4,7 @@
  * @description 主动发送消息抽象类
  */
 export abstract class QyBaseMsg {
+  protected chatid: string
   protected touser: string
   protected toparty: string
   protected totag: string
@@ -16,7 +17,7 @@ export abstract class QyBaseMsg {
 
   constructor(
     msgType: string,
-    agentId: string,
+    agentId?: string,
     toUser?: string,
     toParty?: string,
     toTag?: string,
@@ -34,6 +35,14 @@ export abstract class QyBaseMsg {
     this.enable_id_trans = enableIdTrans
     this.enable_duplicate_check = enableDuplicateCheck
     this.duplicate_check_interval = duplicateCheckInterval
+  }
+
+  public set chatId(chatid: string) {
+    this.chatid = chatid
+  }
+
+  public get chatId(): string {
+    return this.chatid
   }
 
   public set toUser(toUser: string) {

@@ -11,7 +11,7 @@ export class QyTextMsg extends QyBaseMsg {
 
   constructor(
     text: QyText,
-    agentId: string,
+    agentId?: string,
     toUser?: string,
     toParty?: string,
     toTag?: string,

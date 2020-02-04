@@ -11,7 +11,7 @@ export class QyVoiceMsg extends QyBaseMsg {
 
   constructor(
     voice: QyMediaId,
-    agentId: string,
+    agentId?: string,
     toUser?: string,
     toParty?: string,
     toTag?: string,

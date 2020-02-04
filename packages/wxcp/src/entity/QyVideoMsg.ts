@@ -11,7 +11,7 @@ export class QyVideoMsg extends QyBaseMsg {
 
   constructor(
     video: QyVideo,
-    agentId: string,
+    agentId?: string,
     toUser?: string,
     toParty?: string,
     toTag?: string,

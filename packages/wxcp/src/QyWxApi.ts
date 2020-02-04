@@ -4,7 +4,7 @@ import { AccessToken, QyAccessTokenApi } from '@tnwx/accesstoken'
 /**
  * @author Javen
  * @copyright javendev@126.com
- * @description
+ * @description 企业微信 API 接口
  */
 export class QyWxApi {
   private static updateTaskCardUrl: string = 'https://qyapi.weixin.qq.com/cgi-bin/message/update_taskcard?access_token=%s'
@@ -27,5 +27,16 @@ export class QyWxApi {
         clicked_key: clickedKey
       })
     )
+  }
+
+  private static getApiDomainIpUrl = 'https://qyapi.weixin.qq.com/cgi-bin/get_api_domain_ip?access_token=%s'
+
+  /**
+   * 获取企业微信API域名IP段
+   */
+  public static async getApiDomainIp() {
+    let accessToken: AccessToken = await QyAccessTokenApi.getAccessToken()
+    let url = util.format(this.getApiDomainIpUrl, accessToken.getAccessToken)
+    return HttpKit.getHttpDelegate.httpGet(url)
   }
 }
