@@ -19,7 +19,25 @@ import { QyMarkDownMsg } from './entity/QyMarkDownMsg'
  * @description 主动发送消息
  */
 export class QySendMsgApi {
+  private static getStatisticsUrl: string = 'https://qyapi.weixin.qq.com/cgi-bin/message/get_statistics?access_token=%s'
+
+  /**
+   * 查询应用消息发送统计
+   * @param timeType 查询哪天的数据，0：当天；1：昨天。默认为0
+   */
+  public static async getTatistics(timeType = 0) {
+    let accessToken: AccessToken = await QyAccessTokenApi.getAccessToken()
+    let url = util.format(this.getStatisticsUrl, accessToken.getAccessToken)
+    return HttpKit.getHttpDelegate.httpPost(
+      url,
+      JSON.stringify({
+        time_type: timeType
+      })
+    )
+  }
+
   private static sendMessageUrl: string = 'https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=%s'
+
   /**
    * 发送应用消息
    * @param {string} jsonStr
