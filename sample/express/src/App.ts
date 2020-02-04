@@ -1,81 +1,82 @@
 import * as urlencode from 'urlencode';
 import {
-	WeChat,
-	ApiConfigKit,
-	SnsAccessTokenApi,
-	ScopeEnum,
-	Lang,
-	SubscribeMsg,
-	Data,
-	Content,
-	SubscribeMsgApi,
-	TagApi,
-	ShortUrlApi,
-	QrcodeApi,
-	Article,
-	SemanticApi,
-	TemplateApi,
-	TemplateData,
-	MenuApi,
-	AccessTokenApi,
-	QyAccessTokenApi,
-	AccessToken,
-	CustomServiceApi,
-	MenuMsg,
-	UserApi,
-	BatchUserInfo,
-	AutoReplyInfoApi,
-	WxPay,
-	WX_API_TYPE,
-	WX_DOMAIN,
-    Kits,
-    HttpKit,
-    MessageApi,
-    CallbackApi,
-    PoiApi,
-    JsTicketApi,
-    JsApiType,
-    ApiConfig,
-    DatacubeApi,
-    MediaApi,
-    MediaType,
-    MediaArticles,
-    SIGN_TYPE,
-    MiniSubscribeMsgApi,
-    UniformMessageApi,
-    MiniProgramApi,
-    MiniProgramMediaType,
-    OCRApi,
-    OCRType,
-    QyApiConfigKit,
-    QyWeChat,
-    QySendMsgApi,
-    QyTextMsg,
-    QyText,
-    QyImageMsg,
-    QyMediaId,
-    QyVoiceMsg,
-    QyVideoMsg,
-    QyVideo,
-    QyFileMsg,
-    QyTextCardMsg,
-    QyTextCard,
-    QyNewsMsg,
-    QyArticles,
-    QyNews,
-    QyMpNewsMsg,
-    QyMpNews,
-    QyMpNewsArticles,
-    QyMarkDownMsg,
-    QyMiniProgramNoticeMsg,
-    QyMiniprogram,
-    QyKv,
-    AxiosHttpKit,
-    QyTaskCardMsg,
-    QyTaskCard,
-    QyTaskCardBtn,
-    QyWxApi,
-} from 'tnwx';
+  WeChat,
+  ApiConfigKit,
+  SnsAccessTokenApi,
+  ScopeEnum,
+  Lang,
+  SubscribeMsg,
+  Data,
+  Content,
+  SubscribeMsgApi,
+  TagApi,
+  ShortUrlApi,
+  QrcodeApi,
+  Article,
+  SemanticApi,
+  TemplateApi,
+  TemplateData,
+  MenuApi,
+  AccessTokenApi,
+  QyAccessTokenApi,
+  AccessToken,
+  CustomServiceApi,
+  MenuMsg,
+  UserApi,
+  BatchUserInfo,
+  AutoReplyInfoApi,
+  WxPay,
+  WX_API_TYPE,
+  WX_DOMAIN,
+  Kits,
+  HttpKit,
+  MessageApi,
+  CallbackApi,
+  PoiApi,
+  JsTicketApi,
+  JsApiType,
+  ApiConfig,
+  DatacubeApi,
+  MediaApi,
+  MediaType,
+  MediaArticles,
+  SIGN_TYPE,
+  MiniSubscribeMsgApi,
+  UniformMessageApi,
+  MiniProgramApi,
+  MiniProgramMediaType,
+  OCRApi,
+  OCRType,
+  QyApiConfigKit,
+  QyWeChat,
+  QySendMsgApi,
+  QyTextMsg,
+  QyText,
+  QyImageMsg,
+  QyMediaId,
+  QyVoiceMsg,
+  QyVideoMsg,
+  QyVideo,
+  QyFileMsg,
+  QyTextCardMsg,
+  QyTextCard,
+  QyNewsMsg,
+  QyArticles,
+  QyNews,
+  QyMpNewsMsg,
+  QyMpNews,
+  QyMpNewsArticles,
+  QyMarkDownMsg,
+  QyMiniProgramNoticeMsg,
+  QyMiniprogram,
+  QyKv,
+  AxiosHttpKit,
+  QyTaskCardMsg,
+  QyTaskCard,
+  QyTaskCardBtn,
+  QyWxApi,
+  DefaultAccessTokenCache
+} from 'tnwx'
 
 import * as express from 'express';
 import * as fs from 'fs';
@@ -372,7 +373,7 @@ app.get('/ocr', async (req: any, res: any) => {
 });
 
 /**
- * 验证开发者入口 
+ * 验证开发者入口
  * 支持多公众号
  * http://域名/msg 或者 http://域名/msg?appId = xxxx
  */
@@ -569,16 +570,16 @@ app.get('/sendMsg', (req, res) => {
                             'TNWX 微信系开发脚手架',
                             'TNWX: TypeScript + Node.js + WeiXin 微信系开发脚手架，支持微信公众号、微信支付、微信小游戏、微信小程序、企业微信/企业号。最最最重要的是能快速的集成至任何 Node.js 框架(Express、Nest、Egg、Koa 等)',
                             'https://s2.ax1x.com/2020/02/01/1J9I9P.jpg',
-                            'https://gitee.com/javen205/TNWX',    
+                            'https://gitee.com/javen205/TNWX',
                         ),
                         new QyNews(
                             'IJPay 聚合支付SDK',
                             '聚合支付，IJPay 让支付触手可及，封装了微信支付、QQ支付、支付宝支付、京东支付、银联支付常用的支付方式以及各种常用的接口。不依赖任何第三方 mvc 框架，仅仅作为工具使用简单快速完成支付模块的开发，可轻松嵌入到任何系统里。',
                             'https://gitee.com/javen205/IJPay/raw/master/assets/img/logo.png',
-                            'https://javen205.gitee.io/ijpay',    
+                            'https://javen205.gitee.io/ijpay',
                         ),
                     ]
-                    
+
                 ),
                 agentId,
                 toUser
@@ -1517,7 +1518,7 @@ const server = app.listen(8888, "localhost", () => {
         let qyMiniApiConfig = new ApiConfig('1000006', 'I9aenO-_rgAqrT_NGub-43_5bUCJvDL7YBTTcUb9nIg','Javen',true,'GFLxP8ppqcgQbI0yivtMkY4pkOAOiapHhQsCOgYUnYK','wxdbc631b5210be89f');
         console.log(qyApiConfig.getAppId);
         console.log(qyApiConfig.getCorpId);
-        
+
         // 支持多公众号
         ApiConfigKit.putApiConfig(devApiConfig);
         ApiConfigKit.putApiConfig(proApiConfig);
@@ -1530,8 +1531,11 @@ const server = app.listen(8888, "localhost", () => {
         // 开启开发模式,方便调试
         ApiConfigKit.devMode = true;
         QyApiConfigKit.devMode = true;
-        // HttpKit.setHttpDelegate = new AxiosHttpKit();
-        // ApiConfigKit.setAccessTokenCache = new DefaultAccessTokenCache();
+
+        HttpKit.setHttpDelegate = new AxiosHttpKit();
+
+        ApiConfigKit.setAccessTokenCache(new DefaultAccessTokenCache());
+
         if (ApiConfigKit.devMode) {
             console.log('服务器已启动, 地址是：http://%s:%s', host, port);
         }
