@@ -17,3 +17,4 @@ export { QyTaskCardMsg, QyTaskCardBtn, QyTaskCard } from './entity/QyTaskCardMsg
 export { QyWxApi } from './QyWxApi'
 export { AgentApi } from './AgentApi'
 export { AppChatApi } from './AppChatApi'
+export { QyMediaApi, QyMediaType } from './QyMediaApi'

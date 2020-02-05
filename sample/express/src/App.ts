@@ -75,7 +75,9 @@ import {
   QyTaskCard,
   QyTaskCardBtn,
   QyWxApi,
-  DefaultAccessTokenCache
+  DefaultAccessTokenCache,
+  QyMediaApi,
+  QyMediaType,
 } from 'tnwx'
 
 import * as express from 'express';
@@ -1221,6 +1223,51 @@ app.get('/mediaApi', (req: any, res: any) => {
             break;
     }
 });
+// 企业微信素材管理
+app.get('/qyMediaApi', (req: any, res: any) => {
+    let type: string = req.query.type;
+    console.log('type', type);
+    switch (parseInt(type)) {
+        // 上传图片
+        case 0:
+            QyMediaApi.uploadImg('/Users/Javen/Documents/pic/1.jpeg')
+                .then(data => {
+                    console.log(data);
+                    res.send(data);
+                })
+                .catch((error) => console.log(error));
+            break;
+        // 上传临时素材图片 media_id 仅三天内有效
+        case 1:
+            QyMediaApi.upload(QyMediaType.IMAGE,'/Users/Javen/Documents/pic/1.jpeg')
+                .then(data => {
+                    console.log(data);
+                    res.send(data);
+                })
+                .catch((error) => console.log(error));
+            break;
+        // 上传临时素材文件 media_id 仅三天内有效
+        case 2:
+            QyMediaApi.upload(QyMediaType.FILE,'/Users/Javen/Documents/TNW/TNW-Menu.md')
+                .then(data => {
+                    console.log(data);
+                    res.send(data);
+                })
+                .catch((error) => console.log(error));
+            break;
+        // 获取临时素材
+        case 3:
+            QyMediaApi.get('39Cnt6IuBjBh-z1kWk7iY5EFoYuptkowMvT_r0yRM4Rk')
+                .then(data => {
+                    console.log(data);
+                    res.send(data);
+                })
+                .catch((error) => console.log(error));
+            break;
+        default:
+            break;
+    }
+});
 
 // 群发消息
 app.get('/messageApi', (req: any, res: any) => {
@@ -1532,9 +1579,8 @@ const server = app.listen(8888, "localhost", () => {
         ApiConfigKit.devMode = true;
         QyApiConfigKit.devMode = true;
 
-        HttpKit.setHttpDelegate = new AxiosHttpKit();
-
-        ApiConfigKit.setAccessTokenCache(new DefaultAccessTokenCache());
+        // HttpKit.setHttpDelegate = new AxiosHttpKit();
+        // ApiConfigKit.setAccessTokenCache = new DefaultAccessTokenCache();
 
         if (ApiConfigKit.devMode) {
             console.log('服务器已启动, 地址是：http://%s:%s', host, port);
