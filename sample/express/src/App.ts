@@ -78,6 +78,7 @@ import {
   DefaultAccessTokenCache,
   QyMediaApi,
   QyMediaType,
+  QyOauthApi,
 } from 'tnwx'
 
 import * as express from 'express';
@@ -91,7 +92,7 @@ const app = express();
 // 被动消息回复控制器
 const msgAdapter = new MsgController();
 
-app.use(express.static('views'));
+app.use(express.static('static'));
 
 const msg = "TNWX 极速开发微信公众号案例 <a href='https://javen.blog.csdn.net'>By Javen</a> <br/> " +
     "此案例使用的技术栈为: TypeScript+ Node.js + Express </br></br>" +
@@ -840,6 +841,29 @@ app.get('/getQyAccessToken', (req: any, res: any) => {
         .then(data => {
             let accessToken = <AccessToken>data;
             res.send(accessToken);
+        })
+        .catch((error) => console.log(error));
+});
+// 构造网页授权链接
+app.get('/qyToAuth', (req, res) => {
+    let url = QyOauthApi.getAuthorizeUrl(QyApiConfigKit.getCorpId,'http://wx.frp.ek208.com/qyAuth','tnwx');
+    console.log("授权URL:", url);
+    res.redirect(url);
+});
+// 构造扫码登录链接
+app.get('/getQrConnect', (req, res) => {
+    let url = QyOauthApi.getQrConnect(QyApiConfigKit.getCorpId,QyApiConfigKit.getAppId,'http://wx.frp.ek208.com/qyAuth','tnwx');
+    console.log("授权URL:", url);
+    res.redirect(url);
+});
+// 根据code获取成员信息
+app.get('/qyAuth', (req, res) => {
+    let code = req.query.code;
+    let state = req.query.state;
+    console.log("code:", code, " state:", state);
+    QyOauthApi.getUserInfo(code)
+        .then((data) => {
+            res.send(data);
         })
         .catch((error) => console.log(error));
 });
