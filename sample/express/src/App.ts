@@ -67,8 +67,8 @@ import {
   QyMpNews,
   QyMpNewsArticles,
   QyMarkDownMsg,
-  QyMiniProgramNoticeMsg,
-  QyMiniprogram,
+  QyMiNiProgramNoticeMsg,
+  QyMiNiprogram,
   QyKv,
   AxiosHttpKit,
   QyTaskCardMsg,
@@ -632,8 +632,8 @@ app.get('/sendMsg', (req, res) => {
                 .catch(error =>console.log(error))
             break;
         case 9:
-            let miniprogram = new QyMiniProgramNoticeMsg(
-                new QyMiniprogram(
+            let miniprogram = new QyMiNiProgramNoticeMsg(
+                new QyMiNiprogram(
                     'wxf30d9b9b316d5de4',
                     '老铁开源项目了解一下',
                     [

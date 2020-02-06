@@ -6,11 +6,11 @@ import { QySendMessageType } from '../QySendMsgApi'
  * @copyright javendev@126.com
  * @description 小程序通知消息
  */
-export class QyMiniProgramNoticeMsg extends QyBaseMsg {
-  private miniprogram_notice: QyMiniprogram
+export class QyMiNiProgramNoticeMsg extends QyBaseMsg {
+  private miniprogram_notice: QyMiNiprogram
 
   constructor(
-    miniprogramNotice: QyMiniprogram,
+    miniprogramNotice: QyMiNiprogram,
     agentId: string,
     toUser?: string,
     toParty?: string,
@@ -24,16 +24,16 @@ export class QyMiniProgramNoticeMsg extends QyBaseMsg {
     this.miniprogram_notice = miniprogramNotice
   }
 
-  public get miniprogramNotice(): QyMiniprogram {
+  public get miniprogramNotice(): QyMiNiprogram {
     return this.miniprogram_notice
   }
 
-  public set miniprogramNotice(miniprogramNotice: QyMiniprogram) {
+  public set miniprogramNotice(miniprogramNotice: QyMiNiprogram) {
     this.miniprogram_notice = miniprogramNotice
   }
 }
 
-export class QyMiniprogram {
+export class QyMiNiprogram {
   private appid: string
   private page: string
   private title: string

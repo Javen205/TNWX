@@ -11,7 +11,7 @@ export { QyTextCardMsg, QyTextCard } from './entity/QyTextCardMsg'
 export { QyNewsMsg, QyNews, QyArticles } from './entity/QyNewsMsg'
 export { QyMpNewsMsg, QyMpNews, QyMpNewsArticles } from './entity/QyMpNewsMsg'
 export { QyMarkDownMsg } from './entity/QyMarkDownMsg'
-export { QyMiniProgramNoticeMsg, QyMiniprogram, QyKv } from './entity/QyMiniProgramNoticeMsg'
+export { QyMiNiProgramNoticeMsg, QyMiNiprogram, QyKv } from './entity/QyMiNiProgramNoticeMsg'
 export { QyTaskCardMsg, QyTaskCardBtn, QyTaskCard } from './entity/QyTaskCardMsg'
 
 export { QyWxApi } from './QyWxApi'
