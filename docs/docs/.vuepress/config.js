@@ -97,6 +97,7 @@ function getGuideSidebar (groupA,groupB,groupC,groupD,groupE,groupF,groupG) {
                 'wxcp/callback',
                 'wxcp/handmsg',
                 'wxcp/sendmsg',
+                'wxcp/media',
             ]
         },
         {
