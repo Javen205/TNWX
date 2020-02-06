@@ -6,6 +6,9 @@
 | ---- | ---- | ---- |
 |   <img :src="$withBase('/4.jpeg')"/>   |  <img :src="$withBase('/1.jpeg')"/>    |      |
 
+## 源码
+
+[TNWX-QySendMsgApi](https://gitee.com/javen205/TNWX/blob/master/packages/wxcp/src/QySendMsgApi.ts)
 
 ## 示例 
 

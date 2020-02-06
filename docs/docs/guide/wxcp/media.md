@@ -4,6 +4,10 @@
 
 [企业微信素材管理官方文档](https://work.weixin.qq.com/api/doc/90000/90135/91054)
 
+## 源码
+
+[TNWX-QyMediaApi](https://gitee.com/javen205/TNWX/blob/master/packages/wxcp/src/QyMediaApi.ts)
+
 ## 示例
 
 ```TypeScript
