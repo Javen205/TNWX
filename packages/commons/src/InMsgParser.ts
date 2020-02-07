@@ -1,39 +1,43 @@
-import { InTaskEvent } from './in/event/InTaskEvent'
-import { InSpeechRecognitionResults } from './in/InSpeechRecognitionResults'
-import { InMsg } from './in/InMsg'
-import { InImageMsg } from './in/InImageMsg'
-import { InTextMsg } from './in/InTextMsg'
-import { InNotDefinedMsg } from './in/InNotDefinedMsg'
-import { InVideoMsg } from './in/InVideoMsg'
-import { InShortVideoMsg } from './in/InShortVideoMsg'
-import { InLocationMsg } from './in/InLocationMsg'
-import { InLinkMsg } from './in/InLinkMsg'
-import { InVoiceMsg } from './in/InVoiceMsg'
-import { InFollowEvent } from './in/event/InFollowEvent'
-import { InQrCodeEvent } from './in/event/InQrCodeEvent'
-import { InLocationEvent } from './in/event/InLocationEvent'
-import { InNotDefinedEvent } from './in/event/InNotDefinedEvent'
-import { InMenuEvent } from './in/event/InMenuEvent'
-import { ScanCodeInfo } from './in/event/ScanCodeInfo'
-import { InTemplateMsgEvent } from './in/event/InTemplateMsgEvent'
-import { InMassEvent } from './in/event/InMassEvent'
-import { InCustomEvent } from './in/event/InCustomEvent'
-import { InVerifySuccessEvent } from './in/event/InVerifySuccessEvent'
-import { InVerifyFailEvent } from './in/event/InVerifyFailEvent'
-import { InPoiCheckNotifyEvent } from './in/event/InPoiCheckNotifyEvent'
-import { InWifiEvent } from './in/event/InWifiEvent'
-import { InCardPassCheckEvent } from './in/card/InCardPassCheckEvent'
-import { InUpdateMemberCardEvent } from './in/card/InUpdateMemberCardEvent'
-import { InUserPayFromCardEvent } from './in/card/InUserPayFromCardEvent'
-import { InMerChantOrderEvent } from './in/card/InMerChantOrderEvent'
-import { InCardPayOrderEvent } from './in/card/InCardPayOrderEvent'
-import { InCardSkuRemindEvent } from './in/card/InCardSkuRemindEvent'
-import { InUserConsumeCardEvent } from './in/card/InUserConsumeCardEvent'
-import { InUserGetCardEvent } from './in/card/InUserGetCardEvent'
-import { InUserGiftingCardEvent } from './in/card/InUserGiftingCardEvent'
-import { InUserCardEvent } from './in/card/InUserCardEvent'
-import { InShakearoundUserShakeEvent } from './in/event/InShakearoundUserShakeEvent'
-import { InEnterAgentEvent } from './in/event/InEnterAgentEvent'
+import { InTaskEvent } from './entity/msg/in/event/InTaskEvent'
+import { InSpeechRecognitionResults } from './entity/msg/in/InSpeechRecognitionResults'
+import { InMsg } from './entity/msg/in/InMsg'
+import { InImageMsg } from './entity/msg/in/InImageMsg'
+import { InTextMsg } from './entity/msg/in/InTextMsg'
+import { InNotDefinedMsg } from './entity/msg/in/InNotDefinedMsg'
+import { InVideoMsg } from './entity/msg/in/InVideoMsg'
+import { InShortVideoMsg } from './entity/msg/in/InShortVideoMsg'
+import { InLocationMsg } from './entity/msg/in/InLocationMsg'
+import { InLinkMsg } from './entity/msg/in/InLinkMsg'
+import { InVoiceMsg } from './entity/msg/in/InVoiceMsg'
+import { InFollowEvent } from './entity/msg/in/event/InFollowEvent'
+import { InQrCodeEvent } from './entity/msg/in/event/InQrCodeEvent'
+import { InLocationEvent } from './entity/msg/in/event/InLocationEvent'
+import { InNotDefinedEvent } from './entity/msg/in/event/InNotDefinedEvent'
+import { InMenuEvent } from './entity/msg/in/event/InMenuEvent'
+import { ScanCodeInfo } from './entity/msg/in/event/ScanCodeInfo'
+import { InTemplateMsgEvent } from './entity/msg/in/event/InTemplateMsgEvent'
+import { InMassEvent } from './entity/msg/in/event/InMassEvent'
+import { InCustomEvent } from './entity/msg/in/event/InCustomEvent'
+import { InVerifySuccessEvent } from './entity/msg/in/event/InVerifySuccessEvent'
+import { InVerifyFailEvent } from './entity/msg/in/event/InVerifyFailEvent'
+import { InPoiCheckNotifyEvent } from './entity/msg/in/event/InPoiCheckNotifyEvent'
+import { InWifiEvent } from './entity/msg/in/event/InWifiEvent'
+import { InCardPassCheckEvent } from './entity/msg/in/card/InCardPassCheckEvent'
+import { InUpdateMemberCardEvent } from './entity/msg/in/card/InUpdateMemberCardEvent'
+import { InUserPayFromCardEvent } from './entity/msg/in/card/InUserPayFromCardEvent'
+import { InMerChantOrderEvent } from './entity/msg/in/card/InMerChantOrderEvent'
+import { InCardPayOrderEvent } from './entity/msg/in/card/InCardPayOrderEvent'
+import { InCardSkuRemindEvent } from './entity/msg/in/card/InCardSkuRemindEvent'
+import { InUserConsumeCardEvent } from './entity/msg/in/card/InUserConsumeCardEvent'
+import { InUserGetCardEvent } from './entity/msg/in/card/InUserGetCardEvent'
+import { InUserGiftingCardEvent } from './entity/msg/in/card/InUserGiftingCardEvent'
+import { InUserCardEvent } from './entity/msg/in/card/InUserCardEvent'
+import { InShakearoundUserShakeEvent } from './entity/msg/in/event/InShakearoundUserShakeEvent'
+import { InEnterAgentEvent } from './entity/msg/in/event/InEnterAgentEvent'
+import { InBatchJobResultEvent } from './entity/msg/in/event/InBatchJobResultEvent'
+import { InUpdateTagEvent } from './entity/msg/in/event/InUpdateTagEvent'
+import { InUpdatePartyEvent } from './entity/msg/in/event/InUpdatePartyEvent'
+import { InUpdateUserEvent } from './entity/msg/in/event/InUpdateUserEvent'
 
 export class InMsgParser {
   public static parse(obj: any): InMsg {
@@ -466,6 +470,94 @@ export class InMsgParser {
       e.setTaskId = obj.TaskId
       e.setAgentId = obj.AgentId
       return e
+    }
+    // 异步任务完成通知
+    if (InBatchJobResultEvent.EVENT == event) {
+      let e = new InBatchJobResultEvent(obj.ToUserName, obj.FromUserName, obj.CreateTime, event)
+      let batchJob = obj.BatchJob
+      e.setEventCode = batchJob.ErrCode
+      e.setEventMsg = batchJob.ErrMsg
+      e.setJobId = batchJob.JobId
+      e.setJobType = batchJob.JobType
+      return e
+    }
+    // 标签/成员/部门变更事件
+    if (InUpdateUserEvent.EVENT == event) {
+      let changeType = obj.ChangeType
+
+      if (InUpdateTagEvent.CHANGE_TYPE == changeType) {
+        let e = new InUpdateTagEvent(obj.ToUserName, obj.FromUserName, obj.CreateTime, event)
+        e.setTagId = obj.TagId
+        e.setAddUserItems = obj.AddUserItems
+        e.setDelUserItems = obj.DelUserItems
+        e.setAddPartyItems = obj.AddPartyItems
+        e.setDelPartyItems = obj.DelPartyItems
+        return e
+      } else if (InUpdatePartyEvent.CREATE_PARTY == changeType) {
+        let e = new InUpdatePartyEvent(obj.ToUserName, obj.FromUserName, obj.CreateTime, event)
+        e.setChangeType = changeType
+        e.setId = obj.Id
+        e.setName = obj.Name
+        e.setParentId = obj.ParentId
+        e.setOrder = obj.Order
+        return e
+      } else if (InUpdatePartyEvent.UPDATE_PARTY == changeType) {
+        let e = new InUpdatePartyEvent(obj.ToUserName, obj.FromUserName, obj.CreateTime, event)
+        e.setChangeType = changeType
+        e.setId = obj.Id
+        e.setName = obj.Name
+        e.setParentId = obj.ParentId
+        return e
+      } else if (InUpdatePartyEvent.DELETE_PARTY == changeType) {
+        let e = new InUpdatePartyEvent(obj.ToUserName, obj.FromUserName, obj.CreateTime, event)
+        e.setChangeType = changeType
+        e.setId = obj.Id
+        return e
+      } else if (InUpdateUserEvent.CREATE_USER == changeType) {
+        let e = new InUpdateUserEvent(obj.ToUserName, obj.FromUserName, obj.CreateTime, event)
+        e.setChangeType = changeType
+        e.setUserId = obj.UserID
+        e.setName = obj.Name
+        e.setDepartment = obj.Department
+        e.setIsLeaderInDept = obj.IsLeaderInDept
+        e.setPosition = obj.Position
+        e.setMobile = obj.Mobile
+        e.setGender = obj.Gender
+        e.setEmail = obj.Email
+        e.setStatus = obj.Status
+        e.setAvatar = obj.Avatar
+        e.setAlias = obj.Alias
+        e.setTelephone = obj.Telephone
+        e.setAlias = obj.Alias
+        e.setAddress = obj.Address
+        e.setExtAttr = obj.ExtAttr
+        return e
+      } else if (InUpdateUserEvent.UPDATE_USER == changeType) {
+        let e = new InUpdateUserEvent(obj.ToUserName, obj.FromUserName, obj.CreateTime, event)
+        e.setChangeType = changeType
+        e.setUserId = obj.UserID
+        e.setNewUserId = obj.NewUserID
+        e.setName = obj.Name
+        e.setDepartment = obj.Department
+        e.setIsLeaderInDept = obj.IsLeaderInDept
+        e.setPosition = obj.Position
+        e.setMobile = obj.Mobile
+        e.setGender = obj.Gender
+        e.setEmail = obj.Email
+        e.setStatus = obj.Status
+        e.setAvatar = obj.Avatar
+        e.setAlias = obj.Alias
+        e.setTelephone = obj.Telephone
+        e.setAlias = obj.Alias
+        e.setAddress = obj.Address
+        e.setExtAttr = obj.ExtAttr
+        return e
+      } else if (InUpdateUserEvent.DELETE_USER == changeType) {
+        let e = new InUpdateUserEvent(obj.ToUserName, obj.FromUserName, obj.CreateTime, event)
+        e.setChangeType = changeType
+        e.setUserId = obj.UserID
+        return e
+      }
     }
     console.error('无法识别的事件类型' + event + '，请查阅微信公众平台开发文档 https://mp.weixin.qq.com/wiki')
     return new InNotDefinedEvent(obj.ToUserName, obj.FromUserName, obj.CreateTime, event)

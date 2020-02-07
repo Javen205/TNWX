@@ -5,7 +5,7 @@ export { TemplateData, MiniProgram, TemplateItem } from './entity/template/Templ
 export { SubscribeMsg, Data, Content } from './entity/subscribe/SubscribeMsg'
 
 export { MsgAdapter } from './MsgAdapter'
-export { InMsgParser } from './entity/msg/InMsgParser'
+export { InMsgParser } from './InMsgParser'
 export { Article } from './entity/msg/out/Article'
 export { MenuMsg } from './entity/msg/out/MenuMsg'
 export { News } from './entity/msg/out/News'
@@ -59,5 +59,9 @@ export { InUserConsumeCardEvent } from './entity/msg/in/card/InUserConsumeCardEv
 export { InUserGetCardEvent } from './entity/msg/in/card/InUserGetCardEvent'
 export { InUserGiftingCardEvent } from './entity/msg/in/card/InUserGiftingCardEvent'
 export { InUserPayFromCardEvent } from './entity/msg/in/card/InUserPayFromCardEvent'
+export { InBatchJobResultEvent } from './entity/msg/in/event/InBatchJobResultEvent'
+export { InUpdatePartyEvent } from './entity/msg/in/event/InUpdatePartyEvent'
+export { InUpdateTagEvent } from './entity/msg/in/event/InUpdateTagEvent'
+export { InUpdateUserEvent } from './entity/msg/in/event/InUpdateUserEvent'
 
 export { Menu, Button, ClickButton, ComButton, MediaButton, ViewButton, Matchrule } from './entity/menu/Menu'

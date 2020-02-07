@@ -1,7 +1,7 @@
 import { QyApiConfigKit } from '@tnwx/accesstoken'
-import { CryptoKit, InTaskEvent, InEnterAgentEvent } from '@tnwx/commons'
 import { parseString } from 'xml2js'
 import {
+  CryptoKit,
   MsgAdapter,
   InMsgParser,
   InMsg,
@@ -27,7 +27,13 @@ import {
   OutNewsMsg,
   OutVideoMsg,
   OutVoiceMsg,
-  OutCustomMsg
+  OutCustomMsg,
+  InTaskEvent,
+  InEnterAgentEvent,
+  InBatchJobResultEvent,
+  InUpdateUserEvent,
+  InUpdatePartyEvent,
+  InUpdateTagEvent
 } from '@tnwx/commons'
 
 /**
@@ -115,6 +121,14 @@ export class QyWeChat {
           outMsg = msgAdapter.processInTaskEvent(<InTaskEvent>inMsg)
         } else if (inMsg instanceof InEnterAgentEvent) {
           outMsg = msgAdapter.processInEnterAgentEvent(<InEnterAgentEvent>inMsg)
+        } else if (inMsg instanceof InBatchJobResultEvent) {
+          outMsg = msgAdapter.processInBatchJobResultEvent(<InBatchJobResultEvent>inMsg)
+        } else if (inMsg instanceof InUpdateUserEvent) {
+          outMsg = msgAdapter.processInUpdateUserEvent(<InUpdateUserEvent>inMsg)
+        } else if (inMsg instanceof InUpdatePartyEvent) {
+          outMsg = msgAdapter.processInUpdatePartyEvent(<InUpdatePartyEvent>inMsg)
+        } else if (inMsg instanceof InUpdateTagEvent) {
+          outMsg = msgAdapter.processInUpdateTagEvent(<InUpdateTagEvent>inMsg)
         } else if (inMsg instanceof InNotDefinedMsg) {
           if (QyApiConfigKit.isDevMode()) {
             console.debug(`未能识别的消息类型。消息 xml 内容为：\n ${result}`)

@@ -30,7 +30,11 @@ import {
   InShakearoundUserShakeEvent,
   ApiConfigKit,
   InEnterAgentEvent,
-  InTaskEvent
+  InTaskEvent,
+  InBatchJobResultEvent,
+  InUpdateUserEvent,
+  InUpdatePartyEvent,
+  InUpdateTagEvent
 } from 'tnwx'
 
 export class MsgController implements MsgAdapter {
@@ -155,6 +159,26 @@ export class MsgController implements MsgAdapter {
     console.log('进入应用事件:')
     console.log(inTaskEvent)
     return this.renderOutTextMsg(inTaskEvent, inTaskEvent.getAgentId + ' key: ' + inTaskEvent.getEventKey + ' taskId: ' + inTaskEvent.getTaskId)
+  }
+
+  processInBatchJobResultEvent(inBatchJobResultEvent: InBatchJobResultEvent): OutMsg {
+    console.log(inBatchJobResultEvent)
+    return this.renderOutTextMsg(inBatchJobResultEvent, inBatchJobResultEvent.getJobId)
+  }
+
+  processInUpdateUserEvent(inUpdateUserEvent: InUpdateUserEvent): OutMsg {
+    console.log(inUpdateUserEvent)
+    return this.renderOutTextMsg(inUpdateUserEvent, inUpdateUserEvent.getUserId)
+  }
+
+  processInUpdatePartyEvent(inUpdatePartyEvent: InUpdatePartyEvent): OutMsg {
+    console.log(inUpdatePartyEvent)
+    return this.renderOutTextMsg(inUpdatePartyEvent, inUpdatePartyEvent.getParentId)
+  }
+
+  processInUpdateTagEvent(inUpdateTagEvent: InUpdateTagEvent): OutMsg {
+    console.log(inUpdateTagEvent)
+    return this.renderOutTextMsg(inUpdateTagEvent, inUpdateTagEvent.getTagId + '')
   }
 
   processIsNotDefinedMsg(inNotDefinedMsg: InNotDefinedMsg): OutMsg {

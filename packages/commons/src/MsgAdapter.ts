@@ -1,3 +1,5 @@
+import { InUpdateTagEvent } from './entity/msg/in/event/InUpdateTagEvent'
+import { InUpdateUserEvent } from './entity/msg/in/event/InUpdateUserEvent'
 /**
  * @author Javen
  * @copyright javendev@126.com
@@ -22,6 +24,8 @@ import { InTemplateMsgEvent } from './entity/msg/in/event/InTemplateMsgEvent'
 import { InShakearoundUserShakeEvent } from './entity/msg/in/event/InShakearoundUserShakeEvent'
 import { InTaskEvent } from './entity/msg/in/event/InTaskEvent'
 import { InEnterAgentEvent } from './entity/msg/in/event/InEnterAgentEvent'
+import { InBatchJobResultEvent } from './entity/msg/in/event/InBatchJobResultEvent'
+import { InUpdatePartyEvent } from './entity/msg/in/event/InUpdatePartyEvent'
 
 export interface MsgAdapter {
   // 处理文本消息
@@ -59,4 +63,12 @@ export interface MsgAdapter {
   processInTaskEvent(inTaskEvent: InTaskEvent): OutMsg
   // 进入应用
   processInEnterAgentEvent(inEnterAgentEvent: InEnterAgentEvent): OutMsg
+  // 异步任务完成通知
+  processInBatchJobResultEvent(inBatchJobResultEvent: InBatchJobResultEvent): OutMsg
+  // 成员变更通知
+  processInUpdateUserEvent(inUpdateUserEvent: InUpdateUserEvent): OutMsg
+  // 部门变更通知
+  processInUpdatePartyEvent(inUpdatePartyEvent: InUpdatePartyEvent): OutMsg
+  // 标签变更通知
+  processInUpdateTagEvent(inUpdateTagEvent: InUpdateTagEvent): OutMsg
 }
