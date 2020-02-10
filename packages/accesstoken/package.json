@@ -1,6 +1,6 @@
 {
   "name": "@tnwx/accesstoken",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "description": "TNWX 微信系开发脚手架之微信 accesstoken",
   "keywords": [
     "tnw",
@@ -43,6 +43,7 @@
     "url": "http://gitee.com/javen205/TNWX/issues"
   },
   "dependencies": {
-    "@tnwx/kits": "^2.1.2"
-  }
+    "@tnwx/kits": "^2.2.0"
+  },
+  "gitHead": "71732c276f81e01f0497888388f17cfb0dfc7838"
 }
