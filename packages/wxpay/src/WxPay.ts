@@ -8,14 +8,20 @@ import { WX_DOMAIN } from './WxDomain'
  * @description 微信支付
  */
 export class WxPay {
-  public static getSignKey(mchId: string, key: string) {
+  /**
+   * 获取沙箱环境验签秘钥
+   * @param mchId  商户号
+   * @param key api 密钥
+   * @param signType 签名类型 默认为 MD5 加密
+   */
+  public static getSignKey(mchId: string, key: string, signType: SIGN_TYPE.SIGN_TYPE_MD5) {
     return new Promise(function(resolve, reject) {
       let reqObj: any = {
         mch_id: mchId,
         nonce_str: Kits.generateStr() //生成随机字符串
       }
       // 生成签名
-      let sign: string = Kits.generateSignature(reqObj, key, SIGN_TYPE.SIGN_TYPE_MD5)
+      let sign: string = Kits.generateSignature(reqObj, key, signType)
       reqObj['sign'] = sign
       // obj 对象转化为 xml
       Kits.obj2xml(reqObj)
@@ -37,8 +43,8 @@ export class WxPay {
 
   /**
    * 判断异步通知中的 sign 是否有效
-   * @param notifyData
-   * @param key api key
+   * @param notifyData 通知中的数据对象
+   * @param key api 密钥
    */
   public static notifySignatureValid(notifyData: any, key: string) {
     let signType: SIGN_TYPE
@@ -59,15 +65,16 @@ export class WxPay {
     }
     return this.isSignatureValid(notifyData, key, signType)
   }
+
   /**
    * 验证签名
-   * @param data
-   * @param key
-   * @param signTypeParam
+   * @param data 通知中的数据对象
+   * @param key api 密钥
+   * @param signType 签名类型
    */
-  public static isSignatureValid(data: any, key: string, signTypeParam: SIGN_TYPE) {
-    let signType = signTypeParam || SIGN_TYPE.SIGN_TYPE_MD5
-    if (data === null || typeof data !== 'object') {
+  public static isSignatureValid(data: any, key: string, signType: SIGN_TYPE) {
+    signType = signType || SIGN_TYPE.SIGN_TYPE_MD5
+    if (data || typeof data !== 'object') {
       return false
     } else if (!data[Kits.FIELD_SIGN]) {
       return false
