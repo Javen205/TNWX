@@ -46,25 +46,3 @@ $ yarn add tnwx
 ### 交流群
 
 群号: [114196246](https:shang.qq.com/wpa/qunwpa?idkey=a1e4fd8c71008961bd4fc8eeea224e726afd5e5eae7bf1d96d3c77897388bf24)
-
-### 活动
-
- <p align="left">
- 	  <a left="100" target="_blank" href="https://promotion.aliyun.com/ntms/act/qwbk.html?userCode=b1hkzv2x">
-        <img src="https://gitee.com/javen205/TNWX/raw/master/assets/img/aliYun.jpg" height="100" alt="">
-    </a>
-    <a left="100" target="_blank" href="https://cloud.tencent.com/act/cps/redirect?redirect=1048&cps_key=a21676d22e4b11a883893d54e158c1d3&from=console">
-        <img src="https://gitee.com/javen205/TNWX/raw/master/assets/img/tencent.jpg" height="100" alt="">
-    </a>
-    <a left="100" target="_blank" href="https://activity.huaweicloud.com/discount_area_v5/index.html?&fromuser=aHcxMTc2NTU3MQ==&utm_source=aHcxMTc2NTU3MQ==&utm_medium=cps&utm_campaign=201905">
-        <img src="https://gitee.com/javen205/TNWX/raw/master/assets/img/huawei.jpg" height="100" alt="">
-    </a>
- </p>
-
-### 开源推荐
-
-- `IJPay` 让支付触手可及：https://gitee.com/javen205/IJPay
-- SpringBoot 微服务高效开发 `mica` 工具集：https://gitee.com/596392912/mica
-- `Avue` 一款基于 vue 可配置化的神奇框架：https://gitee.com/smallweigit/avue
-- `pig` 宇宙最强微服务（架构师必备）：https://gitee.com/log4j/pig
-- `SpringBlade` 完整的线上解决方案（企业开发必备）：https://gitee.com/smallc/SpringBlade
