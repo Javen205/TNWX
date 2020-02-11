@@ -81,6 +81,22 @@ export enum WX_API_TYPE {
    */
   GET_TRANSFER_BANK_INFO = '/mmpaysptrans/query_bank',
   /**
+   *  发放企业红包
+   */
+  SEND_WORK_WX_REDPACK = '/mmpaymkttransfers/sendworkwxredpack',
+  /**
+   *  查询红包记录
+   */
+  QUERY_WORK_WX_REDPACK = '/mmpaymkttransfers/queryworkwxredpack',
+  /**
+   *  向员工付款
+   */
+  PAY_WWSP_TRANS_2_POCKET = '/mmpaymkttransfers/promotion/paywwsptrans2pocket',
+  /**
+   *  查询付款记录
+   */
+  QUERY_WWSP_TRANS_2_POCKET = '/mmpaymkttransfers/promotion/querywwsptrans2pocket',
+  /**
    *  获取 RSA 加密公钥
    */
   GET_PUBLIC_KEY = '/risk/getpublickey',
