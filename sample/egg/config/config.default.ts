@@ -3,9 +3,17 @@ import { EggAppConfig, EggAppInfo, PowerPartial } from 'egg'
 export default (appInfo: EggAppInfo) => {
   const config = {} as PowerPartial<EggAppConfig>
 
+  // 关闭 csrf
   config.security = {
     csrf: {
       enable: false
+    }
+  }
+  // 渲染html模板
+  config.view = {
+    defaultViewEngine: 'nunjucks',
+    mapping: {
+      '.html': 'nunjucks'
     }
   }
 
