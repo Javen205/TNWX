@@ -53,7 +53,6 @@ export class Kits {
       .createHmac('sha256', key)
       .update(data, 'utf8')
       .digest('hex')
-      .toUpperCase()
   }
   /**
    * sha1加密
@@ -62,9 +61,8 @@ export class Kits {
   public static sha1(data: string) {
     return crypto
       .createHash('sha1')
-      .update(data)
+      .update(data, 'utf8')
       .digest('hex')
-      .toUpperCase()
   }
   /**
    * md5 加密
@@ -73,9 +71,8 @@ export class Kits {
   public static md5(data: string): string {
     return crypto
       .createHash('md5')
-      .update(data)
+      .update(data, 'utf8')
       .digest('hex')
-      .toUpperCase()
   }
   /**
    * 随机生成字符串
