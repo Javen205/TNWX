@@ -37,7 +37,8 @@
   "scripts": {
     "tsc": "tsc",
     "watch": "tsc --watch",
-    "prettier": "prettier --check 'src/**/*.ts'"
+    "prettier": "prettier --check 'src/**/*.ts'",
+    "test": "jest --passWithNoTests"
   },
   "bugs": {
     "url": "http://gitee.com/javen205/TNWX/issues"
