@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>TNWX 微信系开发脚手架-企业微信JS-SDK Demo</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="keywords" content="tnwx,nodejs,微信公众号开发" />
+    <meta
+      http-equiv="description"
+      content="TNWX:TypeScript + Node.js + WeiXin 微信系开发脚手架，支持微信公众号、微信支付、微信小游戏、微信小程序、企业微信/企业号。最最最重要的是能快速的集成至任何 Node.js 框架(Express、Nest、Egg、Koa 等)"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="/public/css/qyjssdk.css" />
+  </head>
+
+  <body ontouchstart="">
+    <div class="wxapi_container">
+      <div class="wxapi_index_container">
+        <ul class="label_box lbox_close wxapi_index_list">
+          <li class="label_item wxapi_index_item"><a class="label_inner" href="#menu-basic">基础接口</a></li>
+          <li class="label_item wxapi_index_item"><a class="label_inner" href="#menu-share">分享接口</a></li>
+          <li class="label_item wxapi_index_item"><a class="label_inner" href="#menu-image">图像接口</a></li>
+          <li class="label_item wxapi_index_item"><a class="label_inner" href="#menu-voice">音频接口</a></li>
+          <li class="label_item wxapi_index_item"><a class="label_inner" href="#menu-device">设备信息接口</a></li>
+          <li class="label_item wxapi_index_item"><a class="label_inner" href="#menu-location">地理位置接口</a></li>
+          <li class="label_item wxapi_index_item"><a class="label_inner" href="#menu-webview">界面操作接口</a></li>
+          <li class="label_item wxapi_index_item"><a class="label_inner" href="#menu-scan">微信扫一扫接口</a></li>
+          <li class="label_item wxapi_index_item"><a class="label_inner" href="#menu-enterprise">通讯录接口</a></li>
+          <li class="label_item wxapi_index_item"><a class="label_inner" href="#menu-previewfile">文件预览</a></li>
+          <li class="label_item wxapi_index_item"><a class="label_inner" href="#menu-openDefaultBrowser">打开系统默认浏览器</a></li>
+        </ul>
+      </div>
+      <div class="lbox_close wxapi_form">
+        <h3 id="menu-basic">基础接口</h3>
+        <span class="desc">判断当前客户端是否支持指定JS接口</span> <button class="btn btn_primary" data-type="checkJsApi">checkJsApi</button>
+        <h3 id="menu-share">分享接口</h3>
+        <span class="desc">获取“转发”按钮点击状态及自定义分享内容接口</span> <button class="btn btn_primary" data-type="onMenuShareAppMessage">onMenuShareAppMessage</button>
+        <span class="desc">获取“微信”按钮点击状态及自定义分享内容接口</span> <button class="btn btn_primary" data-type="onMenuShareWechat">onMenuShareWechat</button>
+        <span class="desc">获取“分享到朋友圈”按钮点击状态及自定义分享内容接口</span> <button class="btn btn_primary" data-type="onMenuShareTimeline">onMenuShareTimeline</button>
+        <span class="desc">自定义转发到会话</span> <button class="btn btn_primary" data-type="shareAppMessage">shareAppMessage</button> <span class="desc">自定义转发到微信</span>
+        <button class="btn btn_primary" data-type="shareWechatMessage">shareWechatMessage</button>
+        <h3 id="menu-image">图像接口</h3>
+        <span class="desc">拍照或从手机相册中选图接口</span> <button class="btn btn_primary" data-type="chooseImage">chooseImage</button> <span class="desc">预览图片接口</span>
+        <button class="btn btn_primary" data-type="previewImage">previewImage</button> <span class="desc">上传图片接口</span>
+        <button class="btn btn_primary" data-type="uploadImage">uploadImage</button> <span class="desc">下载图片接口</span>
+        <button class="btn btn_primary" data-type="downloadImage">downloadImage</button>
+        <h3 id="menu-voice">音频接口</h3>
+        <span class="desc">开始录音接口</span> <button class="btn btn_primary" data-type="startRecord">startRecord</button> <span class="desc">停止录音接口</span>
+        <button class="btn btn_primary" data-type="stopRecord">stopRecord</button> <span class="desc">播放语音接口</span>
+        <button class="btn btn_primary" data-type="playVoice">playVoice</button> <span class="desc">暂停播放接口</span>
+        <button class="btn btn_primary" data-type="pauseVoice">pauseVoice</button> <span class="desc">停止播放接口</span>
+        <button class="btn btn_primary" data-type="stopVoice">stopVoice</button> <span class="desc">上传语音接口</span>
+        <button class="btn btn_primary" data-type="uploadVoice">uploadVoice</button> <span class="desc">下载语音接口</span>
+        <button class="btn btn_primary" data-type="downloadVoice">downloadVoice</button>
+        <h3 id="menu-device">设备信息接口</h3>
+        <span class="desc">获取网络状态接口</span> <button class="btn btn_primary" data-type="getNetworkType">getNetworkType</button>
+        <h3 id="menu-location">地理位置接口</h3>
+        <span class="desc">使用企业微信内置地图查看位置接口</span> <button class="btn btn_primary" data-type="openLocation">openLocation</button>
+        <span class="desc">获取地理位置接口</span> <button class="btn btn_primary" data-type="getLocation">getLocation</button>
+        <h3 id="menu-webview">界面操作接口</h3>
+        <span class="desc">监听页面返回事件</span> <button class="btn btn_primary" data-type="onHistoryBack">onHistoryBack</button> <span class="desc">隐藏右上角菜单接口</span>
+        <button class="btn btn_primary" data-type="hideOptionMenu">hideOptionMenu</button> <span class="desc">显示右上角菜单接口</span>
+        <button class="btn btn_primary" data-type="showOptionMenu">showOptionMenu</button> <span class="desc">关闭当前网页窗口接口</span>
+        <button class="btn btn_primary" data-type="closeWindow">closeWindow</button> <span class="desc">批量隐藏功能按钮接口</span>
+        <button class="btn btn_primary" data-type="hideMenuItems">hideMenuItems</button> <span class="desc">批量显示功能按钮接口</span>
+        <button class="btn btn_primary" data-type="showMenuItems">showMenuItems</button> <span class="desc">隐藏所有非基础按钮接口</span>
+        <button class="btn btn_primary" data-type="hideAllNonBaseMenuItem">hideAllNonBaseMenuItem</button> <span class="desc">显示所有功能按钮接口</span>
+        <button class="btn btn_primary" data-type="showAllNonBaseMenuItem">showAllNonBaseMenuItem</button>
+        <h3 id="menu-scan">企业微信扫一扫</h3>
+        <span class="desc">调起微信扫一扫接口</span> <button class="btn btn_primary" data-type="scanQRCode0">scanQRCode(企业微信处理结果)</button>
+        <button class="btn btn_primary" data-type="scanQRCode1">scanQRCode(直接返回结果)</button>
+        <h3 id="menu-enterprise">通讯录接口</h3>
+        <span class="desc">通讯录选人接口</span> <button class="btn btn_primary" data-type="selectEnterpriseContact">selectEnterpriseContact</button>
+        <h3 id="menu-previewfile">文件接口</h3>
+        <span class="desc">文件预览接口</span> <button class="btn btn_primary" data-type="previewFile">previewFile</button>
+        <h3 id="menu-openDefaultBrowser">打开系统默认浏览器</h3>
+        <span class="desc">打开系统默认浏览器（仅支持PC端）</span> <button class="btn btn_primary" data-type="openDefaultBrowser">openDefaultBrowser</button>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+  <script type="text/javascript" src="https://cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
+  <script type="text/javascript">
+    let shareConfig = {
+        title: 'TNWX 微信系开发脚手架',
+        desc:
+          'TNWX: TypeScript + Node.js + WeiXin 微信系开发脚手架，支持微信公众号、微信支付、微信小游戏、微信小程序、企业号/企业微信。最最最重要的是能快速的集成至任何 Node.js 框架(Express、Nest、Egg、Koa 等)',
+        link: 'http://movie.douban.com/subject/25785114/',
+        imgUrl: 'http://demo.open.weixin.qq.com/jssdk/images/p2166127561.jpg',
+        success: function(a) {
+          alert('分享成功')
+        },
+        cancel: function(a) {
+          alert('分享失败')
+        },
+        fail: function(a) {
+          alert(JSON.stringify(a))
+        }
+      },
+      images = { localId: [], serverId: [] },
+      voice = { localId: '', serverId: '' },
+      jsApiList = [
+        'checkJsApi',
+        'onMenuShareAppMessage',
+        'onMenuShareWechat',
+        'onMenuShareTimeline',
+        'shareAppMessage',
+        'shareWechatMessage',
+        'startRecord',
+        'stopRecord',
+        'onVoiceRecordEnd',
+        'playVoice',
+        'pauseVoice',
+        'stopVoice',
+        'uploadVoice',
+        'downloadVoice',
+        'chooseImage',
+        'previewImage',
+        'uploadImage',
+        'downloadImage',
+        'getNetworkType',
+        'openLocation',
+        'getLocation',
+        'hideOptionMenu',
+        'showOptionMenu',
+        'hideMenuItems',
+        'showMenuItems',
+        'hideAllNonBaseMenuItem',
+        'showAllNonBaseMenuItem',
+        'closeWindow',
+        'scanQRCode',
+        'previewFile',
+        'openEnterpriseChat',
+        'selectEnterpriseContact',
+        'onHistoryBack',
+        'openDefaultBrowser'
+      ]
+    wx.config({
+      beta: true,
+      debug: true,
+      appId: '{{ corpId }}',
+      timestamp: '{{ timestamp }}',
+      nonceStr: '{{ nonceStr }}',
+      signature: '{{ signature }}',
+      jsApiList: jsApiList
+    })
+    wx.ready(function() {
+      // 通过 agentConfig 注入应用的权限
+      wx.agentConfig({
+        debug: true,
+        corpid: '{{ corpId }}',
+        agentid: '{{ appId }}',
+        timestamp: '{{ timestamp }}',
+        nonceStr: '{{ nonceStr }}',
+        signature: '{{ qySignature }}',
+        jsApiList: jsApiList, //必填
+        success: function(res) {
+          // 回调
+          alert(JSON.stringify(res))
+        },
+        fail: function(res) {
+          if (res.errMsg.indexOf('function not exist') > -1) {
+            alert('版本过低请升级')
+          }
+        }
+      })
+
+      $('[data-type]').on('click', function(event) {
+        let target = $(event.target),
+          type = target.attr('data-type')
+        switch (type) {
+          case 'checkJsApi':
+            wx.checkJsApi({
+              jsApiList: jsApiList,
+              success: function(a) {
+                alert(JSON.stringify(a))
+              }
+            })
+            break
+          case 'onMenuShareAppMessage':
+            wx.onMenuShareAppMessage(shareConfig), alert('已注册获取“转发给同事”状态事件')
+            break
+          case 'onMenuShareWechat':
+            wx.onMenuShareWechat(shareConfig), alert('已注册获取“微信分享给朋友”状态事件')
+            break
+          case 'onMenuShareTimeline':
+            wx.onMenuShareTimeline(shareConfig), alert('已注册获取“分享到朋友圈”状态事件')
+            break
+          case 'shareAppMessage':
+            wx.invoke('shareAppMessage', shareConfig, function(res) {
+              'shareAppMessage:ok' == res.err_msg && alert('已转发到会话')
+              'shareAppMessage:cancel' == res.err_msg && alert('已取消')
+            })
+            break
+          case 'shareWechatMessage':
+            wx.invoke('shareWechatMessage', shareConfig, function(res) {
+              'shareWechatMessage:ok' == res.err_msg && alert('已转发到微信')
+              'shareWechatMessage:cancel' == res.err_msg && alert('已取消')
+            })
+            break
+          case 'chooseImage':
+            wx.chooseImage({
+              count: 1, // 默认9
+              sizeType: ['original', 'compressed'],
+              sourceType: ['album', 'camera'],
+              success: function(res) {
+                // 返回选定照片的本地ID列表，
+                // andriod中localId可以作为img标签的src属性显示图片；
+                // 而在IOS中需通过上面的接口getLocalImgData获取图片base64数据，从而用于img标签的显示
+                images.localId = res.localIds
+                alert('已选择 ' + res.localIds.length + ' 张图片')
+              }
+            })
+            break
+          case 'previewImage':
+            wx.previewImage({
+              current:
+                'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1581524839856&di=d29ad99fb248f0e52c699c12fafc722a&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F2%2F58c1474c4562f.jpg',
+              urls: [
+                'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1581524849654&di=745d6d23045aac1f02f2786fdf208d32&imgtype=jpg&src=http%3A%2F%2Fimg2.imgtn.bdimg.com%2Fit%2Fu%3D1356059712%2C3686789851%26fm%3D214%26gp%3D0.jpg',
+                'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1581524839856&di=d29ad99fb248f0e52c699c12fafc722a&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F2%2F58c1474c4562f.jpg'
+              ]
+            })
+            break
+          case 'uploadImage':
+            if (0 == images.localId.length) {
+              alert('请先使用 chooseImage 接口选择图片')
+              return
+            }
+            wx.uploadImage({
+              localId: images.localId, // 需要上传的图片的本地ID，由chooseImage接口获得
+              isShowProgressTips: 1, // 默认为1，显示进度提示
+              success: function(res) {
+                let serverId = res.serverId // 返回图片的服务器端ID
+                images.serverId = serverId
+                alert('serverId:' + serverId)
+              }
+            })
+            break
+          case 'downloadImage':
+            if (0 === images.serverId.length) {
+              alert('请先使用 uploadImage 上传图片')
+              return
+            }
+            wx.downloadImage({
+              serverId: images.serverId, // 需要下载的图片的服务器端ID，由uploadImage接口获得
+              isShowProgressTips: 1, // 默认为1，显示进度提示
+              success: function(res) {
+                let localId = res.localId // 返回图片下载后的本地ID
+                alert('localId:' + localId)
+              }
+            })
+            break
+          case 'startRecord':
+            wx.startRecord({
+              cancel: function() {
+                alert('用户拒绝授权录音')
+              }
+            })
+            break
+          case 'stopRecord':
+            wx.stopRecord({
+              success: function(res) {
+                voice.localId = res.localId
+              },
+              fail: function(res) {
+                alert(JSON.stringify(res))
+              }
+            })
+            break
+          case 'playVoice':
+            if ('' == voice.localId) {
+              alert('请先使用 startRecord 接口录制一段声音')
+              return
+            }
+            wx.playVoice({ localId: voice.localId })
+            break
+          case 'pauseVoice':
+            wx.pauseVoice({ localId: voice.localId })
+            break
+          case 'stopVoice':
+            wx.stopVoice({ localId: voice.localId })
+            break
+          case 'uploadVoice':
+            if ('' == voice.localId) {
+              alert('请先使用 startRecord 接口录制一段声音')
+              return
+            }
+
+            wx.uploadVoice({
+              localId: voice.localId,
+              success: function(res) {
+                voice.serverId = res.serverId
+                alert('上传语音成功，serverId 为' + res.serverId)
+              }
+            })
+            break
+          case 'downloadVoice':
+            if ('' == voice.serverId) {
+              alert('请先使用 uploadVoice 上传声音')
+              return
+            }
+            wx.downloadVoice({
+              serverId: voice.serverId, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
+              isShowProgressTips: 1, // 默认为1，显示进度提示
+              success: function(res) {
+                voice.localId = res.localId
+                alert('下载语音成功，localId 为' + res.localId)
+              }
+            })
+            break
+          case 'getNetworkType':
+            wx.getNetworkType({
+              success: function(res) {
+                alert(res.networkType)
+              },
+              fail: function(res) {
+                alert(JSON.stringify(res))
+              }
+            })
+            break
+          case 'openLocation':
+            wx.openLocation({
+              latitude: 23.099994,
+              longitude: 113.32452,
+              name: 'TIT 创意园',
+              address: '广州市海珠区新港中路 397 号',
+              scale: 14,
+              infoUrl: 'http://weixin.qq.com'
+            })
+            break
+          case 'getLocation':
+            wx.getLocation({
+              success: function(res) {
+                alert(JSON.stringify(res))
+              },
+              cancel: function(a) {
+                alert('用户拒绝授权获取地理位置')
+              }
+            })
+            break
+          case 'hideOptionMenu':
+            wx.hideOptionMenu()
+            break
+          case 'showOptionMenu':
+            wx.showOptionMenu()
+            break
+          case 'closeWindow':
+            wx.closeWindow()
+            break
+          case 'onHistoryBack':
+            wx.onHistoryBack(function() {
+              return confirm('确定要放弃当前页面的修改？')
+            })
+            alert('已注册获取“页面返回”状态事件')
+            break
+          case 'hideMenuItems':
+            wx.hideMenuItems({
+              menuList: ['menuItem:share:appMessage', 'menuItem:share:wechat', 'menuItem:favorite'],
+              success: function(a) {
+                alert('\u5df2\u9690\u85cf\u201c\u8f6c\u53d1\u201d\uff0c\u201c\u5fae\u4fe1\u201d\uff0c\u201c\u6536\u85cf\u201d\u6309\u94ae')
+              },
+              fail: function(a) {
+                alert(JSON.stringify(a))
+              }
+            })
+            break
+          case 'showMenuItems':
+            wx.showMenuItems({ menuList: ['menuItem:share:appMessage', 'menuItem:share:wechat', 'menuItem:favorite'] })
+            break
+          case 'hideAllNonBaseMenuItem':
+            wx.hideAllNonBaseMenuItem({
+              success: function() {
+                alert('已隐藏所有非基本菜单项')
+              }
+            })
+            break
+          case 'showAllNonBaseMenuItem':
+            wx.showAllNonBaseMenuItem({
+              success: function() {
+                alert('已显示所有非基本菜单项')
+              }
+            })
+            break
+          case 'scanQRCode0':
+            wx.scanQRCode()
+            break
+          case 'scanQRCode1':
+            wx.scanQRCode({
+              desc: 'scanQRCode desc',
+              needResult: 1, // 默认为0，扫描结果由企业微信处理，1则直接返回扫描结果，
+              scanType: ['qrCode', 'barCode'], // 可以指定扫二维码还是一维码，默认二者都有
+              success: function(res) {
+                alert(JSON.stringify(res))
+              },
+              error: function(res) {
+                if (res.errMsg.indexOf('function_not_exist') > 0) {
+                  alert('版本过低请升级')
+                }
+              }
+            })
+            break
+          case 'openEnterpriseChat':
+            wx.invoke('openEnterpriseChat', { userIds: 'Javen;123', groupName: '讨论组' }, function(res) {
+              res.errMsg.indexOf('function not exist') > -1 && alert('版本过低请升级')
+            })
+            break
+          case 'selectEnterpriseContact':
+            let invoke = wx.invoke || WeixinJSBridge.invoke
+            invoke(
+              'selectEnterpriseContact',
+              {
+                fromDepartmentId: -1, // 必填，表示打开的通讯录从指定的部门开始展示，-1表示自己所在部门开始, 0表示从最上层开始
+                mode: 'single', // 必填，选择模式，single表示单选，multi表示多选
+                type: ['department', 'user'], // 必填，选择限制类型，指定department、user中的一个或者多个
+                selectedDepartmentIds: [], // 非必填，已选部门ID列表。用于多次选人时可重入，single模式下请勿填入多个id
+                selectedUserIds: [] // 非必填，已选用户ID列表。用于多次选人时可重入，single模式下请勿填入多个id
+              },
+              function(res) {
+                if ('selectEnterpriseContact:ok' == res.err_msg) {
+                  if (typeof res.result == 'string') {
+                    res.result = JSON.parse(res.result) //由于目前各个终端尚未完全兼容，需要开发者额外判断result类型以保证在各个终端的兼容性
+                  }
+                  let selectedDepartmentList = res.result.departmentList // 已选的部门列表
+                  for (let i = 0; i < selectedDepartmentList.length; i++) {
+                    let department = selectedDepartmentList[i]
+                    let departmentId = department.id // 已选的单个部门ID
+                    let departemntName = department.name // 已选的单个部门名称
+                    alert('部门名称:' + departemntName)
+                  }
+                  let selectedUserList = res.result.userList // 已选的成员列表
+                  for (let i = 0; i < selectedUserList.length; i++) {
+                    let user = selectedUserList[i]
+                    let userId = user.id // 已选的单个成员ID
+                    let userName = user.name // 已选的单个成员名称
+                    let userAvatar = user.avatar // 已选的单个成员头像
+                    alert('用户名称:' + userName)
+                  }
+                }
+              }
+            )
+            break
+          case 'previewFile':
+            wx.previewFile({ url: 'http://open.work.weixin.qq.com/wwopen/downloadfile/wwapi.zip', name: 'Android开发工具包集合', size: 22189 })
+            break
+          case 'openDefaultBrowser':
+            wx.invoke('openDefaultBrowser', { url: 'https://open.work.weixin.qq.com' }, function(res) {
+              alert(res.err_msg)
+            })
+        }
+      })
+    })
+
+    wx.error(function(res) {
+      alert(res.errMsg)
+    })
+  </script>
+</html>

@@ -234,7 +234,7 @@ app.get('/miniProgram', async (req: any, res: any) => {
             let key = Buffer.from(session_key, 'base64');
             let baseIv = Buffer.from(iv, 'base64');
 
-            let signature2 = Kits.sha1(rawData + session_key).toLocaleLowerCase();
+            let signature2 = Kits.sha1(rawData + session_key);
 
             if (signature2 === signature) {
                 let ecrypt = Kits.aes128cbcDecrypt(key, baseIv, encryptedData);
