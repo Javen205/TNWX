@@ -41,7 +41,7 @@ let encryptedData = 'r9UTG7Yo3xlXZ1++2atDr/7So5b+GevtC4ZkxXeL+vCjYoMp50YB004IcCu
 let key = Buffer.from(session_key, 'base64');
 let baseIv = Buffer.from(iv, 'base64');
 
-let signature2 = Kits.sha1(rawData + session_key).toLocaleLowerCase();
+let signature2 = Kits.sha1(rawData + session_key);
 
 if (signature2 === signature) {
     let ecrypt = Kits.aes128cbcDecrypt(key, baseIv, encryptedData);

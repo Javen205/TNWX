@@ -179,7 +179,7 @@ app.get('/sendMsg', (req, res) => {
             break;
         case 9:
             // 小程序通知消息
-            let miniprogram = new QyMiniProgramNoticeMsg(
+            let miniprogram = new QyMiNiProgramNoticeMsg(
                 new QyMiniprogram(
                     'wxf30d9b9b316d5de4',
                     '老铁开源项目了解一下',
