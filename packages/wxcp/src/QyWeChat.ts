@@ -33,8 +33,12 @@ import {
   InBatchJobResultEvent,
   InUpdateUserEvent,
   InUpdatePartyEvent,
-  InUpdateTagEvent
+  InUpdateTagEvent,
+  QyJsTicketApi,
+  QyJsApiType
 } from '@tnwx/commons'
+
+import { Kits } from '@tnwx/kits'
 
 /**
  * @author Javen
@@ -42,6 +46,28 @@ import {
  * @description 处理企业微信消息以及事件
  */
 export class QyWeChat {
+  /**
+   * JSSDK签名
+   * @param nonce_str 随机字符串
+   * @param timestamp 时间戳
+   * @param url 当前网页的URL， 不包含#及其后面部分
+   * @param type QyJsApiType
+   * @param jsapi_ticket jsapi_ticket
+   */
+  public static async jssdkSignature(nonce_str: string, timestamp: string, url: string, type: QyJsApiType, jsapi_ticket?: string) {
+    if (!jsapi_ticket) {
+      let jsTicket = await QyJsTicketApi.getTicket(type)
+      if (jsTicket) {
+        jsapi_ticket = jsTicket.getTicket
+        if (QyApiConfigKit.isDevMode) {
+          console.debug('jsapi_ticket:', jsapi_ticket)
+        }
+      }
+    }
+    let str = 'jsapi_ticket=' + jsapi_ticket + '&noncestr=' + nonce_str + '&timestamp=' + timestamp + '&url=' + url
+    return Kits.sha1(str)
+  }
+
   /**
    *  验证成为开发者
    *  @param signature

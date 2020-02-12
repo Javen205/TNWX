@@ -1,6 +1,10 @@
 export { CryptoKit } from './CryptoKit'
 
-export { UniformMessageApi } from './UniformMessageApi'
+export { UniformMessageApi } from './api/UniformMessageApi'
+export { JsTicketApi, JsApiType } from './api/JsTicketApi'
+export { QyJsTicketApi, QyJsApiType } from './api/QyJsTicketApi'
+
+export { JsTicket } from './entity/JsTicket'
 export { TemplateData, MiniProgram, TemplateItem } from './entity/template/TemplateData'
 export { SubscribeMsg, Data, Content } from './entity/subscribe/SubscribeMsg'
 

@@ -1,12 +1,10 @@
 export { WeChat } from './WeChat'
-export { JsTicket } from './JsTicket'
 
 export { AutoReplyInfoApi } from './api/AutoReplyInfoApi'
 export { CallbackApi, CheckAction, CheckOperator } from './api/CallbackApi'
 export { CardApi } from './api/CardApi'
 export { CustomServiceApi } from './api/CustomServiceApi'
 export { DatacubeApi } from './api/DatacubeApi'
-export { JsTicketApi, JsApiType } from './api/JsTicketApi'
 export { MediaApi, MediaType, MediaArticles } from './api/MediaApi'
 export { MemberCardApi } from './api/MemberCardApi'
 export { MenuApi } from './api/MenuApi'

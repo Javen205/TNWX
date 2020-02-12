@@ -28,9 +28,11 @@ import {
   OutNewsMsg,
   OutVideoMsg,
   OutVoiceMsg,
-  OutCustomMsg
+  OutCustomMsg,
+  JsTicketApi,
+  JsApiType
 } from '@tnwx/commons'
-import { JsTicketApi, JsApiType } from './api/JsTicketApi'
+import { Kits } from '@tnwx/kits'
 
 export class WeChat {
   /**
@@ -51,11 +53,9 @@ export class WeChat {
       }
     }
     let str = 'jsapi_ticket=' + jsapi_ticket + '&noncestr=' + nonce_str + '&timestamp=' + timestamp + '&url=' + url
-    return crypto
-      .createHash('sha1')
-      .update(str, 'utf8')
-      .digest('hex')
+    return Kits.sha1(str)
   }
+  
   /**
    *  验证成为开发者
    *  @param signature

@@ -7,7 +7,7 @@
 import * as util from 'util'
 import { AccessToken, AccessTokenApi, IAccessTokenCache, ApiConfigKit } from '@tnwx/accesstoken'
 import { HttpKit } from '@tnwx/kits'
-import { JsTicket } from '../JsTicket'
+import { JsTicket } from '../entity/JsTicket'
 
 export class JsTicketApi {
   private static getTicketUrl: string = 'https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=%s&type=%s'
