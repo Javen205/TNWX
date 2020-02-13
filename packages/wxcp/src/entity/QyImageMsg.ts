@@ -7,10 +7,10 @@ import { QySendMessageType } from '../QySendMsgApi'
  * @description 图片消息
  */
 export class QyImageMsg extends QyBaseMsg {
-  private image: QyMediaId
+  private image: QyMediaId | QyImage
 
   constructor(
-    image: QyMediaId,
+    image: QyMediaId | QyImage,
     agentId?: string,
     toUser?: string,
     toParty?: string,
@@ -24,11 +24,36 @@ export class QyImageMsg extends QyBaseMsg {
     this.image = image
   }
 
-  public get getImage(): QyMediaId {
+  public get getImage(): QyMediaId | QyImage {
     return this.image
   }
 
-  public set setImage(image: QyMediaId) {
+  public set setImage(image: QyMediaId | QyImage) {
     this.image = image
+  }
+}
+
+export class QyImage {
+  private base64: string
+  private md5: string
+
+  constructor(base64: string, md5: string) {
+    this.base64 = base64
+    this.md5 = md5
+  }
+
+  public set setBase64(base64: string) {
+    this.base64 = base64
+  }
+
+  public get getBase64(): string {
+    return this.base64
+  }
+  public set setMd5(md5: string) {
+    this.md5 = md5
+  }
+
+  public get getMd5(): string {
+    return this.md5
   }
 }

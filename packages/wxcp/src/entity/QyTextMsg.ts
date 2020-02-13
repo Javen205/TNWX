@@ -35,9 +35,13 @@ export class QyTextMsg extends QyBaseMsg {
 
 export class QyText {
   private content: string
+  private mentioned_list: Array<string>
+  private mentioned_mobile_list: Array<string>
 
-  constructor(content: string) {
+  constructor(content: string, mentionedList?: Array<string>, mentionedMobileList?: Array<string>) {
     this.content = content
+    this.mentioned_list = mentionedList
+    this.mentioned_mobile_list = mentionedMobileList
   }
 
   public set setContent(content: string) {
@@ -46,5 +50,21 @@ export class QyText {
 
   public get getContent(): string {
     return this.content
+  }
+
+  public set mentionedList(mentioned_list: Array<string>) {
+    this.mentioned_list = mentioned_list
+  }
+
+  public get mentionedList(): Array<string> {
+    return this.mentioned_list
+  }
+
+  public set mentionedMobileList(mentionedMobileList: Array<string>) {
+    this.mentioned_mobile_list = mentionedMobileList
+  }
+
+  public get mentionedMobileList(): Array<string> {
+    return this.mentioned_mobile_list
   }
 }
