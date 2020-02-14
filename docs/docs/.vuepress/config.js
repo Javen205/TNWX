@@ -33,7 +33,7 @@ module.exports = ctx => ( {
                 lastUpdated: '上次更新',
                 nav: require('./nav/zh'),
                 sidebar: {
-                    '/guide/': getGuideSidebar('新手指南','微信公众号','企业微信','微信支付','微信小程序','微信小游戏','一杯咖啡'),
+                    '/guide/': getGuideSidebar('参考资料','新手指南','微信公众号','企业微信','微信支付','微信小程序','微信小游戏','一杯咖啡'),
                 },
             },
         },
@@ -68,8 +68,15 @@ module.exports = ctx => ( {
     ]
 })
 
-function getGuideSidebar (groupA,groupB,groupC,groupD,groupE,groupF,groupG) {
+function getGuideSidebar (tools,groupA,groupB,groupC,groupD,groupE,groupF,groupG) {
     return [
+        {
+            title: tools,
+            collapsable: false,
+            children: [
+                'tools/frp.md',
+            ]
+        },
         {
             title: groupA,
             collapsable: false,
