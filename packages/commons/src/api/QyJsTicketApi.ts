@@ -5,7 +5,8 @@
  */
 
 import * as util from 'util'
-import { IAccessTokenCache, QyApiConfigKit, AccessToken, QyAccessTokenApi } from '@tnwx/accesstoken'
+import { QyApiConfigKit, AccessToken, QyAccessTokenApi } from '@tnwx/accesstoken'
+import { ICache } from '@tnwx/cache'
 import { HttpKit } from '@tnwx/kits'
 import { JsTicket } from '../entity/JsTicket'
 
@@ -25,8 +26,8 @@ export class QyJsTicketApi {
       .concat(':')
       .concat(type)
     // 从缓存中获取
-    let accessTokenCache: IAccessTokenCache = QyApiConfigKit.getAccessTokenCache
-    let jsTicketJson = accessTokenCache.get(key)
+    let cache: ICache = QyApiConfigKit.getCache
+    let jsTicketJson = cache.get(key)
     if (jsTicketJson) {
       if (QyApiConfigKit.isDevMode) {
         console.debug('缓存中获取api_ticket...')
@@ -44,8 +45,8 @@ export class QyJsTicketApi {
     let data = await HttpKit.getHttpDelegate.httpGet(url)
     if (data) {
       let jsTicket: JsTicket = new JsTicket(data)
-      let accessTokenCache: IAccessTokenCache = QyApiConfigKit.getAccessTokenCache
-      accessTokenCache.set(key, jsTicket.getCacheJson)
+      let cache: ICache = QyApiConfigKit.getCache
+      cache.set(key, jsTicket.getCacheJson)
       if (QyApiConfigKit.isDevMode) {
         console.debug('通过接口获取api_ticket...')
       }

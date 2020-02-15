@@ -5,7 +5,8 @@
  */
 
 import * as util from 'util'
-import { AccessToken, AccessTokenApi, IAccessTokenCache, ApiConfigKit } from '@tnwx/accesstoken'
+import { AccessToken, AccessTokenApi, ApiConfigKit } from '@tnwx/accesstoken'
+import { ICache } from '@tnwx/cache'
 import { HttpKit } from '@tnwx/kits'
 import { JsTicket } from '../entity/JsTicket'
 
@@ -19,8 +20,8 @@ export class JsTicketApi {
     let appId = ApiConfigKit.getApiConfig.getAppId
     let key = appId + ':' + type
     // 从缓存中获取
-    let accessTokenCache: IAccessTokenCache = ApiConfigKit.getAccessTokenCache
-    let jsTicketJson = accessTokenCache.get(key)
+    let cache: ICache = ApiConfigKit.getCache
+    let jsTicketJson = cache.get(key)
     if (jsTicketJson) {
       if (ApiConfigKit.isDevMode) {
         console.debug('缓存中获取api_ticket...')
@@ -33,8 +34,8 @@ export class JsTicketApi {
     let data = await HttpKit.getHttpDelegate.httpGet(url)
     if (data) {
       let jsTicket: JsTicket = new JsTicket(data)
-      let accessTokenCache: IAccessTokenCache = ApiConfigKit.getAccessTokenCache
-      accessTokenCache.set(key, jsTicket.getCacheJson)
+      let cache: ICache = ApiConfigKit.getCache
+      cache.set(key, jsTicket.getCacheJson)
       if (ApiConfigKit.isDevMode) {
         console.debug('通过接口获取api_ticket...')
       }

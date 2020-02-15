@@ -1,7 +1,7 @@
 import * as util from 'util'
 import { AccessToken } from '../AccessToken'
 import { ApiConfig } from '../ApiConfig'
-import { IAccessTokenCache } from '../cache/IAccessTokenCache'
+import { ICache } from '@tnwx/cache'
 import { QyApiConfigKit } from './QyApiConfigKit'
 import { HttpKit } from '@tnwx/kits'
 
@@ -39,8 +39,8 @@ export class QyAccessTokenApi {
    */
   private static getAvailableAccessToken(apiConfig: ApiConfig): AccessToken | undefined {
     let result: AccessToken | undefined
-    let accessTokenCache: IAccessTokenCache = QyApiConfigKit.getAccessTokenCache
-    let accessTokenJson: string = accessTokenCache.get(apiConfig.getAppId.concat(this.SEPARATOR).concat(apiConfig.getCorpId))
+    let cache: ICache = QyApiConfigKit.getCache
+    let accessTokenJson: string = cache.get(apiConfig.getAppId.concat(this.SEPARATOR).concat(apiConfig.getCorpId))
     if (accessTokenJson) {
       result = new AccessToken(accessTokenJson)
     }
@@ -60,8 +60,8 @@ export class QyAccessTokenApi {
     let data = await HttpKit.getHttpDelegate.httpGet(url)
     if (data) {
       let accessToken: AccessToken = new AccessToken(data)
-      let accessTokenCache: IAccessTokenCache = QyApiConfigKit.getAccessTokenCache
-      accessTokenCache.set(apiConfig.getAppId.concat(this.SEPARATOR).concat(apiConfig.getCorpId), accessToken.getCacheJson)
+      let cache: ICache = QyApiConfigKit.getCache
+      cache.set(apiConfig.getAppId.concat(this.SEPARATOR).concat(apiConfig.getCorpId), accessToken.getCacheJson)
       return accessToken
     } else {
       throw new Error('获取 accessToken 异常')

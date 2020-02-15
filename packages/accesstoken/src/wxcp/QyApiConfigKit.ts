@@ -1,11 +1,10 @@
 import { ApiConfig } from '../ApiConfig'
-import { IAccessTokenCache } from '../cache/IAccessTokenCache'
-import { DefaultAccessTokenCache } from '../cache/DefaultAccessTokenCache'
+import { ICache, DefaultCache } from '@tnwx/cache'
 
 /**
  * @author Javen
  * @copyright javendev@126.com
- * @description 企业微信 ApiConfigKit
+ * @description 企业微信 QyApiConfigKit
  */
 export class QyApiConfigKit {
   static CFG_MAP: Map<String, ApiConfig> = new Map<String, ApiConfig>()
@@ -16,7 +15,7 @@ export class QyApiConfigKit {
 
   static devMode: boolean = false
 
-  static _accessTokenCache: IAccessTokenCache = new DefaultAccessTokenCache()
+  static _cache: ICache = new DefaultCache()
 
   public set devMode(devMode: boolean) {
     this.devMode = devMode
@@ -95,11 +94,11 @@ export class QyApiConfigKit {
     return cfg
   }
 
-  public static get getAccessTokenCache(): IAccessTokenCache {
-    return this._accessTokenCache
+  public static get getCache(): ICache {
+    return this._cache
   }
 
-  public static set setAccessTokenCache(accessTokenCache: IAccessTokenCache) {
-    this._accessTokenCache = accessTokenCache
+  public static set setCache(cache: ICache) {
+    this._cache = cache
   }
 }

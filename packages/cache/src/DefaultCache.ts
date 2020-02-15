@@ -4,9 +4,9 @@
  * @description 默认的缓存策略
  */
 
-import { IAccessTokenCache } from './IAccessTokenCache'
+import { ICache } from './ICache'
 
-export class DefaultAccessTokenCache implements IAccessTokenCache {
+export class DefaultCache implements ICache {
   private map: Map<string, string> = new Map<string, string>()
 
   get(key: string): string {

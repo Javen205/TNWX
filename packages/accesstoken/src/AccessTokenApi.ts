@@ -7,7 +7,7 @@
 import * as util from 'util'
 import { AccessToken } from './AccessToken'
 import { ApiConfig } from './ApiConfig'
-import { IAccessTokenCache } from './cache/IAccessTokenCache'
+import { ICache } from '@tnwx/cache'
 import { ApiConfigKit } from './ApiConfigKit'
 import { HttpKit } from '@tnwx/kits'
 
@@ -39,8 +39,8 @@ export class AccessTokenApi {
    */
   private static getAvailableAccessToken(apiConfig: ApiConfig): AccessToken | undefined {
     let result: AccessToken | undefined
-    let accessTokenCache: IAccessTokenCache = ApiConfigKit.getAccessTokenCache
-    let accessTokenJson: string = accessTokenCache.get(apiConfig.getAppId)
+    let cache: ICache = ApiConfigKit.getCache
+    let accessTokenJson: string = cache.get(apiConfig.getAppId)
     if (accessTokenJson) {
       result = new AccessToken(accessTokenJson)
     }
@@ -60,8 +60,8 @@ export class AccessTokenApi {
     let data = await HttpKit.getHttpDelegate.httpGet(url)
     if (data) {
       let accessToken: AccessToken = new AccessToken(data)
-      let accessTokenCache: IAccessTokenCache = ApiConfigKit.getAccessTokenCache
-      accessTokenCache.set(apiConfig.getAppId, accessToken.getCacheJson)
+      let cache: ICache = ApiConfigKit.getCache
+      cache.set(apiConfig.getAppId, accessToken.getCacheJson)
       return accessToken
     } else {
       throw new Error('获取accessToken异常')
