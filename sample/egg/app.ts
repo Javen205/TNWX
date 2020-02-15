@@ -50,7 +50,7 @@ export default class FooBoot implements IBoot {
     // 亦可以读取配置文件
     let devApiConfig = new ApiConfig('wx614c453e0d1dcd12', '19a02e4927d346484fc70327970457f9', 'Javen')
     let miniApiConfig = new ApiConfig('wxf30d9b9b316d5de4', 'bf0f1a06ba7cc16be643a250ca40213b')
-    let qyApiConfig = new ApiConfig('1000004', 'fs-wmeFEr4PCMY7WGYyv1rDKGwaPLTvWFFX3UL396QI', 'Javen', true, 'GFLxP8ppqcgQbI0yivtMkY4pkOAOiapHhQsCOgYUnYK', 'wxdbc631b5210be89f')
+    let qyApiConfig = new ApiConfig('1000005', 'nT027DCgwrpEfZHaCWvJOdNZ2HaQ-8MROnmS8k_cwGs', 'Javen', true, 'GFLxP8ppqcgQbI0yivtMkY4pkOAOiapHhQsCOgYUnYK', 'wwa01ccbab253b77e9')
     let qyMiniApiConfig = new ApiConfig(
       '1000006',
       'I9aenO-_rgAqrT_NGub-43_5bUCJvDL7YBTTcUb9nIg',

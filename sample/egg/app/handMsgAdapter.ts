@@ -36,7 +36,7 @@ import {
   InUpdateTagEvent
 } from 'tnwx'
 
-export class handMsgAdapter implements MsgAdapter {
+export class HandMsgAdapter implements MsgAdapter {
   processInTextMsg(inTextMsg: InTextMsg): OutMsg {
     let outMsg: any
     let content: string = 'IJPay 让支付触手可及 \n\nhttps://gitee.com/javen205/IJPay'

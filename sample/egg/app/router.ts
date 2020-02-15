@@ -8,10 +8,12 @@ export default (app: Application) => {
 
   router.get('/', controller.home.index)
   router.get('/npm', controller.home.npm)
-  router.get('/msg', controller.mpMsg.get)
-  router.post('/msg', controller.mpMsg.post)
-  router.get('/qymsg', controller.qyMsg.get)
-  router.post('/qymsg', controller.qyMsg.post)
+  router.get('/msg', controller.mpmsg.get)
+  router.post('/msg', controller.mpmsg.post)
+  router.get('/qymsg', controller.qymsg.get)
+  router.post('/qymsg', controller.qymsg.post)
   router.get('/jssdk', jssdk, controller.jssdk.index)
   router.get('/qyjssdk', qyjssdk, controller.qyjssdk.index)
+  router.get('/qyapi/creatMenu', controller.qyapi.creatMenu)
+  router.get('/qyapi/appChat', controller.qyapi.appChat)
 }

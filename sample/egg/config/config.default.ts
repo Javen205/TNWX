@@ -21,6 +21,12 @@ export default (appInfo: EggAppInfo) => {
     level: 'DEBUG'
   }
 
+  // config.static = {
+  //   // 静态化访问前缀,如：`http://127.0.0.1:8888/static/images/coffee.jpeg`
+  //   // 验证域名的时候可以去掉 默认为 '/public'
+  //   prefix: ''
+  // }
+
   config.middleware = ['jssdk', 'qyjssdk']
 
   // override config from framework / plugin

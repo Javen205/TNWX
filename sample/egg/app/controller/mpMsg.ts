@@ -1,10 +1,10 @@
 import { Controller } from 'egg'
 import * as getRawBody from 'raw-body'
 import { ApiConfigKit, WeChat } from 'tnwx'
-import { handMsgAdapter } from '../handMsgAdapter'
+import { HandMsgAdapter } from '../HandMsgAdapter'
 
 export default class MsgController extends Controller {
-  msgAdapter = new handMsgAdapter()
+  msgAdapter = new HandMsgAdapter()
 
   public async get() {
     const { ctx } = this
