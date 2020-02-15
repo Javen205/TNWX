@@ -58,7 +58,7 @@ export class AccessTokenApi {
      */
     private static getAvailableAccessToken(apiConfig: ApiConfig): AccessToken | undefined {
         let result: AccessToken | undefined;
-        let accessTokenCache: IAccessTokenCache = ApiConfigKit.getAccessTokenCache;
+        let accessTokenCache: ICache = ApiConfigKit.getAccessTokenCache;
         let accessTokenJson: string = accessTokenCache.get(apiConfig.getAppId);
         if (accessTokenJson) {
             result = new AccessToken(accessTokenJson);
@@ -79,7 +79,7 @@ export class AccessTokenApi {
         let data = await HttpKit.getHttpDelegate.httpGet(url);
         if (data) {
             let accessToken: AccessToken = new AccessToken(data)
-            let accessTokenCache: IAccessTokenCache = ApiConfigKit.getAccessTokenCache;
+            let accessTokenCache: ICache = ApiConfigKit.getAccessTokenCache;
             accessTokenCache.set(apiConfig.getAppId, accessToken.getCacheJson);
             return accessToken;
         } else {
@@ -97,20 +97,20 @@ export class AccessTokenApi {
 
 ## 缓存扩展
 
-access_token 缓存接口 `IAccessTokenCache`
+access_token 缓存接口 `ICache`
 
 ```typescript
-export interface IAccessTokenCache {
+export interface ICache {
     get(key: string): string;
     set(key: string, jsonValue: string): void;
     remove(key: string): void;
 }
 ```
 
-默认实现 `DefaultAccessTokenCache` 
+默认实现 `DefaultCache` 
 
 ```typescript
-export class DefaultAccessTokenCache implements IAccessTokenCache {
+export class DefaultCache implements ICache {
 
     private map: Map<string, string> = new Map<string, string>();
 
@@ -149,10 +149,10 @@ app.get('/getAccessToken', (req: any, res: any) => {
 
 ## 替换默认缓存策略
 
-`DefaultAccessTokenCache`  替换为你的实现类即可 比如：缓存至文件、Redis 等
+`DefaultCache`  替换为你的实现类即可 比如：缓存至文件、Redis 等
 
 ```typescript
-ApiConfigKit.setAccessTokenCache(new DefaultAccessTokenCache());
+ApiConfigKit.setCache(new DefaultCache());
 ```
 
 

@@ -86,7 +86,7 @@ new ApiConfig(appId: string, appScrect: string, token?: string, encryptMessage?:
 
   // 默认配置
   // HttpKit.setHttpDelegate = new AxiosHttpKit();
-  // ApiConfigKit.setAccessTokenCache = new DefaultAccessTokenCache();
+  // ApiConfigKit.setCache = new DefaultCache();
 
 ```
 
