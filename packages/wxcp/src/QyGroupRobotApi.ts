@@ -2,6 +2,7 @@ import { HttpKit } from '@tnwx/kits'
 import { QyTextMsg } from './entity/QyTextMsg'
 import { QyMarkDownMsg } from './entity/QyMarkDownMsg'
 import { QyImageMsg } from './entity/QyImageMsg'
+import { QyArticles, QyNewsMsg } from './entity/QyNewsMsg'
 /**
  * @author Javen
  * @copyright javendev@126.com
@@ -42,5 +43,14 @@ export class QyGroupRobotApi {
    */
   public static async sendImageMsg(url: string, image: QyImageMsg) {
     return this.send(url, JSON.stringify(image))
+  }
+
+  /**
+   * 发送图文消息
+   * @param url webhook 地址
+   * @param news 图文类型对象 QyNewsMsg
+   */
+  public static async sendNewsMsg(url: string, news: QyNewsMsg) {
+    return this.send(url, JSON.stringify(news))
   }
 }
