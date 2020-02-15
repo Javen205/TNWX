@@ -14,7 +14,7 @@ export class WxPay {
    * @param key api 密钥
    * @param signType 签名类型 默认为 MD5 加密
    */
-  public static getSignKey(mchId: string, key: string, signType: SIGN_TYPE.SIGN_TYPE_MD5) {
+  public static getSignKey(mchId: string, key: string, signType = SIGN_TYPE.SIGN_TYPE_MD5): Promise<any> {
     return new Promise(function(resolve, reject) {
       let reqObj: any = {
         mch_id: mchId,
@@ -46,7 +46,7 @@ export class WxPay {
    * @param notifyData 通知中的数据对象
    * @param key api 密钥
    */
-  public static notifySignatureValid(notifyData: any, key: string) {
+  public static notifySignatureValid(notifyData: any, key: string): boolean {
     let signType: SIGN_TYPE
     let signTypeInData = notifyData[Kits.FIELD_SIGN_TYPE]
     if (!signTypeInData) {
@@ -72,7 +72,7 @@ export class WxPay {
    * @param key api 密钥
    * @param signType 签名类型
    */
-  public static isSignatureValid(data: any, key: string, signType: SIGN_TYPE) {
+  public static isSignatureValid(data: any, key: string, signType: SIGN_TYPE): boolean {
     signType = signType || SIGN_TYPE.SIGN_TYPE_MD5
     if (data || typeof data !== 'object') {
       return false

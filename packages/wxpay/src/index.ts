@@ -1,3 +1,5 @@
 export { WX_API_TYPE } from './WxApiType'
 export { WX_DOMAIN } from './WxDomain'
 export { WxPay } from './WxPay'
+export { WxPayApiConfig } from './WxPayApiConfig'
+export { WxPayApiConifgKit } from './WxPayApiConifgKit'
