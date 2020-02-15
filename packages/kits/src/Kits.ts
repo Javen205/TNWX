@@ -21,7 +21,7 @@ export class Kits {
    *  @param iv   向量
    *  @param data 需要加密的数据
    */
-  public static aes128cbcEncrypt(key: Buffer, iv: Buffer, data: string) {
+  public static aes128cbcEncrypt(key: Buffer, iv: Buffer, data: string): string {
     let cipher = crypto.createCipheriv('aes-128-cbc', key, iv)
     let crypted = cipher.update(data, 'utf8', 'binary')
     crypted += cipher.final('binary')
@@ -34,7 +34,7 @@ export class Kits {
    *  @param iv       向量
    *  @param crypted  密文
    */
-  public static aes128cbcDecrypt(key: Buffer, iv: Buffer, crypted: string) {
+  public static aes128cbcDecrypt(key: Buffer, iv: Buffer, crypted: string): string {
     crypted = Buffer.from(crypted, 'base64').toString('binary')
     let decipher = crypto.createDecipheriv('aes-128-cbc', key, iv)
     // 设置自动 padding 为 true，删除填充补位
@@ -58,7 +58,7 @@ export class Kits {
    * sha1加密
    * @param data
    */
-  public static sha1(data: string) {
+  public static sha1(data: string): string {
     return crypto
       .createHash('sha1')
       .update(data, 'utf8')
@@ -77,7 +77,7 @@ export class Kits {
   /**
    * 随机生成字符串
    */
-  public static generateStr() {
+  public static generateStr(): string {
     return uuid.v4().replace(/\-/g, '')
   }
 
@@ -87,7 +87,7 @@ export class Kits {
    * @param key api key
    * @param signTypeParam 签名类型
    */
-  public static generateSignature(data: any, key: string, signTypeParam: SIGN_TYPE) {
+  public static generateSignature(data: any, key: string, signTypeParam: SIGN_TYPE): string {
     let signType = signTypeParam || SIGN_TYPE.SIGN_TYPE_MD5
     if (signType !== SIGN_TYPE.SIGN_TYPE_MD5 && signType !== SIGN_TYPE.SIGN_TYPE_HMACSHA256) {
       throw new Error('Invalid signType: ' + signType)
@@ -122,7 +122,7 @@ export class Kits {
    * @param key
    * @param signType
    */
-  public static generateSignedXml(data: object, key: string, signType: SIGN_TYPE) {
+  public static generateSignedXml(data: object, key: string, signType: SIGN_TYPE): Promise<any> {
     let that = this
     let clonedData = JSON.parse(JSON.stringify(data))
     // 添加签名 sign
@@ -143,7 +143,7 @@ export class Kits {
    * xml 字符串转换成对象
    * @param xmlStr
    */
-  public static xml2obj(xmlStr: string) {
+  public static xml2obj(xmlStr: string): Promise<any> {
     return new Promise(function(resolve, reject) {
       parseString(xmlStr, function(err, result) {
         if (err) {
@@ -166,7 +166,7 @@ export class Kits {
    * 普通对象转换成 xml 字符串
    * @param obj
    */
-  public static obj2xml(obj: Object) {
+  public static obj2xml(obj: Object): Promise<any> {
     return new Promise(function(resolve, reject) {
       let builder = new Builder({ cdata: true, rootName: 'xml' })
       try {
