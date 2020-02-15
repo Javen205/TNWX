@@ -1,5 +1,5 @@
 import { Application, IBoot } from 'egg'
-import { ApiConfig, ApiConfigKit, QyApiConfigKit } from 'tnwx'
+import { ApiConfig, ApiConfigKit, QyApiConfigKit, WxPayApiConfig, WxPayApiConifgKit } from 'tnwx'
 /**
  * 参考 https://eggjs.org/zh-cn/basics/app-start.html
  */
@@ -60,6 +60,12 @@ export default class FooBoot implements IBoot {
       'wxdbc631b5210be89f'
     )
 
+    let wxPayConfig = new WxPayApiConfig('apiKey', 'http://wx.frp.xxx.com', 'appId', 'mchId', 'certPath')
+
+    WxPayApiConifgKit.putConfig(wxPayConfig)
+    WxPayApiConifgKit.setCurrentAppId(wxPayConfig.appId)
+    WxPayApiConifgKit.devMode = true
+
     // 支持多公众号
     ApiConfigKit.putApiConfig(devApiConfig)
     ApiConfigKit.putApiConfig(miniApiConfig)
@@ -73,7 +79,7 @@ export default class FooBoot implements IBoot {
     QyApiConfigKit.devMode = true
 
     // HttpKit.setHttpDelegate = new AxiosHttpKit();
-    // ApiConfigKit.setAccessTokenCache = new DefaultAccessTokenCache();
+    // ApiConfigKit.setCache = new DefaultCache()
   }
 
   async serverDidReady() {

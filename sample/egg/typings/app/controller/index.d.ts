@@ -8,6 +8,7 @@ import ExportMpmsg from '../../../app/controller/mpmsg';
 import ExportQyapi from '../../../app/controller/qyapi';
 import ExportQyjssdk from '../../../app/controller/qyjssdk';
 import ExportQymsg from '../../../app/controller/qymsg';
+import ExportWxpay from '../../../app/controller/wxpay';
 
 declare module 'egg' {
   interface IController {
@@ -17,5 +18,6 @@ declare module 'egg' {
     qyapi: ExportQyapi;
     qyjssdk: ExportQyjssdk;
     qymsg: ExportQymsg;
+    wxpay: ExportWxpay;
   }
 }
