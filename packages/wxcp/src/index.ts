@@ -15,8 +15,8 @@ export { QyMiNiProgramNoticeMsg, QyMiNiprogram, QyKv } from './entity/QyMiNiProg
 export { QyTaskCardMsg, QyTaskCardBtn, QyTaskCard } from './entity/QyTaskCardMsg'
 
 export { QyWxApi } from './QyWxApi'
-export { AgentApi } from './AgentApi'
-export { AppChatApi } from './AppChatApi'
+export { QyAgentApi } from './QyAgentApi'
+export { QyAppChatApi } from './QyAppChatApi'
 export { QyMediaApi, QyMediaType } from './QyMediaApi'
 export { QyOauthApi } from './QyOauthApi'
 export { QyOAApi, Attendees, Reminders } from './QyOAApi'

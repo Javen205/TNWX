@@ -6,7 +6,7 @@ import { AccessToken, QyAccessTokenApi } from '@tnwx/accesstoken'
  * @copyright javendev@126.com
  * @description 应用管理
  */
-export class AgentApi {
+export class QyAgentApi {
   private static getAgentUrl = 'https://qyapi.weixin.qq.com/cgi-bin/agent/get?access_token=%s&agentid=%s'
 
   /**

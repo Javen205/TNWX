@@ -7,7 +7,7 @@ import { QyTextMsg, QyImageMsg, QyVoiceMsg, QyVideoMsg, QyFileMsg, QyTextCardMsg
  * @copyright javendev@126.com
  * @description 群聊
  */
-export class AppChatApi {
+export class QyAppChatApi {
   private static createUrl = 'https://qyapi.weixin.qq.com/cgi-bin/appchat/create?access_token=%s'
   /**
    * 创建群聊会话
