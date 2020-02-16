@@ -17,4 +17,5 @@ export default (app: Application) => {
   router.get('/qyapi/creatMenu', controller.qyapi.creatMenu)
   router.get('/qyapi/appChat', controller.qyapi.appChat)
   router.get('/wxpay', controller.wxpay.index)
+  router.get('/opencpapi', controller.opencpapi.index)
 }

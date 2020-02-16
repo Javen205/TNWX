@@ -1,5 +1,5 @@
 import { Application, IBoot } from 'egg'
-import { ApiConfig, ApiConfigKit, QyApiConfigKit, WxPayApiConfig, WxPayApiConifgKit } from 'tnwx'
+import { ApiConfig, ApiConfigKit, QyApiConfigKit, WxPayApiConfig, WxPayApiConifgKit, OpenCpConfigKit } from 'tnwx'
 /**
  * 参考 https://eggjs.org/zh-cn/basics/app-start.html
  */
@@ -59,6 +59,17 @@ export default class FooBoot implements IBoot {
       'GFLxP8ppqcgQbI0yivtMkY4pkOAOiapHhQsCOgYUnYK',
       'wxdbc631b5210be89f'
     )
+    let openCpConfig = new ApiConfig(
+      undefined,
+      'NIYKUtw9CeK2JsFIJdEx64FhzIkM6enpsL3UnDP8AhwYdY6mdel9ym-bKulqJ2OZ',
+      'Javen',
+      true,
+      'QhINGP9bplxAGX4njEgn3h2ZTkM228Ic9bKomAelTeR',
+      'wwa01ccbab253b77e9'
+    )
+
+    OpenCpConfigKit.putApiConfig(openCpConfig)
+    OpenCpConfigKit.setCurrentCorpId(openCpConfig.getCorpId)
 
     let wxPayConfig = new WxPayApiConfig('apiKey', 'http://wx.frp.xxx.com', 'appId', 'mchId', 'certPath')
 
