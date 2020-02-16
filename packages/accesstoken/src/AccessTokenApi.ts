@@ -18,7 +18,7 @@ export class AccessTokenApi {
    *  1、先从缓存中获取，如果可用就直接返回
    *  2、如果缓存中的已过期就调用刷新接口来获取新的 acces_token
    */
-  public static async getAccessToken() {
+  public static async getAccessToken(): Promise<AccessToken> {
     let ac: ApiConfig = ApiConfigKit.getApiConfig
     let accessToken: AccessToken | undefined = this.getAvailableAccessToken(ac)
     if (accessToken) {
@@ -55,7 +55,7 @@ export class AccessTokenApi {
    *  获取新的 acces_token 并设置缓存
    *  @param apiConfig
    */
-  public static async refreshAccessToken(apiConfig: ApiConfig) {
+  public static async refreshAccessToken(apiConfig: ApiConfig): Promise<AccessToken> {
     let url = util.format(this.url, apiConfig.getAppId, apiConfig.getAppScrect)
     let data = await HttpKit.getHttpDelegate.httpGet(url)
     if (data) {
