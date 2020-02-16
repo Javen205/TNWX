@@ -12,10 +12,16 @@ export class AccessToken {
   private expired_time: number
   private json: string
 
-  constructor(json: string) {
+  constructor(json: string, tokenType = AccessTokenType.NORMAL_TOKEN) {
     this.json = json
     let accessToken = JSON.parse(json)
-    this.access_token = accessToken.access_token
+    if (tokenType === AccessTokenType.NORMAL_TOKEN) {
+      this.access_token = accessToken.access_token
+    } else if (tokenType === AccessTokenType.PROVIDER_TOKEN) {
+      this.access_token = accessToken.provider_access_token
+    } else if (tokenType === AccessTokenType.SUITE_TOKEN) {
+      this.access_token = accessToken.suite_access_token
+    }
     this.expires_in = accessToken.expires_in
     this.errcode = accessToken.errcode
     this.errmsg = accessToken.errmsg
@@ -77,4 +83,22 @@ export class AccessToken {
   public get getJson(): string {
     return this.json
   }
+}
+
+/**
+ * AccessToken 类型
+ */
+export enum AccessTokenType {
+  /**
+   * 第三方应用凭证
+   */
+  SUITE_TOKEN = 'suite_token',
+  /**
+   * 获取服务商凭证
+   */
+  PROVIDER_TOKEN = 'provider_token',
+  /**
+   * 普通接口凭证(适用于微信公众号、企业微信、小程序、小游戏)
+   */
+  NORMAL_TOKEN = 'normal_token'
 }

@@ -15,13 +15,13 @@ export class ApiConfig {
   private encryptMessage: boolean
   private encodingAesKey: string
 
-  constructor(appId: string, appScrect: string, token?: string, encryptMessage: boolean = false, encodingAesKey?: string, corpId?: string) {
+  constructor(appId?: string, appScrect?: string, token?: string, encryptMessage: boolean = false, encodingAesKey?: string, corpId?: string, providerSecret?: string) {
     this.appId = appId
     this.corpId = corpId
     this.appScrect = appScrect
     this.encryptMessage = encryptMessage
-    this.encodingAesKey = encodingAesKey || ''
-    this.token = token || ''
+    this.encodingAesKey = encodingAesKey
+    this.token = token
   }
 
   public get getToken(): string {
