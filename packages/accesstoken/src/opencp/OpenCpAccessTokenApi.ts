@@ -2,7 +2,7 @@ import { ICache } from '@tnwx/cache'
 import { HttpKit } from '@tnwx/kits'
 import { AccessToken, AccessTokenType } from '../AccessToken'
 import { ApiConfig } from '../ApiConfig'
-import { OpenCpConfigKit } from './OpenCpConfigKit'
+import { QyApiConfigKit } from '../wxcp/QyApiConfigKit'
 
 /**
  * @author Javen
@@ -19,15 +19,15 @@ export class OpenCpAccessTokenApi {
    * @param tokenType
    */
   public static async getAccessToken(tokenType = AccessTokenType.PROVIDER_TOKEN): Promise<AccessToken> {
-    let ac: ApiConfig = OpenCpConfigKit.getApiConfig
+    let ac: ApiConfig = QyApiConfigKit.getApiConfig
     let accessToken: AccessToken | undefined = this.getAvailableAccessToken(ac, tokenType)
     if (accessToken) {
-      if (OpenCpConfigKit.isDevMode) {
+      if (QyApiConfigKit.isDevMode) {
         console.debug('缓存中的 accesstoken')
       }
       return accessToken
     }
-    if (OpenCpConfigKit.isDevMode) {
+    if (QyApiConfigKit.isDevMode) {
       console.debug('刷新 accesstoken')
     }
     return await this.refreshAccessToken(ac, tokenType)
@@ -40,7 +40,7 @@ export class OpenCpAccessTokenApi {
    */
   private static getAvailableAccessToken(apiConfig: ApiConfig, tokenType = AccessTokenType.PROVIDER_TOKEN): AccessToken | undefined {
     let result: AccessToken | undefined
-    let cache: ICache = OpenCpConfigKit.getCache
+    let cache: ICache = QyApiConfigKit.getCache
 
     let accessTokenJson: string
 
@@ -87,7 +87,7 @@ export class OpenCpAccessTokenApi {
     }
     if (data) {
       let accessToken: AccessToken = new AccessToken(data, tokenType)
-      let cache: ICache = OpenCpConfigKit.getCache
+      let cache: ICache = QyApiConfigKit.getCache
       if (tokenType === AccessTokenType.PROVIDER_TOKEN) {
         cache.set(apiConfig.getCorpId.concat('_').concat(tokenType), accessToken.getCacheJson)
       } else {

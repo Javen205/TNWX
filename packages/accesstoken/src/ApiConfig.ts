@@ -55,7 +55,7 @@ export class ApiConfig {
   }
 
   public set setSuiteTicket(suiteTicket: string) {
-    this.appScrect = suiteTicket
+    this.suiteTicket = suiteTicket
   }
 
   public get getAppScrect(): string {
