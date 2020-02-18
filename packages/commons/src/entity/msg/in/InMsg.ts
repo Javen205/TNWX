@@ -1,10 +1,12 @@
+import { BaseMsg } from '../BaseMsg'
+
 /**
  * @author Javen
  * @copyright javendev@126.com
  * @description 接收消息抽象类
  */
 
-export abstract class InMsg {
+export abstract class InMsg extends BaseMsg {
   protected toUserName: string //开发者微信号
   protected fromUserName: string //发送方帐号openId
   protected createTime: number //消息创建时间
@@ -22,6 +24,7 @@ export abstract class InMsg {
   protected msgType: string //消息类型
 
   constructor(toUserName: string, fromUserName: string, createTime: number, msgType: string) {
+    super()
     this.toUserName = toUserName
     this.fromUserName = fromUserName
     this.createTime = createTime
