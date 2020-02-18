@@ -4,7 +4,6 @@ import {
   CryptoKit,
   MsgAdapter,
   InMsgParser,
-  InMsg,
   OutMsg,
   InTextMsg,
   InImageMsg,
@@ -35,10 +34,13 @@ import {
   InUpdatePartyEvent,
   InUpdateTagEvent,
   QyJsTicketApi,
-  QyJsApiType
+  QyJsApiType,
+  InSuiteTicket,
+  BaseMsg
 } from '@tnwx/commons'
 
 import { Kits } from '@tnwx/kits'
+import { InAuthEvent } from '@tnwx/commons/dist/entity/msg/in/InAuthEvent'
 
 /**
  * @author Javen
@@ -54,7 +56,7 @@ export class QyWeChat {
    * @param type QyJsApiType
    * @param jsapi_ticket jsapi_ticket
    */
-  public static async jssdkSignature(nonce_str: string, timestamp: string, url: string, type: QyJsApiType, jsapi_ticket?: string) {
+  public static async jssdkSignature(nonce_str: string, timestamp: string, url: string, type: QyJsApiType, jsapi_ticket?: string): Promise<string> {
     if (!jsapi_ticket) {
       let jsTicket = await QyJsTicketApi.getTicket(type)
       if (jsTicket) {
@@ -92,14 +94,21 @@ export class QyWeChat {
    *  @param timestamp
    *  @param nonce
    */
-  public static handleMsg(msgAdapter: MsgAdapter, msgXml: string, msgSignature?: string, timestamp?: string, nonce?: string) {
+  public static handleMsg(msgAdapter: MsgAdapter, msgXml: string, msgSignature?: string, timestamp?: string, nonce?: string): Promise<string> {
     let cryptoKit: CryptoKit
     return new Promise(function(resolve, reject) {
       parseString(msgXml, { explicitArray: false }, (err, result) => {
         if (err) {
           reject(`xml 数据解析错误:${err}`)
+          console.debug(err)
+          return
         }
+        console.debug('result....')
+        console.debug(result)
+        console.debug('result end...')
+
         result = result.xml
+        let isEncrypt: boolean = true
         cryptoKit = new CryptoKit(QyApiConfigKit.getApiConfig, msgSignature, timestamp, nonce)
         // 对加密数据解密
         result = cryptoKit.decryptMsg(result.Encrypt)
@@ -109,9 +118,9 @@ export class QyWeChat {
           console.debug(result)
           console.debug('------------------------\n')
         }
-        let inMsg: InMsg = InMsgParser.parse(result)
+        let inMsg: BaseMsg = InMsgParser.parse(result)
         let responseMsg: string
-        let outMsg: OutMsg
+        let outMsg: OutMsg | string
         // 处理接收的消息
         if (inMsg instanceof InTextMsg) {
           outMsg = msgAdapter.processInTextMsg(<InTextMsg>inMsg)
@@ -155,6 +164,12 @@ export class QyWeChat {
           outMsg = msgAdapter.processInUpdatePartyEvent(<InUpdatePartyEvent>inMsg)
         } else if (inMsg instanceof InUpdateTagEvent) {
           outMsg = msgAdapter.processInUpdateTagEvent(<InUpdateTagEvent>inMsg)
+        } else if (inMsg instanceof InSuiteTicket) {
+          isEncrypt = false
+          outMsg = msgAdapter.processInSuiteTicket(<InSuiteTicket>inMsg)
+        } else if (inMsg instanceof InAuthEvent) {
+          isEncrypt = false
+          outMsg = msgAdapter.processInAuthEvent(<InAuthEvent>inMsg)
         } else if (inMsg instanceof InNotDefinedMsg) {
           if (QyApiConfigKit.isDevMode()) {
             console.debug(`未能识别的消息类型。消息 xml 内容为：\n ${result}`)
@@ -168,7 +183,7 @@ export class QyWeChat {
           if (outTextMsg.getContent.trim()) {
             responseMsg = outTextMsg.toXml()
           } else {
-            responseMsg = ''
+            responseMsg = 'success'
           }
         } else if (outMsg instanceof OutImageMsg) {
           responseMsg = (<OutImageMsg>outMsg).toXml()
@@ -182,9 +197,13 @@ export class QyWeChat {
           responseMsg = (<OutVoiceMsg>outMsg).toXml()
         } else if (outMsg instanceof OutCustomMsg) {
           responseMsg = (<OutCustomMsg>outMsg).toXml()
+        } else if (typeof outMsg === 'string') {
+          responseMsg = outMsg
         }
-        //判断消息加解密方式，如果未加密则使用明文，对明文消息进行加密
-        responseMsg = cryptoKit.encryptMsg(responseMsg)
+        if (isEncrypt) {
+          //判断消息加解密方式，如果未加密则使用明文，对明文消息进行加密
+          responseMsg = cryptoKit.encryptMsg(responseMsg)
+        }
         if (QyApiConfigKit.isDevMode()) {
           console.debug(`发送消息:\n ${responseMsg}`)
           console.debug('--------------------------\n')
