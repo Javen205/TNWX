@@ -3,23 +3,29 @@
 
 import 'egg';
 import ExportHome from '../../../app/controller/home';
-import ExportJssdk from '../../../app/controller/jssdk';
-import ExportMpmsg from '../../../app/controller/mpmsg';
-import ExportOpencpapi from '../../../app/controller/opencpapi';
-import ExportQyapi from '../../../app/controller/qyapi';
-import ExportQyjssdk from '../../../app/controller/qyjssdk';
-import ExportQymsg from '../../../app/controller/qymsg';
 import ExportWxpay from '../../../app/controller/wxpay';
+import ExportOpencpOpencpapi from '../../../app/controller/opencp/opencpapi';
+import ExportWxcpQyapi from '../../../app/controller/wxcp/qyapi';
+import ExportWxcpQyjssdk from '../../../app/controller/wxcp/qyjssdk';
+import ExportWxcpQymsg from '../../../app/controller/wxcp/qymsg';
+import ExportWxmpJssdk from '../../../app/controller/wxmp/jssdk';
+import ExportWxmpMpmsg from '../../../app/controller/wxmp/mpmsg';
 
 declare module 'egg' {
   interface IController {
     home: ExportHome;
-    jssdk: ExportJssdk;
-    mpmsg: ExportMpmsg;
-    opencpapi: ExportOpencpapi;
-    qyapi: ExportQyapi;
-    qyjssdk: ExportQyjssdk;
-    qymsg: ExportQymsg;
     wxpay: ExportWxpay;
+    opencp: {
+      opencpapi: ExportOpencpOpencpapi;
+    }
+    wxcp: {
+      qyapi: ExportWxcpQyapi;
+      qyjssdk: ExportWxcpQyjssdk;
+      qymsg: ExportWxcpQymsg;
+    }
+    wxmp: {
+      jssdk: ExportWxmpJssdk;
+      mpmsg: ExportWxmpMpmsg;
+    }
   }
 }

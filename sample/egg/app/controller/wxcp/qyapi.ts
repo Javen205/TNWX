@@ -1,5 +1,5 @@
 import { Controller } from 'egg'
-import { MenuManager } from '../MenuManager'
+import { MenuManager } from '../../MenuManager'
 import { QyAgentApi, QyApiConfigKit, QyAppChatApi, QyTextMsg, QyText, QyGroupRobotApi, QyNewsMsg, QyNews, QyArticles } from 'tnwx'
 
 export default class QyApiController extends Controller {

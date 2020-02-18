@@ -1,5 +1,5 @@
 import { Application, IBoot } from 'egg'
-import { ApiConfig, ApiConfigKit, QyApiConfigKit, WxPayApiConfig, WxPayApiConifgKit, OpenCpConfigKit } from 'tnwx'
+import { ApiConfig, ApiConfigKit, QyApiConfigKit, WxPayApiConfig, WxPayApiConifgKit } from 'tnwx'
 /**
  * 参考 https://eggjs.org/zh-cn/basics/app-start.html
  */
@@ -60,16 +60,25 @@ export default class FooBoot implements IBoot {
       'wxdbc631b5210be89f'
     )
     let openCpConfig = new ApiConfig(
-      undefined,
+      'wwa01ccbab253b77e9',
       'NIYKUtw9CeK2JsFIJdEx64FhzIkM6enpsL3UnDP8AhwYdY6mdel9ym-bKulqJ2OZ',
       'Javen',
       true,
-      'QhINGP9bplxAGX4njEgn3h2ZTkM228Ic9bKomAelTeR',
+      'uKiHdifj6bd1KB2tgXYflvTMGqit2OtDXytTR8zDIPl',
       'wwa01ccbab253b77e9'
     )
 
-    OpenCpConfigKit.putApiConfig(openCpConfig)
-    OpenCpConfigKit.setCurrentCorpId(openCpConfig.getCorpId)
+    let openSuiteConfig = new ApiConfig(
+      'ww8ea5f933f76323cf',
+      'F6e5lPbyVW57OTwJBBzIEIjPg3qlUOnEGcgIbQO2u9A',
+      'Javen',
+      true,
+      'a76mRv4QXFmWlVB6EFIIPpBtQ1PGclgxdDiaHlDg25w',
+      'wwa01ccbab253b77e9'
+    )
+
+    QyApiConfigKit.putApiConfig(openCpConfig)
+    QyApiConfigKit.putApiConfig(openSuiteConfig)
 
     let wxPayConfig = new WxPayApiConfig('apiKey', 'http://wx.frp.xxx.com', 'appId', 'mchId', 'certPath')
 

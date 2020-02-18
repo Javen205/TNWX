@@ -13,6 +13,9 @@ export default class OpenCpApiController extends Controller {
       case 1:
         data = JSON.stringify(await OpenCpAccessTokenApi.getAccessToken(AccessTokenType.PROVIDER_TOKEN))
         break
+      case 2:
+        data = JSON.stringify(await OpenCpAccessTokenApi.getAccessToken(AccessTokenType.SUITE_TOKEN))
+        break
       default:
         break
     }

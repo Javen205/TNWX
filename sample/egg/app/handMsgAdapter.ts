@@ -11,12 +11,9 @@ import {
   MsgAdapter,
   OutVoiceMsg,
   OutVideoMsg,
-  OutImageMsg,
   OutNewsMsg,
   InFollowEvent,
   InQrCodeEvent,
-  InMsg,
-  InImageMsg,
   InVoiceMsg,
   InVideoMsg,
   InShortVideoMsg,
@@ -29,14 +26,19 @@ import {
   InShakearoundUserShakeEvent,
   ApiConfigKit,
   InEnterAgentEvent,
-  InTaskEvent,
   InBatchJobResultEvent,
   InUpdateUserEvent,
   InUpdatePartyEvent,
-  InUpdateTagEvent
+  InUpdateTagEvent,
+  InSuiteTicket,
+  ApiConfig,
+  QyApiConfigKit,
+  InImageMsg,
+  OutImageMsg,
+  InTaskEvent
 } from 'tnwx'
 
-export class HandMsgAdapter implements MsgAdapter {
+export class HandMsgAdapter extends MsgAdapter {
   processInTextMsg(inTextMsg: InTextMsg): OutMsg {
     let outMsg: any
     let content: string = 'IJPay 让支付触手可及 \n\nhttps://gitee.com/javen205/IJPay'
@@ -44,6 +46,8 @@ export class HandMsgAdapter implements MsgAdapter {
       content = '极速开发微信公众号 \n\nhttps://github.com/javen205/TNWX'
       outMsg = new OutTextMsg(inTextMsg)
       outMsg.setContent(content)
+    } else if ('2' === inTextMsg.getContent) {
+      return this.renderOutTextMsg(inTextMsg, '')
     } else if ('极速开发微信公众号' == inTextMsg.getContent) {
       // 多公众号支持 分别给不同的公众号发送不同的消息
       if (ApiConfigKit.getApiConfig.getAppId == 'wx614c453e0d1dcd12') {
@@ -180,13 +184,19 @@ export class HandMsgAdapter implements MsgAdapter {
     return this.renderOutTextMsg(inUpdateTagEvent, inUpdateTagEvent.getTagId + '')
   }
 
-  processIsNotDefinedMsg(inNotDefinedMsg: InNotDefinedMsg): OutMsg {
-    return this.renderOutTextMsg(inNotDefinedMsg, '未知消息')
+  processInSuiteTicket(inSuiteTicket: InSuiteTicket): string {
+    console.log(`inSuiteTicket:${JSON.stringify(inSuiteTicket)}`)
+    let config: ApiConfig = QyApiConfigKit.getApiConfig
+    config.setSuiteTicket = inSuiteTicket.suiteTicket
+    let appId = config.getAppId
+    let corpId = config.getCorpId
+    QyApiConfigKit.removeApiConfig(appId, corpId)
+    QyApiConfigKit.putApiConfig(config)
+    QyApiConfigKit.setCurrentAppId(appId, corpId)
+    return 'success'
   }
 
-  renderOutTextMsg(inMsg: InMsg, content?: string): OutTextMsg {
-    let outMsg = new OutTextMsg(inMsg)
-    outMsg.setContent(content ? content : ' ')
-    return outMsg
+  processIsNotDefinedMsg(inNotDefinedMsg: InNotDefinedMsg): OutMsg {
+    return this.renderOutTextMsg(inNotDefinedMsg, '未知消息')
   }
 }
