@@ -26,49 +26,108 @@ import { InTaskEvent } from './entity/msg/in/event/InTaskEvent'
 import { InEnterAgentEvent } from './entity/msg/in/event/InEnterAgentEvent'
 import { InBatchJobResultEvent } from './entity/msg/in/event/InBatchJobResultEvent'
 import { InUpdatePartyEvent } from './entity/msg/in/event/InUpdatePartyEvent'
+import { InSuiteTicket } from './entity/msg/in/InSuiteTicket'
+import { InAuthEvent } from './entity/msg/in/InAuthEvent'
+import { InMsg } from './entity/msg/in/InMsg'
+import { OutTextMsg } from './entity/msg/out/OutTextMsg'
 
-export interface MsgAdapter {
+export abstract class MsgAdapter {
   // 处理文本消息
-  processInTextMsg(inTextMsg: InTextMsg): OutMsg
+  protected processInTextMsg(inTextMsg: InTextMsg): OutMsg {
+    return this.renderOutTextMsg(inTextMsg, '')
+  }
   // 处理图片消息
-  processInImageMsg(inImageMsg: InImageMsg): OutMsg
+  protected processInImageMsg(inImageMsg: InImageMsg): OutMsg {
+    return this.renderOutTextMsg(inImageMsg, '')
+  }
   // 处理声音消息
-  processInVoiceMsg(inVoiceMsg: InVoiceMsg): OutMsg
+  protected processInVoiceMsg(inVoiceMsg: InVoiceMsg): OutMsg {
+    return this.renderOutTextMsg(inVoiceMsg, '')
+  }
   // 处理视频消息
-  processInVideoMsg(inVideoMsg: InVideoMsg): OutMsg
+  protected processInVideoMsg(inVideoMsg: InVideoMsg): OutMsg {
+    return this.renderOutTextMsg(inVideoMsg, '')
+  }
   // 处理小视频消息
-  processInShortVideoMsg(inShortVideoMsg: InShortVideoMsg): OutMsg
+  protected processInShortVideoMsg(inShortVideoMsg: InShortVideoMsg): OutMsg {
+    return this.renderOutTextMsg(inShortVideoMsg, '')
+  }
   // 处理地理位置消息
-  processInLocationMsg(inLocationMsg: InLocationMsg): OutMsg
+  protected processInLocationMsg(inLocationMsg: InLocationMsg): OutMsg {
+    return this.renderOutTextMsg(inLocationMsg, '')
+  }
   // 处理链接消息
-  processInLinkMsg(inLinkMsg: InLinkMsg): OutMsg
+  protected processInLinkMsg(inLinkMsg: InLinkMsg): OutMsg {
+    return this.renderOutTextMsg(inLinkMsg, '')
+  }
   // 处理语音识别结果
-  processInSpeechRecognitionResults(inSpeechRecognitionResults: InSpeechRecognitionResults): OutMsg
-  // 处理未定义的消息(其他消息...小哥该扩展了)
-  processIsNotDefinedMsg(inNotDefinedMsg: InNotDefinedMsg): OutMsg
-
+  protected processInSpeechRecognitionResults(inSpeechRecognitionResults: InSpeechRecognitionResults): OutMsg {
+    return this.renderOutTextMsg(inSpeechRecognitionResults, '')
+  }
+  // 处理未定义的消息(其他消息...该扩展了)
+  protected processIsNotDefinedMsg(inNotDefinedMsg: InNotDefinedMsg): OutMsg {
+    return this.renderOutTextMsg(inNotDefinedMsg, '')
+  }
   // 处理关注、取消关注事件
-  processInFollowEvent(inFollowEvent: InFollowEvent): OutMsg
+  protected processInFollowEvent(inFollowEvent: InFollowEvent): OutMsg {
+    return this.renderOutTextMsg(inFollowEvent, '')
+  }
   // 处理扫码事件
-  processInQrCodeEvent(inQrCodeEvent: InQrCodeEvent): OutMsg
+  protected processInQrCodeEvent(inQrCodeEvent: InQrCodeEvent): OutMsg {
+    return this.renderOutTextMsg(inQrCodeEvent, '')
+  }
   // 处理地理位置事件
-  processInLocationEvent(inLocationEvent: InLocationEvent): OutMsg
+  protected processInLocationEvent(inLocationEvent: InLocationEvent): OutMsg {
+    return this.renderOutTextMsg(inLocationEvent, '')
+  }
   // 处理地理位置事件
-  processInMenuEvent(inMenuEvent: InMenuEvent): OutMsg
+  protected processInMenuEvent(inMenuEvent: InMenuEvent): OutMsg {
+    return this.renderOutTextMsg(inMenuEvent, '')
+  }
   // 处理模板消息事件
-  processInTemplateMsgEvent(inTemplateMsgEvent: InTemplateMsgEvent): OutMsg
+  protected processInTemplateMsgEvent(inTemplateMsgEvent: InTemplateMsgEvent): OutMsg {
+    return this.renderOutTextMsg(inTemplateMsgEvent, '')
+  }
   // 处理摇一摇周边事件
-  processInShakearoundUserShakeEvent(inShakearoundUserShakeEvent: InShakearoundUserShakeEvent): OutMsg
+  protected processInShakearoundUserShakeEvent(inShakearoundUserShakeEvent: InShakearoundUserShakeEvent): OutMsg {
+    return this.renderOutTextMsg(inShakearoundUserShakeEvent, '')
+  }
   // 任务卡片事件
-  processInTaskEvent(inTaskEvent: InTaskEvent): OutMsg
+  protected processInTaskEvent(inTaskEvent: InTaskEvent): OutMsg {
+    return this.renderOutTextMsg(inTaskEvent, '')
+  }
   // 进入应用
-  processInEnterAgentEvent(inEnterAgentEvent: InEnterAgentEvent): OutMsg
+  protected processInEnterAgentEvent(inEnterAgentEvent: InEnterAgentEvent): OutMsg {
+    return this.renderOutTextMsg(inEnterAgentEvent, '')
+  }
   // 异步任务完成通知
-  processInBatchJobResultEvent(inBatchJobResultEvent: InBatchJobResultEvent): OutMsg
+  protected processInBatchJobResultEvent(inBatchJobResultEvent: InBatchJobResultEvent): OutMsg {
+    return this.renderOutTextMsg(inBatchJobResultEvent, '')
+  }
   // 成员变更通知
-  processInUpdateUserEvent(inUpdateUserEvent: InUpdateUserEvent): OutMsg
+  protected processInUpdateUserEvent(inUpdateUserEvent: InUpdateUserEvent): OutMsg {
+    return this.renderOutTextMsg(inUpdateUserEvent, '')
+  }
   // 部门变更通知
-  processInUpdatePartyEvent(inUpdatePartyEvent: InUpdatePartyEvent): OutMsg
+  protected processInUpdatePartyEvent(inUpdatePartyEvent: InUpdatePartyEvent): OutMsg {
+    return this.renderOutTextMsg(inUpdatePartyEvent, '')
+  }
   // 标签变更通知
-  processInUpdateTagEvent(inUpdateTagEvent: InUpdateTagEvent): OutMsg
+  protected processInUpdateTagEvent(inUpdateTagEvent: InUpdateTagEvent): OutMsg {
+    return this.renderOutTextMsg(inUpdateTagEvent, '')
+  }
+  // 推送suite_ticket
+  protected processInSuiteTicket(inSuiteTicket: InSuiteTicket): string {
+    return 'success'
+  }
+  // 授权通知事件
+  protected processInAuthEvent(inAuthEvent: InAuthEvent): string {
+    return 'success'
+  }
+
+  protected renderOutTextMsg(inMsg: InMsg, content?: string): OutTextMsg {
+    let outMsg = new OutTextMsg(inMsg)
+    outMsg.setContent(content ? content : ' ')
+    return outMsg
+  }
 }
