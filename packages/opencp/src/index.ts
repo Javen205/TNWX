@@ -1,2 +1,1 @@
-// export { DefaultCache } from './DefaultCache'
-// export { ICache } from './ICache'
+export { OpenCpApi } from './OpenCpApi'
