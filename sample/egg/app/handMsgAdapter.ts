@@ -35,7 +35,8 @@ import {
   QyApiConfigKit,
   InImageMsg,
   OutImageMsg,
-  InTaskEvent
+  InTaskEvent,
+  InAuthEvent
 } from 'tnwx'
 
 export class HandMsgAdapter extends MsgAdapter {
@@ -147,12 +148,10 @@ export class HandMsgAdapter extends MsgAdapter {
     console.debug('模板消息事件：' + inTemplateMsgEvent.getFromUserName + ' ' + inTemplateMsgEvent.getStatus)
     return this.renderOutTextMsg(inTemplateMsgEvent, '消息发送状态：' + inTemplateMsgEvent.getStatus)
   }
-
   processInShakearoundUserShakeEvent(inShakearoundUserShakeEvent: InShakearoundUserShakeEvent): OutMsg {
     console.debug('摇一摇事件：' + inShakearoundUserShakeEvent.getFromUserName + ' ' + inShakearoundUserShakeEvent.getUuid)
     return this.renderOutTextMsg(inShakearoundUserShakeEvent, 'uuid：' + inShakearoundUserShakeEvent.getUuid)
   }
-
   processInEnterAgentEvent(inEnterAgentEvent: InEnterAgentEvent) {
     console.log('进入应用事件')
     return this.renderOutTextMsg(inEnterAgentEvent, inEnterAgentEvent.getFromUserName + ' 进入应用 ' + inEnterAgentEvent.getAgentId)
@@ -193,6 +192,11 @@ export class HandMsgAdapter extends MsgAdapter {
     QyApiConfigKit.removeApiConfig(appId, corpId)
     QyApiConfigKit.putApiConfig(config)
     QyApiConfigKit.setCurrentAppId(appId, corpId)
+    return 'success'
+  }
+
+  processInAuthEvent(inAuthEvent: InAuthEvent): string {
+    console.log(`inAuthEvent:${JSON.stringify(inAuthEvent)}`)
     return 'success'
   }
 
