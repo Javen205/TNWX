@@ -30,7 +30,8 @@ import {
   OutVoiceMsg,
   OutCustomMsg,
   JsTicketApi,
-  JsApiType
+  JsApiType,
+  BaseMsg
 } from '@tnwx/commons'
 import { Kits } from '@tnwx/kits'
 
@@ -42,7 +43,7 @@ export class WeChat {
    *  @param timestamp
    *  @param url
    */
-  public static async jssdkSignature(nonce_str: string, timestamp: string, url: string, jsapi_ticket?: string) {
+  public static async jssdkSignature(nonce_str: string, timestamp: string, url: string, jsapi_ticket?: string): Promise<string> {
     if (!jsapi_ticket) {
       let jsTicket = await JsTicketApi.getTicket(JsApiType.JSAPI)
       if (jsTicket) {
@@ -55,7 +56,7 @@ export class WeChat {
     let str = 'jsapi_ticket=' + jsapi_ticket + '&noncestr=' + nonce_str + '&timestamp=' + timestamp + '&url=' + url
     return Kits.sha1(str)
   }
-  
+
   /**
    *  验证成为开发者
    *  @param signature
@@ -85,12 +86,13 @@ export class WeChat {
    *  @param timestamp
    *  @param nonce
    */
-  public static handleMsg(msgAdapter: MsgAdapter, msgXml: string, msgSignature?: string, timestamp?: string, nonce?: string) {
+  public static handleMsg(msgAdapter: MsgAdapter, msgXml: string, msgSignature?: string, timestamp?: string, nonce?: string): Promise<string> {
     //实例微信消息加解密
     let cryptoKit: CryptoKit
     return new Promise(function(resolve, reject) {
       parseString(msgXml, { explicitArray: false }, function(err, result) {
         if (err) {
+          reject(`xml 数据解析错误:${err}`)
           console.debug(err)
           return
         }
@@ -110,7 +112,7 @@ export class WeChat {
           console.debug('------------------------\n')
         }
 
-        let inMsg: InMsg = InMsgParser.parse(result)
+        let inMsg: BaseMsg = InMsgParser.parse(result)
         let responseMsg: string
         let outMsg: OutMsg
 
@@ -159,7 +161,7 @@ export class WeChat {
           if (outTextMsg.getContent.trim()) {
             responseMsg = outTextMsg.toXml()
           } else {
-            responseMsg = ''
+            responseMsg = 'success'
           }
         } else if (outMsg instanceof OutImageMsg) {
           responseMsg = (<OutImageMsg>outMsg).toXml()
