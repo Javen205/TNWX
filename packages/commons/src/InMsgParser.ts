@@ -57,7 +57,7 @@ export class InMsgParser {
     if ('voice' === obj.MsgType) return this.parseInVoiceMsgAndInSpeechRecognitionResults(obj)
     if ('event' === obj.MsgType) return this.parseInEvent(obj)
     if (InSuiteTicket.INFO_TYPE === obj.InfoType) return this.parseInSuiteTicket(obj)
-    if (InAuthEvent.CANCEL_AUTH === obj.InfoType || InAuthEvent.CHANGE_AUTH === obj.InfoType || InAuthEvent.CANCEL_AUTH === obj.InfoType) return this.InAuthEvent(obj)
+    if (InAuthEvent.CREATE_AUTH === obj.InfoType || InAuthEvent.CHANGE_AUTH === obj.InfoType || InAuthEvent.CANCEL_AUTH === obj.InfoType) return this.InAuthEvent(obj)
     console.debug(
       `无法识别的消息类型 ${obj.MsgType}\n微信公众号开发文档:https://developers.weixin.qq.com/doc/offiaccount/Getting_Started/Overview.html\n企业微信号开发文档:https://work.weixin.qq.com/api/doc`
     )
