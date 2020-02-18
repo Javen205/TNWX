@@ -7,7 +7,7 @@ import { QyApiConfigKit } from '../wxcp/QyApiConfigKit'
 /**
  * @author Javen
  * @copyright javendev@126.com
- * @description OpenCpAccessTokenApi
+ * @description 企业微信开发平台 AccessToken
  */
 export class OpenCpAccessTokenApi {
   private static getProviderTokenUrl: string = 'https://qyapi.weixin.qq.com/cgi-bin/service/get_provider_token'
