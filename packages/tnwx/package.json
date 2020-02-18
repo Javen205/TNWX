@@ -48,6 +48,7 @@
     "@tnwx/commons": "^2.2.0",
     "@tnwx/kits": "^2.2.0",
     "@tnwx/miniprogram": "^2.2.0",
+    "@tnwx/opencp": "^2.2.0",
     "@tnwx/wxcp": "^2.2.0",
     "@tnwx/wxmp": "^2.2.0",
     "@tnwx/wxpay": "^2.2.0"
