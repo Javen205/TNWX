@@ -41,9 +41,12 @@ export class QySendMsgApi {
   /**
    * 发送应用消息
    * @param {string} jsonStr
+   * @param accessToken
    */
-  public static async sendMessage(jsonStr: string) {
-    let accessToken: AccessToken = await QyAccessTokenApi.getAccessToken()
+  public static async sendMessage(jsonStr: string, accessToken?: AccessToken) {
+    if (!accessToken) {
+      accessToken = await QyAccessTokenApi.getAccessToken()
+    }
     let url = util.format(this.sendMessageUrl, accessToken.getAccessToken)
     return HttpKit.getHttpDelegate.httpPost(url, jsonStr)
   }
@@ -51,80 +54,90 @@ export class QySendMsgApi {
   /**
    * 发送文本消息
    * @param {QyTextMsg} text
+   * @param accessToken
    */
-  public static async sendTextMessage(text: QyTextMsg) {
-    return this.sendMessage(JSON.stringify(text))
+  public static async sendTextMessage(text: QyTextMsg, accessToken?: AccessToken) {
+    return this.sendMessage(JSON.stringify(text), accessToken)
   }
 
   /**
    * 发送图片消息
    * @param {QyImageMsg} image
+   * @param accessToken
    */
-  public static async sendImageMessage(image: QyImageMsg) {
-    return this.sendMessage(JSON.stringify(image))
+  public static async sendImageMessage(image: QyImageMsg, accessToken?: AccessToken) {
+    return this.sendMessage(JSON.stringify(image), accessToken)
   }
 
   /**
    * 发送语音消息
    * @param voice
+   * @param accessToken
    */
-  public static async sendVoiceMessage(voice: QyVoiceMsg) {
-    return this.sendMessage(JSON.stringify(voice))
+  public static async sendVoiceMessage(voice: QyVoiceMsg, accessToken?: AccessToken) {
+    return this.sendMessage(JSON.stringify(voice), accessToken)
   }
 
   /**
    * 发送视频消息
    * @param video
+   * @param accessToken
    */
-  public static async sendVideoMessage(video: QyVideoMsg) {
-    return this.sendMessage(JSON.stringify(video))
+  public static async sendVideoMessage(video: QyVideoMsg, accessToken?: AccessToken) {
+    return this.sendMessage(JSON.stringify(video), accessToken)
   }
   /**
    * 发送文件消息
    * @param file
+   * @param accessToken
    */
-  public static async sendFileMessage(file: QyFileMsg) {
-    return this.sendMessage(JSON.stringify(file))
+  public static async sendFileMessage(file: QyFileMsg, accessToken?: AccessToken) {
+    return this.sendMessage(JSON.stringify(file), accessToken)
   }
 
   /**
    * 文本卡片消息
    * @param textCard
+   * @param accessToken
    */
-  public static async sendTextCardMessage(textCard: QyTextCardMsg) {
-    return this.sendMessage(JSON.stringify(textCard))
+  public static async sendTextCardMessage(textCard: QyTextCardMsg, accessToken?: AccessToken) {
+    return this.sendMessage(JSON.stringify(textCard), accessToken)
   }
 
   /**
    * 图文消息
    * @param news
+   * @param accessToken
    */
-  public static async sendNewsMessage(news: QyNewsMsg) {
-    return this.sendMessage(JSON.stringify(news))
+  public static async sendNewsMessage(news: QyNewsMsg, accessToken?: AccessToken) {
+    return this.sendMessage(JSON.stringify(news), accessToken)
   }
 
   /**
    * 图文消息
    * @param mpnews
+   * @param accessToken
    */
-  public static async sendMpNewsMessage(mpnews: QyMpNewsMsg) {
-    return this.sendMessage(JSON.stringify(mpnews))
+  public static async sendMpNewsMessage(mpnews: QyMpNewsMsg, accessToken?: AccessToken) {
+    return this.sendMessage(JSON.stringify(mpnews), accessToken)
   }
 
   /**
    * markdown 消息
    * @param markdown
+   * @param accessToken
    */
-  public static async sendMarkDownMessage(markdown: QyMarkDownMsg) {
-    return this.sendMessage(JSON.stringify(markdown))
+  public static async sendMarkDownMessage(markdown: QyMarkDownMsg, accessToken?: AccessToken) {
+    return this.sendMessage(JSON.stringify(markdown), accessToken)
   }
 
   /**
    * 小程序通知消息
    * @param miniprogramNotice
+   * @param accessToken
    */
-  public static async sendMiniprogramNoticeMessage(miniprogramNotice: QyMiNiProgramNoticeMsg) {
-    return this.sendMessage(JSON.stringify(miniprogramNotice))
+  public static async sendMiniprogramNoticeMessage(miniprogramNotice: QyMiNiProgramNoticeMsg, accessToken?: AccessToken) {
+    return this.sendMessage(JSON.stringify(miniprogramNotice), accessToken)
   }
 
   /**
