@@ -14,9 +14,12 @@ export class QyWxApi {
    * @param agentId 应用的 agentId
    * @param taskId 发送任务卡片消息时指定的 taskId
    * @param clickedKey 设置指定的按钮为选择状态，需要与发送消息时指定的btn:key一致
+   * @param accessToken AccessToken
    */
-  public static async updateTaskCard(userIds: string, agentId: string, taskId: string, clickedKey: string) {
-    let accessToken: AccessToken = await QyAccessTokenApi.getAccessToken()
+  public static async updateTaskCard(userIds: string, agentId: string, taskId: string, clickedKey: string, accessToken?: AccessToken) {
+    if (!accessToken) {
+      accessToken = await QyAccessTokenApi.getAccessToken()
+    }
     let url = util.format(this.updateTaskCardUrl, accessToken.getAccessToken)
     return HttpKit.getHttpDelegate.httpPost(
       url,
@@ -34,8 +37,10 @@ export class QyWxApi {
   /**
    * 获取企业微信API域名IP段
    */
-  public static async getApiDomainIp() {
-    let accessToken: AccessToken = await QyAccessTokenApi.getAccessToken()
+  public static async getApiDomainIp(accessToken?: AccessToken) {
+    if (!accessToken) {
+      accessToken = await QyAccessTokenApi.getAccessToken()
+    }
     let url = util.format(this.getApiDomainIpUrl, accessToken.getAccessToken)
     return HttpKit.getHttpDelegate.httpGet(url)
   }
