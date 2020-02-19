@@ -73,3 +73,4 @@ export { Menu, Button, ClickButton, ComButton, MediaButton, ViewButton, Matchrul
 
 export { InSuiteTicket } from './entity/msg/in/InSuiteTicket'
 export { InAuthEvent } from './entity/msg/in/InAuthEvent'
+export { InBatchJobResult } from './entity/msg/in/InBatchJobResult'

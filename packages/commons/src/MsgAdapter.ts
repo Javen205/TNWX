@@ -1,11 +1,3 @@
-import { InUpdateTagEvent } from './entity/msg/in/event/InUpdateTagEvent'
-import { InUpdateUserEvent } from './entity/msg/in/event/InUpdateUserEvent'
-/**
- * @author Javen
- * @copyright javendev@126.com
- * @description 消息适配器
- */
-
 import { InTextMsg } from './entity/msg/in/InTextMsg'
 import { OutMsg } from './entity/msg/out/OutMsg'
 import { InNotDefinedMsg } from './entity/msg/in/InNotDefinedMsg'
@@ -30,7 +22,15 @@ import { InSuiteTicket } from './entity/msg/in/InSuiteTicket'
 import { InAuthEvent } from './entity/msg/in/InAuthEvent'
 import { InMsg } from './entity/msg/in/InMsg'
 import { OutTextMsg } from './entity/msg/out/OutTextMsg'
+import { InBatchJobResult } from './entity/msg/in/InBatchJobResult'
+import { InUpdateTagEvent } from './entity/msg/in/event/InUpdateTagEvent'
+import { InUpdateUserEvent } from './entity/msg/in/event/InUpdateUserEvent'
 
+/**
+ * @author Javen
+ * @copyright javendev@126.com
+ * @description 消息适配器
+ */
 export abstract class MsgAdapter {
   // 处理文本消息
   processInTextMsg(inTextMsg: InTextMsg): OutMsg {
@@ -122,6 +122,11 @@ export abstract class MsgAdapter {
   }
   // 授权通知事件
   processInAuthEvent(inAuthEvent: InAuthEvent): string {
+    return 'success'
+  }
+
+  // 异步任务回调通知
+  processInBatchJobResult(inBatchJobResult: InBatchJobResult): string {
     return 'success'
   }
 

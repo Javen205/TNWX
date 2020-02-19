@@ -36,11 +36,12 @@ import {
   QyJsTicketApi,
   QyJsApiType,
   InSuiteTicket,
-  BaseMsg
+  BaseMsg,
+  InAuthEvent,
+  InBatchJobResult
 } from '@tnwx/commons'
 
 import { Kits } from '@tnwx/kits'
-import { InAuthEvent } from '@tnwx/commons/dist/entity/msg/in/InAuthEvent'
 
 /**
  * @author Javen
@@ -170,6 +171,9 @@ export class QyWeChat {
         } else if (inMsg instanceof InAuthEvent) {
           isEncrypt = false
           outMsg = msgAdapter.processInAuthEvent(<InAuthEvent>inMsg)
+        } else if (inMsg instanceof InBatchJobResult) {
+          isEncrypt = false
+          outMsg = msgAdapter.processInBatchJobResult(<InBatchJobResult>inMsg)
         } else if (inMsg instanceof InNotDefinedMsg) {
           if (QyApiConfigKit.isDevMode()) {
             console.debug(`未能识别的消息类型。消息 xml 内容为：\n ${result}`)

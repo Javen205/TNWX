@@ -41,6 +41,7 @@ import { InUpdateUserEvent } from './entity/msg/in/event/InUpdateUserEvent'
 import { BaseMsg } from './entity/msg/BaseMsg'
 import { InSuiteTicket } from './entity/msg/in/InSuiteTicket'
 import { InAuthEvent } from './entity/msg/in/InAuthEvent'
+import { InBatchJobResult } from './entity/msg/in/InBatchJobResult'
 
 export class InMsgParser {
   public static parse(obj: any): BaseMsg {
@@ -57,6 +58,7 @@ export class InMsgParser {
     if ('voice' === obj.MsgType) return this.parseInVoiceMsgAndInSpeechRecognitionResults(obj)
     if ('event' === obj.MsgType) return this.parseInEvent(obj)
     if (InSuiteTicket.INFO_TYPE === obj.InfoType) return this.parseInSuiteTicket(obj)
+    if (InBatchJobResult.INFO_TYPE === obj.InfoType) return this.parseInBatchJobResult(obj)
     if (InAuthEvent.CREATE_AUTH === obj.InfoType || InAuthEvent.CHANGE_AUTH === obj.InfoType || InAuthEvent.CANCEL_AUTH === obj.InfoType) return this.InAuthEvent(obj)
     console.debug(
       `无法识别的消息类型 ${obj.MsgType}\n微信公众号开发文档:https://developers.weixin.qq.com/doc/offiaccount/Getting_Started/Overview.html\n企业微信号开发文档:https://work.weixin.qq.com/api/doc`
@@ -567,14 +569,22 @@ export class InMsgParser {
     console.error('无法识别的事件类型' + event + '，请查阅微信公众平台开发文档 https://mp.weixin.qq.com/wiki')
     return new InNotDefinedEvent(obj.ToUserName, obj.FromUserName, obj.CreateTime, event)
   }
+
   // 推送suite_ticket
   private static parseInSuiteTicket(obj: any): BaseMsg {
     return new InSuiteTicket(obj.SuiteId, obj.InfoType, obj.TimeStamp, obj.SuiteTicket)
   }
+
   // 授权通知事件
   private static InAuthEvent(obj: any): BaseMsg {
     let infoType = obj.InfoType
     if (InAuthEvent.CREATE_AUTH === infoType) return new InAuthEvent(obj.SuiteId, obj.InfoType, obj.TimeStamp, obj.AuthCode)
     if (InAuthEvent.CHANGE_AUTH === infoType || InAuthEvent.CANCEL_AUTH === infoType) return new InAuthEvent(obj.SuiteId, obj.InfoType, obj.TimeStamp, undefined, obj.AuthCorpId)
+  }
+
+  // 异步任务回调通知
+  private static parseInBatchJobResult(obj: any): BaseMsg {
+    let batchJob = obj.BatchJob
+    return new InBatchJobResult(obj.ServiceCorpId, obj.InfoType, obj.TimeStamp, obj.AuthCorpId, batchJob.JobId, batchJob.JobType)
   }
 }
