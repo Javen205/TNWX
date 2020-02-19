@@ -13,9 +13,12 @@ export class QyMediaApi {
    * 上传临时素材
    * @param mediaType 媒体文件类型
    * @param filePath 文件路径
+   * @param accessToken AccessToken
    */
-  public static async upload(mediaType: QyMediaType, filePath: string) {
-    let accessToken: AccessToken = await QyAccessTokenApi.getAccessToken()
+  public static async upload(mediaType: QyMediaType, filePath: string, accessToken?: AccessToken) {
+    if (!accessToken) {
+      accessToken = await QyAccessTokenApi.getAccessToken()
+    }
     let url = util.format(this.uploadUrl, accessToken.getAccessToken, mediaType)
     return HttpKit.getHttpDelegate.upload(url, filePath)
   }
@@ -25,9 +28,12 @@ export class QyMediaApi {
   /**
    * 上传图片
    * @param filePath 文件路径
+   * @param accessToken AccessToken
    */
-  public static async uploadImg(filePath: string) {
-    let accessToken: AccessToken = await QyAccessTokenApi.getAccessToken()
+  public static async uploadImg(filePath: string, accessToken?: AccessToken) {
+    if (!accessToken) {
+      accessToken = await QyAccessTokenApi.getAccessToken()
+    }
     let url = util.format(this.uploadImgUrl, accessToken.getAccessToken)
     return HttpKit.getHttpDelegate.upload(url, filePath)
   }
@@ -36,10 +42,13 @@ export class QyMediaApi {
 
   /**
    * 获取临时素材
-   * @param mediaId 媒体文件id,
+   * @param mediaId 媒体文件id
+   * @param accessToken AccessToken
    */
-  public static async get(mediaId: string) {
-    let accessToken: AccessToken = await QyAccessTokenApi.getAccessToken()
+  public static async get(mediaId: string, accessToken?: AccessToken) {
+    if (!accessToken) {
+      accessToken = await QyAccessTokenApi.getAccessToken()
+    }
     let url = util.format(this.getUrl, accessToken.getAccessToken, mediaId)
     return HttpKit.getHttpDelegate.httpGetWitchOptions(url, {
       headers: { 'Content-type': 'application/json' },
@@ -51,10 +60,13 @@ export class QyMediaApi {
 
   /**
    * 获取高清语音素材
-   * @param mediaId 媒体文件id,
+   * @param mediaId 媒体文件id
+   * @param accessToken AccessToken
    */
-  public static async jssdkMedia(mediaId: string) {
-    let accessToken: AccessToken = await QyAccessTokenApi.getAccessToken()
+  public static async jssdkMedia(mediaId: string, accessToken?: AccessToken) {
+    if (!accessToken) {
+      accessToken = await QyAccessTokenApi.getAccessToken()
+    }
     let url = util.format(this.jssdkMediaUrl, accessToken.getAccessToken, mediaId)
     return HttpKit.getHttpDelegate.httpGetWitchOptions(url, {
       headers: { 'Content-type': 'application/json' },
