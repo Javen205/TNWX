@@ -12,9 +12,12 @@ export class QyAgentApi {
   /**
    * 获取指定的应用详情
    * @param agentId 应用id
+   * @param accessToken AccessToken
    */
-  public static async getAgent(agentId: string) {
-    let accessToken: AccessToken = await QyAccessTokenApi.getAccessToken()
+  public static async getAgent(agentId: string, accessToken?: AccessToken) {
+    if (!accessToken) {
+      accessToken = await QyAccessTokenApi.getAccessToken()
+    }
     let url = util.format(this.getAgentUrl, accessToken.getAccessToken, agentId)
     return HttpKit.getHttpDelegate.httpGet(url)
   }
@@ -23,9 +26,12 @@ export class QyAgentApi {
 
   /**
    * 获取access_token对应的应用列表
+   * @param accessToken AccessToken
    */
-  public static async getAgentList() {
-    let accessToken: AccessToken = await QyAccessTokenApi.getAccessToken()
+  public static async getAgentList(accessToken?: AccessToken) {
+    if (!accessToken) {
+      accessToken = await QyAccessTokenApi.getAccessToken()
+    }
     let url = util.format(this.getAgentListUrl, accessToken.getAccessToken)
     return HttpKit.getHttpDelegate.httpGet(url)
   }
