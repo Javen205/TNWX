@@ -4,7 +4,7 @@ import { AccessToken, QyAccessTokenApi } from '@tnwx/accesstoken'
 /**
  * @author Javen
  * @copyright javendev@126.com
- * @description 成员管理相关接口
+ * @description 成员管理，异步批量相关接口
  */
 export class QySyncApi {
   private static batchSyncUserUrl: string = 'https://qyapi.weixin.qq.com/cgi-bin/batch/syncuser?access_token=%s'
@@ -14,9 +14,12 @@ export class QySyncApi {
    * @param mediaId  上传的csv文件的 mediaId
    * @param toInvite 是否邀请新建的成员使用企业微信
    * @param callback 回调信息
+   * @param accessToken {AccessToken}
    */
-  public static async batchSyncUser(mediaId: string, toInvite = true, callback?: QySyncCallback) {
-    let accessToken: AccessToken = await QyAccessTokenApi.getAccessToken()
+  public static async batchSyncUser(mediaId: string, toInvite = true, callback?: QySyncCallback, accessToken?: AccessToken) {
+    if (!accessToken) {
+      accessToken = await QyAccessTokenApi.getAccessToken()
+    }
     let url = util.format(this.batchSyncUserUrl, accessToken.getAccessToken)
     return HttpKit.getHttpDelegate.httpPost(
       url,
@@ -35,9 +38,12 @@ export class QySyncApi {
    * @param mediaId  上传的csv文件的 mediaId
    * @param toInvite 是否邀请新建的成员使用企业微信
    * @param callback 回调信息
+   * @param accessToken {AccessToken}
    */
-  public static async replaceUser(mediaId: string, toInvite = true, callback?: QySyncCallback) {
-    let accessToken: AccessToken = await QyAccessTokenApi.getAccessToken()
+  public static async replaceUser(mediaId: string, toInvite = true, callback?: QySyncCallback, accessToken?: AccessToken) {
+    if (!accessToken) {
+      accessToken = await QyAccessTokenApi.getAccessToken()
+    }
     let url = util.format(this.replaceUserUrl, accessToken.getAccessToken)
     return HttpKit.getHttpDelegate.httpPost(
       url,
@@ -55,9 +61,12 @@ export class QySyncApi {
    * 全量覆盖部门
    * @param mediaId  上传的csv文件的 mediaId
    * @param callback 回调信息
+   * @param accessToken {AccessToken}
    */
-  public static async replaceParty(mediaId: string, callback?: QySyncCallback) {
-    let accessToken: AccessToken = await QyAccessTokenApi.getAccessToken()
+  public static async replaceParty(mediaId: string, callback?: QySyncCallback, accessToken?: AccessToken) {
+    if (!accessToken) {
+      accessToken = await QyAccessTokenApi.getAccessToken()
+    }
     let url = util.format(this.replacePartyUrl, accessToken.getAccessToken)
     return HttpKit.getHttpDelegate.httpPost(
       url,
@@ -73,9 +82,12 @@ export class QySyncApi {
   /**
    * 获取异步任务结果
    * @param jobId  异步任务id，最大长度为64字节
+   * @param accessToken {AccessToken}
    */
-  public static async getResult(jobId: string) {
-    let accessToken: AccessToken = await QyAccessTokenApi.getAccessToken()
+  public static async getResult(jobId: string, accessToken?: AccessToken) {
+    if (!accessToken) {
+      accessToken = await QyAccessTokenApi.getAccessToken()
+    }
     let url = util.format(this.getResultUrl, accessToken.getAccessToken, jobId)
     return HttpKit.getHttpDelegate.httpGet(url)
   }
