@@ -10,7 +10,7 @@
 
 ### 简介
 
-**TNWX: TypeScript + Node.js + WeiXin 微信系开发脚手架，支持微信公众号、微信支付、微信小游戏、微信小程序、企业号/企业微信。最最最重要的是能快速的集成至任何 Node.js 框架(Express、Nest、Egg、Koa 等)**
+**TNWX: TypeScript + Node.js + WeiXin 微信系开发脚手架，支持微信公众号、微信支付、微信小游戏、微信小程序、企业号/企业微信、企业微信开发平台。最最最重要的是能快速的集成至任何 Node.js 框架(Express、Nest、Egg、Koa 等)**
 
 ### 简易指南
 
