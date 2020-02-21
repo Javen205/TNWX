@@ -1,6 +1,6 @@
 {
   "name": "@tnwx/kits",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "TNWX 微信系开发脚手架之工具集合",
   "keywords": [
     "tnw",
@@ -59,5 +59,5 @@
     "@types/uuid": "^3.4.6",
     "@types/xml2js": "^0.4.5"
   },
-  "gitHead": "71732c276f81e01f0497888388f17cfb0dfc7838"
+  "gitHead": "b5f0304b088ebe948e1fc4c7af72ffd7b966cf84"
 }
