@@ -27,6 +27,7 @@ import { InUpdateTagEvent } from './entity/msg/in/event/InUpdateTagEvent'
 import { InUpdateUserEvent } from './entity/msg/in/event/InUpdateUserEvent'
 import { InExternalContactEvent } from './entity/msg/in/event/InExternalContactEvent'
 import { InExternalContact } from './entity/msg/in/InExternalContact'
+import { InRegisterCorp } from './entity/msg/in/InRegisterCorp'
 
 /**
  * @author Javen
@@ -133,12 +134,17 @@ export abstract class MsgAdapter {
   }
 
   // 企业客户事件
-  processInExternalContactEvent(inExternalContactEvent: InExternalContactEvent): OutMsg {
-    return this.renderOutTextMsg(inExternalContactEvent, '')
+  processInExternalContactEvent(inExternalContactEvent: InExternalContactEvent): string {
+    return 'success'
   }
 
   // 外部联系人事件
   processInExternalContact(inExternalContact: InExternalContact): string {
+    return 'success'
+  }
+
+  // 注册完成回调事件
+  processInRegisterCorp(inRegisterCorp: InRegisterCorp): string {
     return 'success'
   }
 

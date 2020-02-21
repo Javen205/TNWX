@@ -44,6 +44,7 @@ import { InAuthEvent } from './entity/msg/in/InAuthEvent'
 import { InBatchJobResult } from './entity/msg/in/InBatchJobResult'
 import { InExternalContact } from './entity/msg/in/InExternalContact'
 import { InExternalContactEvent } from './entity/msg/in/event/InExternalContactEvent'
+import { InRegisterCorp } from './entity/msg/in/InRegisterCorp'
 
 export class InMsgParser {
   public static parse(obj: any): BaseMsg {
@@ -63,6 +64,7 @@ export class InMsgParser {
     if (InBatchJobResult.INFO_TYPE === obj.InfoType) return this.parseInBatchJobResult(obj)
     if (InAuthEvent.CREATE_AUTH === obj.InfoType || InAuthEvent.CHANGE_AUTH === obj.InfoType || InAuthEvent.CANCEL_AUTH === obj.InfoType) return this.InAuthEvent(obj)
     if (InExternalContact.INFO_TYPE === obj.InfoType) return this.parseInExternalContact(obj)
+    if (InRegisterCorp.INFO_TYPE === obj.InfoType) return this.parseInRegisterCorp(obj)
     console.debug(
       `无法识别的消息类型 ${obj.MsgType}\n微信公众号开发文档:https://developers.weixin.qq.com/doc/offiaccount/Getting_Started/Overview.html\n企业微信号开发文档:https://work.weixin.qq.com/api/doc`
     )
@@ -604,5 +606,22 @@ export class InMsgParser {
   // 外部联系人事件
   private static parseInExternalContact(obj: any): BaseMsg {
     return new InExternalContact(obj.SuiteId, obj.AuthCorpId, obj.InfoType, obj.TimeStamp, obj.ChangeType, obj.UserID, obj.ExternalUserID, obj.WelcomeCode)
+  }
+
+  // 注册完成回调事件
+  private static parseInRegisterCorp(obj: any): BaseMsg {
+    let contactSync = obj.ContactSync
+    return new InRegisterCorp(
+      obj.ServiceCorpId,
+      obj.InfoType,
+      obj.TimeStamp,
+      obj.RegisterCode,
+      obj.AuthCorpId,
+      contactSync.AccessToken,
+      contactSync.ExpiresIn,
+      obj.AuthUserInfo.UserId,
+      obj.State,
+      obj.TemplateId
+    )
   }
 }

@@ -201,8 +201,9 @@ export class HandMsgAdapter extends MsgAdapter {
     return 'success'
   }
 
-  processInExternalContactEvent(inExternalContactEvent: InExternalContactEvent): OutMsg {
-    return this.renderOutTextMsg(inExternalContactEvent, '')
+  processInExternalContactEvent(inExternalContactEvent: InExternalContactEvent): string {
+    console.log(`inExternalContactEvent:${JSON.stringify(inExternalContactEvent)}`)
+    return 'success'
   }
 
   processIsNotDefinedMsg(inNotDefinedMsg: InNotDefinedMsg): OutMsg {

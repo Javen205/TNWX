@@ -40,7 +40,8 @@ import {
   InAuthEvent,
   InBatchJobResult,
   InExternalContact,
-  InExternalContactEvent
+  InExternalContactEvent,
+  InRegisterCorp
 } from '@tnwx/commons'
 
 import { Kits } from '@tnwx/kits'
@@ -176,7 +177,11 @@ export class QyWeChat {
           isEncrypt = false
           outMsg = msgAdapter.processInExternalContact(<InExternalContact>inMsg)
         } else if (inMsg instanceof InExternalContactEvent) {
+          isEncrypt = false
           outMsg = msgAdapter.processInExternalContactEvent(<InExternalContactEvent>inMsg)
+        } else if (inMsg instanceof InRegisterCorp) {
+          isEncrypt = false
+          outMsg = msgAdapter.processInRegisterCorp(<InRegisterCorp>inMsg)
         } else if (inMsg instanceof InNotDefinedMsg) {
           if (QyApiConfigKit.isDevMode()) {
             console.debug(`未能识别的消息类型。消息 xml 内容为：\n ${result}`)
