@@ -38,7 +38,9 @@ import {
   InSuiteTicket,
   BaseMsg,
   InAuthEvent,
-  InBatchJobResult
+  InBatchJobResult,
+  InExternalContact,
+  InExternalContactEvent
 } from '@tnwx/commons'
 
 import { Kits } from '@tnwx/kits'
@@ -104,10 +106,6 @@ export class QyWeChat {
           console.debug(err)
           return
         }
-        console.debug('result....')
-        console.debug(result)
-        console.debug('result end...')
-
         result = result.xml
         let isEncrypt: boolean = true
         cryptoKit = new CryptoKit(QyApiConfigKit.getApiConfig, msgSignature, timestamp, nonce)
@@ -174,6 +172,11 @@ export class QyWeChat {
         } else if (inMsg instanceof InBatchJobResult) {
           isEncrypt = false
           outMsg = msgAdapter.processInBatchJobResult(<InBatchJobResult>inMsg)
+        } else if (inMsg instanceof InExternalContact) {
+          isEncrypt = false
+          outMsg = msgAdapter.processInExternalContact(<InExternalContact>inMsg)
+        } else if (inMsg instanceof InExternalContactEvent) {
+          outMsg = msgAdapter.processInExternalContactEvent(<InExternalContactEvent>inMsg)
         } else if (inMsg instanceof InNotDefinedMsg) {
           if (QyApiConfigKit.isDevMode()) {
             console.debug(`未能识别的消息类型。消息 xml 内容为：\n ${result}`)

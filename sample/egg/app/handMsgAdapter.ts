@@ -36,7 +36,8 @@ import {
   InImageMsg,
   OutImageMsg,
   InTaskEvent,
-  InAuthEvent
+  InAuthEvent,
+  InExternalContactEvent
 } from 'tnwx'
 
 export class HandMsgAdapter extends MsgAdapter {
@@ -198,6 +199,10 @@ export class HandMsgAdapter extends MsgAdapter {
   processInAuthEvent(inAuthEvent: InAuthEvent): string {
     console.log(`inAuthEvent:${JSON.stringify(inAuthEvent)}`)
     return 'success'
+  }
+
+  processInExternalContactEvent(inExternalContactEvent: InExternalContactEvent): OutMsg {
+    return this.renderOutTextMsg(inExternalContactEvent, '')
   }
 
   processIsNotDefinedMsg(inNotDefinedMsg: InNotDefinedMsg): OutMsg {

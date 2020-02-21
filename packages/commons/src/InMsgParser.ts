@@ -42,6 +42,8 @@ import { BaseMsg } from './entity/msg/BaseMsg'
 import { InSuiteTicket } from './entity/msg/in/InSuiteTicket'
 import { InAuthEvent } from './entity/msg/in/InAuthEvent'
 import { InBatchJobResult } from './entity/msg/in/InBatchJobResult'
+import { InExternalContact } from './entity/msg/in/InExternalContact'
+import { InExternalContactEvent } from './entity/msg/in/event/InExternalContactEvent'
 
 export class InMsgParser {
   public static parse(obj: any): BaseMsg {
@@ -60,6 +62,7 @@ export class InMsgParser {
     if (InSuiteTicket.INFO_TYPE === obj.InfoType) return this.parseInSuiteTicket(obj)
     if (InBatchJobResult.INFO_TYPE === obj.InfoType) return this.parseInBatchJobResult(obj)
     if (InAuthEvent.CREATE_AUTH === obj.InfoType || InAuthEvent.CHANGE_AUTH === obj.InfoType || InAuthEvent.CANCEL_AUTH === obj.InfoType) return this.InAuthEvent(obj)
+    if (InExternalContact.INFO_TYPE === obj.InfoType) return this.parseInExternalContact(obj)
     console.debug(
       `无法识别的消息类型 ${obj.MsgType}\n微信公众号开发文档:https://developers.weixin.qq.com/doc/offiaccount/Getting_Started/Overview.html\n企业微信号开发文档:https://work.weixin.qq.com/api/doc`
     )
@@ -566,7 +569,17 @@ export class InMsgParser {
         return e
       }
     }
-    console.error('无法识别的事件类型' + event + '，请查阅微信公众平台开发文档 https://mp.weixin.qq.com/wiki')
+    // 企业客户事件
+    if (InExternalContactEvent.EVENT == event) {
+      let e = new InExternalContactEvent(obj.ToUserName, obj.FromUserName, obj.CreateTime, event)
+      e.changeType = obj.ChangeType
+      e.userId = obj.UserID
+      e.externalUserId = obj.ExternalUserID
+      e.setState = obj.State
+      e.welcomeCode = obj.WelcomeCode
+      return e
+    }
+    console.error(`无法识别的事件类型 ${event}，请前往 https://gitee.com/javen205/TNWX/issues 提 issues`)
     return new InNotDefinedEvent(obj.ToUserName, obj.FromUserName, obj.CreateTime, event)
   }
 
@@ -586,5 +599,10 @@ export class InMsgParser {
   private static parseInBatchJobResult(obj: any): BaseMsg {
     let batchJob = obj.BatchJob
     return new InBatchJobResult(obj.ServiceCorpId, obj.InfoType, obj.TimeStamp, obj.AuthCorpId, batchJob.JobId, batchJob.JobType)
+  }
+
+  // 外部联系人事件
+  private static parseInExternalContact(obj: any): BaseMsg {
+    return new InExternalContact(obj.SuiteId, obj.AuthCorpId, obj.InfoType, obj.TimeStamp, obj.ChangeType, obj.UserID, obj.ExternalUserID, obj.WelcomeCode)
   }
 }

@@ -25,6 +25,8 @@ import { OutTextMsg } from './entity/msg/out/OutTextMsg'
 import { InBatchJobResult } from './entity/msg/in/InBatchJobResult'
 import { InUpdateTagEvent } from './entity/msg/in/event/InUpdateTagEvent'
 import { InUpdateUserEvent } from './entity/msg/in/event/InUpdateUserEvent'
+import { InExternalContactEvent } from './entity/msg/in/event/InExternalContactEvent'
+import { InExternalContact } from './entity/msg/in/InExternalContact'
 
 /**
  * @author Javen
@@ -127,6 +129,16 @@ export abstract class MsgAdapter {
 
   // 异步任务回调通知
   processInBatchJobResult(inBatchJobResult: InBatchJobResult): string {
+    return 'success'
+  }
+
+  // 企业客户事件
+  processInExternalContactEvent(inExternalContactEvent: InExternalContactEvent): OutMsg {
+    return this.renderOutTextMsg(inExternalContactEvent, '')
+  }
+
+  // 外部联系人事件
+  processInExternalContact(inExternalContact: InExternalContact): string {
     return 'success'
   }
 
