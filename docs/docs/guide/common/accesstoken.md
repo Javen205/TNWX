@@ -152,7 +152,7 @@ app.get('/getAccessToken', (req: any, res: any) => {
 `DefaultCache`  替换为你的实现类即可 比如：缓存至文件、Redis 等
 
 ```typescript
-ApiConfigKit.setCache(new DefaultCache());
+ApiConfigKit.setCache = new DefaultCache();
 ```
 
 
@@ -171,9 +171,46 @@ app.get('/getQyAccessToken', (req: any, res: any) => {
 });
 ```
 
-```typescript
-  QyAccessTokenApi.refreshAccessToken(QyApiConfigKit.getApiConfig);
+```TypeScript
+QyAccessTokenApi.refreshAccessToken(QyApiConfigKit.getApiConfig);
 ```
+
+## 企业微信开发平台
+
+### 获取服务商凭证 
+
+获取服务商凭证  provider_access_token
+
+```TypeScript
+OpenCpAccessTokenApi.getAccessToken(AccessTokenType.PROVIDER_TOKEN)
+```
+
+### 获取第三方应用凭证
+
+获取第三方应用凭证 suite_access_token
+
+```TypeScript
+OpenCpAccessTokenApi.getAccessToken(AccessTokenType.SUITE_TOKEN)
+```
+
+:::tip 说明
+**获取第三方应用凭证之前需要先获取 suite_ticket，获取 suite_ticket有两种方式**
+
+ - 在 HandMsgAdapter 的 processInSuiteTicket 中有回调 10 分钟回调一次 [参考示例](https://gitee.com/javen205/TNWX/blob/master/sample/egg/app/handMsgAdapter.ts#L187)
+
+- 在开放平台 https://open.work.weixin.qq.com/  应用中手动刷新
+:::
+
+### 获取授权企业凭证
+
+```TypeScript
+OpenCorpAccessTokenApi.getAccessToken(authCorpid, permanentCode)
+```
+
+:::tip 说明
+- authCorpid、permanentCode 需要通过 OpenCpApi.getPermanentCode(authCode) 来获取
+- authCode 为安装应用返回的临时授权码。在 HandMsgAdapter 的 processInAuthEvent 中有回调
+:::
 
 ## 开源推荐
 

@@ -43,7 +43,7 @@ import {
 :::
 
 ```
-new ApiConfig(appId: string, appScrect: string, token?: string, encryptMessage?: boolean, encodingAesKey?: string, corpId?: string);
+new ApiConfig(appId?: string, appScrect?: string, token?: string, encryptMessage: boolean = false, encodingAesKey?: string, corpId?: string, suiteTicket?: string);
 ```
 
 :::tip ApiConfig 参数说明
@@ -54,15 +54,17 @@ new ApiConfig(appId: string, appScrect: string, token?: string, encryptMessage?:
 
    第三个参数：令牌 Token 可以任意填写
 
-   第四个参数：是否开启加密 encryptMessage  默认值为 false。**测试号必须为 false， 企业号必须为 true**
+   第四个参数：是否开启加密 encryptMessage  默认值为 false。**测试号必须为 false， 企业微信必须为 true**
 
    第五个参数：消息加解密密钥 encodingAesKey 非必须。 **encryptMessage 为 true 时必须**
 
    第六个参数：企业ID 非必须。 **企业微信时必须**
 
+   第七个参数：企业微信开放平台应用的 Ticket 非必须。
+
 :::
 
-## 示例
+## 初始化示例
 
 ```TypeScript
   let devApiConfig = new ApiConfig('wx614c453e0d1dcd12', '19a02e4927d346484fc70327970457f9','Javen');

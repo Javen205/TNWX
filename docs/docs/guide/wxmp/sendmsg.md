@@ -159,7 +159,7 @@ export interface MsgAdapter {
 
 
 ```typescript
-export class MsgController implements MsgAdapter {
+export class MsgController extends MsgAdapter {
 
     processInTextMsg(inTextMsg: InTextMsg): OutMsg {
         let outMsg: any;
