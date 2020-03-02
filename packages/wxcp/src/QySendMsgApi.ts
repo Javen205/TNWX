@@ -11,7 +11,7 @@ import { QyTextCardMsg } from './entity/QyTextCardMsg'
 import { QyNewsMsg } from './entity/QyNewsMsg'
 import { QyMpNewsMsg } from './entity/QyMpNewsMsg'
 import { QyTaskCardMsg } from './entity/QyTaskCardMsg'
-import { QyMiNiProgramNoticeMsg } from './entity/QyMiNiProgramNoticeMsg'
+import { QyMiniProgramNoticeMsg } from './entity/QyMiniProgramNoticeMsg'
 import { QyMarkDownMsg } from './entity/QyMarkDownMsg'
 /**
  * @author Javen
@@ -136,7 +136,7 @@ export class QySendMsgApi {
    * @param miniprogramNotice
    * @param accessToken
    */
-  public static async sendMiniprogramNoticeMessage(miniprogramNotice: QyMiNiProgramNoticeMsg, accessToken?: AccessToken) {
+  public static async sendMiniprogramNoticeMessage(miniprogramNotice: QyMiniProgramNoticeMsg, accessToken?: AccessToken) {
     return this.sendMessage(JSON.stringify(miniprogramNotice), accessToken)
   }
 

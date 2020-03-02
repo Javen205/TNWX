@@ -67,8 +67,8 @@ import {
   QyMpNews,
   QyMpNewsArticles,
   QyMarkDownMsg,
-  QyMiNiProgramNoticeMsg,
-  QyMiNiprogram,
+  QyMiniProgramNoticeMsg,
+  QyMiniprogram,
   QyKv,
   AxiosHttpKit,
   QyTaskCardMsg,
@@ -607,8 +607,8 @@ app.get('/sendMsg', (req, res) => {
         .catch(error => console.log(error))
       break
     case 9:
-      let miniprogram = new QyMiNiProgramNoticeMsg(
-        new QyMiNiprogram('wxf30d9b9b316d5de4', '老铁开源项目了解一下', [new QyKv('项目名称', 'TNWX'), new QyKv('参与人员', '所有开发者')], 'pages/index', '2月2日 14:00', true),
+      let miniprogram = new QyMiniProgramNoticeMsg(
+        new QyMiniprogram('wxf30d9b9b316d5de4', '老铁开源项目了解一下', [new QyKv('项目名称', 'TNWX'), new QyKv('参与人员', '所有开发者')], 'pages/index', '2月2日 14:00', true),
         agentId,
         toUser
       )
