@@ -20,11 +20,7 @@ export class WxPay {
         mch_id: mchId,
         nonce_str: Kits.generateStr() //生成随机字符串
       }
-      // 生成签名
-      let sign: string = Kits.generateSignature(reqObj, key, signType)
-      reqObj['sign'] = sign
-      // obj 对象转化为 xml
-      Kits.obj2xml(reqObj)
+      Kits.generateSignedXml(reqObj, key, signType)
         .then(xml => {
           HttpKit.getHttpDelegate
             .httpPost(WX_DOMAIN.CHINA.concat(WX_API_TYPE.GET_SIGN_KEY), String(xml))
