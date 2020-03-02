@@ -1,5 +1,5 @@
 import { Controller } from 'egg'
-import { WxPay, WxPayApiConifgKit, Kits, SIGN_TYPE, HttpKit, WX_DOMAIN, WX_API_TYPE, WxPayApiConfig } from 'tnwx'
+import { WxPay, WxPayApiConifgKit, Kits, SIGN_TYPE, HttpKit, WX_DOMAIN, WX_API_TYPE, WxPayApiConfig, WX_TRADE_TYPE } from 'tnwx'
 
 export default class WxPayController extends Controller {
   public async index() {
@@ -28,19 +28,23 @@ export default class WxPayController extends Controller {
           total_fee: 666,
           spbill_create_ip: '127.0.0.1',
           notify_url: 'https://gitee.com/Javen205/TNWX',
-          trade_type: 'JSAPI'
+          trade_type: WX_TRADE_TYPE.JSAPI
         }
         // 生成签名
-        let sign: string = Kits.generateSignature(reqObj, config.apiKey, SIGN_TYPE.SIGN_TYPE_MD5)
-        reqObj['sign'] = sign
-        // obj 对象转化为 xml
-        let xml: string = await Kits.obj2xml(reqObj)
-        console.log(`xml:${xml}`)
+        // let sign: string = Kits.generateSignature(reqObj, config.apiKey, SIGN_TYPE.SIGN_TYPE_MD5)
+        // reqObj['sign'] = sign
+        // // obj 对象转化为 xml
+        // let xml: string = await Kits.obj2xml(reqObj)
+        // console.log(`xml:${xml}`)
+
+        let xml = await Kits.generateSignedXml(reqObj, config.apiKey, SIGN_TYPE.SIGN_TYPE_MD5)
+
         data = await HttpKit.getHttpDelegate.httpPost(WX_DOMAIN.CHINA.concat(WX_API_TYPE.UNIFIED_ORDER), xml)
         break
       default:
         break
     }
+
     ctx.app.logger.info(data)
     ctx.body = data
   }
