@@ -13,9 +13,11 @@ export default class WxPayController extends Controller {
     switch (type) {
       case 0:
         data = JSON.stringify(config)
+        ctx.body = data
         break
       case 1:
         data = await WxPay.getSignKey(config.mchId, config.apiKey)
+        ctx.body = await Kits.xml2obj(data)
         break
       case 2:
         let reqObj = {
@@ -40,12 +42,12 @@ export default class WxPayController extends Controller {
         let xml = await Kits.generateSignedXml(reqObj, config.apiKey, SIGN_TYPE.SIGN_TYPE_MD5)
 
         data = await HttpKit.getHttpDelegate.httpPost(WX_DOMAIN.CHINA.concat(WX_API_TYPE.UNIFIED_ORDER), xml)
+        // ctx.set('Content-Type', 'text/xml')
+        // ctx.body = data
+        ctx.body = await Kits.xml2obj(data)
         break
       default:
         break
     }
-
-    ctx.app.logger.info(data)
-    ctx.body = data
   }
 }
