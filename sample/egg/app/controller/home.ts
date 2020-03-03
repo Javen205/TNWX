@@ -2,6 +2,19 @@ import { Controller } from 'egg'
 
 export default class HomeController extends Controller {
   public async index() {
+    const { ctx } = this
+    let queryRes = await ctx.app.mysql.query('select * from users where name=?', ['Javen'])
+    console.log(queryRes)
+
+    const user = await ctx.app.mysql.get('users', { id: 1 })
+    console.log(user)
+
+    const insertRes = await this.app.mysql.insert('users', { name: 'TNWX' })
+    console.log(insertRes)
+
+    const deleteRes = await this.app.mysql.delete('users', { id: 12 })
+    console.log(deleteRes)
+
     await this.ctx.render('index', {
       title: 'TNWX 微信系开发脚手架'
     })
