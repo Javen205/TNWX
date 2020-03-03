@@ -50,7 +50,7 @@ export class QyMediaApi {
       accessToken = await QyAccessTokenApi.getAccessToken()
     }
     let url = util.format(this.getUrl, accessToken.getAccessToken, mediaId)
-    return HttpKit.getHttpDelegate.httpGetWitchOptions(url, {
+    return HttpKit.getHttpDelegate.httpGet(url, {
       headers: { 'Content-type': 'application/json' },
       responseType: 'arraybuffer'
     })
@@ -68,7 +68,7 @@ export class QyMediaApi {
       accessToken = await QyAccessTokenApi.getAccessToken()
     }
     let url = util.format(this.jssdkMediaUrl, accessToken.getAccessToken, mediaId)
-    return HttpKit.getHttpDelegate.httpGetWitchOptions(url, {
+    return HttpKit.getHttpDelegate.httpGet(url, {
       headers: { 'Content-type': 'application/json' },
       responseType: 'arraybuffer'
     })

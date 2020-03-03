@@ -187,7 +187,7 @@ export class MiniProgramApi {
   public static async createQRCode(path: string, width: number = 430) {
     let accessToken = await AccessTokenApi.getAccessToken()
     let url = util.format(this.createQRCodeUrl, (<AccessToken>accessToken).getAccessToken)
-    return HttpKit.getHttpDelegate.httpPostWitchOptions(
+    return HttpKit.getHttpDelegate.httpPost(
       url,
       JSON.stringify({
         path: path,
@@ -214,7 +214,7 @@ export class MiniProgramApi {
   public static async getWxAcode(path: string, width: number = 430, autoColor: boolean = false, lineColor: object = { r: 0, g: 0, b: 0 }, isHyaline: boolean = false) {
     let accessToken = await AccessTokenApi.getAccessToken()
     let url = util.format(this.getWxAcodeUrl, (<AccessToken>accessToken).getAccessToken)
-    return HttpKit.getHttpDelegate.httpPostWitchOptions(
+    return HttpKit.getHttpDelegate.httpPost(
       url,
       JSON.stringify({
         path: path,
@@ -252,7 +252,7 @@ export class MiniProgramApi {
   ) {
     let accessToken = await AccessTokenApi.getAccessToken()
     let url = util.format(this.getUnlimitedUrl, (<AccessToken>accessToken).getAccessToken)
-    return HttpKit.getHttpDelegate.httpPostWitchOptions(
+    return HttpKit.getHttpDelegate.httpPost(
       url,
       JSON.stringify({
         scene: encodeURIComponent(scene),

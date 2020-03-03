@@ -11,24 +11,7 @@ import * as https from 'https'
 import concat = require('concat-stream')
 
 export class AxiosHttpKit implements HttpDelegate {
-  httpGet(url: string): Promise<any> {
-    return new Promise((resolve, reject) => {
-      axios
-        .get(url)
-        .then(response => {
-          if (response.status === 200) {
-            resolve(JSON.stringify(response.data))
-          } else {
-            reject(`error code ${response.status}`)
-          }
-        })
-        .catch(error => {
-          reject(error)
-        })
-    })
-  }
-
-  httpGetWitchOptions(url: string, options?: any): Promise<any> {
+  httpGet(url: string, options?: any): Promise<any> {
     return new Promise((resolve, reject) => {
       axios
         .get(url, options)
@@ -45,24 +28,7 @@ export class AxiosHttpKit implements HttpDelegate {
     })
   }
 
-  httpPost(url: string, data: string): Promise<any> {
-    return new Promise((resolve, reject) => {
-      axios
-        .post(url, data)
-        .then(response => {
-          if (response.status === 200) {
-            resolve(JSON.stringify(response.data))
-          } else {
-            reject(`error code ${response.status}`)
-          }
-        })
-        .catch(error => {
-          reject(error)
-        })
-    })
-  }
-
-  httpPostWitchOptions(url: string, data: string, options?: any): Promise<any> {
+  httpPost(url: string, data: string, options?: any): Promise<any> {
     return new Promise((resolve, reject) => {
       axios
         .post(url, data, options)
@@ -92,7 +58,7 @@ export class AxiosHttpKit implements HttpDelegate {
         .post(url, data, { httpsAgent })
         .then(response => {
           if (response.status === 200) {
-            resolve(JSON.stringify(response.data))
+            resolve(response.data)
           } else {
             reject(`error code ${response.status}`)
           }
@@ -120,7 +86,7 @@ export class AxiosHttpKit implements HttpDelegate {
             })
             .then(response => {
               if (response.status === 200) {
-                resolve(JSON.stringify(response.data))
+                resolve(response.data)
               } else {
                 reject(`error code ${response.status}`)
               }

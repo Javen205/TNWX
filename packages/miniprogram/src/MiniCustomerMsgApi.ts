@@ -16,7 +16,7 @@ export class MiniCustomerMsgApi {
   public static async getTempMedia(mediaId: string) {
     let accessToken = await AccessTokenApi.getAccessToken()
     let url = util.format(this.getTempMediaUrl, (<AccessToken>accessToken).getAccessToken, mediaId)
-    return HttpKit.getHttpDelegate.httpGetWitchOptions(url, {
+    return HttpKit.getHttpDelegate.httpGet(url, {
       headers: { 'Content-type': 'application/json' },
       responseType: 'arraybuffer'
     })
