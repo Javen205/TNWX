@@ -21,7 +21,6 @@ export class OpenCorpAccessTokenApi {
    * @param permanentCode 永久授权码
    */
   public static async getAccessToken(authCorpid: string, permanentCode: string): Promise<AccessToken> {
-    let ac: ApiConfig = QyApiConfigKit.getApiConfig
     let accessToken: AccessToken | undefined = this.getAvailableAccessToken(authCorpid, permanentCode)
     if (accessToken) {
       if (QyApiConfigKit.isDevMode) {
@@ -74,6 +73,7 @@ export class OpenCorpAccessTokenApi {
       })
     )
     if (data) {
+      data = JSON.stringify(data)
       let accessToken: AccessToken = new AccessToken(data)
       let cache: ICache = QyApiConfigKit.getCache
       cache.set(authCorpid.concat('_').concat(permanentCode), accessToken.getCacheJson)

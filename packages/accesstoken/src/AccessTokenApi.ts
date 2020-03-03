@@ -59,6 +59,7 @@ export class AccessTokenApi {
     let url = util.format(this.url, apiConfig.getAppId, apiConfig.getAppScrect)
     let data = await HttpKit.getHttpDelegate.httpGet(url)
     if (data) {
+      data = JSON.stringify(data)
       let accessToken: AccessToken = new AccessToken(data)
       let cache: ICache = ApiConfigKit.getCache
       cache.set(apiConfig.getAppId, accessToken.getCacheJson)

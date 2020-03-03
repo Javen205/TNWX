@@ -86,6 +86,7 @@ export class OpenCpAccessTokenApi {
       )
     }
     if (data) {
+      data = JSON.stringify(data)
       let accessToken: AccessToken = new AccessToken(data, tokenType)
       let cache: ICache = QyApiConfigKit.getCache
       if (tokenType === AccessTokenType.PROVIDER_TOKEN) {
