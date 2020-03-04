@@ -1,6 +1,6 @@
 {
   "name": "@tnwx/opencp",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "TTNWX 微信系开发脚手架之企业微信开放平台",
   "keywords": [
     "tnw",
@@ -49,8 +49,7 @@
     "url": "http://gitee.com/javen205/TNWX/issues"
   },
   "dependencies": {
-    "@tnwx/accesstoken": "^2.3.0",
-    "@tnwx/kits": "^2.3.0"
-  },
-  "gitHead": "b5f0304b088ebe948e1fc4c7af72ffd7b966cf84"
+    "@tnwx/accesstoken": "^2.3.1",
+    "@tnwx/kits": "^2.3.1"
+  }
 }

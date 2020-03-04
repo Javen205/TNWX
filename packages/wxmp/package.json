@@ -1,6 +1,6 @@
 {
   "name": "@tnwx/wxmp",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "TNWX 微信系开发脚手架之极速开发微信公众号",
   "keywords": [
     "tnw",
@@ -44,13 +44,12 @@
     "url": "http://gitee.com/javen205/TNWX/issues"
   },
   "dependencies": {
-    "@tnwx/accesstoken": "^2.3.0",
-    "@tnwx/commons": "^2.3.0",
-    "@tnwx/kits": "^2.3.0",
+    "@tnwx/accesstoken": "^2.3.1",
+    "@tnwx/commons": "^2.3.1",
+    "@tnwx/kits": "^2.3.1",
     "urlencode": "^1.1.0"
   },
   "devDependencies": {
     "@types/urlencode": "^1.1.1"
-  },
-  "gitHead": "b5f0304b088ebe948e1fc4c7af72ffd7b966cf84"
+  }
 }
