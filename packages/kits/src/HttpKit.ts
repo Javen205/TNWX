@@ -19,6 +19,6 @@ export class HttpKit {
 export interface HttpDelegate {
   httpGet(url: string, options?: any): Promise<any>
   httpPost(url: string, data: string, options?: any): Promise<any>
-  httpPostWithCert(url: string, data: string, certFileContent: Buffer, caFileContent: Buffer, passphrase: string): Promise<any>
+  httpPostWithCert(url: string, data: string, certFileContent: Buffer, passphrase: string): Promise<any>
   upload(url: string, filePath: string, params?: string): Promise<any>
 }

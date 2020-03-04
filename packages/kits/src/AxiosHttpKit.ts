@@ -45,11 +45,9 @@ export class AxiosHttpKit implements HttpDelegate {
     })
   }
 
-  httpPostWithCert(url: string, data: string, certFileContent: Buffer, caFileContent: Buffer, passphrase: string): Promise<any> {
+  httpPostWithCert(url: string, data: string, certFileContent: Buffer, passphrase: string): Promise<any> {
     return new Promise((resolve, reject) => {
       let httpsAgent = new https.Agent({
-        rejectUnauthorized: false,
-        ca: caFileContent,
         pfx: certFileContent,
         passphrase
       })
