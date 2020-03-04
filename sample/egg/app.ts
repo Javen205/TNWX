@@ -90,7 +90,18 @@ export default class FooBoot implements IBoot {
     QyApiConfigKit.putApiConfig(openCpConfig)
     QyApiConfigKit.putApiConfig(openSuiteConfig)
 
-    let wxPayConfig = new WxPayApiConfig(config.WxPayConfig.apiKey, config.WxPayConfig.domain, config.WxPayConfig.appId, config.WxPayConfig.mchId, config.WxPayConfig.certPath)
+    let wxPayConfig = new WxPayApiConfig(
+      config.WxPayConfig.appId,
+      config.WxPayConfig.apiKey,
+      config.WxPayConfig.apiKey3,
+      config.WxPayConfig.domain,
+      config.WxPayConfig.mchId,
+      config.WxPayConfig.certPath,
+      config.WxPayConfig.certP12Path,
+      config.WxPayConfig.keyPath,
+      config.WxPayConfig.providerAppId,
+      config.WxPayConfig.provideMchId
+    )
 
     WxPayApiConifgKit.putConfig(wxPayConfig)
     WxPayApiConifgKit.setCurrentAppId(wxPayConfig.appId)

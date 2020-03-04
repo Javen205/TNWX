@@ -6,10 +6,13 @@ export default () => {
     // 微信支付配置
     WxPayConfig: {
       apiKey: 'api 密钥',
+      apiKey3: 'CQtr0JyC4XiTPMXhxED93MsbcPM7zG83',
       domain: 'http://wx.frp.xxx.com',
       appId: '应用ID',
       mchId: '商户号',
-      certPath: '证书路径',
+      certP12Path: 'cert.p12',
+      keyPath: 'key.pem',
+      certPath: 'cert.pem',
       providerAppId: '服务商appId',
       provideMchId: '服务商商户号'
     },

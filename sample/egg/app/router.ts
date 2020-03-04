@@ -7,6 +7,7 @@ export default (app: Application) => {
   const qyjssdk = app.middleware.qyjssdk(app)
 
   router.get('/', controller.home.index)
+  router.get('/mysql', controller.home.mysql)
   router.get('/npm', controller.home.npm)
   router.get('/msg', controller.wxmp.mpmsg.get)
   router.post('/msg', controller.wxmp.mpmsg.post)
