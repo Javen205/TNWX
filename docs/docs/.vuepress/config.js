@@ -111,6 +111,8 @@ function getGuideSidebar (tools,groupA,groupB,groupC,groupD,groupE,groupF,groupG
             title: groupD,
             collapsable: false,
             children: [
+                'wxpay/',
+                'wxpay/api-v2'
             ]
         },
         {

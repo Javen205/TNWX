@@ -7,15 +7,15 @@ features:
 - title: 简洁至上
   details: 以 Lerna 为中心构建的项目结构，简洁方便易扩展。
 - title: 开箱即用
-  details: 可轻松嵌入到任何任何 Node.js 框架中,比如 Express、Nest、Egg、Koa、Sails、Meteor 等。
+  details: 你只需一个 TNWX 依赖就可启动开发，可轻松嵌入到任何任何 Node.js 框架中，比如 Express、Nest、Egg、Koa 等。
 - title: 微信公众号
   details: 支持回调配置、素材管理、自定义菜单、消息推送、客服消息、网页授权登录、模板消息、订阅消息等常用的接口。
-- title: 微信小程序
+- title: 微信小程序/小游戏
   details: 支持登录、客服消息、订阅消息、小程序码、OCR、图像处理等常用的接口。
-- title: 微信小游戏
-  details: 支持登录、订阅消息、排行榜、小程序码等常用的接口
 - title: 企业微信
-  details: 支持回调配置、自定义菜单、消息推送、通讯录管理、应用管理、素材管理、OA数据管理等常用的接口
+  details: 通讯录管理、外部联系管理、应用管理、消息推送、素材管理、日程/OA数据接口、电子发票等
+- title: 企业微信开发平台
+  details: 应用授权、身份验证、推广二维码、获取服务商凭证、获取第三方应用凭证、获取授权企业凭证以及企业微信相关接口
 - title: 微信支付
   details: 付款码支付、公众号支付、扫码支付、APP支付、H5支付、小程序支付等常用的支付方式。
 - title: AccessToken
@@ -38,7 +38,7 @@ footer: Apache License 2.0 | Copyright © 2019-present Javen
      </a> 
 </p>
 
-### 安装
+### 添加依赖
 
 **二者任选其一**
 
@@ -55,3 +55,13 @@ $ yarn add tnwx
 
 [华为云购买享受红利](https://activity.huaweicloud.com/discount_area_v5/index.html?&fromuser=aHcxMTc2NTU3MQ==&utm_source=aHcxMTc2NTU3MQ==&utm_medium=cps&utm_campaign=201905)
 
+<script>
+export default {
+  mounted () {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?6a929f536123c72265ba5e8d9467ab5f";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  }
+}
+</script>
