@@ -45,11 +45,6 @@
   },
   "dependencies": {
     "@tnwx/accesstoken": "^2.3.1",
-    "@tnwx/commons": "^2.3.1",
-    "@tnwx/kits": "^2.3.1",
-    "urlencode": "^1.1.0"
-  },
-  "devDependencies": {
-    "@types/urlencode": "^1.1.1"
+    "@tnwx/commons": "^2.3.1"
   }
 }
