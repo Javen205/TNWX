@@ -15,6 +15,7 @@ export enum SIGN_TYPE {
 export class Kits {
   public static FIELD_SIGN = 'sign'
   public static FIELD_SIGN_TYPE = 'sign_type'
+
   /**
    *  加密方法
    *  @param key  加密key
@@ -28,6 +29,7 @@ export class Kits {
     crypted = Buffer.from(crypted, 'binary').toString('base64')
     return crypted
   }
+
   /**
    *  解密方法
    *  @param key      解密的key
@@ -43,6 +45,7 @@ export class Kits {
     decoded += decipher.final('utf8')
     return decoded
   }
+
   /**
    * hmacsha256 加密
    * @param data
@@ -54,6 +57,7 @@ export class Kits {
       .update(data, 'utf8')
       .digest('hex')
   }
+
   /**
    * sha1加密
    * @param data
@@ -64,6 +68,7 @@ export class Kits {
       .update(data, 'utf8')
       .digest('hex')
   }
+
   /**
    * md5 加密
    * @param data
@@ -74,6 +79,51 @@ export class Kits {
       .update(data, 'utf8')
       .digest('hex')
   }
+
+  /**
+   * SHA256withRSA
+   * @param data 待加密字符
+   * @param privatekey 私钥key
+   */
+  public static sha256WithRsa(data: string, privatekey: string): string {
+    return crypto
+      .createSign('RSA-SHA256')
+      .update(data)
+      .sign(privatekey, 'base64')
+  }
+
+  /**
+   * SHA256withRSA 验证签名
+   * @param publicKey 公钥key
+   * @param signature 待验证的签名串
+   * @param data 需要验证的字符串
+   */
+  public static sha256WithRsaVerify(publicKey: string, signature: string, data: string) {
+    return crypto
+      .createVerify('RSA-SHA256')
+      .update(data)
+      .verify(publicKey, signature, 'base64')
+  }
+
+  /**
+   * AEAD_AES_256_GCM 解密
+   * @param key
+   * @param nonce
+   * @param associatedData
+   * @param ciphertext
+   */
+  public static aes256gcmDecrypt(key: string, nonce: string, associatedData: string, ciphertext: string): string {
+    let ciphertextBuffer = Buffer.from(ciphertext, 'base64')
+    let authTag = ciphertextBuffer.slice(ciphertextBuffer.length - 16)
+    let data = ciphertextBuffer.slice(0, ciphertextBuffer.length - 16)
+    let decipherIv = crypto.createDecipheriv('aes-256-gcm', key, nonce)
+    decipherIv.setAuthTag(Buffer.from(authTag))
+    decipherIv.setAAD(Buffer.from(associatedData))
+    let decryptStr = decipherIv.update(data, null, 'utf8')
+    decipherIv.final()
+    return decryptStr
+  }
+
   /**
    * 随机生成字符串
    */
@@ -116,6 +166,7 @@ export class Kits {
       }
     }
   }
+
   /**
    * 生成带有签名的 xml 数据
    * @param data
