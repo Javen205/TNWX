@@ -28,6 +28,19 @@ export class AxiosHttpKit implements HttpDelegate {
     })
   }
 
+  httpGetToResponse(url: string, options?: any): Promise<any> {
+    return new Promise(resolve => {
+      axios
+        .get(url, options)
+        .then(response => {
+          resolve(response)
+        })
+        .catch(error => {
+          resolve(error.response)
+        })
+    })
+  }
+
   httpPost(url: string, data: string, options?: any): Promise<any> {
     return new Promise((resolve, reject) => {
       axios
@@ -41,6 +54,32 @@ export class AxiosHttpKit implements HttpDelegate {
         })
         .catch(error => {
           reject(error)
+        })
+    })
+  }
+
+  httpPostToResponse(url: string, data: string, options?: any): Promise<any> {
+    return new Promise(resolve => {
+      axios
+        .post(url, data, options)
+        .then(response => {
+          resolve(response)
+        })
+        .catch(error => {
+          resolve(error.response)
+        })
+    })
+  }
+
+  httpDeleteToResponse(url: string, options?: any): Promise<any> {
+    return new Promise(resolve => {
+      axios
+        .delete(url, options)
+        .then(response => {
+          resolve(response)
+        })
+        .catch(error => {
+          resolve(error.response)
         })
     })
   }
