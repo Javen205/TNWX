@@ -8,8 +8,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-          with:
-            ref: dev
+        with:
+          ref: dev
       - uses: actions/setup-node@v1
         with:
           node-version: 12.x
