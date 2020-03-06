@@ -59,14 +59,19 @@ export class Kits {
   }
 
   /**
+   * sha256 加密
+   * @param data
+   */
+  public static sha256(data: string): string {
+    return this.hash(data, 'sha256')
+  }
+
+  /**
    * sha1加密
    * @param data
    */
   public static sha1(data: string): string {
-    return crypto
-      .createHash('sha1')
-      .update(data, 'utf8')
-      .digest('hex')
+    return this.hash(data, 'sha1')
   }
 
   /**
@@ -74,8 +79,12 @@ export class Kits {
    * @param data
    */
   public static md5(data: string): string {
+    return this.hash(data, 'md5')
+  }
+
+  public static hash(data: string, algorithm: string) {
     return crypto
-      .createHash('md5')
+      .createHash(algorithm)
       .update(data, 'utf8')
       .digest('hex')
   }
