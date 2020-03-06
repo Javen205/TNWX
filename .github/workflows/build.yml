@@ -1,0 +1,21 @@
+on:
+  push:
+    branches:
+      - dev
+jobs:
+  tsc-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+          with:
+            ref: dev
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+          registry-url: https://registry.npmjs.org/
+      - name: build and test
+        run: |
+          npm install
+          npm run tsc
+          npm run test
