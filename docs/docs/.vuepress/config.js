@@ -1,5 +1,5 @@
 module.exports = ctx => ( {
-    base:'/tnwx/',
+    base:'/TNWX/',
     locales: {
         '/': {
             lang: 'zh-CN',
@@ -7,9 +7,9 @@ module.exports = ctx => ( {
             description: 'TNWX 微信系开发脚手架',
         },
     },
-    // markdown: {
-    //     lineNumbers: true,
-    // },
+    markdown: {
+        lineNumbers: true,
+    },
     head: [
         ['link', { rel: 'icon', href: '/logo.png' }],
         ['link', { rel: 'manifest', href: '/manifest.json' }],
@@ -33,7 +33,7 @@ module.exports = ctx => ( {
                 lastUpdated: '上次更新',
                 nav: require('./nav/zh'),
                 sidebar: {
-                    '/guide/': getGuideSidebar('参考资料','新手指南','微信公众号','企业微信','微信支付','微信小程序','微信小游戏','一杯咖啡'),
+                    '/guide/': getGuideSidebar('参考资料','新手指南','微信公众号','企业微信','微信支付','微信小程序','一杯咖啡'),
                 },
             },
         },
@@ -68,7 +68,7 @@ module.exports = ctx => ( {
     ]
 })
 
-function getGuideSidebar (tools,groupA,groupB,groupC,groupD,groupE,groupF,groupG) {
+function getGuideSidebar (tools,groupA,groupB,groupC,groupD,groupE,groupF) {
     return [
         {
             title: tools,
@@ -112,7 +112,8 @@ function getGuideSidebar (tools,groupA,groupB,groupC,groupD,groupE,groupF,groupG
             collapsable: false,
             children: [
                 'wxpay/',
-                'wxpay/api-v2'
+                'wxpay/api-v2',
+                'wxpay/api-v3',
             ]
         },
         {
@@ -127,12 +128,6 @@ function getGuideSidebar (tools,groupA,groupB,groupC,groupD,groupE,groupF,groupG
         },
         {
             title: groupF,
-            collapsable: false,
-            children: [
-            ]
-        },
-        {
-            title: groupG,
             collapsable: false,
             children: [
                 'donate/',

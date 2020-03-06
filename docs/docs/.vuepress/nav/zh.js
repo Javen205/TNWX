@@ -33,6 +33,10 @@ module.exports = [
         ]
     },
     {
+        text: '赞助',
+        link: '/guide/donate/',
+    },
+    {
         text: 'Gitee',
         link: 'https://gitee.com/javen205/TNWX',
     },
