@@ -303,5 +303,296 @@ export enum WX_API_TYPE {
   /**
    *  小微商户开发配置查询
    */
-  QUERY_SUB_DEV_CONFIG = '/secapi/mch/querysubdevconfig'
+  QUERY_SUB_DEV_CONFIG = '/secapi/mch/querysubdevconfig',
+  /**
+   * 小微商户图片上传
+   */
+  MCH_UPLOAD_MEDIA = '/secapi/mch/uploadmedia',
+  /**
+   * 获取平台证书列表
+   */
+  GET_CERTIFICATES = '/v3/certificates',
+
+  /**
+   * 营销专用-图片上传
+   */
+  MARKETING_UPLOAD_MEDIA = '/v3/marketing/favor/media/image-upload',
+  /**
+   * 通用接口-图片上传
+   */
+  MERCHANT_UPLOAD_MEDIA = '/v3/merchant/media/upload',
+  /**
+   * 通用接口-视频上传
+   */
+  MERCHANT_VIDEO_UPLOAD = '/v3/merchant/media/video_upload',
+
+  /**
+   * 创建/查询支付分订单
+   */
+  PAY_SCORE_SERVICE_ORDER = '/v3/payscore/serviceorder',
+  /**
+   * 取消支付分订单
+   */
+  PAY_SCORE_SERVICE_ORDER_CANCEL = '/v3/payscore/serviceorder/%s/cancel',
+  /**
+   * 修改支付分订单金额
+   */
+  PAY_SCORE_SERVICE_ORDER_MODIFY = '/v3/payscore/serviceorder/%s/modify',
+  /**
+   * 完结支付分订单
+   */
+  PAY_SCORE_SERVICE_ORDER_COMPLETE = '/v3/payscore/serviceorder/%s/complete',
+  /**
+   * 支付分订单收款
+   */
+  PAY_SCORE_SERVICE_ORDER_PAY = '/v3/payscore/serviceorder/%s/pay',
+  /**
+   * 同步服务订单信息
+   */
+  PAY_SCORE_SERVICE_ORDER_SYNC = '/v3/payscore/payafter-orders/%s/sync',
+  /**
+   * 查询用户支付分开启状态
+   */
+  PAY_SCORE_USER_SERVICE_STATE = '/v3/payscore/user-service-state',
+
+  /**
+   * 特约商户进件-提交申请单
+   */
+  APPLY_4_SUB = '/v3/applyment4sub/applyment',
+  /**
+   * 特约商户进件-查询申请单状态
+   */
+  GET_APPLY_STATE = '/v3/applyment4sub/applyment/business_code/%s',
+  /**
+   * 特约商户进件-修改结算帐号
+   */
+  MODIFY_SETTLEMENT = '/v3/apply4sub/sub_merchants/%s/modify-settlement',
+  /**
+   * 特约商户进件-查询结算账户
+   */
+  GET_SETTLEMENT = '/v3/apply4sub/sub_merchants/%s/settlement',
+
+  /**
+   * 商户开户意愿确认-提交申请单 OR 查询申请单审核结果
+   */
+  MER_OPEN_APPLY_SUBMIT_OR_RESULT = '/v3/apply4subject/applyment',
+  /**
+   * 商户开户意愿确认-撤销申请单
+   */
+  MER_OPEN_APPLY_CANCEL = '/v3/apply4subject/applyment/%s/cancel',
+  /**
+   * 商户开户意愿确认-获取商户开户意愿确认状态
+   */
+  GET_MER_OPEN_APPLY_STATE = '/v3/apply4subject/applyment/merchants/%s/state',
+
+  /**
+   * 商业支付投诉-查询投诉信息
+   */
+  MERCHANT_SERVICE_COMPLAINTS = '/v3/merchant-service/complaints',
+  /**
+   * 商业支付投诉-创建/查询/更新/删除投诉通知回调
+   */
+  MERCHANT_SERVICE_COMPLAINTS_NOTIFICATIONS = '/v3/merchant-service/complaint-notifications',
+
+  /**
+   * 代金券-创建代金券批次
+   */
+  CREATE_COUPON_STOCKS = '/v3/marketing/favor/coupon-stocks',
+  /**
+   * 代金券-激活代金券批次
+   */
+  START_COUPON_STOCKS = '/v3/marketing/favor/stocks/%s/start',
+  /**
+   * 代金券-发放代金券
+   */
+  COUPON_SEND = '/v3/marketing/favor/users/%s/coupons',
+  /**
+   * 代金券-暂停代金券批次
+   */
+  PAUSE_COUPON_STOCKS = '/v3/marketing/favor/stocks/%s/pause',
+  /**
+   * 代金券-重启代金券批次
+   */
+  RESTART_COUPON_STOCKS = '/v3/marketing/favor/stocks/%s/restart',
+  /**
+   * 代金券-条件查询批次列表
+   */
+  QUERY_COUPON_STOCKS = '/v3/marketing/favor/stocks',
+  /**
+   * 代金券-查询批次详情
+   */
+  QUERY_COUPON_STOCKS_INFO = '/v3/marketing/favor/stocks/%s',
+  /**
+   * 代金券-查询代金券详情
+   */
+  QUERY_COUPON_INFO = '/v3/marketing/favor/users/%s/coupons/%s',
+  /**
+   * 代金券-查询代金券可用商户
+   */
+  QUERY_COUPON_MERCHANTS = '/v3/marketing/favor/stocks/%s/merchants',
+  /**
+   * 代金券-查询代金券可用单品
+   */
+  QUERY_COUPON_ITEMS = '/v3/marketing/favor/stocks/%s/items',
+  /**
+   * 代金券-根据商户号查用户的券
+   */
+  QUERY_USER_COUPON = '/v3/marketing/favor/users/%s/coupons',
+  /**
+   * 代金券-下载批次核销明细
+   */
+  COUPON_STOCKS_USER_FLOW_DOWNLOAD = '/v3/marketing/favor/stocks/%s/use-flow',
+  /**
+   * 代金券-下载批次退款明细
+   */
+  COUPON_STOCKS_REFUND_FLOW_DOWNLOAD = '/v3/marketing/favor/stocks/%s/refund-flow',
+  /**
+   * 代金券-设置消息通知地址
+   */
+  SETTING_COUPON_CALLBACKS = '/v3/marketing/favor/callbacks',
+  /**
+   * 商家券-创建商家券
+   */
+  CREATE_BUSINESS_COUPON = '/v3/marketing/busifavor/stocks',
+  /**
+   * 商家券-查询商家券批次详情
+   */
+  QUERY_BUSINESS_COUPON_STOCKS_INFO = '/v3/marketing/busifavor/stocks/%s',
+  /**
+   * 商家券-查询商家券批次详情
+   */
+  USE_BUSINESS_COUPON = '/v3/marketing/busifavor/coupons/use',
+  /**
+   * 商家券-根据过滤条件查询用户券
+   */
+  QUERY_BUSINESS_USER_COUPON = '/v3/marketing/busifavor/users/%s/coupons',
+  /**
+   * 商家券-查询用户单张券详情
+   */
+  QUERY_BUSINESS_USER_COUPON_INFO = '/v3/marketing/busifavor/users/%s/coupons/%s/appids/%s',
+  /**
+   * 商家券-上传预存code
+   */
+  BUSINESS_COUPON_UPLOAD_CODE = '/v3/marketing/busifavor/stocks/%/couponcodes',
+  /**
+   * 商家券-设置/查询商家券事件通知地址
+   */
+  BUSINESS_COUPON_CALLBACKS = '/v3/marketing/busifavor/callbacks',
+
+  /**
+   * 支付有礼-创建全场满额送活动
+   */
+  PAY_GIFT_ACTIVITY = '/v3/marketing/paygiftactivity/unique-threshold-activity',
+  /**
+   * 支付有礼-查询活动详情接口
+   */
+  PAY_GIFT_ACTIVITY_INFO = '/v3/marketing/paygiftactivity/activities/%s',
+  /**
+   * 支付有礼-查询活动发券商户号
+   */
+  PAY_GIFT_ACTIVITY_QUERY_MER = '/v3/marketing/paygiftactivity/activities/%s/merchants',
+  /**
+   * 支付有礼-查询活动指定商品列表
+   */
+  PAY_GIFT_ACTIVITY_QUERY_GOODS = '/v3/marketing/paygiftactivity/activities/%s/goods',
+  /**
+   * 支付有礼-终止活动
+   */
+  PAY_GIFT_ACTIVITY_TERMINATE = '/v3/marketing/paygiftactivity/activities/%s/terminate',
+
+  /**
+   * 点金计划-特约商户管理
+   */
+  CHANGE_GOLD_PLAN_STATUS = '/v3/goldplan/merchants/changegoldplanstatus',
+
+  /**
+   * 电商收付通-二级商户进件
+   */
+  E_COMMERCE_APPLY = '/v3/ecommerce/applyments',
+  /**
+   * 电商收付通-查询进件申请状态
+   */
+  E_COMMERCE_APPLY_STATE = '/v3/ecommerce/applyments/s%',
+  /**
+   * 电商收付通-通过业务申请编号查询申请状态
+   */
+  E_COMMERCE_APPLY_STATE_BY_NO = '/v3/ecommerce/applyments/out-request-no/s%',
+
+  /**
+   * 合单下单-APP支付
+   */
+  COMBINE_TRANSACTIONS_APP = '/v3/combine-transactions/app',
+  /**
+   * 合单下单-JS支付
+   */
+  COMBINE_TRANSACTIONS_JS = '/v3/combine-transactions/jsapi',
+  /**
+   * 合单下单-合单查询订单
+   */
+  COMBINE_TRANSACTIONS_QUERY = '/v3/combine-transactions/out-trade-no/s%',
+  /**
+   * 合单下单-合单关闭订单
+   */
+  COMBINE_TRANSACTIONS_CLOSE = '/v3/combine-transactions/out-trade-no/s%/close',
+
+  /**
+   * 电商收付通-补差接口-请求补差
+   */
+  CREATE_SUBSIDIES = 'v3/ecommerce/subsidies/create',
+  /**
+   * 电商收付通-补差接口-请求补差回退
+   */
+  RETURN_SUBSIDIES = '/v3/ecommerce/subsidies/return',
+  /**
+   * 电商收付通-补差接口-取消补差
+   */
+  CANCEL_SUBSIDIES = '/v3/ecommerce/subsidies/cancel',
+  /**
+   * 电商收付通-分账接口-请求分账/查询分账结果
+   */
+  PROFIT_SHARING_ORDERS = '/v3/ecommerce/profitsharing/orders',
+  /**
+   * 电商收付通-分账接口-查询分账回退结果
+   */
+  PROFIT_SHARING_RETURN_ORDERS = '/v3/ecommerce/profitsharing/returnorders',
+  /**
+   * 电商收付通-分账接口-完结分账
+   */
+  PROFIT_SHARING_FINISH_ORDER = '/v3/ecommerce/profitsharing/finish-order',
+  /**
+   * 电商收付通-退款接口-退款申请
+   */
+  E_COMMERCE_REFUNDS = '/v3/ecommerce/refunds/apply',
+  /**
+   * 电商收付通-退款接口-通过微信支付退款单号查询退款
+   */
+  QUERY_REFUND = '/v3/ecommerce/refunds/id/s%',
+  /**
+   * 电商收付通-退款接口-通过商户退款单号查询退款
+   */
+  QUERY_REFUNDS_BY_REFUND_NO = '/v3/ecommerce/refunds/out-refund-no/s%',
+  /**
+   * 电商收付通-余额查询接口
+   */
+  QUERY_BALANCE = '/v3/ecommerce/fund/balance/s%',
+  /**
+   * 电商收付通-提现接口-账户余额提现
+   */
+  WITHDRAW = '/v3/ecommerce/fund/withdraw',
+  /**
+   * 电商收付通-提现接口-提现状态查询
+   */
+  QUERY_WITHDRAW = '/v3/ecommerce/fund/withdraw/s%',
+  /**
+   * 电商收付通-提现接口-按日下载提现异常文件
+   */
+  WITHDRAW_BILL = '/v3/merchant/fund/withdraw/bill-type/s%',
+  /**
+   * 电商收付通-账单接口-申请交易账单
+   */
+  TRADE_BILL = '/v3/bill/tradebill',
+  /**
+   * 电商收付通-账单接口-申请资金账单
+   */
+  FUND_FLOW_BILL = '/v3/bill/fundflowbill'
 }
