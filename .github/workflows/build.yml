@@ -15,7 +15,4 @@ jobs:
           node-version: 12.x
           registry-url: https://registry.npmjs.org/
       - name: build and test
-        run: |
-          npm install
-          npm run tsc
-          npm run test
+        run: npm install && npm run tsc && npm run test
