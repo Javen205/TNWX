@@ -2,7 +2,7 @@ name: Build and Deploy Doc
 on:
   push:
     branches:
-      - master
+      - dev
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest #虚拟机环境
@@ -10,13 +10,10 @@ jobs:
       - name: Checkout #获取源码
         uses: actions/checkout@master
 
-      - name: cd docs
-        run: cd docs
-
       - name: Build and Deploy #构建和部署
         uses: JamesIves/github-pages-deploy-action@master
         env:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           BRANCH: gh-pages
           FOLDER: docs/docs/.vuepress/dist
-          BUILD_SCRIPT: npm install && npm run docs:build
+          BUILD_SCRIPT: cd docs && npm install -g yarn && yarn run docs:build

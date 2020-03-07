@@ -6,13 +6,20 @@ jobs:
   tsc-job:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: checkout
         uses: actions/checkout@v1
         with:
           ref: dev
-      - uses: actions/setup-node@v1
+
+      - name: install node
+        uses: actions/setup-node@v1
         with:
           node-version: 12.x
           registry-url: https://registry.npmjs.org/
-      - name: build and test
-        run: npm install && npm run tsc && npm run test
+
+      - name: npm install, build, test
+        run: |
+          npm install -g yarn
+          yarn
+          yarn run tsc
+          yarn run test
