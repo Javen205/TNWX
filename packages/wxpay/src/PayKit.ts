@@ -234,21 +234,6 @@ export class PayKit {
     return await this.delete(urlPrefix.concat(urlSuffix), authorization, serialNo)
   }
 
-  /**
-   * 微信支付 Api-v3 上传文件
-   * @param urlPrefix
-   * @param urlSuffix
-   * @param filePath
-   * @param mchId
-   * @param serialNo
-   * @param keyPath
-   * @param data
-   */
-  public static async exeUpload(urlPrefix: string, urlSuffix: string, filePath: string, mchId: string, serialNo: string, keyPath: string, data: string): Promise<any> {
-    let authorization = await this.buildAuthorization(RequestMethod.POST, urlSuffix, mchId, serialNo, keyPath, data)
-    return await this.upload(urlPrefix.concat(urlSuffix), filePath, data, authorization, serialNo)
-  }
-
   public static async get(url: string, authorization: string, serialNumber?: string) {
     return await HttpKit.getHttpDelegate.httpGetToResponse(url, {
       headers: this.getHeaders(authorization, serialNumber)
@@ -264,14 +249,6 @@ export class PayKit {
   public static async delete(url: string, authorization: string, serialNumber?: string) {
     return await HttpKit.getHttpDelegate.httpDeleteToResponse(url, {
       headers: this.getHeaders(authorization, serialNumber)
-    })
-  }
-
-  public static async upload(url: string, filePath: string, data: string, authorization: string, serialNumber?: string) {
-    let headers = this.getHeaders(authorization, serialNumber)
-    headers['Content-Type'] = 'multipart/form-data'
-    return await HttpKit.getHttpDelegate.uploadToResponse(url, filePath, data, {
-      headers: headers
     })
   }
 
