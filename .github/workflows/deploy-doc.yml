@@ -5,17 +5,23 @@ on:
       - dev
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest #虚拟机环境
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout #获取源码
+      - name: Checkout
         uses: actions/checkout@v1
         with:
           ref: dev
 
-      - name: Build and Deploy #构建和部署
-        uses: JamesIves/github-pages-deploy-action@releases/v3
+      - name: Duild
+        run: |
+          npm install -g yarn
+          cd docs
+          yarn
+          yarn run docs:build
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
         env:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: docs/.vuepress/dist
-          BUILD_SCRIPT: cd docs && npm install -g yarn && yarn run docs:build
+          deploy_key: ${{secrets.ACTIONS_DEPLOY_KEY}}
+          publish_branch: gh-pages
+          publish_dir: docs/.vuepress/dist
