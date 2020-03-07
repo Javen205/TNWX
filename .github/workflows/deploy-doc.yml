@@ -8,12 +8,14 @@ jobs:
     runs-on: ubuntu-latest #虚拟机环境
     steps:
       - name: Checkout #获取源码
-        uses: actions/checkout@master
+        uses: actions/checkout@v1
+        with:
+          ref: dev
 
       - name: Build and Deploy #构建和部署
-        uses: JamesIves/github-pages-deploy-action@master
+        uses: JamesIves/github-pages-deploy-action@releases/v3
         env:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           BRANCH: gh-pages
-          FOLDER: docs/docs/.vuepress/dist
+          FOLDER: docs/.vuepress/dist
           BUILD_SCRIPT: cd docs && npm install -g yarn && yarn run docs:build

@@ -3,7 +3,7 @@ on:
     branches:
       - dev
 jobs:
-  tsc-job:
+  build-test:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
