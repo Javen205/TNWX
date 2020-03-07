@@ -30,4 +30,4 @@ jobs:
         env:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           publish_branch: gh-pages
-          publish_dir: docs/.vuepress/dist
+          publish_dir: ./docs/.vuepress/dist
