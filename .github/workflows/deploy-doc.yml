@@ -12,6 +12,12 @@ jobs:
         with:
           ref: dev
 
+      - name: install node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+          registry-url: https://registry.npmjs.org/
+
       - name: Duild
         run: |
           npm install -g yarn
