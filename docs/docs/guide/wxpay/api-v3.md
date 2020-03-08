@@ -20,10 +20,28 @@ API密钥的详细内容请参见：[API证书及密钥](https://kf.qq.com/faq/1
 
 请在商户平台下载证书。具体操作请参见：[如何获取API证书](https://kf.qq.com/faq/161222NneAJf161222U7fARv.html)
 
+## 获取证书序列号
+
+需要安装 x509 依赖 
+```bash 
+yarn add x509
+```
+
+```TypeScript
+const cert = x509.parseCert(config.certPath)
+console.log(`证书序列号：${cert.serial}`)
+```            
+
+:::tip 如何验证序列号
+
+- openssl x509 -in apiclient_cert.pem -noout -serial
+- 使用证书解析工具 [https://myssl.com/cert_decode.html](https://myssl.com/cert_decode.html)
+:::
+
 ## 构建 Authorization
 
 ```TypeScript
-PayKit.buildAuthorization(method: RequestMethod, urlSuffix: string, mchId: string, serialNo: string, keyPath: string, body: string)
+PayKit.buildAuthorization(method: RequestMethod, urlSuffix: string, mchId: string, serialNo: string, key: Buffer, body: string)
 ```
 
 参数说明
@@ -32,16 +50,16 @@ PayKit.buildAuthorization(method: RequestMethod, urlSuffix: string, mchId: strin
 - urlSuffix 可通过 WxApiType 来获取，URL挂载参数需要自行拼接
 - mchId     商户Id
 - serialNo  商户 API 证书序列号
-- keyPath   key.pem 证书路径
+- key       key.pem fs.readFileSync(config.keyPath)
 - body      接口请求参数
 
 
 ## 验证签名
 
 ```TypeScript
-let verifySignature: boolean = PayKit.verifySignature(signature, data, nonce, timestamp, wxCertPath)
+let verifySignature: boolean = PayKit.verifySignature(signature, data, nonce, timestamp, publicKey)
 // 或者
-let verifySignature: boolean = PayKit.verifySign(headers, data, wxCertPath)
+let verifySignature: boolean = PayKit.verifySign(headers, data, publicKey)
 console.log(`verifySignature:${verifySignature}`)
 ```
 
@@ -56,7 +74,7 @@ try {
         WX_API_TYPE.GET_CERTIFICATES,
         config.mchId,
         serialNo,
-        config.keyPath
+        fs.readFileSync(config.keyPath).toString()
     )
     console.log(`result.data:${result.data}`)
 
@@ -82,8 +100,8 @@ try {
     console.log(`signature:\n${signature}`)
 
     // 根据序列号查证书  验证签名
-    // let verifySignature: boolean = PayKit.verifySignature(signature, data, nonce, timestamp, ctx.app.config.WxPayConfig.wxCertPath)
-    let verifySignature: boolean = PayKit.verifySign(headers, data, ctx.app.config.WxPayConfig.wxCertPath)
+    // let verifySignature: boolean = PayKit.verifySignature(signature, data, nonce, timestamp, wxPublicKey)
+    let verifySignature: boolean = PayKit.verifySign(headers, data, wxPublicKey)
     console.log(`verifySignature:${verifySignature}`)
 
     ctx.body = data

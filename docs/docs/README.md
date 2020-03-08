@@ -17,7 +17,7 @@ features:
 - title: 企业微信开发平台
   details: 应用授权、身份验证、推广二维码、获取服务商凭证、获取第三方应用凭证、获取授权企业凭证以及企业微信相关接口
 - title: 微信支付
-  details: 付款码支付、公众号支付、扫码支付、APP支付、H5支付、小程序支付等常用的支付方式。
+  details: 支持多商户多应用，支持普通商户模式与服务商商模式当然也支持境外、同时支持 Api-v3 与 Api-v2 版本的接口。
 - title: AccessToken
   details: 自动管理 AccessToken，本地缓存、Redis、MongoDB 只要你玩得溜那都是支持的。  
 - title: HTTP请求库易扩展
