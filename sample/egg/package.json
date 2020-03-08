@@ -27,7 +27,8 @@
     "egg-scripts": "^2.6.0",
     "egg-view-nunjucks": "^2.2.0",
     "raw-body": "^2.4.1",
-    "tnwx": "^2.2.0"
+    "tnwx": "^2.3.1",
+    "x509": "^0.3.4"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.40",

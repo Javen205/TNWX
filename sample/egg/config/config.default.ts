@@ -51,8 +51,7 @@ export default (appInfo: EggAppInfo) => {
       certPath: 'cert.pem',
       wxCertPath: '微信平台证书',
       providerAppId: '服务商appId',
-      provideMchId: '服务商商户号',
-      serialNo: '6F1BEC5D5761646148109F351FE0FCCB56953610'
+      provideMchId: '服务商商户号'
     },
     // 微信公众号开发环境配置
     devApiConfig: {
