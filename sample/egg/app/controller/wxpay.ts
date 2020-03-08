@@ -1,6 +1,7 @@
 import { Controller } from 'egg'
 import { WxPayApiConifgKit, WX_DOMAIN, WX_API_TYPE, WxPayApiConfig, PayKit, WxPay, Kits, WX_TRADE_TYPE, SIGN_TYPE, HttpKit } from 'tnwx'
 import * as fs from 'fs'
+import * as x509 from 'x509'
 
 export default class WxPayController extends Controller {
   public async index() {
@@ -13,9 +14,17 @@ export default class WxPayController extends Controller {
 
     console.log(`type: ${type}, ip:${ip}`)
 
-    let serialNo = ctx.app.config.WxPayConfig.serialNo
-
     switch (type) {
+      case 100:
+        // 获取配置
+        try {
+          const cert = x509.parseCert(config.certPath)
+          console.log(`证书序列号：${cert.serial}`)
+          ctx.body = cert
+        } catch (error) {
+          console.log(error)
+        }
+        break
       case 0:
         // 获取配置
         try {
@@ -87,8 +96,8 @@ export default class WxPayController extends Controller {
             WX_DOMAIN.CHINA, //
             WX_API_TYPE.GET_CERTIFICATES,
             config.mchId,
-            serialNo,
-            config.keyPath
+            x509.parseCert(config.certPath).serial,
+            fs.readFileSync(config.keyPath)
           )
           console.log(`result.data:${result.data}`)
 
@@ -114,8 +123,8 @@ export default class WxPayController extends Controller {
           console.log(`signature:\n${signature}`)
 
           // 根据序列号查证书  验证签名
-          // let verifySignature: boolean = PayKit.verifySignature(signature, data, nonce, timestamp, ctx.app.config.WxPayConfig.wxCertPath)
-          let verifySignature: boolean = PayKit.verifySign(headers, data, ctx.app.config.WxPayConfig.wxCertPath)
+          // let verifySignature: boolean = PayKit.verifySignature(signature, data, nonce, timestamp, fs.readFileSync(ctx.app.config.WxPayConfig.wxCertPath))
+          let verifySignature: boolean = PayKit.verifySign(headers, data, fs.readFileSync(ctx.app.config.WxPayConfig.wxCertPath))
           console.log(`verifySignature:${verifySignature}`)
 
           ctx.body = data
@@ -135,8 +144,8 @@ export default class WxPayController extends Controller {
             WX_DOMAIN.CHINA, //
             WX_API_TYPE.PAY_SCORE_USER_SERVICE_STATE,
             config.mchId,
-            serialNo,
-            config.keyPath,
+            x509.parseCert(config.certPath).serial,
+            fs.readFileSync(config.keyPath),
             params
           )
           console.log(`status:${result.status}`)
@@ -153,8 +162,8 @@ export default class WxPayController extends Controller {
             WX_DOMAIN.CHINA, //
             WX_API_TYPE.MERCHANT_SERVICE_COMPLAINTS_NOTIFICATIONS,
             config.mchId,
-            serialNo,
-            config.keyPath
+            x509.parseCert(config.certPath).serial,
+            fs.readFileSync(config.keyPath)
           )
           console.log(`status:${result.status}`)
 
@@ -176,8 +185,8 @@ export default class WxPayController extends Controller {
             WX_DOMAIN.CHINA, //
             WX_API_TYPE.MERCHANT_SERVICE_COMPLAINTS_NOTIFICATIONS,
             config.mchId,
-            serialNo,
-            config.keyPath,
+            x509.parseCert(config.certPath).serial,
+            fs.readFileSync(config.keyPath),
             data
           )
           console.log(`status:${result.status}`)
