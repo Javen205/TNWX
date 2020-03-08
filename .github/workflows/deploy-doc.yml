@@ -2,7 +2,7 @@ name: Build and Deploy Doc
 on:
   push:
     branches:
-      - dev
+      - master
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -10,7 +10,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
         with:
-          ref: dev
+          ref: master
 
       - name: install node
         uses: actions/setup-node@v1
@@ -31,3 +31,5 @@ jobs:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           publish_branch: gh-pages
           publish_dir: ./docs/.vuepress/dist
+          force_orphan: true
+          commit_message: ':memo: deploy docs'
