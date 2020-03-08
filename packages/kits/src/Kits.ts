@@ -94,7 +94,7 @@ export class Kits {
    * @param data 待加密字符
    * @param privatekey 私钥key
    */
-  public static sha256WithRsa(data: string, privatekey: string): string {
+  public static sha256WithRsa(data: string, privatekey: Buffer): string {
     return crypto
       .createSign('RSA-SHA256')
       .update(data)
@@ -107,7 +107,7 @@ export class Kits {
    * @param signature 待验证的签名串
    * @param data 需要验证的字符串
    */
-  public static sha256WithRsaVerify(publicKey: string, signature: string, data: string) {
+  public static sha256WithRsaVerify(publicKey: Buffer, signature: string, data: string) {
     return crypto
       .createVerify('RSA-SHA256')
       .update(data)
