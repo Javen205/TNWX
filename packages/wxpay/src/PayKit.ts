@@ -1,7 +1,6 @@
 import { RequestMethod } from './RequestMethod'
 import { Kits, HttpKit } from '@tnwx/kits'
 import * as urlencode from 'urlencode'
-import * as fs from 'fs'
 import * as os from 'os'
 import * as util from 'util'
 
@@ -17,25 +16,25 @@ export class PayKit {
    * @param body        应答主体
    * @param nonce       随机串
    * @param timestamp   时间戳
-   * @param certPath    证书绝对路径
+   * @param publicKey   平台公钥
    */
-  public static verifySignature(signature: string, body: string, nonce: string, timestamp: string, certPath: string): boolean {
+  public static verifySignature(signature: string, body: string, nonce: string, timestamp: string, publicKey: Buffer): boolean {
     let buildSignMessage: string = this.buildRepSignMessage(timestamp, nonce, body)
-    return Kits.sha256WithRsaVerify(fs.readFileSync(certPath).toString(), signature, buildSignMessage)
+    return Kits.sha256WithRsaVerify(publicKey, signature, buildSignMessage)
   }
 
   /**
    * 验证签名
    * @param headers     http 请求头
    * @param body        应答主体
-   * @param certPath    证书绝对路径
+   * @param publicKey   平台公钥
    */
-  public static verifySign(headers: any, body: string, certPath: string): boolean {
+  public static verifySign(headers: any, body: string, publicKey: Buffer): boolean {
     let timestamp = headers['wechatpay-timestamp']
     let nonce = headers['wechatpay-nonce']
     let signature = headers['wechatpay-signature']
     let buildSignMessage: string = this.buildRepSignMessage(timestamp, nonce, body)
-    return Kits.sha256WithRsaVerify(fs.readFileSync(certPath).toString(), signature, buildSignMessage)
+    return Kits.sha256WithRsaVerify(publicKey, signature, buildSignMessage)
   }
 
   /**
@@ -50,11 +49,11 @@ export class PayKit {
   }
   /**
    * SHA256 with RSA 加密生成签名
-   * @param keyPath key.pem 证书绝对路径
+   * @param key key.pem 证书 key
    * @param data 待签名串
    */
-  public static sha256WithRsa(keyPath: string, data: string): string {
-    return Kits.sha256WithRsa(data, fs.readFileSync(keyPath).toString())
+  public static sha256WithRsa(key: Buffer, data: string): string {
+    return Kits.sha256WithRsa(data, key)
   }
 
   /**
@@ -173,10 +172,10 @@ export class PayKit {
    * @param urlSuffix 可通过 WxApiType 来获取，URL挂载参数需要自行拼接
    * @param mchId     商户Id
    * @param serialNo  商户 API 证书序列号
-   * @param keyPath   key.pem 证书绝对路径
+   * @param key       key.pem 证书
    * @param body      接口请求参数
    */
-  public static async buildAuthorization(method: RequestMethod, urlSuffix: string, mchId: string, serialNo: string, keyPath: string, body: string): Promise<string> {
+  public static async buildAuthorization(method: RequestMethod, urlSuffix: string, mchId: string, serialNo: string, key: Buffer, body: string): Promise<string> {
     let timestamp: string = parseInt((Date.now() / 1000).toString()).toString()
 
     let authType: string = 'WECHATPAY2-SHA256-RSA2048'
@@ -185,7 +184,7 @@ export class PayKit {
     // 构建签名参数
     let buildSignMessage: string = this.buildReqSignMessage(method, urlSuffix, timestamp, nonceStr, body)
     // 生成签名
-    let signature: string = this.sha256WithRsa(keyPath, buildSignMessage)
+    let signature: string = this.sha256WithRsa(key, buildSignMessage)
     // 根据平台规则生成请求头 authorization
     return this.getAuthorization(mchId, serialNo, nonceStr, timestamp, signature, authType)
   }
@@ -196,14 +195,14 @@ export class PayKit {
    * @param urlSuffix
    * @param mchId
    * @param serialNo
-   * @param keyPath
+   * @param key
    * @param params
    */
-  public static async exeGet(urlPrefix: string, urlSuffix: string, mchId: string, serialNo: string, keyPath: string, params?: Map<string, string>): Promise<any> {
+  public static async exeGet(urlPrefix: string, urlSuffix: string, mchId: string, serialNo: string, key: Buffer, params?: Map<string, string>): Promise<any> {
     if (params && params.size > 0) {
       urlSuffix = urlSuffix.concat('?').concat(this.createLinkString(params, '&', true, false))
     }
-    let authorization = await this.buildAuthorization(RequestMethod.GET, urlSuffix, mchId, serialNo, keyPath, '')
+    let authorization = await this.buildAuthorization(RequestMethod.GET, urlSuffix, mchId, serialNo, key, '')
     return await this.get(urlPrefix.concat(urlSuffix), authorization, serialNo)
   }
 
@@ -213,11 +212,11 @@ export class PayKit {
    * @param urlSuffix
    * @param mchId
    * @param serialNo
-   * @param keyPath
+   * @param key
    * @param data
    */
-  public static async exePost(urlPrefix: string, urlSuffix: string, mchId: string, serialNo: string, keyPath: string, data: string): Promise<any> {
-    let authorization = await this.buildAuthorization(RequestMethod.POST, urlSuffix, mchId, serialNo, keyPath, data)
+  public static async exePost(urlPrefix: string, urlSuffix: string, mchId: string, serialNo: string, key: Buffer, data: string): Promise<any> {
+    let authorization = await this.buildAuthorization(RequestMethod.POST, urlSuffix, mchId, serialNo, key, data)
     return await this.post(urlPrefix.concat(urlSuffix), data, authorization, serialNo)
   }
 
@@ -227,31 +226,54 @@ export class PayKit {
    * @param urlSuffix
    * @param mchId
    * @param serialNo
-   * @param keyPath
+   * @param key
    */
-  public static async exeDelete(urlPrefix: string, urlSuffix: string, mchId: string, serialNo: string, keyPath: string): Promise<any> {
-    let authorization = await this.buildAuthorization(RequestMethod.DELETE, urlSuffix, mchId, serialNo, keyPath, '')
+  public static async exeDelete(urlPrefix: string, urlSuffix: string, mchId: string, serialNo: string, key: Buffer): Promise<any> {
+    let authorization = await this.buildAuthorization(RequestMethod.DELETE, urlSuffix, mchId, serialNo, key, '')
     return await this.delete(urlPrefix.concat(urlSuffix), authorization, serialNo)
   }
 
+  /**
+   * get 方法
+   * @param url           请求 url
+   * @param authorization 授权信息
+   * @param serialNumber  证书序列号
+   */
   public static async get(url: string, authorization: string, serialNumber?: string) {
     return await HttpKit.getHttpDelegate.httpGetToResponse(url, {
       headers: this.getHeaders(authorization, serialNumber)
     })
   }
 
+  /**
+   * post 方法
+   * @param url           请求 url
+   * @param authorization 授权信息
+   * @param serialNumber  证书序列号
+   */
   public static async post(url: string, data: string, authorization: string, serialNumber?: string) {
     return await HttpKit.getHttpDelegate.httpPostToResponse(url, data, {
       headers: this.getHeaders(authorization, serialNumber)
     })
   }
 
+  /**
+   * delete 方法
+   * @param url           请求 url
+   * @param authorization 授权信息
+   * @param serialNumber  证书序列号
+   */
   public static async delete(url: string, authorization: string, serialNumber?: string) {
     return await HttpKit.getHttpDelegate.httpDeleteToResponse(url, {
       headers: this.getHeaders(authorization, serialNumber)
     })
   }
 
+  /**
+   * 获取请求头
+   * @param authorization 授权信息
+   * @param serialNumber  证书序列号
+   */
   private static getHeaders(authorization: string, serialNumber: string): Object {
     let userAgent: string = 'WeChatPay-TNWX-HttpClient/%s (%s) nodejs/%s'
     userAgent = util.format(
