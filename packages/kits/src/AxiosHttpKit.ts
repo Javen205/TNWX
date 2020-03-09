@@ -1,7 +1,7 @@
 /**
  * @author Javen
  * @copyright javendev@126.com
- * @description 使用 request 实现网络请求
+ * @description 使用 Axios 实现网络请求
  */
 import axios from 'axios'
 import * as fs from 'fs'

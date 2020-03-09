@@ -1,6 +1,6 @@
 {
   "name": "@tnwx/miniprogram",
-  "version": "2.3.1",
+  "version": "2.3.3",
   "description": "TNWX 微信系开发脚手架之极速开发微信小程序",
   "keywords": [
     "tnw",
@@ -44,7 +44,8 @@
     "url": "http://gitee.com/javen205/TNWX/issues"
   },
   "dependencies": {
-    "@tnwx/accesstoken": "^2.3.1",
-    "@tnwx/kits": "^2.3.1"
-  }
+    "@tnwx/accesstoken": "^2.3.3",
+    "@tnwx/kits": "^2.3.3"
+  },
+  "gitHead": "1fe39f786071e14fb980274b7dc8d8a79726ae3c"
 }
