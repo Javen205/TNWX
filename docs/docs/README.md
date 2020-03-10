@@ -36,6 +36,9 @@ footer: Apache License 2.0 | Copyright © 2019-present Javen
      <a target="_blank" href="https://github.com/Javen205/donate">
         <img src="https://img.shields.io/badge/Donate-WeChat-%23ff3f59.svg" ></img>
      </a> 
+     <a target="_blank" href="https://gitter.im/Javen205/TNWX?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge">
+        <img src="https://badges.gitter.im/Javen205/TNWX.svg" ></img>
+     </a> 
 </p>
 
 ### 添加依赖
@@ -65,3 +68,4 @@ export default {
   }
 }
 </script>
+<!-- <FloatIframe url="https://javen205.gitee.io/tnwx" /> -->
