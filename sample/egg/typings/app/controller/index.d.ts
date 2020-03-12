@@ -5,6 +5,7 @@ import 'egg';
 import ExportHome from '../../../app/controller/home';
 import ExportWxpay from '../../../app/controller/wxpay';
 import ExportOpencpOpencpapi from '../../../app/controller/opencp/opencpapi';
+import ExportOpenmpOpenmpmsg from '../../../app/controller/openmp/openmpmsg';
 import ExportWxcpQyapi from '../../../app/controller/wxcp/qyapi';
 import ExportWxcpQyjssdk from '../../../app/controller/wxcp/qyjssdk';
 import ExportWxcpQymsg from '../../../app/controller/wxcp/qymsg';
@@ -17,6 +18,9 @@ declare module 'egg' {
     wxpay: ExportWxpay;
     opencp: {
       opencpapi: ExportOpencpOpencpapi;
+    }
+    openmp: {
+      openmpmsg: ExportOpenmpOpenmpmsg;
     }
     wxcp: {
       qyapi: ExportWxcpQyapi;

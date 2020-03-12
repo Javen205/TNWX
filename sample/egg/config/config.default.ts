@@ -39,6 +39,14 @@ export default (appInfo: EggAppInfo) => {
   // add your special config in here
   const bizConfig = {
     sourceUrl: `https://github.com/eggjs/examples/tree/master/${appInfo.name}`,
+    // 微信开放平台配置
+    openMpConfig: {
+      appId: 'appId',
+      appScrect: 'appScrect',
+      token: 'Javen',
+      encryptMessage: true,
+      encodingAesKey: 'encodingAesKey'
+    },
     // 微信支付配置
     WxPayConfig: {
       apiKey: 'apiKey',

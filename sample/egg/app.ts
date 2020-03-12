@@ -53,6 +53,15 @@ export default class FooBoot implements IBoot {
     // 亦可以读取配置文件
     let devApiConfig = new ApiConfig(config.devApiConfig.appId, config.devApiConfig.appScrect, config.devApiConfig.token)
     let miniApiConfig = new ApiConfig(config.miniApiConfig.appId, config.miniApiConfig.appScrect)
+    // 微信开放平台
+    let openMpApiConfig = new ApiConfig(
+      config.openMpConfig.appId,
+      config.openMpConfig.appScrect,
+      config.openMpConfig.token,
+      config.openMpConfig.encryptMessage,
+      config.openMpConfig.encodingAesKey
+    )
+
     let qyApiConfig = new ApiConfig(
       config.qyApiConfig.appId,
       config.qyApiConfig.appScrect,
@@ -109,6 +118,7 @@ export default class FooBoot implements IBoot {
 
     // 支持多公众号
     ApiConfigKit.putApiConfig(devApiConfig)
+    ApiConfigKit.putApiConfig(openMpApiConfig)
     ApiConfigKit.putApiConfig(miniApiConfig)
     ApiConfigKit.setCurrentAppId(devApiConfig.getAppId)
     QyApiConfigKit.putApiConfig(qyApiConfig)

@@ -37,7 +37,8 @@ import {
   OutImageMsg,
   InTaskEvent,
   InAuthEvent,
-  InExternalContactEvent
+  InExternalContactEvent,
+  InComponentVerifyTicket
 } from 'tnwx'
 
 export class HandMsgAdapter extends MsgAdapter {
@@ -187,12 +188,23 @@ export class HandMsgAdapter extends MsgAdapter {
   processInSuiteTicket(inSuiteTicket: InSuiteTicket): string {
     console.log(`inSuiteTicket:${JSON.stringify(inSuiteTicket)}`)
     let config: ApiConfig = QyApiConfigKit.getApiConfig
-    config.setSuiteTicket = inSuiteTicket.suiteTicket
+    config.setTicket = inSuiteTicket.suiteTicket
     let appId = config.getAppId
     let corpId = config.getCorpId
     QyApiConfigKit.removeApiConfig(appId, corpId)
     QyApiConfigKit.putApiConfig(config)
     QyApiConfigKit.setCurrentAppId(appId, corpId)
+    return 'success'
+  }
+
+  processInComponentVerifyTicket(inComponentVerifyTicket: InComponentVerifyTicket): string {
+    console.log(`inComponentVerifyTicket:${JSON.stringify(inComponentVerifyTicket)}`)
+    let appId = inComponentVerifyTicket.appId
+    let config: ApiConfig = ApiConfigKit.getApiConfigByAppId(appId)
+    config.setTicket = inComponentVerifyTicket.getTicket
+    ApiConfigKit.removeApiConfig(appId)
+    ApiConfigKit.putApiConfig(config)
+    ApiConfigKit.setCurrentAppId(appId)
     return 'success'
   }
 

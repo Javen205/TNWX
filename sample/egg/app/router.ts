@@ -19,4 +19,6 @@ export default (app: Application) => {
   router.get('/qyapi/appChat', controller.wxcp.qyapi.appChat)
   router.get('/wxpay', controller.wxpay.index)
   router.get('/opencpapi', controller.opencp.opencpapi.index)
+  router.post('/mp/event/:appId', controller.openmp.openmpmsg.openMpEvent)
+  router.post('/mp/event', controller.openmp.openmpmsg.openMpEvent)
 }
