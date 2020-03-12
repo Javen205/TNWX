@@ -6,6 +6,7 @@
 
 export class AccessToken {
   private access_token: string
+  private refresh_token: string
   private expires_in: number
   private errcode: number
   private errmsg: string
@@ -21,6 +22,11 @@ export class AccessToken {
       this.access_token = accessToken.provider_access_token
     } else if (tokenType === AccessTokenType.SUITE_TOKEN) {
       this.access_token = accessToken.suite_access_token
+    } else if (tokenType === AccessTokenType.COMPONENT_TOKEN) {
+      this.access_token = accessToken.component_access_token
+    } else if (tokenType === AccessTokenType.AUTHORIZER_TOKEN) {
+      this.access_token = accessToken.authorizer_access_token
+      this.refresh_token = accessToken.authorizer_refresh_token
     }
     this.expires_in = accessToken.expires_in
     this.errcode = accessToken.errcode
@@ -54,6 +60,14 @@ export class AccessToken {
 
   public set setAccessToken(access_token: string) {
     this.access_token = access_token
+  }
+
+  public get getRefeshAccessToken(): string {
+    return this.refresh_token
+  }
+
+  public set setRefeshAccessToken(refresh_token: string) {
+    this.refresh_token = refresh_token
   }
 
   public get getExpiresIn(): number {
@@ -90,15 +104,23 @@ export class AccessToken {
  */
 export enum AccessTokenType {
   /**
-   * 第三方应用凭证
+   * 企业微信第三方应用凭证
    */
   SUITE_TOKEN = 'suite_token',
   /**
-   * 获取服务商凭证
+   * 企业微信服务商凭证
    */
   PROVIDER_TOKEN = 'provider_token',
   /**
    * 普通接口凭证(适用于微信公众号、企业微信、小程序、小游戏)
    */
-  NORMAL_TOKEN = 'normal_token'
+  NORMAL_TOKEN = 'normal_token',
+  /**
+   * 微信开放平台凭证
+   */
+  COMPONENT_TOKEN = 'component_access_token',
+  /**
+   * 微信开放平台第三方应用凭证
+   */
+  AUTHORIZER_TOKEN = 'authorizer_token'
 }
