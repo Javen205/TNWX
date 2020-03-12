@@ -11,19 +11,18 @@ export class ApiConfig {
   // 企业ID
   private corpId: string
   private appScrect: string
-  private suiteTicket: string
+  private ticket: string
   // 是否加密 企业号必须为 true 微信测试号必须非 false
   private encryptMessage: boolean
   private encodingAesKey: string
 
-  constructor(appId?: string, appScrect?: string, token?: string, encryptMessage: boolean = false, encodingAesKey?: string, corpId?: string, suiteTicket?: string) {
+  constructor(appId?: string, appScrect?: string, token?: string, encryptMessage: boolean = false, encodingAesKey?: string, corpId?: string) {
     this.appId = appId
     this.corpId = corpId
     this.appScrect = appScrect
     this.encryptMessage = encryptMessage
     this.encodingAesKey = encodingAesKey
     this.token = token
-    this.suiteTicket = suiteTicket
   }
 
   public get getToken(): string {
@@ -50,12 +49,12 @@ export class ApiConfig {
     this.corpId = corpId
   }
 
-  public get getSuiteTicket(): string {
-    return this.suiteTicket
+  public get getTicket(): string {
+    return this.ticket
   }
 
-  public set setSuiteTicket(suiteTicket: string) {
-    this.suiteTicket = suiteTicket
+  public set setTicket(ticket: string) {
+    this.ticket = ticket
   }
 
   public get getAppScrect(): string {

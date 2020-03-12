@@ -81,7 +81,7 @@ export class OpenCpAccessTokenApi {
         JSON.stringify({
           suite_id: apiConfig.getAppId,
           suite_secret: apiConfig.getAppScrect,
-          suite_ticket: apiConfig.getSuiteTicket
+          suite_ticket: apiConfig.getTicket
         })
       )
     }
