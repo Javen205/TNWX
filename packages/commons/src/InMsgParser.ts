@@ -45,6 +45,7 @@ import { InBatchJobResult } from './entity/msg/in/InBatchJobResult'
 import { InExternalContact } from './entity/msg/in/InExternalContact'
 import { InExternalContactEvent } from './entity/msg/in/event/InExternalContactEvent'
 import { InRegisterCorp } from './entity/msg/in/InRegisterCorp'
+import { InComponentVerifyTicket } from './entity/msg/in/InComponentVerifyTicket'
 
 export class InMsgParser {
   public static parse(obj: any): BaseMsg {
@@ -61,6 +62,7 @@ export class InMsgParser {
     if ('voice' === obj.MsgType) return this.parseInVoiceMsgAndInSpeechRecognitionResults(obj)
     if ('event' === obj.MsgType) return this.parseInEvent(obj)
     if (InSuiteTicket.INFO_TYPE === obj.InfoType) return this.parseInSuiteTicket(obj)
+    if (InComponentVerifyTicket.INFO_TYPE === obj.InfoType) return this.paseInComponentVerifyTicket(obj)
     if (InBatchJobResult.INFO_TYPE === obj.InfoType) return this.parseInBatchJobResult(obj)
     if (InAuthEvent.CREATE_AUTH === obj.InfoType || InAuthEvent.CHANGE_AUTH === obj.InfoType || InAuthEvent.CANCEL_AUTH === obj.InfoType) return this.InAuthEvent(obj)
     if (InExternalContact.INFO_TYPE === obj.InfoType) return this.parseInExternalContact(obj)
@@ -585,9 +587,14 @@ export class InMsgParser {
     return new InNotDefinedEvent(obj.ToUserName, obj.FromUserName, obj.CreateTime, event)
   }
 
-  // 推送suite_ticket
+  // 推送 suite_ticket
   private static parseInSuiteTicket(obj: any): BaseMsg {
     return new InSuiteTicket(obj.SuiteId, obj.InfoType, obj.TimeStamp, obj.SuiteTicket)
+  }
+
+  // 推送 component_verify_ticket
+  private static paseInComponentVerifyTicket(obj: any): BaseMsg {
+    return new InComponentVerifyTicket(obj.AppId, obj.InfoType, obj.CreateTime, obj.ComponentVerifyTicket)
   }
 
   // 授权通知事件

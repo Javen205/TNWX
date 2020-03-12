@@ -28,6 +28,7 @@ import { InUpdateUserEvent } from './entity/msg/in/event/InUpdateUserEvent'
 import { InExternalContactEvent } from './entity/msg/in/event/InExternalContactEvent'
 import { InExternalContact } from './entity/msg/in/InExternalContact'
 import { InRegisterCorp } from './entity/msg/in/InRegisterCorp'
+import { InComponentVerifyTicket } from './entity/msg/in/InComponentVerifyTicket'
 
 /**
  * @author Javen
@@ -119,10 +120,17 @@ export abstract class MsgAdapter {
   processInUpdateTagEvent(inUpdateTagEvent: InUpdateTagEvent): OutMsg {
     return this.renderOutTextMsg(inUpdateTagEvent, '')
   }
-  // 推送suite_ticket
+
+  // 推送 suite_ticket
   processInSuiteTicket(inSuiteTicket: InSuiteTicket): string {
     return 'success'
   }
+
+  // 推送 component_verify_ticket
+  processInComponentVerifyTicket(inComponentVerifyTicket: InComponentVerifyTicket): string {
+    return 'success'
+  }
+
   // 授权通知事件
   processInAuthEvent(inAuthEvent: InAuthEvent): string {
     return 'success'

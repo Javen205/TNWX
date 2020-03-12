@@ -31,7 +31,8 @@ import {
   OutCustomMsg,
   JsTicketApi,
   JsApiType,
-  BaseMsg
+  BaseMsg,
+  InComponentVerifyTicket
 } from '@tnwx/commons'
 import { Kits } from '@tnwx/kits'
 
@@ -114,7 +115,7 @@ export class WeChat {
 
         let inMsg: BaseMsg = InMsgParser.parse(result)
         let responseMsg: string
-        let outMsg: OutMsg
+        let outMsg: OutMsg | string
 
         // 处理接收的消息
         if (inMsg instanceof InTextMsg) {
@@ -147,6 +148,9 @@ export class WeChat {
           outMsg = msgAdapter.processInTemplateMsgEvent(<InTemplateMsgEvent>inMsg)
         } else if (inMsg instanceof InShakearoundUserShakeEvent) {
           outMsg = msgAdapter.processInShakearoundUserShakeEvent(<InShakearoundUserShakeEvent>inMsg)
+        } else if (inMsg instanceof InComponentVerifyTicket) {
+          isEncryptMessage = false
+          outMsg = msgAdapter.processInComponentVerifyTicket(<InComponentVerifyTicket>inMsg)
         } else if (inMsg instanceof InNotDefinedMsg) {
           if (ApiConfigKit.isDevMode()) {
             console.debug('未能识别的消息类型。 消息 xml 内容为：\n')
@@ -175,13 +179,14 @@ export class WeChat {
           responseMsg = (<OutVoiceMsg>outMsg).toXml()
         } else if (outMsg instanceof OutCustomMsg) {
           responseMsg = (<OutCustomMsg>outMsg).toXml()
+        } else if (typeof outMsg === 'string') {
+          responseMsg = outMsg
         }
         //判断消息加解密方式，如果未加密则使用明文，对明文消息进行加密
         responseMsg = isEncryptMessage ? cryptoKit.encryptMsg(responseMsg) : responseMsg
         if (ApiConfigKit.isDevMode()) {
-          console.debug('发送消息')
-          console.debug(responseMsg)
-          console.debug('--------------------------------------------------------\n')
+          console.debug(`发送消息:\n ${responseMsg}`)
+          console.debug('--------------------------\n')
         }
         //返回给微信服务器
         resolve(responseMsg)
