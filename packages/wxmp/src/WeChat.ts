@@ -5,7 +5,6 @@ import {
   CryptoKit,
   MsgAdapter,
   InMsgParser,
-  InMsg,
   OutMsg,
   InTextMsg,
   InImageMsg,
@@ -32,7 +31,8 @@ import {
   JsTicketApi,
   JsApiType,
   BaseMsg,
-  InComponentVerifyTicket
+  InComponentVerifyTicket,
+  InAuthMpEvent
 } from '@tnwx/commons'
 import { Kits } from '@tnwx/kits'
 
@@ -151,6 +151,9 @@ export class WeChat {
         } else if (inMsg instanceof InComponentVerifyTicket) {
           isEncryptMessage = false
           outMsg = msgAdapter.processInComponentVerifyTicket(<InComponentVerifyTicket>inMsg)
+        } else if (inMsg instanceof InAuthMpEvent) {
+          isEncryptMessage = false
+          outMsg = msgAdapter.processInAuthMpEvent(<InAuthMpEvent>inMsg)
         } else if (inMsg instanceof InNotDefinedMsg) {
           if (ApiConfigKit.isDevMode()) {
             console.debug('未能识别的消息类型。 消息 xml 内容为：\n')

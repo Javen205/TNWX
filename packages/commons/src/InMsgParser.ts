@@ -46,6 +46,7 @@ import { InExternalContact } from './entity/msg/in/InExternalContact'
 import { InExternalContactEvent } from './entity/msg/in/event/InExternalContactEvent'
 import { InRegisterCorp } from './entity/msg/in/InRegisterCorp'
 import { InComponentVerifyTicket } from './entity/msg/in/InComponentVerifyTicket'
+import { InAuthMpEvent } from './entity/msg/in/InAuthMpEvent'
 
 export class InMsgParser {
   public static parse(obj: any): BaseMsg {
@@ -65,6 +66,7 @@ export class InMsgParser {
     if (InComponentVerifyTicket.INFO_TYPE === obj.InfoType) return this.paseInComponentVerifyTicket(obj)
     if (InBatchJobResult.INFO_TYPE === obj.InfoType) return this.parseInBatchJobResult(obj)
     if (InAuthEvent.CREATE_AUTH === obj.InfoType || InAuthEvent.CHANGE_AUTH === obj.InfoType || InAuthEvent.CANCEL_AUTH === obj.InfoType) return this.InAuthEvent(obj)
+    if (InAuthMpEvent.CREATE_AUTH === obj.InfoType || InAuthMpEvent.CHANGE_AUTH === obj.InfoType || InAuthMpEvent.CANCEL_AUTH === obj.InfoType) return this.InAuthMpEvent(obj)
     if (InExternalContact.INFO_TYPE === obj.InfoType) return this.parseInExternalContact(obj)
     if (InRegisterCorp.INFO_TYPE === obj.InfoType) return this.parseInRegisterCorp(obj)
     console.debug(
@@ -597,11 +599,19 @@ export class InMsgParser {
     return new InComponentVerifyTicket(obj.AppId, obj.InfoType, obj.CreateTime, obj.ComponentVerifyTicket)
   }
 
-  // 授权通知事件
+  // 企业微信开放平台授权通知事件
   private static InAuthEvent(obj: any): BaseMsg {
     let infoType = obj.InfoType
     if (InAuthEvent.CREATE_AUTH === infoType) return new InAuthEvent(obj.SuiteId, obj.InfoType, obj.TimeStamp, obj.AuthCode)
     if (InAuthEvent.CHANGE_AUTH === infoType || InAuthEvent.CANCEL_AUTH === infoType) return new InAuthEvent(obj.SuiteId, obj.InfoType, obj.TimeStamp, undefined, obj.AuthCorpId)
+  }
+
+  // 微信开放平台授权通知事件
+  private static InAuthMpEvent(obj: any): BaseMsg {
+    let infoType = obj.InfoType
+    if (InAuthMpEvent.CANCEL_AUTH === infoType) return new InAuthMpEvent(obj.AppId, obj.InfoType, obj.CreateTime, obj.AuthorizerAppid)
+    if (InAuthMpEvent.CHANGE_AUTH === infoType || InAuthMpEvent.CREATE_AUTH === infoType)
+      return new InAuthMpEvent(obj.AppId, obj.InfoType, obj.CreateTime, obj.AuthorizerAppid, obj.AuthorizationCode, obj.AuthorizationCodeExpiredTime, obj.PreAuthCode)
   }
 
   // 异步任务回调通知

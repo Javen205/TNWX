@@ -3,7 +3,7 @@ import { BaseMsg } from '../BaseMsg'
 /**
  * @author Javen
  * @copyright javendev@126.com
- * @description 授权通知事件
+ * @description 企业开放平台授权通知事件
  */
 
 export class InAuthEvent extends BaseMsg {
@@ -23,6 +23,7 @@ export class InAuthEvent extends BaseMsg {
     this.infotype = infoType
     this.timestamp = timeStamp
     this.authcode = authCode
+    this.authcorpid = authCorpId
   }
 
   public get suiteId(): string {
@@ -55,5 +56,13 @@ export class InAuthEvent extends BaseMsg {
 
   public set authCode(authCode: string) {
     this.authcode = authCode
+  }
+
+  public get authCorpId(): string {
+    return this.authcorpid
+  }
+
+  public set authCorpId(authCorpId: string) {
+    this.authcorpid = authCorpId
   }
 }

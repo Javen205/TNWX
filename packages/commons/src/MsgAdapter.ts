@@ -29,6 +29,7 @@ import { InExternalContactEvent } from './entity/msg/in/event/InExternalContactE
 import { InExternalContact } from './entity/msg/in/InExternalContact'
 import { InRegisterCorp } from './entity/msg/in/InRegisterCorp'
 import { InComponentVerifyTicket } from './entity/msg/in/InComponentVerifyTicket'
+import { InAuthMpEvent } from './entity/msg/in/InAuthMpEvent'
 
 /**
  * @author Javen
@@ -131,8 +132,13 @@ export abstract class MsgAdapter {
     return 'success'
   }
 
-  // 授权通知事件
+  // 企业微信开放平台授权通知事件
   processInAuthEvent(inAuthEvent: InAuthEvent): string {
+    return 'success'
+  }
+
+  // 微信开放平台授权通知事件
+  processInAuthMpEvent(inAuthMpEvent: InAuthMpEvent): string {
     return 'success'
   }
 
