@@ -18,11 +18,11 @@ export class OpenAuthorizerAccessTokenApi {
    * 2、如果缓存中的已过期就调用刷新接口来获取新的 acces_token
    * @param componentAccessToken    开放平台令牌
    * @param authorizerRefreshToken  刷新令牌
-   * @param authorizerAppid         授权方 appid
+   * @param authorizerAppId         授权方 appid
    */
-  public static async getAccessToken(componentAccessToken: string, authorizerAppid: string, authorizerRefreshToken: string): Promise<AccessToken> {
+  public static async getAccessToken(componentAccessToken: string, authorizerAppId: string, authorizerRefreshToken: string): Promise<AccessToken> {
     let ac: ApiConfig = ApiConfigKit.getApiConfig
-    let accessToken: AccessToken | undefined = this.getAvailableAccessToken(ac, authorizerAppid)
+    let accessToken: AccessToken | undefined = this.getAvailableAccessToken(ac, authorizerAppId)
     if (accessToken) {
       if (ApiConfigKit.isDevMode) {
         console.debug('缓存中的 accesstoken')
@@ -32,18 +32,18 @@ export class OpenAuthorizerAccessTokenApi {
     if (ApiConfigKit.isDevMode) {
       console.debug('刷新 accesstoken')
     }
-    return await this.refreshAccessToken(ac, componentAccessToken, authorizerAppid, authorizerRefreshToken)
+    return await this.refreshAccessToken(ac, componentAccessToken, authorizerAppId, authorizerRefreshToken)
   }
 
   /**
    * 获取可用的 AccessToken
    * @param apiConfig
-   * @param authorizerAppid
+   * @param authorizerAppId
    */
-  private static getAvailableAccessToken(apiConfig: ApiConfig, authorizerAppid: string): AccessToken | undefined {
+  private static getAvailableAccessToken(apiConfig: ApiConfig, authorizerAppId: string): AccessToken | undefined {
     let result: AccessToken | undefined
     let cache: ICache = ApiConfigKit.getCache
-    let accessTokenJson: string = cache.get(apiConfig.getAppId.concat('_').concat(authorizerAppid))
+    let accessTokenJson: string = cache.get(apiConfig.getAppId.concat('_').concat(authorizerAppId))
     if (accessTokenJson) {
       result = new AccessToken(accessTokenJson, AccessTokenType.AUTHORIZER_TOKEN)
     }
@@ -58,17 +58,17 @@ export class OpenAuthorizerAccessTokenApi {
    * 获取新的 acces_token 并设置缓存
    * @param apiConfig
    * @param componentAccessToken
-   * @param authorizerAppid
+   * @param authorizerAppId
    * @param authorizerRefreshToken
    */
-  public static async refreshAccessToken(apiConfig: ApiConfig, componentAccessToken: string, authorizerAppid: string, authorizerRefreshToken: string): Promise<AccessToken> {
+  public static async refreshAccessToken(apiConfig: ApiConfig, componentAccessToken: string, authorizerAppId: string, authorizerRefreshToken: string): Promise<AccessToken> {
     let url = util.format(this.url, componentAccessToken)
 
     let data = await HttpKit.getHttpDelegate.httpPost(
       url,
       JSON.stringify({
         component_appid: apiConfig.getAppId,
-        authorizer_appid: authorizerAppid,
+        authorizer_appid: authorizerAppId,
         authorizer_refresh_token: authorizerRefreshToken
       })
     )
@@ -76,7 +76,7 @@ export class OpenAuthorizerAccessTokenApi {
       data = JSON.stringify(data)
       let accessToken: AccessToken = new AccessToken(data, AccessTokenType.AUTHORIZER_TOKEN)
       let cache: ICache = ApiConfigKit.getCache
-      cache.set(apiConfig.getAppId.concat('_').concat(authorizerAppid), accessToken.getCacheJson)
+      cache.set(apiConfig.getAppId.concat('_').concat(authorizerAppId), accessToken.getCacheJson)
       return accessToken
     } else {
       throw new Error('获取 accessToken 异常')
