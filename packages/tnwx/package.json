@@ -50,6 +50,7 @@
     "@tnwx/kits": "^2.3.3",
     "@tnwx/miniprogram": "^2.3.3",
     "@tnwx/opencp": "^2.3.3",
+    "@tnwx/openmp": "^2.3.3",
     "@tnwx/wxcp": "^2.3.3",
     "@tnwx/wxmp": "^2.3.3",
     "@tnwx/wxpay": "^2.3.3"
