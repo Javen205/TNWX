@@ -7,6 +7,48 @@ import { AccessToken, OpenCpAccessTokenApi, AccessTokenType, OpenComponentAccess
  * @description 微信开发平台 API
  */
 export class OpenMpApi {
+  private static componentLoginPageUrl = 'https://mp.weixin.qq.com/cgi-bin/componentloginpage?component_appid=%s&pre_auth_code=%s&redirect_uri=%s&auth_type=%s'
+
+  /**
+   * 授权注册页面扫码授权
+   * @param appId       第三方平台方 appid
+   * @param preAuthCode 预授权码
+   * @param redirectUrl 回调 URI
+   * @param authType    要授权的帐号类型 1 仅展示公众号 2 展示小程序 3 表示公众号和小程序都展示
+   * @param bizAppId    指定授权唯一的小程序或公众号
+   */
+  public static getComponentLoginPage(appId: string, preAuthCode: string, redirectUrl: string, authType?: number, bizAppId?: string): string {
+    let url: string = util.format(this.componentLoginPageUrl, appId, preAuthCode, redirectUrl)
+    if (authType) {
+      url.concat('&auth_type=').concat(authType.toString())
+    }
+    if (bizAppId) {
+      url.concat('&biz_appid=').concat(bizAppId)
+    }
+    return url
+  }
+
+  private static bindComponentUrl = 'https://mp.weixin.qq.com/safe/bindcomponent?action=bindcomponent&no_scan=1&component_appid=%s&pre_auth_code=%s&redirect_uri=%s'
+
+  /**
+   * 点击移动端链接快速授权
+   * @param appId       第三方平台方 appid
+   * @param preAuthCode 预授权码
+   * @param redirectUrl 回调 URI
+   * @param authType    要授权的帐号类型 1 仅展示公众号 2 展示小程序 3 表示公众号和小程序都展示
+   * @param bizAppId    指定授权唯一的小程序或公众号
+   */
+  public static bindComponent(appId: string, preAuthCode: string, redirectUrl: string, authType?: number, bizAppId?: string): string {
+    let url: string = util.format(this.bindComponentUrl, appId, preAuthCode, redirectUrl)
+    if (!authType) authType = 3
+    url.concat('&auth_type=').concat(authType.toString())
+    if (bizAppId) {
+      url.concat('&biz_appid=').concat(bizAppId)
+    }
+    url.concat('#wechat_redirect')
+    return url
+  }
+
   private static getPreAuthCodeUrl = 'https://api.weixin.qq.com/cgi-bin/component/api_create_preauthcode?component_access_token=%s'
 
   /**
