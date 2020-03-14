@@ -50,7 +50,7 @@ export class MenuManager {
     let btn34 = new ViewButton()
     btn34.setName = '我的博客'
     btn34.setType = 'view'
-    btn34.setUrl = 'https://blog.javen.dev'
+    btn34.setUrl = 'https://javen.blog.csdn.net'
 
     let btn35 = new ClickButton()
     btn35.setName = '点击事件'

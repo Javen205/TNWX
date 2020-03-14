@@ -9,13 +9,11 @@ export default class OpenMpController extends Controller {
   public async openMpEvent() {
     const { ctx } = this
 
-    let appId: string = ctx.params.appId
+    let paramsAppId: string = ctx.params.appId
 
-    console.log(`openMpEvent:appId:${appId}`)
+    console.log(`openMpEvent:appId:${paramsAppId}`)
 
-    if (!appId) {
-      appId = ctx.app.config.openMpConfig.appId
-    }
+    let appId = ctx.app.config.openMpConfig.appId
 
     ApiConfigKit.setCurrentAppId(appId)
 

@@ -45,7 +45,9 @@ export default (appInfo: EggAppInfo) => {
       appScrect: 'appScrect',
       token: 'Javen',
       encryptMessage: true,
-      encodingAesKey: 'encodingAesKey'
+      encodingAesKey: 'encodingAesKey',
+      domain: 'http://wx.frp.ijpay.com',
+      authAppId: ''
     },
     // 微信支付配置
     WxPayConfig: {

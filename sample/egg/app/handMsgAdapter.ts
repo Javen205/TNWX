@@ -38,7 +38,8 @@ import {
   InTaskEvent,
   InAuthEvent,
   InExternalContactEvent,
-  InComponentVerifyTicket
+  InComponentVerifyTicket,
+  InAuthMpEvent
 } from 'tnwx'
 
 export class HandMsgAdapter extends MsgAdapter {
@@ -210,6 +211,11 @@ export class HandMsgAdapter extends MsgAdapter {
 
   processInAuthEvent(inAuthEvent: InAuthEvent): string {
     console.log(`inAuthEvent:${JSON.stringify(inAuthEvent)}`)
+    return 'success'
+  }
+
+  processInAuthMpEvent(inAuthMpEvent: InAuthMpEvent): string {
+    console.log(`InAuthMpEvent:${JSON.stringify(inAuthMpEvent)}`)
     return 'success'
   }
 

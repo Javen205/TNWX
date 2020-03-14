@@ -21,4 +21,6 @@ export default (app: Application) => {
   router.get('/opencpapi', controller.opencp.opencpapi.index)
   router.post('/mp/event/:appId', controller.openmp.openmpmsg.openMpEvent)
   router.post('/mp/event', controller.openmp.openmpmsg.openMpEvent)
+  router.get('/openmpapi', controller.openmp.openmpapi.api)
+  router.get('/openmpauth', controller.openmp.openmpapi.authRedirect)
 }
