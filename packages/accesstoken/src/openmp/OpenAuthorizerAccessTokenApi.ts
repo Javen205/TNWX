@@ -16,11 +16,14 @@ export class OpenAuthorizerAccessTokenApi {
    * 获取 acces_token
    * 1、先从缓存中获取，如果可用就直接返回
    * 2、如果缓存中的已过期就调用刷新接口来获取新的 acces_token
+   *
+   * componentAccessToken authorizerRefreshToken 为空时从缓存中获取
+   *
+   * @param authorizerAppId         授权方 appid
    * @param componentAccessToken    开放平台令牌
    * @param authorizerRefreshToken  刷新令牌
-   * @param authorizerAppId         授权方 appid
    */
-  public static async getAccessToken(componentAccessToken: string, authorizerAppId: string, authorizerRefreshToken: string): Promise<AccessToken> {
+  public static async getAccessToken(authorizerAppId: string, componentAccessToken?: string, authorizerRefreshToken?: string): Promise<AccessToken> {
     let ac: ApiConfig = ApiConfigKit.getApiConfig
     let accessToken: AccessToken | undefined = this.getAvailableAccessToken(ac, authorizerAppId)
     if (accessToken) {
