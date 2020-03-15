@@ -33,6 +33,7 @@ export class JsTicketApi {
     let url = util.format(this.getTicketUrl, accessToken.getAccessToken, type)
     let data = await HttpKit.getHttpDelegate.httpGet(url)
     if (data) {
+      data = JSON.stringify(data)
       let jsTicket: JsTicket = new JsTicket(data)
       let cache: ICache = ApiConfigKit.getCache
       cache.set(key, jsTicket.getCacheJson)

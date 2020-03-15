@@ -44,6 +44,7 @@ export class QyJsTicketApi {
     }
     let data = await HttpKit.getHttpDelegate.httpGet(url)
     if (data) {
+      data = JSON.stringify(data)
       let jsTicket: JsTicket = new JsTicket(data)
       let cache: ICache = QyApiConfigKit.getCache
       cache.set(key, jsTicket.getCacheJson)
