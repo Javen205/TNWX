@@ -167,9 +167,9 @@ export class Kits {
     } else {
       combineStr = combineStr + 'key=' + key
       if (signType === SIGN_TYPE.SIGN_TYPE_MD5) {
-        return this.md5(combineStr)
+        return this.md5(combineStr).toUpperCase()
       } else if (signType === SIGN_TYPE.SIGN_TYPE_HMACSHA256) {
-        return this.hmacsha256(combineStr, key)
+        return this.hmacsha256(combineStr, key).toUpperCase()
       } else {
         throw new Error('Invalid signType: ' + signType)
       }
