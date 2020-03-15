@@ -38,11 +38,11 @@ import { Kits } from '@tnwx/kits'
 
 export class WeChat {
   /**
-   *  JSSDK签名
-   *  @param jsapi_ticket
-   *  @param nonce_str
-   *  @param timestamp
-   *  @param url
+   * JSSDK签名
+   * @param nonce_str
+   * @param timestamp
+   * @param url
+   * @param jsapi_ticket
    */
   public static async jssdkSignature(nonce_str: string, timestamp: string, url: string, jsapi_ticket?: string): Promise<string> {
     if (!jsapi_ticket) {
