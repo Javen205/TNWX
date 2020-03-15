@@ -78,4 +78,46 @@ export class WxPay {
       return data[Kits.FIELD_SIGN] === Kits.generateSignature(data, key, signType)
     }
   }
+
+  /**
+   * 公众号支付/小程序-预付订单再次签名,注意此处签名方式需与统一下单的签名类型一致
+   * @param prepayId  预付订单号
+   * @param appId     应用编号
+   * @param apiKey    API Key
+   * @param signType  签名方式
+   */
+  public static prepayIdCreateSign(prepayId: string, appId: string, apiKey: string, signType = SIGN_TYPE.SIGN_TYPE_MD5): Object {
+    let data = {
+      appId: appId,
+      timeStamp: (Date.now() / 1000).toString(),
+      nonceStr: Kits.generateStr(),
+      package: 'prepay_id='.concat(prepayId),
+      signType: signType
+    }
+    let packageSign: string = Kits.generateSignature(data, apiKey, signType)
+    data['paySign'] = packageSign
+    return data
+  }
+
+  /**
+   * APP 支付-预付订单再次签名,注意此处签名方式需与统一下单的签名类型一致
+   * @param prepayId  预付订单号
+   * @param appId     应用编号
+   * @param partnerId 商户号
+   * @param apiKey    API Key
+   * @param signType  签名方式
+   */
+  public static appPrepayIdCreateSign(prepayId: string, appId: string, partnerId: string, apiKey: string, signType = SIGN_TYPE.SIGN_TYPE_MD5): Object {
+    let data = {
+      appid: appId,
+      partnerid: partnerId,
+      prepayid: prepayId,
+      package: 'Sign=WXPay',
+      timestamp: (Date.now() / 1000).toString(),
+      noncestr: Kits.generateStr()
+    }
+    let packageSign: string = Kits.generateSignature(data, apiKey, signType)
+    data['sign'] = packageSign
+    return data
+  }
 }
