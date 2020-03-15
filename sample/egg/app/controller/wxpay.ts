@@ -36,7 +36,7 @@ export default class WxPayController extends Controller {
       case 1:
         // 获取沙箱环境 key
         try {
-          let data = await WxPay.getSignKey(config.mchId, config.apiKey)
+          let data = await WxPay.getSignKey(config.mchId, config.apiKey, SIGN_TYPE.SIGN_TYPE_MD5)
           ctx.body = await Kits.xml2obj(data)
         } catch (error) {
           console.log(error)
@@ -78,10 +78,10 @@ export default class WxPayController extends Controller {
             out_trade_no: Kits.generateStr(),
             out_refund_no: Kits.generateStr(),
             total_fee: 666,
-            refund_fee: 100
+            refund_fee: 100,
+            sign_type: SIGN_TYPE.SIGN_TYPE_HMACSHA256
           }
-
-          let xml = await Kits.generateSignedXml(refundObj, config.apiKey, SIGN_TYPE.SIGN_TYPE_MD5)
+          let xml = await Kits.generateSignedXml(refundObj, config.apiKey, SIGN_TYPE.SIGN_TYPE_HMACSHA256)
           let pfx: Buffer = fs.readFileSync(config.certP12Path)
           let data = await HttpKit.getHttpDelegate.httpPostWithCert(WX_DOMAIN.CHINA.concat(WX_API_TYPE.REFUND), xml, pfx, config.mchId)
           ctx.body = await Kits.xml2obj(data)
@@ -209,6 +209,24 @@ export default class WxPayController extends Controller {
           // 保存证书
           fs.writeFileSync(certPath, decrypt)
           ctx.body = decrypt
+        } catch (error) {
+          console.log(error)
+        }
+        break
+      case 9:
+        // 微信公众号、微信小程序预付订单二次签名
+        try {
+          let data = WxPay.prepayIdCreateSign('prepayId', config.appId, config.apiKey, SIGN_TYPE.SIGN_TYPE_HMACSHA256)
+          ctx.body = data
+        } catch (error) {
+          console.log(error)
+        }
+        break
+      case 10:
+        // APP支付二次签名
+        try {
+          let data = WxPay.appPrepayIdCreateSign('prepayId', config.appId, config.mchId, config.apiKey, SIGN_TYPE.SIGN_TYPE_HMACSHA256)
+          ctx.body = data
         } catch (error) {
           console.log(error)
         }
