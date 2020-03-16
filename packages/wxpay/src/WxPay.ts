@@ -89,7 +89,7 @@ export class WxPay {
   public static prepayIdCreateSign(prepayId: string, appId: string, apiKey: string, signType = SIGN_TYPE.SIGN_TYPE_MD5): Object {
     let data = {
       appId: appId,
-      timeStamp: (Date.now() / 1000).toString(),
+      timeStamp: parseInt((Date.now() / 1000).toString()),
       nonceStr: Kits.generateStr(),
       package: 'prepay_id='.concat(prepayId),
       signType: signType
@@ -113,7 +113,7 @@ export class WxPay {
       partnerid: partnerId,
       prepayid: prepayId,
       package: 'Sign=WXPay',
-      timestamp: (Date.now() / 1000).toString(),
+      timestamp: parseInt((Date.now() / 1000).toString()),
       noncestr: Kits.generateStr()
     }
     let packageSign: string = Kits.generateSignature(data, apiKey, signType)
