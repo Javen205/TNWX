@@ -1,6 +1,6 @@
 import * as crypto from 'crypto'
 import { parseString } from 'xml2js'
-import { ApiConfigKit } from '@tnwx/accesstoken'
+import { ApiConfigKit, AccessToken } from '@tnwx/accesstoken'
 import {
   CryptoKit,
   MsgAdapter,
@@ -42,11 +42,12 @@ export class WeChat {
    * @param nonce_str
    * @param timestamp
    * @param url
-   * @param jsapi_ticket
+   * @param accessToken
+   * @param jsapi_ticket api_authorizer_token
    */
-  public static async jssdkSignature(nonce_str: string, timestamp: string, url: string, jsapi_ticket?: string): Promise<string> {
+  public static async jssdkSignature(nonce_str: string, timestamp: string, url: string, accessToken?: AccessToken, jsapi_ticket?: string): Promise<string> {
     if (!jsapi_ticket) {
-      let jsTicket = await JsTicketApi.getTicket(JsApiType.JSAPI)
+      let jsTicket = await JsTicketApi.getTicket(JsApiType.JSAPI, accessToken)
       if (jsTicket) {
         jsapi_ticket = jsTicket.getTicket
         if (ApiConfigKit.isDevMode) {
