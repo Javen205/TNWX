@@ -168,4 +168,114 @@ export class OpenMpApi {
       })
     )
   }
+
+  private static createUrl = 'https://api.weixin.qq.com/cgi-bin/open/create?access_token=%s'
+
+  /**
+   * 创建开放平台帐号并绑定公众号/小程序
+   * @param appId 授权公众号/小程序的 appid
+   */
+  public static async create(appId: string) {
+    let accessToken: AccessToken = await OpenComponentAccessTokenApi.getAccessToken()
+    let url = util.format(this.createUrl, accessToken.getAccessToken)
+    return HttpKit.getHttpDelegate.httpPost(
+      url,
+      JSON.stringify({
+        appid: appId
+      })
+    )
+  }
+
+  private static bindUrl = 'https://api.weixin.qq.com/cgi-bin/open/bind?access_token=%s'
+
+  /**
+   * 将公众号/小程序绑定到开放平台帐号下
+   * @param appId 授权公众号/小程序的 appid
+   * @param openAppId 开放平台帐号 appid
+   */
+  public static async bind(appId: string, openAppId: string) {
+    let accessToken: AccessToken = await OpenComponentAccessTokenApi.getAccessToken()
+    let url = util.format(this.bindUrl, accessToken.getAccessToken)
+    return HttpKit.getHttpDelegate.httpPost(
+      url,
+      JSON.stringify({
+        appid: appId,
+        open_appid: openAppId
+      })
+    )
+  }
+
+  private static unBindUrl = 'https://api.weixin.qq.com/cgi-bin/open/unbind?access_token=%s'
+
+  /**
+   * 将公众号/小程序从开放平台帐号下解绑
+   * @param appId 授权公众号/小程序的 appid
+   * @param openAppId 开放平台帐号 appid
+   */
+  public static async unBind(appId: string, openAppId: string) {
+    let accessToken: AccessToken = await OpenComponentAccessTokenApi.getAccessToken()
+    let url = util.format(this.unBindUrl, accessToken.getAccessToken)
+    return HttpKit.getHttpDelegate.httpPost(
+      url,
+      JSON.stringify({
+        appid: appId,
+        open_appid: openAppId
+      })
+    )
+  }
+
+  private static getUrl = 'https://api.weixin.qq.com/cgi-bin/open/get?access_token=%s'
+
+  /**
+   * 将公众号/小程序从开放平台帐号下解绑
+   * @param appId 授权公众号/小程序的 appid
+   */
+  public static async get(appId: string) {
+    let accessToken: AccessToken = await OpenComponentAccessTokenApi.getAccessToken()
+    let url = util.format(this.getUrl, accessToken.getAccessToken)
+    return HttpKit.getHttpDelegate.httpPost(
+      url,
+      JSON.stringify({
+        appid: appId
+      })
+    )
+  }
+
+  private static clearQuotaUrl = 'https://api.weixin.qq.com/cgi-bin/clear_quota?access_token=%s'
+
+  /**
+   * 对公众号的所有 API 调用次数进行清零
+   * @param appId 公众号的 appId
+   */
+  public static async clearQuota(appId: string, accessToken: AccessToken) {
+    if (!accessToken) {
+      accessToken = await OpenComponentAccessTokenApi.getAccessToken()
+    }
+    let url = util.format(this.clearQuotaUrl, accessToken.getAccessToken)
+    return HttpKit.getHttpDelegate.httpPost(
+      url,
+      JSON.stringify({
+        appid: appId
+      })
+    )
+  }
+
+  private static clearComponentQuotaUrl = 'https://api.weixin.qq.com/cgi-bin/component/clear_quota?component_access_token=%s'
+
+  /**
+   * 第三方平台 API 调用次数清零
+   * @param appId 第三方平台 appId
+   */
+  public static async clearComponentQuota(appId: string) {
+    let accessToken:AccessToken = await OpenComponentAccessTokenApi.getAccessToken()
+    let url = util.format(this.clearComponentQuotaUrl, accessToken.getAccessToken)
+    return HttpKit.getHttpDelegate.httpPost(
+      url,
+      JSON.stringify({
+        component_appid: appId
+      })
+    )
+  }
 }
+
+  
