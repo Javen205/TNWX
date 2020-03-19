@@ -59,7 +59,7 @@ test('generateSignedXml MD5', async () => {
   console.log(data)
   expect.assertions(1)
   return Kits.xml2obj(String(data)).then(obj => {
-    expect(obj['sign']).toEqual('84ef80f8640e5c51cc9fe98c1f13f12d')
+    expect(obj['sign']).toEqual('84EF80F8640E5C51CC9FE98C1F13F12D')
   })
 })
 
@@ -75,6 +75,6 @@ test('generateSignedXml HMAC-SHA256', async () => {
   console.log(data)
   expect.assertions(1)
   return Kits.xml2obj(String(data)).then(obj => {
-    expect(obj['sign']).toEqual('57658016342938afddb839e3fee2600de6febe049c19725db3172de8a44b8f54')
+    expect(obj['sign']).toEqual('57658016342938AFDDB839E3FEE2600DE6FEBE049C19725DB3172DE8A44B8F54')
   })
 })
