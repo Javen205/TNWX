@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="btnDiv" @click="toggleButton">
-      <img :src="$withBase('/chat.png')" width="32px" height="32px" ></img>
+    <div class="g-container" @click="toggleButton">
+      <div class="g-box">OPEN CHAT</div>
     </div>
 
     <div
@@ -14,46 +14,50 @@
         height="568"
         width="316"
         v-show="show"
-      >
-      </iframe>
+      ></iframe>
     </div>
   </div>
-  
 </template>
 
 <script>
 export default {
-  name: "floatIframe",
+  name: 'floatIframe',
   data() {
     return {
       show: false
-    };
+    }
   },
   props: {
     url: {
-      default: ""
+      default: ''
     }
   },
   methods: {
     toggleButton() {
-      this.show = !this.show;
+      this.show = !this.show
     }
   }
-};
+}
 </script>
 
 <style scoped>
-.btnDiv {
-  position: fixed; 
+.g-container {
+  position: fixed;
+  display: flex;
   right: 2%;
-  bottom: 10%; 
+  bottom: 0;
   z-index: 11;
-  display: flex; 
-  flex-direction: column;
-  justify-content: center; 
-  align-items: center;
-  width:32;
-  height:32;
-  radius:16;
+  width: 100px;
+  height: 30px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: #35bc98;
+}
+
+.g-box {
+  margin: auto;
+  color: #cdf6ee;
+  text-shadow: 3px 3px 2px #999;
+  text-align: center;
 }
 </style>
