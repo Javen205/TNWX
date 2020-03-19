@@ -47,6 +47,6 @@
     "url": "http://gitee.com/javen205/TNWX/issues"
   },
   "dependencies": {
-    "@tnwx/accesstoken": "^2.3.3"
+    "@tnwx/commons": "^2.3.3"
   }
 }
