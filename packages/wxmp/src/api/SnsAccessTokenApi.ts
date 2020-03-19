@@ -2,6 +2,7 @@ import * as util from 'util'
 import * as urlencode from 'urlencode'
 import { ApiConfigKit } from '@tnwx/accesstoken'
 import { HttpKit } from '@tnwx/kits'
+import { ScopeEnum, Lang } from '@tnwx/commons'
 
 export class SnsAccessTokenApi {
   private static authorizeUrl: string = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=%s&redirect_uri=%s&response_type=code&scope=%s'
@@ -58,15 +59,4 @@ export class SnsAccessTokenApi {
     let url = util.format(this.userInfoUrl, accessToken, openId, lang)
     return HttpKit.getHttpDelegate.httpGet(url)
   }
-}
-
-export enum ScopeEnum {
-  SNSAPI_BASE = 'snsapi_base',
-  SNSAPI_USERINFO = 'snsapi_userinfo'
-}
-
-export enum Lang {
-  ZH_CN = 'zh_CN',
-  ZH_TW = 'zh_TW',
-  EN = 'en'
 }
