@@ -157,4 +157,10 @@ export default class OpenMpApiController extends Controller {
         break
     }
   }
+
+  public async jssdk() {
+    let { ctx } = this
+    // 第三方代公众号 JS-SDK
+    await ctx.render('jssdk', ctx.request.body)
+  }
 }

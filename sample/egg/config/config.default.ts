@@ -27,7 +27,7 @@ export default (appInfo: EggAppInfo) => {
   //   prefix: ''
   // }
 
-  config.middleware = ['jssdk', 'qyjssdk']
+  config.middleware = ['jssdk', 'qyjssdk', 'openjssdk']
 
   // override config from framework / plugin
   // use for cookie sign key, should change to your own and keep security

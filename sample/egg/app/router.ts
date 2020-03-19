@@ -5,6 +5,7 @@ export default (app: Application) => {
   // 中间件
   const jssdk = app.middleware.jssdk(app)
   const qyjssdk = app.middleware.qyjssdk(app)
+  const openjssdk = app.middleware.openjssdk(app)
 
   router.get('/', controller.home.index)
   router.get('/mysql', controller.home.mysql)
@@ -23,4 +24,5 @@ export default (app: Application) => {
   router.post('/mp/event', controller.openmp.openmpmsg.openMpEvent)
   router.get('/openmpapi', controller.openmp.openmpapi.api)
   router.get('/openmpauth', controller.openmp.openmpapi.authRedirect)
+  router.get('/openmpjssdk', openjssdk, controller.openmp.openmpapi.jssdk)
 }
