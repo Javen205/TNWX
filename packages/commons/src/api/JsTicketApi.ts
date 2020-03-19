@@ -9,14 +9,16 @@ import { AccessToken, AccessTokenApi, ApiConfigKit } from '@tnwx/accesstoken'
 import { ICache } from '@tnwx/cache'
 import { HttpKit } from '@tnwx/kits'
 import { JsTicket } from '../entity/JsTicket'
+import { JsApiType } from '../Enums'
 
 export class JsTicketApi {
   private static getTicketUrl: string = 'https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=%s&type=%s'
   /**
    * 获取api_ticket
    * @param type
+   * @param accessToken api_authorizer_token
    */
-  public static async getTicket(type: JsApiType) {
+  public static async getTicket(type: JsApiType, accessToken?: AccessToken) {
     let appId = ApiConfigKit.getApiConfig.getAppId
     let key = appId + ':' + type
     // 从缓存中获取
@@ -29,7 +31,9 @@ export class JsTicketApi {
       return new JsTicket(jsTicketJson)
     }
     // 通过接口获取
-    let accessToken: AccessToken = await AccessTokenApi.getAccessToken()
+    if (!accessToken) {
+      accessToken = await AccessTokenApi.getAccessToken()
+    }
     let url = util.format(this.getTicketUrl, accessToken.getAccessToken, type)
     let data = await HttpKit.getHttpDelegate.httpGet(url)
     if (data) {
@@ -43,8 +47,4 @@ export class JsTicketApi {
       return jsTicket
     }
   }
-}
-export enum JsApiType {
-  JSAPI = 'jsapi',
-  WX_CARD = 'wx_card'
 }
