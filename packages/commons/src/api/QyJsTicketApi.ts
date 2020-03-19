@@ -9,6 +9,7 @@ import { QyApiConfigKit, AccessToken, QyAccessTokenApi } from '@tnwx/accesstoken
 import { ICache } from '@tnwx/cache'
 import { HttpKit } from '@tnwx/kits'
 import { JsTicket } from '../entity/JsTicket'
+import { QyJsApiType } from '../Enums'
 
 export class QyJsTicketApi {
   private static getCorpTicketUrl: string = 'https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket?access_token=%s'
@@ -54,9 +55,4 @@ export class QyJsTicketApi {
       return jsTicket
     }
   }
-}
-
-export enum QyJsApiType {
-  CORP = 'corp',
-  AGENT = 'agent'
 }

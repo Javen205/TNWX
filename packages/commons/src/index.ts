@@ -1,8 +1,8 @@
 export { CryptoKit } from './CryptoKit'
 
 export { UniformMessageApi } from './api/UniformMessageApi'
-export { JsTicketApi, JsApiType } from './api/JsTicketApi'
-export { QyJsTicketApi, QyJsApiType } from './api/QyJsTicketApi'
+export { JsTicketApi } from './api/JsTicketApi'
+export { QyJsTicketApi } from './api/QyJsTicketApi'
 
 export { JsTicket } from './entity/JsTicket'
 export { TemplateData, MiniProgram, TemplateItem } from './entity/template/TemplateData'
@@ -79,3 +79,5 @@ export { InExternalContactEvent } from './entity/msg/in/event/InExternalContactE
 export { InRegisterCorp } from './entity/msg/in/InRegisterCorp'
 export { InComponentVerifyTicket } from './entity/msg/in/InComponentVerifyTicket'
 export { InAuthMpEvent } from './entity/msg/in/InAuthMpEvent'
+
+export { ScopeEnum, Lang, JsApiType, QyJsApiType } from './Enums'
