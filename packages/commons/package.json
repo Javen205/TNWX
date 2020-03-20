@@ -1,6 +1,6 @@
 {
   "name": "@tnwx/commons",
-  "version": "2.3.3",
+  "version": "2.4.0",
   "description": "TTNWX 微信系开发脚手架之公共模块",
   "keywords": [
     "tnw",
@@ -47,7 +47,7 @@
     "url": "http://gitee.com/javen205/TNWX/issues"
   },
   "dependencies": {
-    "@tnwx/accesstoken": "^2.3.3"
+    "@tnwx/accesstoken": "^2.4.0"
   },
-  "gitHead": "1fe39f786071e14fb980274b7dc8d8a79726ae3c"
+  "gitHead": "e4a4e826614fad58d722673d0c3c4291fb7d5eb0"
 }
