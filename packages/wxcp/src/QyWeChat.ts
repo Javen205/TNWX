@@ -101,7 +101,7 @@ export class QyWeChat {
   public static handleMsg(msgAdapter: MsgAdapter, msgXml: string, msgSignature?: string, timestamp?: string, nonce?: string): Promise<string> {
     let cryptoKit: CryptoKit
     return new Promise(function(resolve, reject) {
-      parseString(msgXml, { explicitArray: false }, (err, result) => {
+      parseString(msgXml, { explicitArray: false }, async (err, result) => {
         if (err) {
           reject(`xml 数据解析错误:${err}`)
           console.debug(err)
@@ -123,70 +123,70 @@ export class QyWeChat {
         let outMsg: OutMsg | string
         // 处理接收的消息
         if (inMsg instanceof InTextMsg) {
-          outMsg = msgAdapter.processInTextMsg(<InTextMsg>inMsg)
+          outMsg = await msgAdapter.processInTextMsg(<InTextMsg>inMsg)
         } else if (inMsg instanceof InImageMsg) {
-          outMsg = msgAdapter.processInImageMsg(<InImageMsg>inMsg)
+          outMsg = await msgAdapter.processInImageMsg(<InImageMsg>inMsg)
         } else if (inMsg instanceof InLinkMsg) {
-          outMsg = msgAdapter.processInLinkMsg(<InLinkMsg>inMsg)
+          outMsg = await msgAdapter.processInLinkMsg(<InLinkMsg>inMsg)
         } else if (inMsg instanceof InLocationMsg) {
-          outMsg = msgAdapter.processInLocationMsg(<InLocationMsg>inMsg)
+          outMsg = await msgAdapter.processInLocationMsg(<InLocationMsg>inMsg)
         } else if (inMsg instanceof InShortVideoMsg) {
-          outMsg = msgAdapter.processInShortVideoMsg(<InShortVideoMsg>inMsg)
+          outMsg = await msgAdapter.processInShortVideoMsg(<InShortVideoMsg>inMsg)
         } else if (inMsg instanceof InVideoMsg) {
-          outMsg = msgAdapter.processInVideoMsg(<InVideoMsg>inMsg)
+          outMsg = await msgAdapter.processInVideoMsg(<InVideoMsg>inMsg)
         } else if (inMsg instanceof InVoiceMsg) {
-          outMsg = msgAdapter.processInVoiceMsg(<InVoiceMsg>inMsg)
+          outMsg = await msgAdapter.processInVoiceMsg(<InVoiceMsg>inMsg)
         } else if (inMsg instanceof InVoiceMsg) {
-          outMsg = msgAdapter.processInVoiceMsg(<InVoiceMsg>inMsg)
+          outMsg = await msgAdapter.processInVoiceMsg(<InVoiceMsg>inMsg)
         } else if (inMsg instanceof InSpeechRecognitionResults) {
-          outMsg = msgAdapter.processInSpeechRecognitionResults(<InSpeechRecognitionResults>inMsg)
+          outMsg = await msgAdapter.processInSpeechRecognitionResults(<InSpeechRecognitionResults>inMsg)
         } else if (inMsg instanceof InFollowEvent) {
-          outMsg = msgAdapter.processInFollowEvent(<InFollowEvent>inMsg)
+          outMsg = await msgAdapter.processInFollowEvent(<InFollowEvent>inMsg)
         } else if (inMsg instanceof InLocationEvent) {
-          outMsg = msgAdapter.processInLocationEvent(<InLocationEvent>inMsg)
+          outMsg = await msgAdapter.processInLocationEvent(<InLocationEvent>inMsg)
         } else if (inMsg instanceof InMenuEvent) {
-          outMsg = msgAdapter.processInMenuEvent(<InMenuEvent>inMsg)
+          outMsg = await msgAdapter.processInMenuEvent(<InMenuEvent>inMsg)
         } else if (inMsg instanceof InQrCodeEvent) {
-          outMsg = msgAdapter.processInQrCodeEvent(<InQrCodeEvent>inMsg)
+          outMsg = await msgAdapter.processInQrCodeEvent(<InQrCodeEvent>inMsg)
         } else if (inMsg instanceof InTemplateMsgEvent) {
-          outMsg = msgAdapter.processInTemplateMsgEvent(<InTemplateMsgEvent>inMsg)
+          outMsg = await msgAdapter.processInTemplateMsgEvent(<InTemplateMsgEvent>inMsg)
         } else if (inMsg instanceof InShakearoundUserShakeEvent) {
-          outMsg = msgAdapter.processInShakearoundUserShakeEvent(<InShakearoundUserShakeEvent>inMsg)
+          outMsg = await msgAdapter.processInShakearoundUserShakeEvent(<InShakearoundUserShakeEvent>inMsg)
         } else if (inMsg instanceof InTaskEvent) {
-          outMsg = msgAdapter.processInTaskEvent(<InTaskEvent>inMsg)
+          outMsg = await msgAdapter.processInTaskEvent(<InTaskEvent>inMsg)
         } else if (inMsg instanceof InEnterAgentEvent) {
-          outMsg = msgAdapter.processInEnterAgentEvent(<InEnterAgentEvent>inMsg)
+          outMsg = await msgAdapter.processInEnterAgentEvent(<InEnterAgentEvent>inMsg)
         } else if (inMsg instanceof InBatchJobResultEvent) {
-          outMsg = msgAdapter.processInBatchJobResultEvent(<InBatchJobResultEvent>inMsg)
+          outMsg = await msgAdapter.processInBatchJobResultEvent(<InBatchJobResultEvent>inMsg)
         } else if (inMsg instanceof InUpdateUserEvent) {
-          outMsg = msgAdapter.processInUpdateUserEvent(<InUpdateUserEvent>inMsg)
+          outMsg = await msgAdapter.processInUpdateUserEvent(<InUpdateUserEvent>inMsg)
         } else if (inMsg instanceof InUpdatePartyEvent) {
-          outMsg = msgAdapter.processInUpdatePartyEvent(<InUpdatePartyEvent>inMsg)
+          outMsg = await msgAdapter.processInUpdatePartyEvent(<InUpdatePartyEvent>inMsg)
         } else if (inMsg instanceof InUpdateTagEvent) {
-          outMsg = msgAdapter.processInUpdateTagEvent(<InUpdateTagEvent>inMsg)
+          outMsg = await msgAdapter.processInUpdateTagEvent(<InUpdateTagEvent>inMsg)
         } else if (inMsg instanceof InSuiteTicket) {
           isEncrypt = false
-          outMsg = msgAdapter.processInSuiteTicket(<InSuiteTicket>inMsg)
+          outMsg = await msgAdapter.processInSuiteTicket(<InSuiteTicket>inMsg)
         } else if (inMsg instanceof InAuthEvent) {
           isEncrypt = false
-          outMsg = msgAdapter.processInAuthEvent(<InAuthEvent>inMsg)
+          outMsg = await msgAdapter.processInAuthEvent(<InAuthEvent>inMsg)
         } else if (inMsg instanceof InBatchJobResult) {
           isEncrypt = false
-          outMsg = msgAdapter.processInBatchJobResult(<InBatchJobResult>inMsg)
+          outMsg = await msgAdapter.processInBatchJobResult(<InBatchJobResult>inMsg)
         } else if (inMsg instanceof InExternalContact) {
           isEncrypt = false
-          outMsg = msgAdapter.processInExternalContact(<InExternalContact>inMsg)
+          outMsg = await msgAdapter.processInExternalContact(<InExternalContact>inMsg)
         } else if (inMsg instanceof InExternalContactEvent) {
           isEncrypt = false
-          outMsg = msgAdapter.processInExternalContactEvent(<InExternalContactEvent>inMsg)
+          outMsg = await msgAdapter.processInExternalContactEvent(<InExternalContactEvent>inMsg)
         } else if (inMsg instanceof InRegisterCorp) {
           isEncrypt = false
-          outMsg = msgAdapter.processInRegisterCorp(<InRegisterCorp>inMsg)
+          outMsg = await msgAdapter.processInRegisterCorp(<InRegisterCorp>inMsg)
         } else if (inMsg instanceof InNotDefinedMsg) {
           if (QyApiConfigKit.isDevMode()) {
             console.debug(`未能识别的消息类型。消息 xml 内容为：\n ${result}`)
           }
-          outMsg = msgAdapter.processIsNotDefinedMsg(<InNotDefinedMsg>inMsg)
+          outMsg = await msgAdapter.processIsNotDefinedMsg(<InNotDefinedMsg>inMsg)
         }
 
         // 处理发送的消息

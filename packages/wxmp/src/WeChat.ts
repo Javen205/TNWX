@@ -42,8 +42,8 @@ export class WeChat {
    * @param nonce_str
    * @param timestamp
    * @param url
-   * @param accessToken
-   * @param jsapi_ticket api_authorizer_token
+   * @param accessToken   api_authorizer_token
+   * @param jsapi_ticket
    */
   public static async jssdkSignature(nonce_str: string, timestamp: string, url: string, accessToken?: AccessToken, jsapi_ticket?: string): Promise<string> {
     if (!jsapi_ticket) {
@@ -92,7 +92,7 @@ export class WeChat {
     //实例微信消息加解密
     let cryptoKit: CryptoKit
     return new Promise(function(resolve, reject) {
-      parseString(msgXml, { explicitArray: false }, function(err, result) {
+      parseString(msgXml, { explicitArray: false }, async function(err, result) {
         if (err) {
           reject(`xml 数据解析错误:${err}`)
           console.debug(err)
@@ -120,47 +120,47 @@ export class WeChat {
 
         // 处理接收的消息
         if (inMsg instanceof InTextMsg) {
-          outMsg = msgAdapter.processInTextMsg(<InTextMsg>inMsg)
+          outMsg = await msgAdapter.processInTextMsg(<InTextMsg>inMsg)
         } else if (inMsg instanceof InImageMsg) {
-          outMsg = msgAdapter.processInImageMsg(<InImageMsg>inMsg)
+          outMsg = await msgAdapter.processInImageMsg(<InImageMsg>inMsg)
         } else if (inMsg instanceof InLinkMsg) {
-          outMsg = msgAdapter.processInLinkMsg(<InLinkMsg>inMsg)
+          outMsg = await msgAdapter.processInLinkMsg(<InLinkMsg>inMsg)
         } else if (inMsg instanceof InLocationMsg) {
-          outMsg = msgAdapter.processInLocationMsg(<InLocationMsg>inMsg)
+          outMsg = await msgAdapter.processInLocationMsg(<InLocationMsg>inMsg)
         } else if (inMsg instanceof InShortVideoMsg) {
-          outMsg = msgAdapter.processInShortVideoMsg(<InShortVideoMsg>inMsg)
+          outMsg = await msgAdapter.processInShortVideoMsg(<InShortVideoMsg>inMsg)
         } else if (inMsg instanceof InVideoMsg) {
-          outMsg = msgAdapter.processInVideoMsg(<InVideoMsg>inMsg)
+          outMsg = await msgAdapter.processInVideoMsg(<InVideoMsg>inMsg)
         } else if (inMsg instanceof InVoiceMsg) {
-          outMsg = msgAdapter.processInVoiceMsg(<InVoiceMsg>inMsg)
+          outMsg = await msgAdapter.processInVoiceMsg(<InVoiceMsg>inMsg)
         } else if (inMsg instanceof InVoiceMsg) {
-          outMsg = msgAdapter.processInVoiceMsg(<InVoiceMsg>inMsg)
+          outMsg = await msgAdapter.processInVoiceMsg(<InVoiceMsg>inMsg)
         } else if (inMsg instanceof InSpeechRecognitionResults) {
-          outMsg = msgAdapter.processInSpeechRecognitionResults(<InSpeechRecognitionResults>inMsg)
+          outMsg = await msgAdapter.processInSpeechRecognitionResults(<InSpeechRecognitionResults>inMsg)
         } else if (inMsg instanceof InFollowEvent) {
-          outMsg = msgAdapter.processInFollowEvent(<InFollowEvent>inMsg)
+          outMsg = await msgAdapter.processInFollowEvent(<InFollowEvent>inMsg)
         } else if (inMsg instanceof InLocationEvent) {
-          outMsg = msgAdapter.processInLocationEvent(<InLocationEvent>inMsg)
+          outMsg = await msgAdapter.processInLocationEvent(<InLocationEvent>inMsg)
         } else if (inMsg instanceof InMenuEvent) {
-          outMsg = msgAdapter.processInMenuEvent(<InMenuEvent>inMsg)
+          outMsg = await msgAdapter.processInMenuEvent(<InMenuEvent>inMsg)
         } else if (inMsg instanceof InQrCodeEvent) {
-          outMsg = msgAdapter.processInQrCodeEvent(<InQrCodeEvent>inMsg)
+          outMsg = await msgAdapter.processInQrCodeEvent(<InQrCodeEvent>inMsg)
         } else if (inMsg instanceof InTemplateMsgEvent) {
-          outMsg = msgAdapter.processInTemplateMsgEvent(<InTemplateMsgEvent>inMsg)
+          outMsg = await msgAdapter.processInTemplateMsgEvent(<InTemplateMsgEvent>inMsg)
         } else if (inMsg instanceof InShakearoundUserShakeEvent) {
-          outMsg = msgAdapter.processInShakearoundUserShakeEvent(<InShakearoundUserShakeEvent>inMsg)
+          outMsg = await msgAdapter.processInShakearoundUserShakeEvent(<InShakearoundUserShakeEvent>inMsg)
         } else if (inMsg instanceof InComponentVerifyTicket) {
           isEncryptMessage = false
-          outMsg = msgAdapter.processInComponentVerifyTicket(<InComponentVerifyTicket>inMsg)
+          outMsg = await msgAdapter.processInComponentVerifyTicket(<InComponentVerifyTicket>inMsg)
         } else if (inMsg instanceof InAuthMpEvent) {
           isEncryptMessage = false
-          outMsg = msgAdapter.processInAuthMpEvent(<InAuthMpEvent>inMsg)
+          outMsg = await msgAdapter.processInAuthMpEvent(<InAuthMpEvent>inMsg)
         } else if (inMsg instanceof InNotDefinedMsg) {
           if (ApiConfigKit.isDevMode()) {
             console.debug('未能识别的消息类型。 消息 xml 内容为：\n')
             console.debug(result)
           }
-          outMsg = msgAdapter.processIsNotDefinedMsg(<InNotDefinedMsg>inMsg)
+          outMsg = await msgAdapter.processIsNotDefinedMsg(<InNotDefinedMsg>inMsg)
         }
 
         // 处理发送的消息

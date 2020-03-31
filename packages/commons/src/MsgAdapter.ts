@@ -38,133 +38,133 @@ import { InAuthMpEvent } from './entity/msg/in/InAuthMpEvent'
  */
 export abstract class MsgAdapter {
   // 处理文本消息
-  processInTextMsg(inTextMsg: InTextMsg): OutMsg {
+  async processInTextMsg(inTextMsg: InTextMsg): Promise<OutMsg> {
     return this.renderOutTextMsg(inTextMsg, '')
   }
   // 处理图片消息
-  processInImageMsg(inImageMsg: InImageMsg): OutMsg {
+  async processInImageMsg(inImageMsg: InImageMsg): Promise<OutMsg> {
     return this.renderOutTextMsg(inImageMsg, '')
   }
   // 处理声音消息
-  processInVoiceMsg(inVoiceMsg: InVoiceMsg): OutMsg {
+  async processInVoiceMsg(inVoiceMsg: InVoiceMsg): Promise<OutMsg> {
     return this.renderOutTextMsg(inVoiceMsg, '')
   }
   // 处理视频消息
-  processInVideoMsg(inVideoMsg: InVideoMsg): OutMsg {
+  async processInVideoMsg(inVideoMsg: InVideoMsg): Promise<OutMsg> {
     return this.renderOutTextMsg(inVideoMsg, '')
   }
   // 处理小视频消息
-  processInShortVideoMsg(inShortVideoMsg: InShortVideoMsg): OutMsg {
+  async processInShortVideoMsg(inShortVideoMsg: InShortVideoMsg): Promise<OutMsg> {
     return this.renderOutTextMsg(inShortVideoMsg, '')
   }
   // 处理地理位置消息
-  processInLocationMsg(inLocationMsg: InLocationMsg): OutMsg {
+  async processInLocationMsg(inLocationMsg: InLocationMsg): Promise<OutMsg> {
     return this.renderOutTextMsg(inLocationMsg, '')
   }
   // 处理链接消息
-  processInLinkMsg(inLinkMsg: InLinkMsg): OutMsg {
+  async processInLinkMsg(inLinkMsg: InLinkMsg): Promise<OutMsg> {
     return this.renderOutTextMsg(inLinkMsg, '')
   }
   // 处理语音识别结果
-  processInSpeechRecognitionResults(inSpeechRecognitionResults: InSpeechRecognitionResults): OutMsg {
+  async processInSpeechRecognitionResults(inSpeechRecognitionResults: InSpeechRecognitionResults): Promise<OutMsg> {
     return this.renderOutTextMsg(inSpeechRecognitionResults, '')
   }
   // 处理未定义的消息(其他消息...该扩展了)
-  processIsNotDefinedMsg(inNotDefinedMsg: InNotDefinedMsg): OutMsg {
+  async processIsNotDefinedMsg(inNotDefinedMsg: InNotDefinedMsg): Promise<OutMsg> {
     return this.renderOutTextMsg(inNotDefinedMsg, '')
   }
   // 处理关注、取消关注事件
-  processInFollowEvent(inFollowEvent: InFollowEvent): OutMsg {
+  async processInFollowEvent(inFollowEvent: InFollowEvent): Promise<OutMsg> {
     return this.renderOutTextMsg(inFollowEvent, '')
   }
   // 处理扫码事件
-  processInQrCodeEvent(inQrCodeEvent: InQrCodeEvent): OutMsg {
+  async processInQrCodeEvent(inQrCodeEvent: InQrCodeEvent): Promise<OutMsg> {
     return this.renderOutTextMsg(inQrCodeEvent, '')
   }
   // 处理地理位置事件
-  processInLocationEvent(inLocationEvent: InLocationEvent): OutMsg {
+  async processInLocationEvent(inLocationEvent: InLocationEvent): Promise<OutMsg> {
     return this.renderOutTextMsg(inLocationEvent, '')
   }
   // 处理地理位置事件
-  processInMenuEvent(inMenuEvent: InMenuEvent): OutMsg {
+  async processInMenuEvent(inMenuEvent: InMenuEvent): Promise<OutMsg> {
     return this.renderOutTextMsg(inMenuEvent, '')
   }
   // 处理模板消息事件
-  processInTemplateMsgEvent(inTemplateMsgEvent: InTemplateMsgEvent): OutMsg {
+  async processInTemplateMsgEvent(inTemplateMsgEvent: InTemplateMsgEvent): Promise<OutMsg> {
     return this.renderOutTextMsg(inTemplateMsgEvent, '')
   }
   // 处理摇一摇周边事件
-  processInShakearoundUserShakeEvent(inShakearoundUserShakeEvent: InShakearoundUserShakeEvent): OutMsg {
+  async processInShakearoundUserShakeEvent(inShakearoundUserShakeEvent: InShakearoundUserShakeEvent): Promise<OutMsg> {
     return this.renderOutTextMsg(inShakearoundUserShakeEvent, '')
   }
   // 任务卡片事件
-  processInTaskEvent(inTaskEvent: InTaskEvent): OutMsg {
+  async processInTaskEvent(inTaskEvent: InTaskEvent): Promise<OutMsg> {
     return this.renderOutTextMsg(inTaskEvent, '')
   }
   // 进入应用
-  processInEnterAgentEvent(inEnterAgentEvent: InEnterAgentEvent): OutMsg {
+  async processInEnterAgentEvent(inEnterAgentEvent: InEnterAgentEvent): Promise<OutMsg> {
     return this.renderOutTextMsg(inEnterAgentEvent, '')
   }
   // 异步任务完成通知
-  processInBatchJobResultEvent(inBatchJobResultEvent: InBatchJobResultEvent): OutMsg {
+  async processInBatchJobResultEvent(inBatchJobResultEvent: InBatchJobResultEvent): Promise<OutMsg> {
     return this.renderOutTextMsg(inBatchJobResultEvent, '')
   }
   // 成员变更通知
-  processInUpdateUserEvent(inUpdateUserEvent: InUpdateUserEvent): OutMsg {
+  async processInUpdateUserEvent(inUpdateUserEvent: InUpdateUserEvent): Promise<OutMsg> {
     return this.renderOutTextMsg(inUpdateUserEvent, '')
   }
   // 部门变更通知
-  processInUpdatePartyEvent(inUpdatePartyEvent: InUpdatePartyEvent): OutMsg {
+  async processInUpdatePartyEvent(inUpdatePartyEvent: InUpdatePartyEvent): Promise<OutMsg> {
     return this.renderOutTextMsg(inUpdatePartyEvent, '')
   }
   // 标签变更通知
-  processInUpdateTagEvent(inUpdateTagEvent: InUpdateTagEvent): OutMsg {
+  async processInUpdateTagEvent(inUpdateTagEvent: InUpdateTagEvent): Promise<OutMsg> {
     return this.renderOutTextMsg(inUpdateTagEvent, '')
   }
 
   // 推送 suite_ticket
-  processInSuiteTicket(inSuiteTicket: InSuiteTicket): string {
+  async processInSuiteTicket(inSuiteTicket: InSuiteTicket): Promise<string> {
     return 'success'
   }
 
   // 推送 component_verify_ticket
-  processInComponentVerifyTicket(inComponentVerifyTicket: InComponentVerifyTicket): string {
+  async processInComponentVerifyTicket(inComponentVerifyTicket: InComponentVerifyTicket): Promise<string> {
     return 'success'
   }
 
   // 企业微信开放平台授权通知事件
-  processInAuthEvent(inAuthEvent: InAuthEvent): string {
+  async processInAuthEvent(inAuthEvent: InAuthEvent): Promise<string> {
     return 'success'
   }
 
   // 微信开放平台授权通知事件
-  processInAuthMpEvent(inAuthMpEvent: InAuthMpEvent): string {
+  async processInAuthMpEvent(inAuthMpEvent: InAuthMpEvent): Promise<string> {
     return 'success'
   }
 
   // 异步任务回调通知
-  processInBatchJobResult(inBatchJobResult: InBatchJobResult): string {
+  async processInBatchJobResult(inBatchJobResult: InBatchJobResult): Promise<string> {
     return 'success'
   }
 
   // 企业客户事件
-  processInExternalContactEvent(inExternalContactEvent: InExternalContactEvent): string {
+  async processInExternalContactEvent(inExternalContactEvent: InExternalContactEvent): Promise<string> {
     return 'success'
   }
 
   // 外部联系人事件
-  processInExternalContact(inExternalContact: InExternalContact): string {
+  async processInExternalContact(inExternalContact: InExternalContact): Promise<string> {
     return 'success'
   }
 
   // 注册完成回调事件
-  processInRegisterCorp(inRegisterCorp: InRegisterCorp): string {
+  async processInRegisterCorp(inRegisterCorp: InRegisterCorp): Promise<string> {
     return 'success'
   }
 
   renderOutTextMsg(inMsg: InMsg, content?: string): OutTextMsg {
-    let outMsg = new OutTextMsg(inMsg)
-    outMsg.setContent(content ? content : ' ')
-    return outMsg
+    let OutMsg = new OutTextMsg(inMsg)
+    OutMsg.setContent(content ? content : ' ')
+    return OutMsg
   }
 }
