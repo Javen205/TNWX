@@ -43,7 +43,7 @@ import {
 } from 'tnwx'
 
 export class HandMsgAdapter extends MsgAdapter {
-  processInTextMsg(inTextMsg: InTextMsg): OutMsg {
+  async processInTextMsg(inTextMsg: InTextMsg): Promise<OutMsg> {
     let outMsg: any
     let content: string = 'IJPay 让支付触手可及 \n\nhttps://gitee.com/javen205/IJPay'
     if ('1' === inTextMsg.getContent) {
@@ -77,45 +77,45 @@ export class HandMsgAdapter extends MsgAdapter {
     return outMsg
   }
 
-  processInImageMsg(inImageMsg: InImageMsg): OutMsg {
+  async processInImageMsg(inImageMsg: InImageMsg): Promise<OutMsg> {
     let outMsg = new OutImageMsg(inImageMsg)
     outMsg.setMediaId = inImageMsg.getMediaId
     return outMsg
   }
-  processInVoiceMsg(inVoiceMsg: InVoiceMsg): OutMsg {
+  async processInVoiceMsg(inVoiceMsg: InVoiceMsg): Promise<OutMsg> {
     let outMsg = new OutVoiceMsg(inVoiceMsg)
     outMsg.setMediaId = inVoiceMsg.getMediaId
     return outMsg
   }
-  processInVideoMsg(inVideoMsg: InVideoMsg): OutMsg {
+  async processInVideoMsg(inVideoMsg: InVideoMsg): Promise<OutMsg> {
     let outMsg = new OutVideoMsg(inVideoMsg)
     outMsg.setMediaId = inVideoMsg.getMediaId
     outMsg.setDescription = 'IJPay 让支付触手可及'
     outMsg.setTitle = '视频消息'
     return outMsg
   }
-  processInShortVideoMsg(inShortVideoMsg: InShortVideoMsg): OutMsg {
+  async processInShortVideoMsg(inShortVideoMsg: InShortVideoMsg): Promise<OutMsg> {
     let outMsg = new OutVideoMsg(inShortVideoMsg)
     outMsg.setMediaId = inShortVideoMsg.getMediaId
     outMsg.setDescription = 'TypeScript + Node.js 开发微信公众号'
     outMsg.setTitle = '短视频消息'
     return outMsg
   }
-  processInLocationMsg(inLocationMsg: InLocationMsg): OutMsg {
+  async processInLocationMsg(inLocationMsg: InLocationMsg): Promise<OutMsg> {
     return this.renderOutTextMsg(inLocationMsg, '位置消息... \n\nX:' + inLocationMsg.getLocation_X + ' Y:' + inLocationMsg.getLocation_Y + '\n\n' + inLocationMsg.getLabel)
   }
-  processInLinkMsg(inLinkMsg: InLinkMsg): OutMsg {
+  async processInLinkMsg(inLinkMsg: InLinkMsg): Promise<OutMsg> {
     let text = new OutTextMsg(inLinkMsg)
     text.setContent('链接频消息...' + inLinkMsg.getUrl)
     return text
   }
-  processInSpeechRecognitionResults(inSpeechRecognitionResults: InSpeechRecognitionResults): OutMsg {
+  async processInSpeechRecognitionResults(inSpeechRecognitionResults: InSpeechRecognitionResults): Promise<OutMsg> {
     let text = new OutTextMsg(inSpeechRecognitionResults)
     text.setContent('语音识别消息...' + inSpeechRecognitionResults.getRecognition)
     return text
   }
 
-  processInFollowEvent(inFollowEvent: InFollowEvent): OutMsg {
+  async processInFollowEvent(inFollowEvent: InFollowEvent): Promise<OutMsg> {
     if (InFollowEvent.EVENT_INFOLLOW_SUBSCRIBE == inFollowEvent.getEvent) {
       return this.renderOutTextMsg(inFollowEvent, '感谢你的关注 么么哒 \n\n交流群：114196246')
     } else if (InFollowEvent.EVENT_INFOLLOW_UNSUBSCRIBE == inFollowEvent.getEvent) {
@@ -126,7 +126,7 @@ export class HandMsgAdapter extends MsgAdapter {
     }
   }
 
-  processInQrCodeEvent(inQrCodeEvent: InQrCodeEvent): OutMsg {
+  async processInQrCodeEvent(inQrCodeEvent: InQrCodeEvent): Promise<OutMsg> {
     if (InQrCodeEvent.EVENT_INQRCODE_SUBSCRIBE == inQrCodeEvent.getEvent) {
       console.debug('扫码未关注：' + inQrCodeEvent.getFromUserName)
       return this.renderOutTextMsg(inQrCodeEvent, '感谢您的关注，二维码内容：' + inQrCodeEvent.getEventKey)
@@ -137,56 +137,56 @@ export class HandMsgAdapter extends MsgAdapter {
       return this.renderOutTextMsg(inQrCodeEvent)
     }
   }
-  processInLocationEvent(inLocationEvent: InLocationEvent): OutMsg {
+  async processInLocationEvent(inLocationEvent: InLocationEvent): Promise<OutMsg> {
     console.debug('发送地理位置事件：' + inLocationEvent.getFromUserName)
 
     return this.renderOutTextMsg(inLocationEvent, '地理位置是：' + inLocationEvent.getLatitude)
   }
-  processInMenuEvent(inMenuEvent: InMenuEvent): OutMsg {
+  async processInMenuEvent(inMenuEvent: InMenuEvent): Promise<OutMsg> {
     console.debug('菜单事件：' + inMenuEvent.getFromUserName)
 
     return this.renderOutTextMsg(inMenuEvent, '菜单事件内容是：' + inMenuEvent.getEventKey)
   }
-  processInTemplateMsgEvent(inTemplateMsgEvent: InTemplateMsgEvent): OutMsg {
+  async processInTemplateMsgEvent(inTemplateMsgEvent: InTemplateMsgEvent): Promise<OutMsg> {
     console.debug('模板消息事件：' + inTemplateMsgEvent.getFromUserName + ' ' + inTemplateMsgEvent.getStatus)
     return this.renderOutTextMsg(inTemplateMsgEvent, '消息发送状态：' + inTemplateMsgEvent.getStatus)
   }
-  processInShakearoundUserShakeEvent(inShakearoundUserShakeEvent: InShakearoundUserShakeEvent): OutMsg {
+  async processInShakearoundUserShakeEvent(inShakearoundUserShakeEvent: InShakearoundUserShakeEvent): Promise<OutMsg> {
     console.debug('摇一摇事件：' + inShakearoundUserShakeEvent.getFromUserName + ' ' + inShakearoundUserShakeEvent.getUuid)
     return this.renderOutTextMsg(inShakearoundUserShakeEvent, 'uuid：' + inShakearoundUserShakeEvent.getUuid)
   }
-  processInEnterAgentEvent(inEnterAgentEvent: InEnterAgentEvent) {
+  async processInEnterAgentEvent(inEnterAgentEvent: InEnterAgentEvent) {
     console.log('进入应用事件')
     return this.renderOutTextMsg(inEnterAgentEvent, inEnterAgentEvent.getFromUserName + ' 进入应用 ' + inEnterAgentEvent.getAgentId)
   }
 
-  processInTaskEvent(inTaskEvent: InTaskEvent) {
+  async processInTaskEvent(inTaskEvent: InTaskEvent) {
     console.log('进入应用事件:')
     console.log(inTaskEvent)
     return this.renderOutTextMsg(inTaskEvent, inTaskEvent.getAgentId + ' key: ' + inTaskEvent.getEventKey + ' taskId: ' + inTaskEvent.getTaskId)
   }
 
-  processInBatchJobResultEvent(inBatchJobResultEvent: InBatchJobResultEvent): OutMsg {
+  async processInBatchJobResultEvent(inBatchJobResultEvent: InBatchJobResultEvent): Promise<OutMsg> {
     console.log(inBatchJobResultEvent)
     return this.renderOutTextMsg(inBatchJobResultEvent, inBatchJobResultEvent.getJobId)
   }
 
-  processInUpdateUserEvent(inUpdateUserEvent: InUpdateUserEvent): OutMsg {
+  async processInUpdateUserEvent(inUpdateUserEvent: InUpdateUserEvent): Promise<OutMsg> {
     console.log(inUpdateUserEvent)
     return this.renderOutTextMsg(inUpdateUserEvent, inUpdateUserEvent.getUserId)
   }
 
-  processInUpdatePartyEvent(inUpdatePartyEvent: InUpdatePartyEvent): OutMsg {
+  async processInUpdatePartyEvent(inUpdatePartyEvent: InUpdatePartyEvent): Promise<OutMsg> {
     console.log(inUpdatePartyEvent)
     return this.renderOutTextMsg(inUpdatePartyEvent, inUpdatePartyEvent.getParentId)
   }
 
-  processInUpdateTagEvent(inUpdateTagEvent: InUpdateTagEvent): OutMsg {
+  async processInUpdateTagEvent(inUpdateTagEvent: InUpdateTagEvent): Promise<OutMsg> {
     console.log(inUpdateTagEvent)
     return this.renderOutTextMsg(inUpdateTagEvent, inUpdateTagEvent.getTagId + '')
   }
 
-  processInSuiteTicket(inSuiteTicket: InSuiteTicket): string {
+  async processInSuiteTicket(inSuiteTicket: InSuiteTicket): Promise<string> {
     console.log(`inSuiteTicket:${JSON.stringify(inSuiteTicket)}`)
     let config: ApiConfig = QyApiConfigKit.getApiConfig
     config.setTicket = inSuiteTicket.suiteTicket
@@ -198,7 +198,7 @@ export class HandMsgAdapter extends MsgAdapter {
     return 'success'
   }
 
-  processInComponentVerifyTicket(inComponentVerifyTicket: InComponentVerifyTicket): string {
+  async processInComponentVerifyTicket(inComponentVerifyTicket: InComponentVerifyTicket): Promise<string> {
     console.log(`inComponentVerifyTicket:${JSON.stringify(inComponentVerifyTicket)}`)
     let appId = inComponentVerifyTicket.appId
     let config: ApiConfig = ApiConfigKit.getApiConfigByAppId(appId)
@@ -209,22 +209,22 @@ export class HandMsgAdapter extends MsgAdapter {
     return 'success'
   }
 
-  processInAuthEvent(inAuthEvent: InAuthEvent): string {
+  async processInAuthEvent(inAuthEvent: InAuthEvent): Promise<string> {
     console.log(`inAuthEvent:${JSON.stringify(inAuthEvent)}`)
     return 'success'
   }
 
-  processInAuthMpEvent(inAuthMpEvent: InAuthMpEvent): string {
+  async processInAuthMpEvent(inAuthMpEvent: InAuthMpEvent): Promise<string> {
     console.log(`InAuthMpEvent:${JSON.stringify(inAuthMpEvent)}`)
     return 'success'
   }
 
-  processInExternalContactEvent(inExternalContactEvent: InExternalContactEvent): string {
+  async processInExternalContactEvent(inExternalContactEvent: InExternalContactEvent): Promise<string> {
     console.log(`inExternalContactEvent:${JSON.stringify(inExternalContactEvent)}`)
     return 'success'
   }
 
-  processIsNotDefinedMsg(inNotDefinedMsg: InNotDefinedMsg): OutMsg {
+  async processIsNotDefinedMsg(inNotDefinedMsg: InNotDefinedMsg): Promise<OutMsg> {
     return this.renderOutTextMsg(inNotDefinedMsg, '未知消息')
   }
 }
