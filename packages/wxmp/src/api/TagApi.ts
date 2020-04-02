@@ -1,12 +1,12 @@
-/**
- * @author Javen
- * @copyright javendev@126.com
- * @description 模板消息
- */
 import * as util from 'util'
 import { AccessToken, AccessTokenApi } from '@tnwx/accesstoken'
 import { HttpKit } from '@tnwx/kits'
 
+/**
+ * @author Javen
+ * @copyright javendev@126.com
+ * @description 用户标签
+ */
 export class TagApi {
   private static createTagUrl: string = 'https://api.weixin.qq.com/cgi-bin/tags/create?access_token=%s'
   private static getTagUrl: string = 'https://api.weixin.qq.com/cgi-bin/tags/get?access_token=%s'
@@ -18,11 +18,13 @@ export class TagApi {
   private static getIdListUrl: string = 'https://api.weixin.qq.com/cgi-bin/tags/getidlist?access_token=%s'
 
   /**
-   *  创建标签
-   *  @param tagName
+   * 创建标签
+   * @param tagName
    */
-  public static async create(tagName: string) {
-    let accessToken: AccessToken = await AccessTokenApi.getAccessToken()
+  public static async create(tagName: string, accessToken?: AccessToken) {
+    if (!accessToken) {
+      accessToken = await AccessTokenApi.getAccessToken()
+    }
     let url = util.format(this.createTagUrl, accessToken.getAccessToken)
     return HttpKit.getHttpDelegate.httpPost(
       url,
@@ -33,21 +35,29 @@ export class TagApi {
       })
     )
   }
+
   /**
-   *  获取公众号已创建的标签
+   * 获取公众号已创建的标签
+   * @param accessToken
    */
-  public static async get() {
-    let accessToken: AccessToken = await AccessTokenApi.getAccessToken()
+  public static async get(accessToken?: AccessToken) {
+    if (!accessToken) {
+      accessToken = await AccessTokenApi.getAccessToken()
+    }
     let url = util.format(this.getTagUrl, accessToken.getAccessToken)
     return HttpKit.getHttpDelegate.httpGet(url)
   }
+
   /**
-   *  编辑标签
-   *  @param tagId
-   *  @param tagName
+   * 编辑标签
+   * @param tagId
+   * @param tagName
+   * @param accessToken
    */
-  public static async update(tagId: number, tagName: string) {
-    let accessToken: AccessToken = await AccessTokenApi.getAccessToken()
+  public static async update(tagId: number, tagName: string, accessToken?: AccessToken) {
+    if (!accessToken) {
+      accessToken = await AccessTokenApi.getAccessToken()
+    }
     let url = util.format(this.updateTagUrl, accessToken.getAccessToken)
     return HttpKit.getHttpDelegate.httpPost(
       url,
@@ -59,12 +69,16 @@ export class TagApi {
       })
     )
   }
+
   /**
-   *  删除标签
-   *  @param tagId
+   * 删除标签
+   * @param tagId
+   * @param accessToken
    */
-  public static async delete(tagId: number) {
-    let accessToken: AccessToken = await AccessTokenApi.getAccessToken()
+  public static async delete(tagId: number, accessToken?: AccessToken) {
+    if (!accessToken) {
+      accessToken = await AccessTokenApi.getAccessToken()
+    }
     let url = util.format(this.deleteTagUrl, accessToken.getAccessToken)
     return HttpKit.getHttpDelegate.httpPost(
       url,
@@ -75,13 +89,17 @@ export class TagApi {
       })
     )
   }
+
   /**
-   *  获取标签下粉丝列表
-   *  @param tagId
-   *  @param nextOpenid
+   * 获取标签下粉丝列表
+   * @param tagId
+   * @param nextOpenid
+   * @param accessToken
    */
-  public static async getUser(tagId: number, nextOpenid?: string) {
-    let accessToken: AccessToken = await AccessTokenApi.getAccessToken()
+  public static async getUser(tagId: number, nextOpenid?: string, accessToken?: AccessToken) {
+    if (!accessToken) {
+      accessToken = await AccessTokenApi.getAccessToken()
+    }
     let url = util.format(this.getUserTagUrl, accessToken.getAccessToken)
     return HttpKit.getHttpDelegate.httpPost(
       url,
@@ -91,13 +109,17 @@ export class TagApi {
       })
     )
   }
+
   /**
-   *  批量为用户打标签
-   *  @param tagId
-   *  @param openIdList
+   * 批量为用户打标签
+   * @param tagId
+   * @param openIdList
+   * @param accessToken
    */
-  public static async batchAddTag(tagId: number, openIdList: string[]) {
-    let accessToken: AccessToken = await AccessTokenApi.getAccessToken()
+  public static async batchAddTag(tagId: number, openIdList: string[], accessToken?: AccessToken) {
+    if (!accessToken) {
+      accessToken = await AccessTokenApi.getAccessToken()
+    }
     let url = util.format(this.batchTaggingUrl, accessToken.getAccessToken)
     return HttpKit.getHttpDelegate.httpPost(
       url,
@@ -107,13 +129,17 @@ export class TagApi {
       })
     )
   }
+
   /**
-   *  批量为用户取消标签
-   *  @param tagId
-   *  @param openIdList
+   * 批量为用户取消标签
+   * @param tagId
+   * @param openIdList
+   * @param accessToken
    */
-  public static async batchDelTag(tagId: number, openIdList: string[]) {
-    let accessToken: AccessToken = await AccessTokenApi.getAccessToken()
+  public static async batchDelTag(tagId: number, openIdList: string[], accessToken?: AccessToken) {
+    if (!accessToken) {
+      accessToken = await AccessTokenApi.getAccessToken()
+    }
     let url = util.format(this.batchUnTaggingUrl, accessToken.getAccessToken)
     return HttpKit.getHttpDelegate.httpPost(
       url,
@@ -123,12 +149,16 @@ export class TagApi {
       })
     )
   }
+
   /**
-   *  获取用户身上的标签列表
-   *  @param openId
+   * 获取用户身上的标签列表
+   * @param openId
+   * @param accessToken
    */
-  public static async getUserTag(openId: string) {
-    let accessToken: AccessToken = await AccessTokenApi.getAccessToken()
+  public static async getUserTag(openId: string, accessToken?: AccessToken) {
+    if (!accessToken) {
+      accessToken = await AccessTokenApi.getAccessToken()
+    }
     let url = util.format(this.getIdListUrl, accessToken.getAccessToken)
     return HttpKit.getHttpDelegate.httpPost(
       url,
