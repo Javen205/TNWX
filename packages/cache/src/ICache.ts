@@ -5,7 +5,7 @@
  */
 
 export interface ICache {
-  get(key: string): string
-  set(key: string, jsonValue: string): void
-  remove(key: string): void
+  get(key: string): Promise<any>
+  set(key: string, jsonValue: string): Promise<any>
+  remove(key: string): Promise<any>
 }

@@ -9,15 +9,15 @@ import { ICache } from './ICache'
 export class DefaultCache implements ICache {
   private map: Map<string, string> = new Map<string, string>()
 
-  get(key: string): string {
+  async get(key: string): Promise<string> {
     return this.map.get(key) || ''
   }
 
-  set(key: string, jsonValue: string) {
+  async set(key: string, jsonValue: string) {
     this.map.set(key, jsonValue)
   }
 
-  remove(key: string) {
+  async remove(key: string) {
     this.map.delete(key)
   }
 }
