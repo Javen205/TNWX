@@ -1,12 +1,12 @@
+import * as util from 'util'
+import { AccessToken, AccessTokenApi } from '@tnwx/accesstoken'
+import { HttpKit } from '@tnwx/kits'
+
 /**
  * @author Javen
  * @copyright javendev@126.com
  * @description 微信门店接口
  */
-import * as util from 'util'
-import { AccessToken, AccessTokenApi } from '@tnwx/accesstoken'
-import { HttpKit } from '@tnwx/kits'
-
 export class PoiApi {
   private static addPoiUrl: string = 'http://api.weixin.qq.com/cgi-bin/poi/addpoi?access_token=%s'
   private static getPoiUrl: string = 'http://api.weixin.qq.com/cgi-bin/poi/getpoi?access_token=%s'
@@ -16,20 +16,27 @@ export class PoiApi {
   private static getWxCategoryUrl: string = 'http://api.weixin.qq.com/cgi-bin/poi/getwxcategory?access_token=%s'
 
   /**
-   *  创建门店
-   *  @param jsonStr
+   * 创建门店
+   * @param jsonStr
+   * @param accessToken
    */
-  public static async addPoi(jsonStr: string) {
-    let accessToken: AccessToken = await AccessTokenApi.getAccessToken()
+  public static async addPoi(jsonStr: string, accessToken?: AccessToken) {
+    if (!accessToken) {
+      accessToken = await AccessTokenApi.getAccessToken()
+    }
     let url = util.format(this.addPoiUrl, accessToken.getAccessToken)
     return HttpKit.getHttpDelegate.httpPost(url, jsonStr)
   }
+
   /**
-   *  查询门店信息
-   *  @param poiId
+   * 查询门店信息
+   * @param poiId
+   * @param accessToken
    */
-  public static async getPoi(poiId: string) {
-    let accessToken: AccessToken = await AccessTokenApi.getAccessToken()
+  public static async getPoi(poiId: string, accessToken?: AccessToken) {
+    if (!accessToken) {
+      accessToken = await AccessTokenApi.getAccessToken()
+    }
     let url = util.format(this.getPoiUrl, accessToken.getAccessToken)
     return HttpKit.getHttpDelegate.httpPost(
       url,
@@ -38,13 +45,17 @@ export class PoiApi {
       })
     )
   }
+
   /**
-   *  查询门店列表
-   *  @param begin 开始位置，0 即为从第一条开始查询
-   *  @param limit 返回数据条数，最大允许50，默认为20
+   * 查询门店列表
+   * @param begin 开始位置，0 即为从第一条开始查询
+   * @param limit 返回数据条数，最大允许50，默认为20
+   * @param accessToken
    */
-  public static async getPoiList(begin: number = 0, limit: number = 20) {
-    let accessToken: AccessToken = await AccessTokenApi.getAccessToken()
+  public static async getPoiList(begin: number = 0, limit: number = 20, accessToken?: AccessToken) {
+    if (!accessToken) {
+      accessToken = await AccessTokenApi.getAccessToken()
+    }
     let url = util.format(this.getPoiListUrl, accessToken.getAccessToken)
     return HttpKit.getHttpDelegate.httpPost(
       url,
@@ -54,21 +65,29 @@ export class PoiApi {
       })
     )
   }
+
   /**
-   *  修改门店服务信息
-   *  @param jsonStr
+   * 修改门店服务信息
+   * @param jsonStr
+   * @param accessToken
    */
-  public static async updatePoi(jsonStr: string) {
-    let accessToken: AccessToken = await AccessTokenApi.getAccessToken()
+  public static async updatePoi(jsonStr: string, accessToken?: AccessToken) {
+    if (!accessToken) {
+      accessToken = await AccessTokenApi.getAccessToken()
+    }
     let url = util.format(this.updatePoiUrl, accessToken.getAccessToken)
     return HttpKit.getHttpDelegate.httpPost(url, jsonStr)
   }
+
   /**
-   *  删除门店
-   *  @param poiId
+   * 删除门店
+   * @param poiId
+   * @param accessToken
    */
-  public static async delPoi(poiId: string) {
-    let accessToken: AccessToken = await AccessTokenApi.getAccessToken()
+  public static async delPoi(poiId: string, accessToken?: AccessToken) {
+    if (!accessToken) {
+      accessToken = await AccessTokenApi.getAccessToken()
+    }
     let url = util.format(this.delPoiUrl, accessToken.getAccessToken)
     return HttpKit.getHttpDelegate.httpPost(
       url,
@@ -77,11 +96,15 @@ export class PoiApi {
       })
     )
   }
+
   /**
-   *  门店类目表
+   * 门店类目表
+   * @param accessToken
    */
-  public static async getWxCategory() {
-    let accessToken: AccessToken = await AccessTokenApi.getAccessToken()
+  public static async getWxCategory(accessToken?: AccessToken) {
+    if (!accessToken) {
+      accessToken = await AccessTokenApi.getAccessToken()
+    }
     let url = util.format(this.getWxCategoryUrl, accessToken.getAccessToken)
     return HttpKit.getHttpDelegate.httpGet(url)
   }

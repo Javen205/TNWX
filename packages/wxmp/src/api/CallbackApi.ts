@@ -1,12 +1,12 @@
+import * as util from 'util'
+import { AccessToken, AccessTokenApi } from '@tnwx/accesstoken'
+import { HttpKit } from '@tnwx/kits'
+
 /**
  * @author Javen
  * @copyright javendev@126.com
  * @description 微信服务器
  */
-import * as util from 'util'
-import { AccessToken, AccessTokenApi } from '@tnwx/accesstoken'
-import { HttpKit } from '@tnwx/kits'
-
 export class CallbackApi {
   private static apiUrl: string = 'https://api.weixin.qq.com/cgi-bin/getcallbackip?access_token=%s'
   /**

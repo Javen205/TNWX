@@ -1,13 +1,12 @@
+import * as util from 'util'
+import { AccessToken, AccessTokenApi } from '@tnwx/accesstoken'
+import { HttpKit } from '@tnwx/kits'
+
 /**
  * @author Javen
  * @copyright javendev@126.com
  * @description 自定义菜单
  */
-
-import * as util from 'util'
-import { AccessToken, AccessTokenApi } from '@tnwx/accesstoken'
-import { HttpKit } from '@tnwx/kits'
-
 export class MenuApi {
   private static createMenuUrl = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token=%s'
   private static deleteMenuUrl = 'https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=%s'
