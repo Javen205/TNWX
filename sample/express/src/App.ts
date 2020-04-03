@@ -314,7 +314,10 @@ app.get('/miniProgram', async (req: any, res: any) => {
       break
     case 12:
       MiniProgramApi.setUpdatableMsg('1045_c/+flCjtpr3x+8zSc8v2U1Ce_qC2gZ3bc_2xYaA6JqeqLFitRJc5wB3IlktwOiEy3N_rDbDFONK2u4hH', 1, {
-        parameter_list: [{ name: 'path', value: 'IJPay?author=Javen' }, { name: 'version_type', value: 'develop' }]
+        parameter_list: [
+          { name: 'path', value: 'IJPay?author=Javen' },
+          { name: 'version_type', value: 'develop' }
+        ]
       })
         .then(data => {
           res.send(data)
@@ -1120,7 +1123,7 @@ app.get('/userApi', (req: any, res: any) => {
         })
       break
     case 6:
-      AutoReplyInfoApi.getCurrent()
+      AutoReplyInfoApi.get()
         .then(data => {
           res.send(data)
         })
