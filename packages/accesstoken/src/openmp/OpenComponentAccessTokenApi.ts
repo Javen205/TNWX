@@ -18,7 +18,7 @@ export class OpenComponentAccessTokenApi {
    */
   public static async getAccessToken(): Promise<AccessToken> {
     let ac: ApiConfig = ApiConfigKit.getApiConfig
-    let accessToken: AccessToken | undefined = this.getAvailableAccessToken(ac)
+    let accessToken: AccessToken | undefined = await this.getAvailableAccessToken(ac)
     if (accessToken) {
       if (ApiConfigKit.isDevMode) {
         console.debug('缓存中的 accesstoken')
@@ -35,10 +35,10 @@ export class OpenComponentAccessTokenApi {
    * 获取可用的 AccessToken
    * @param apiConfig
    */
-  private static getAvailableAccessToken(apiConfig: ApiConfig): AccessToken | undefined {
+  private static async getAvailableAccessToken(apiConfig: ApiConfig): Promise<AccessToken | undefined> {
     let result: AccessToken | undefined
     let cache: ICache = ApiConfigKit.getCache
-    let accessTokenJson: string = cache.get(apiConfig.getAppId)
+    let accessTokenJson: string = await cache.get(apiConfig.getAppId)
     if (accessTokenJson) {
       result = new AccessToken(accessTokenJson, AccessTokenType.COMPONENT_TOKEN)
     }

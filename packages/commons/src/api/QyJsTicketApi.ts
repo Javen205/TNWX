@@ -28,7 +28,7 @@ export class QyJsTicketApi {
       .concat(type)
     // 从缓存中获取
     let cache: ICache = QyApiConfigKit.getCache
-    let jsTicketJson = cache.get(key)
+    let jsTicketJson: string = await cache.get(key)
     if (jsTicketJson) {
       if (QyApiConfigKit.isDevMode) {
         console.debug('缓存中获取api_ticket...')

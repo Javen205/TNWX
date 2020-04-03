@@ -23,7 +23,7 @@ export class JsTicketApi {
     let key = appId + ':' + type
     // 从缓存中获取
     let cache: ICache = ApiConfigKit.getCache
-    let jsTicketJson = cache.get(key)
+    let jsTicketJson: string = await cache.get(key)
     if (jsTicketJson) {
       if (ApiConfigKit.isDevMode) {
         console.debug('缓存中获取api_ticket...')

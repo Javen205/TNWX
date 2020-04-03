@@ -21,7 +21,7 @@ export class OpenCorpAccessTokenApi {
    * @param permanentCode 永久授权码
    */
   public static async getAccessToken(authCorpid: string, permanentCode: string): Promise<AccessToken> {
-    let accessToken: AccessToken | undefined = this.getAvailableAccessToken(authCorpid, permanentCode)
+    let accessToken: AccessToken | undefined = await this.getAvailableAccessToken(authCorpid, permanentCode)
     if (accessToken) {
       if (QyApiConfigKit.isDevMode) {
         console.debug('缓存中的 accesstoken')
@@ -39,14 +39,10 @@ export class OpenCorpAccessTokenApi {
    * @param authCorpid 授权方corpid
    * @param permanentCode 永久授权码
    */
-  private static getAvailableAccessToken(authCorpid: string, permanentCode: string): AccessToken | undefined {
+  private static async getAvailableAccessToken(authCorpid: string, permanentCode: string): Promise<AccessToken | undefined> {
     let result: AccessToken | undefined
     let cache: ICache = QyApiConfigKit.getCache
-
-    let accessTokenJson: string
-
-    accessTokenJson = cache.get(authCorpid.concat('_').concat(permanentCode))
-
+    let accessTokenJson: string = await cache.get(authCorpid.concat('_').concat(permanentCode))
     if (accessTokenJson) {
       result = new AccessToken(accessTokenJson)
     }

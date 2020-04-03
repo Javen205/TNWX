@@ -25,7 +25,7 @@ export class OpenAuthorizerAccessTokenApi {
    */
   public static async getAccessToken(authorizerAppId: string, componentAccessToken?: string, authorizerRefreshToken?: string): Promise<AccessToken> {
     let ac: ApiConfig = ApiConfigKit.getApiConfig
-    let accessToken: AccessToken | undefined = this.getAvailableAccessToken(ac, authorizerAppId)
+    let accessToken: AccessToken | undefined = await this.getAvailableAccessToken(ac, authorizerAppId)
     if (accessToken) {
       if (ApiConfigKit.isDevMode) {
         console.debug('缓存中的 accesstoken')
@@ -43,10 +43,10 @@ export class OpenAuthorizerAccessTokenApi {
    * @param apiConfig
    * @param authorizerAppId
    */
-  private static getAvailableAccessToken(apiConfig: ApiConfig, authorizerAppId: string): AccessToken | undefined {
+  private static async getAvailableAccessToken(apiConfig: ApiConfig, authorizerAppId: string): Promise<AccessToken | undefined> {
     let result: AccessToken | undefined
     let cache: ICache = ApiConfigKit.getCache
-    let accessTokenJson: string = cache.get(apiConfig.getAppId.concat('_').concat(authorizerAppId))
+    let accessTokenJson: string = await cache.get(apiConfig.getAppId.concat('_').concat(authorizerAppId))
     if (accessTokenJson) {
       result = new AccessToken(accessTokenJson, AccessTokenType.AUTHORIZER_TOKEN)
     }

@@ -20,7 +20,7 @@ export class QyAccessTokenApi {
    */
   public static async getAccessToken(): Promise<AccessToken> {
     let ac: ApiConfig = QyApiConfigKit.getApiConfig
-    let accessToken: AccessToken | undefined = this.getAvailableAccessToken(ac)
+    let accessToken: AccessToken | undefined = await this.getAvailableAccessToken(ac)
     if (accessToken) {
       if (QyApiConfigKit.isDevMode) {
         console.debug('缓存中的 accesstoken')
@@ -37,10 +37,10 @@ export class QyAccessTokenApi {
    *  通过 appId 从缓存中获取 acces_token
    *  @param apiConfig
    */
-  private static getAvailableAccessToken(apiConfig: ApiConfig): AccessToken | undefined {
+  private static async getAvailableAccessToken(apiConfig: ApiConfig): Promise<AccessToken | undefined> {
     let result: AccessToken | undefined
     let cache: ICache = QyApiConfigKit.getCache
-    let accessTokenJson: string = cache.get(apiConfig.getAppId.concat(this.SEPARATOR).concat(apiConfig.getCorpId))
+    let accessTokenJson: string = await cache.get(apiConfig.getAppId.concat(this.SEPARATOR).concat(apiConfig.getCorpId))
     if (accessTokenJson) {
       result = new AccessToken(accessTokenJson)
     }

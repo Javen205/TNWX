@@ -20,7 +20,7 @@ export class OpenCpAccessTokenApi {
    */
   public static async getAccessToken(tokenType = AccessTokenType.PROVIDER_TOKEN): Promise<AccessToken> {
     let ac: ApiConfig = QyApiConfigKit.getApiConfig
-    let accessToken: AccessToken | undefined = this.getAvailableAccessToken(ac, tokenType)
+    let accessToken: AccessToken | undefined = await this.getAvailableAccessToken(ac, tokenType)
     if (accessToken) {
       if (QyApiConfigKit.isDevMode) {
         console.debug('缓存中的 accesstoken')
@@ -38,16 +38,16 @@ export class OpenCpAccessTokenApi {
    * @param apiConfig
    * @param tokenType
    */
-  private static getAvailableAccessToken(apiConfig: ApiConfig, tokenType = AccessTokenType.PROVIDER_TOKEN): AccessToken | undefined {
+  private static async getAvailableAccessToken(apiConfig: ApiConfig, tokenType = AccessTokenType.PROVIDER_TOKEN): Promise<AccessToken | undefined> {
     let result: AccessToken | undefined
     let cache: ICache = QyApiConfigKit.getCache
 
     let accessTokenJson: string
 
     if (tokenType === AccessTokenType.PROVIDER_TOKEN) {
-      accessTokenJson = cache.get(apiConfig.getCorpId.concat('_').concat(tokenType))
+      accessTokenJson = await cache.get(apiConfig.getCorpId.concat('_').concat(tokenType))
     } else {
-      accessTokenJson = cache.get(apiConfig.getAppId.concat('_').concat(tokenType))
+      accessTokenJson = await cache.get(apiConfig.getAppId.concat('_').concat(tokenType))
     }
 
     if (accessTokenJson) {
