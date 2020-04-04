@@ -1,8 +1,3 @@
-/**
- * @author Javen
- * @copyright javendev@126.com
- * @description 使用 Axios 实现网络请求
- */
 import axios from 'axios'
 import * as fs from 'fs'
 import { HttpDelegate } from './HttpKit'
@@ -10,6 +5,11 @@ import * as FormData from 'form-data'
 import * as https from 'https'
 import concat = require('concat-stream')
 
+/**
+ * @author Javen
+ * @copyright javendev@126.com
+ * @description 使用 Axios 实现网络请求
+ */
 export class AxiosHttpKit implements HttpDelegate {
   httpGet(url: string, options?: any): Promise<any> {
     return new Promise((resolve, reject) => {
@@ -130,6 +130,29 @@ export class AxiosHttpKit implements HttpDelegate {
             })
             .catch(error => {
               reject(error)
+            })
+        })
+      )
+    })
+  }
+
+  uploadToResponse(url: string, filePath: string, params?: string, options?: any): Promise<any> {
+    return new Promise(resolve => {
+      let formData = new FormData()
+      formData.append('file', fs.createReadStream(filePath))
+      if (params) {
+        formData.append('meta', params)
+      }
+      formData.pipe(
+        concat({ encoding: 'buffer' }, async data => {
+          axios
+            .post(url, data, options)
+            .then(response => {
+              resolve(response)
+            })
+            .catch(error => {
+              console.log(error)
+              resolve(error.response)
             })
         })
       )

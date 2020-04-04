@@ -1,6 +1,7 @@
 import { Controller } from 'egg'
 import { WxPayApiConifgKit, WX_DOMAIN, WX_API_TYPE, WxPayApiConfig, PayKit, WxPay, Kits, WX_TRADE_TYPE, SIGN_TYPE, HttpKit } from 'tnwx'
 import * as fs from 'fs'
+import * as path from 'path'
 import * as x509 from 'x509'
 
 export default class WxPayController extends Controller {
@@ -227,6 +228,40 @@ export default class WxPayController extends Controller {
         try {
           let data = WxPay.appPrepayIdCreateSign('prepayId', config.appId, config.mchId, config.apiKey, SIGN_TYPE.SIGN_TYPE_HMACSHA256)
           ctx.body = data
+        } catch (error) {
+          console.log(error)
+        }
+        break
+      case 11:
+        // 文件上传
+        try {
+          let filePath = '/Users/Javen/Documents/pic/wxpay.png'
+
+          let sha256 = Kits.sha256x(fs.readFileSync(filePath))
+          let filename = path.basename(filePath)
+
+          console.log(sha256)
+          console.log(filename)
+
+          let data: string = JSON.stringify({
+            filename,
+            sha256
+          })
+
+          console.log(`data:${data}`)
+
+          let result = await PayKit.exeUpload(
+            WX_DOMAIN.CHINA, //
+            WX_API_TYPE.MERCHANT_UPLOAD_MEDIA,
+            config.mchId,
+            x509.parseCert(config.certPath).serial,
+            fs.readFileSync(config.keyPath),
+            filePath,
+            data
+          )
+          console.log(`status:${result.status}`)
+
+          ctx.body = result.data
         } catch (error) {
           console.log(error)
         }

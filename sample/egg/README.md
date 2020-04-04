@@ -2,7 +2,7 @@
 
 ### Development
 
-默认加载 dev 配置，此文件 git 上并没有上传，请复制 config.prod.ts 并命名为 config.dev.ts
+默认加载 dev 配置，此文件 git 上并没有上传，请复制 config.default.ts 并命名为 config.dev.ts
 如果需修改环境，修改 config/env 即可。 [官方文档-运行环境](https://eggjs.org/zh-cn/basics/env.html)
 
 ```bash

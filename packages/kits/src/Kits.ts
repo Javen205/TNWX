@@ -67,6 +67,14 @@ export class Kits {
   }
 
   /**
+   * sha256 加密
+   * @param data
+   */
+  public static sha256x(data: crypto.BinaryLike) {
+    return this.hashx(data, 'sha256')
+  }
+
+  /**
    * sha1加密
    * @param data
    */
@@ -86,6 +94,13 @@ export class Kits {
     return crypto
       .createHash(algorithm)
       .update(data, 'utf8')
+      .digest('hex')
+  }
+
+  public static hashx(data: crypto.BinaryLike, algorithm: string) {
+    return crypto
+      .createHash(algorithm)
+      .update(data)
       .digest('hex')
   }
 

@@ -191,46 +191,82 @@ export class PayKit {
 
   /**
    * 微信支付 Api-v3 get 请求
-   * @param urlPrefix
-   * @param urlSuffix
-   * @param mchId
-   * @param serialNo
-   * @param key
-   * @param params
+   * @param urlPrefix     请求接口前缀，可通过 WxDmainType 来获取
+   * @param urlSuffix     请求接口后缀，可通过 WxApiType 来获取
+   * @param mchId         商户号
+   * @param serialNo      证书序列号
+   * @param key           key.pem 证书
+   * @param params        请求参数
+   * @param platSerialNo  微信平台序列号
    */
-  public static async exeGet(urlPrefix: string, urlSuffix: string, mchId: string, serialNo: string, key: Buffer, params?: Map<string, string>): Promise<any> {
+  public static async exeGet(
+    urlPrefix: string,
+    urlSuffix: string,
+    mchId: string,
+    serialNo: string,
+    key: Buffer,
+    params?: Map<string, string>,
+    platSerialNo?: string
+  ): Promise<any> {
     if (params && params.size > 0) {
       urlSuffix = urlSuffix.concat('?').concat(this.createLinkString(params, '&', true, false))
     }
     let authorization = await this.buildAuthorization(RequestMethod.GET, urlSuffix, mchId, serialNo, key, '')
-    return await this.get(urlPrefix.concat(urlSuffix), authorization, serialNo)
+    return await this.get(urlPrefix.concat(urlSuffix), authorization, platSerialNo || serialNo)
   }
 
   /**
    * 微信支付 Api-v3 post 请求
-   * @param urlPrefix
-   * @param urlSuffix
-   * @param mchId
-   * @param serialNo
-   * @param key
-   * @param data
+   * @param urlPrefix     请求接口前缀，可通过 WxDmainType 来获取
+   * @param urlSuffix     请求接口后缀，可通过 WxApiType 来获取
+   * @param mchId         商户号
+   * @param serialNo      证书序列号
+   * @param key           key.pem 证书
+   * @param data          接口请求参数
+   * @param platSerialNo  微信平台序列号
    */
-  public static async exePost(urlPrefix: string, urlSuffix: string, mchId: string, serialNo: string, key: Buffer, data: string): Promise<any> {
+  public static async exePost(urlPrefix: string, urlSuffix: string, mchId: string, serialNo: string, key: Buffer, data: string, platSerialNo?: string): Promise<any> {
     let authorization = await this.buildAuthorization(RequestMethod.POST, urlSuffix, mchId, serialNo, key, data)
-    return await this.post(urlPrefix.concat(urlSuffix), data, authorization, serialNo)
+    return await this.post(urlPrefix.concat(urlSuffix), data, authorization, platSerialNo || serialNo)
   }
 
   /**
    * 微信支付 Api-v3 delete 请求
-   * @param urlPrefix
-   * @param urlSuffix
-   * @param mchId
-   * @param serialNo
-   * @param key
+   * @param urlPrefix     请求接口前缀，可通过 WxDmainType 来获取
+   * @param urlSuffix     请求接口后缀，可通过 WxApiType 来获取
+   * @param mchId         商户号
+   * @param serialNo      证书序列号
+   * @param key           key.pem 证书
+   * @param platSerialNo  微信平台序列号
    */
-  public static async exeDelete(urlPrefix: string, urlSuffix: string, mchId: string, serialNo: string, key: Buffer): Promise<any> {
+  public static async exeDelete(urlPrefix: string, urlSuffix: string, mchId: string, serialNo: string, key: Buffer, platSerialNo?: string): Promise<any> {
     let authorization = await this.buildAuthorization(RequestMethod.DELETE, urlSuffix, mchId, serialNo, key, '')
-    return await this.delete(urlPrefix.concat(urlSuffix), authorization, serialNo)
+    return await this.delete(urlPrefix.concat(urlSuffix), authorization, platSerialNo || serialNo)
+  }
+
+  /**
+   * 微信支付 Api-v3 upload 请求
+   * @param urlPrefix     请求接口前缀，可通过 WxDmainType 来获取
+   * @param urlSuffix     请求接口后缀，可通过 WxApiType 来获取
+   * @param mchId         商户号
+   * @param serialNo      证书序列号
+   * @param key           key.pem 证书
+   * @param filePath      需要上传的文件路径
+   * @param data          请求参数
+   * @param platSerialNo  微信平台序列号
+   */
+  public static async exeUpload(
+    urlPrefix: string,
+    urlSuffix: string,
+    mchId: string,
+    serialNo: string,
+    key: Buffer,
+    filePath: string,
+    data: string,
+    platSerialNo?: string
+  ): Promise<any> {
+    let authorization = await this.buildAuthorization(RequestMethod.UPLOAD, urlSuffix, mchId, serialNo, key, data)
+    return await this.upload(urlPrefix.concat(urlSuffix), filePath, data, authorization, platSerialNo || serialNo)
   }
 
   /**
@@ -266,6 +302,22 @@ export class PayKit {
   public static async delete(url: string, authorization: string, serialNumber?: string) {
     return await HttpKit.getHttpDelegate.httpDeleteToResponse(url, {
       headers: this.getHeaders(authorization, serialNumber)
+    })
+  }
+
+  /**
+   * upload 方法
+   * @param url           请求 url
+   * @param filePath      文件路径
+   * @param data          请求数据
+   * @param authorization 授权信息
+   * @param serialNumber  证书序列号
+   */
+  public static async upload(url: string, filePath: string, data: string, authorization: string, serialNumber?: string) {
+    let headers = this.getHeaders(authorization, serialNumber)
+    headers['Content-type'] = 'multipart/form-data'
+    return await HttpKit.getHttpDelegate.uploadToResponse(url, filePath, data, {
+      headers
     })
   }
 
