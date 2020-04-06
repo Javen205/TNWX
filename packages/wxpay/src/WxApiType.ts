@@ -594,5 +594,22 @@ export enum WX_API_TYPE {
   /**
    * 电商收付通-账单接口-申请资金账单
    */
-  FUND_FLOW_BILL = '/v3/bill/fundflowbill'
+  FUND_FLOW_BILL = '/v3/bill/fundflowbill',
+
+  /**
+   * 向员工付款
+   */
+  PAY_WWS_TRANS_2_POCKET = '/mmpaymkttransfers/promotion/paywwsptrans2pocket',
+  /**
+   * 查询向员工付款记录
+   */
+  QUERY_WWS_TRANS_2_POCKET = '/mmpaymkttransfers/promotion/querywwsptrans2pocket',
+  /**
+   * 发放企业红包
+   */
+  SEND_WORK_WX_RED_PACK = '/mmpaymkttransfers/sendworkwxredpack',
+  /**
+   * 查询企业红包记录
+   */
+  QUERY_WORK_WX_RED_PACK = '/mmpaymkttransfers/queryworkwxredpack'
 }

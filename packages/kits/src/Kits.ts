@@ -161,7 +161,7 @@ export class Kits {
    * @param key api key
    * @param signTypeParam 签名类型
    */
-  public static generateSignature(data: any, key: string, signTypeParam: SIGN_TYPE): string {
+  public static generateSignature(data: any, key: string, signTypeParam: SIGN_TYPE, signKeyType = SIGN_KEY_TYPE.KEY): string {
     let signType = signTypeParam || SIGN_TYPE.SIGN_TYPE_MD5
     if (signType !== SIGN_TYPE.SIGN_TYPE_MD5 && signType !== SIGN_TYPE.SIGN_TYPE_HMACSHA256) {
       throw new Error('Invalid signType: ' + signType)
@@ -180,7 +180,15 @@ export class Kits {
     if (combineStr.length === 0) {
       throw new Error('There is no data to generate signature')
     } else {
-      combineStr = combineStr + 'key=' + key
+      if (signKeyType === SIGN_KEY_TYPE.KEY) {
+        combineStr = combineStr + 'key=' + key
+      } else {
+        if (signType !== SIGN_TYPE.SIGN_TYPE_MD5) {
+          throw new Error('work wx generate signature require the use of md5')
+        }
+        combineStr = combineStr + 'secret=' + key
+      }
+
       if (signType === SIGN_TYPE.SIGN_TYPE_MD5) {
         return this.md5(combineStr).toUpperCase()
       } else if (signType === SIGN_TYPE.SIGN_TYPE_HMACSHA256) {
@@ -252,4 +260,9 @@ export class Kits {
       }
     })
   }
+}
+
+export enum SIGN_KEY_TYPE {
+  KEY = 'key',
+  SECRET = 'secret'
 }
