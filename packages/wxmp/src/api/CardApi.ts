@@ -489,4 +489,92 @@ export class CardApi {
     let url = util.format(this.getFreeCardInfoUrl, accessToken.getAccessToken)
     return HttpKit.getHttpDelegate.httpPost(url, JSON.stringify(map))
   }
+
+  private static subMerchantSubmitUrl: string = 'https://api.weixin.qq.com/card/submerchant/submit?access_token=%s'
+
+  /**
+   * 创建子商户接口
+   * @param data
+   * @param accessToken
+   */
+  public static async subMerchantSubmit(data: string, accessToken?: AccessToken) {
+    if (!accessToken) {
+      accessToken = await AccessTokenApi.getAccessToken()
+    }
+    let url = util.format(this.subMerchantSubmitUrl, accessToken.getAccessToken)
+    return HttpKit.getHttpDelegate.httpPost(url, data)
+  }
+
+  private static subMerchantUpdateUrl: string = 'https://api.weixin.qq.com/card/submerchant/update?access_token=%s'
+
+  /**
+   * 更新子商户接口
+   * @param data
+   * @param accessToken
+   */
+  public static async subMerchantUpdate(data: string, accessToken?: AccessToken) {
+    if (!accessToken) {
+      accessToken = await AccessTokenApi.getAccessToken()
+    }
+    let url = util.format(this.subMerchantUpdateUrl, accessToken.getAccessToken)
+    return HttpKit.getHttpDelegate.httpPost(url, data)
+  }
+
+  private static getSubMerchantUrl: string = 'https://api.weixin.qq.com/card/submerchant/get?access_token=%s'
+
+  /**
+   * 拉取单个子商户信息接口
+   * @param merchantId
+   * @param accessToken
+   */
+  public static async getSubMerchant(merchantId: string, accessToken?: AccessToken) {
+    if (!accessToken) {
+      accessToken = await AccessTokenApi.getAccessToken()
+    }
+    let url = util.format(this.getSubMerchantUrl, accessToken.getAccessToken)
+    return HttpKit.getHttpDelegate.httpPost(
+      url,
+      JSON.stringify({
+        merchant_id: merchantId
+      })
+    )
+  }
+
+  private static batchGetSubMerchantUrl: string = 'https://api.weixin.qq.com/card/submerchant/batchget?access_token=%s'
+
+  /**
+   * 批量拉取子商户信息接口
+   * @param beginId     起始的子商户id
+   * @param limit       拉取的子商户的个数，最大值为100
+   * @param status      子商户审核状态，填入后，只会拉出当前状态的子商户
+   * @param accessToken accessToken
+   */
+  public static async batchGetSubMerchant(beginId: string, limit: number, status: string, accessToken?: AccessToken) {
+    if (!accessToken) {
+      accessToken = await AccessTokenApi.getAccessToken()
+    }
+    let url = util.format(this.batchGetSubMerchantUrl, accessToken.getAccessToken)
+    return HttpKit.getHttpDelegate.httpPost(
+      url,
+      JSON.stringify({
+        begin_id: beginId,
+        limit: limit > 100 ? 100 : limit,
+        status: status
+      })
+    )
+  }
+
+  private static getApplyProtocolUrl: string = 'https://api.weixin.qq.com/card/getapplyprotocol?access_token=%s'
+
+  /**
+   * 卡券开放类目查询接口
+   * @param accessToken
+   */
+  public static async getApplyProtocol(accessToken?: AccessToken) {
+    if (!accessToken) {
+      accessToken = await AccessTokenApi.getAccessToken()
+    }
+    let url = util.format(this.getApplyProtocolUrl, accessToken.getAccessToken)
+    return HttpKit.getHttpDelegate.httpGet(url)
+  }
 }

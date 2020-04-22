@@ -47,6 +47,7 @@ import { InExternalContactEvent } from './entity/msg/in/event/InExternalContactE
 import { InRegisterCorp } from './entity/msg/in/InRegisterCorp'
 import { InComponentVerifyTicket } from './entity/msg/in/InComponentVerifyTicket'
 import { InAuthMpEvent } from './entity/msg/in/InAuthMpEvent'
+import { InCardMerchantCheckResultEvent } from './entity/msg/in/card/InCardMerchantCheckResultEvent'
 
 export class InMsgParser {
   public static parse(obj: any): BaseMsg {
@@ -485,6 +486,14 @@ export class InMsgParser {
       e.setEventKey = eventKey
       e.setTaskId = obj.TaskId
       e.setAgentId = obj.AgentId
+      return e
+    }
+    // 子商户审核事件推送
+    if (InCardMerchantCheckResultEvent.EVENT == event) {
+      let e = new InCardMerchantCheckResultEvent(obj.ToUserName, obj.FromUserName, obj.CreateTime, event)
+      e.setMerchantId = obj.MerchantId
+      e.setIsPass = obj.IsPass
+      e.setReason = obj.Reason
       return e
     }
     // 异步任务完成通知
