@@ -15,8 +15,8 @@ export default class SendSchedule extends Subscription {
   static get schedule() {
     return {
       //   interval: '10s', // 每 10 秒执行一次
-      // cron: '0 0 7,8 * * *', // 每天 7/8点 执行一次
-      cron: '0 37,39 15 * * *',
+      cron: '0 0 7,8 * * *', // 每天 7/8点 执行一次
+      // cron: '0 46,47 13 * * *',
       type: 'all', // 指定所有的 worker 都需要执行
     };
   }
