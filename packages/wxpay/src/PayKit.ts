@@ -38,6 +38,30 @@ export class PayKit {
   }
 
   /**
+   * v3 创建签名
+   *
+   * @param {Array<string>} data  需要参与签名的参数
+   * @param {Buffer} key          key.pem 证书
+   * @returns {string}            返回签名结果
+   */
+  public static createSign(data: Array<string>, key: Buffer): string {
+    return this.createSignByStr(this.buildSignMessage(data), key)
+  }
+
+  /**
+   * v3 创建签名
+   * @param {string} data   需要参与签名的参数
+   * @param {Buffer} key    key.pem 证书
+   * @returns {string}      返回签名结果
+   */
+  public static createSignByStr(data: string, key: Buffer): string {
+    if (!data) {
+      throw new Error('参与签名的参数不能为空,请检查')
+    }
+    return this.sha256WithRsa(key, data)
+  }
+
+  /**
    * 证书和回调报文解密
    * @param key             apiKey3
    * @param nonce           加密使用的随机串初始化向量
@@ -65,16 +89,7 @@ export class PayKit {
    * @param body 请求报文主体
    */
   public static buildReqSignMessage(method: RequestMethod, url: string, timestamp: string, nonceStr: string, body: string): string {
-    return method
-      .concat('\n')
-      .concat(url)
-      .concat('\n')
-      .concat(timestamp)
-      .concat('\n')
-      .concat(nonceStr)
-      .concat('\n')
-      .concat(body)
-      .concat('\n')
+    return this.buildSignMessage([method, url, timestamp, nonceStr, body])
   }
 
   /**
@@ -84,12 +99,23 @@ export class PayKit {
    * @param body 应答报文主体
    */
   public static buildRepSignMessage(timestamp: string, nonceStr: string, body: string): string {
-    return timestamp
-      .concat('\n')
-      .concat(nonceStr)
-      .concat('\n')
-      .concat(body)
-      .concat('\n')
+    return this.buildSignMessage([timestamp, nonceStr, body])
+  }
+
+  /**
+   * 构建签名参数
+   * @param {Array<string>} data 待构建签名的参数
+   * @returns {string}           返回待签名字符串
+   */
+  public static buildSignMessage(data: Array<string>): string {
+    if (!data || data.length <= 0) {
+      return null
+    }
+    let sign: string = ''
+    data.forEach(item => {
+      sign = sign.concat(item).concat('\n')
+    })
+    return sign
   }
 
   /**
@@ -184,7 +210,7 @@ export class PayKit {
     // 构建签名参数
     let buildSignMessage: string = this.buildReqSignMessage(method, urlSuffix, timestamp, nonceStr, body)
     // 生成签名
-    let signature: string = this.sha256WithRsa(key, buildSignMessage)
+    let signature: string = this.createSignByStr(buildSignMessage, key)
     // 根据平台规则生成请求头 authorization
     return this.getAuthorization(mchId, serialNo, nonceStr, timestamp, signature, authType)
   }
