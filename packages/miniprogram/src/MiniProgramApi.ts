@@ -234,7 +234,7 @@ export class MiniProgramApi {
 
   /**
    * 获取小程序二维码
-   * 适用于需要的码数量较少的业务场景。通过该接口生成的小程序码，永久有效，有数量限制
+   * 适用于需要的码数量极多的业务场景。通过该接口生成的小程序码，永久有效，数量暂无限制。
    * @param scene
    * @param path
    * @param width
@@ -256,7 +256,7 @@ export class MiniProgramApi {
       url,
       JSON.stringify({
         scene: encodeURIComponent(scene),
-        path: path,
+        page: path,
         width: width,
         auto_color: autoColor,
         line_color: lineColor,
