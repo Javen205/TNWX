@@ -255,7 +255,7 @@ export class MiniProgramApi {
     return HttpKit.getHttpDelegate.httpPost(
       url,
       JSON.stringify({
-        scene: encodeURIComponent(scene),
+        scene: scene,
         page: path,
         width: width,
         auto_color: autoColor,
