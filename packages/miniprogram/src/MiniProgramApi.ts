@@ -236,7 +236,7 @@ export class MiniProgramApi {
    * 获取小程序二维码
    * 适用于需要的码数量极多的业务场景。通过该接口生成的小程序码，永久有效，数量暂无限制。
    * @param scene
-   * @param path
+   * @param page
    * @param width
    * @param autoColor
    * @param lineColor
@@ -244,7 +244,7 @@ export class MiniProgramApi {
    */
   public static async getUnlimited(
     scene: string,
-    path: string,
+    page: string,
     width: number = 430,
     autoColor: boolean = false,
     lineColor: object = { r: 0, g: 0, b: 0 },
@@ -256,7 +256,7 @@ export class MiniProgramApi {
       url,
       JSON.stringify({
         scene: scene,
-        page: path,
+        page: page,
         width: width,
         auto_color: autoColor,
         line_color: lineColor,
