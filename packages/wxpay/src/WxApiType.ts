@@ -611,5 +611,36 @@ export enum WX_API_TYPE {
   /**
    * 查询企业红包记录
    */
-  QUERY_WORK_WX_RED_PACK = '/mmpaymkttransfers/queryworkwxredpack'
+  QUERY_WORK_WX_RED_PACK = '/mmpaymkttransfers/queryworkwxredpack',
+
+  /**
+   * 查询/更新先享卡订单
+   */
+  DISCOUNT_CARD_ORDER = '/v3/discount-card/orders/%s',
+  /**
+   * 查询先享卡订单
+   */
+  DISCOUNT_CARD_ORDER_TRADE_NO = '/v3/discount-card/orders/out-trade-no/%s',
+
+  /**
+   * 服务人员注册
+   */
+  SMART_GUIDE_GUIDES = '/v3/smartguide/guides',
+  /**
+   * 服务人员分配
+   */
+  SMART_GUIDE_GUIDES_ASSIGN = '/v3/smartguide/guides/%s/assign',
+
+  /**
+   * 报关接口-订单附加信息提交接口
+   */
+  CUSTOM_DECLARE_ORDER = '/cgi-bin/mch/customs/customdeclareorder',
+  /**
+   * 报关接口-订单附加信息查询接口
+   */
+  CUSTOM_DECLARE_QUERY = '/cgi-bin/mch/customs/customdeclarequery',
+  /**
+   * 报关接口-订单附加信息重推接口
+   */
+  CUSTOM_DECLARE_RE_DECLARE = '/cgi-bin/mch/newcustoms/customdeclareredeclare'
 }
