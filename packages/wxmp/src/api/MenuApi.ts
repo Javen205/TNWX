@@ -79,14 +79,15 @@ export class MenuApi {
 
   /**
    * 删除个性化菜单
+   * @param menuid
    * @param accessToken
    */
-  public static async deleteConditional(accessToken?: AccessToken) {
+  public static async deleteConditional(menuid: number, accessToken?: AccessToken) {
     if (!accessToken) {
       accessToken = await AccessTokenApi.getAccessToken()
     }
     let url = util.format(this.delConditionalUrl, accessToken.getAccessToken)
-    return HttpKit.getHttpDelegate.httpGet(url)
+    return HttpKit.getHttpDelegate.httpPost(url, { menuid })
   }
 
   /**
