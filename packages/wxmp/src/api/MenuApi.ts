@@ -10,12 +10,12 @@ import { HttpKit } from '@tnwx/kits'
 export class MenuApi {
   private static createMenuUrl = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token=%s'
   private static deleteMenuUrl = 'https://api.weixin.qq.com/cgi-bin/menu/delete?access_token=%s'
-  private static getMenuUrl = 'https://api.weixin.qq.com/cgi-bin/menu/get?access_token=s%'
-  private static getSelfMenuInfoUrl = 'https://api.weixin.qq.com/cgi-bin/get_current_selfmenu_info?access_token=s%'
+  private static getMenuUrl = 'https://api.weixin.qq.com/cgi-bin/menu/get?access_token=%s'
+  private static getSelfMenuInfoUrl = 'https://api.weixin.qq.com/cgi-bin/get_current_selfmenu_info?access_token=%s'
 
-  private static addConditionalUrl = 'https://api.weixin.qq.com/cgi-bin/menu/addconditional?access_token=s%'
-  private static delConditionalUrl = 'https://api.weixin.qq.com/cgi-bin/menu/delconditional?access_token=s%'
-  private static tryMatchUrl = 'https://api.weixin.qq.com/cgi-bin/menu/trymatch?access_token=s%'
+  private static addConditionalUrl = 'https://api.weixin.qq.com/cgi-bin/menu/addconditional?access_token=%s'
+  private static delConditionalUrl = 'https://api.weixin.qq.com/cgi-bin/menu/delconditional?access_token=%s'
+  private static tryMatchUrl = 'https://api.weixin.qq.com/cgi-bin/menu/trymatch?access_token=%s'
 
   /**
    * 创建菜单
