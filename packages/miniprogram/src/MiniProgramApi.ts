@@ -383,7 +383,7 @@ export class MiniProgramApi {
     )
   }
 
-  private static userLogSearchUrl: string = 'https://api.weixin.qq.com/wxaapi/userlog/userlog_search?access_token=%s&date=s%&begintime=s%&endtime=s%&start=s%&limit=s%'
+  private static userLogSearchUrl: string = 'https://api.weixin.qq.com/wxaapi/userlog/userlog_search?access_token=%s&date=%s&begintime=%s&endtime=%s&start=%s&limit=%s'
 
   /**
    * 实时日志查询

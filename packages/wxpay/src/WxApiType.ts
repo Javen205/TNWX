@@ -512,11 +512,11 @@ export enum WX_API_TYPE {
   /**
    * 电商收付通-查询进件申请状态
    */
-  E_COMMERCE_APPLY_STATE = '/v3/ecommerce/applyments/s%',
+  E_COMMERCE_APPLY_STATE = '/v3/ecommerce/applyments/%s',
   /**
    * 电商收付通-通过业务申请编号查询申请状态
    */
-  E_COMMERCE_APPLY_STATE_BY_NO = '/v3/ecommerce/applyments/out-request-no/s%',
+  E_COMMERCE_APPLY_STATE_BY_NO = '/v3/ecommerce/applyments/out-request-no/%s',
 
   /**
    * 合单下单-APP支付
@@ -529,11 +529,11 @@ export enum WX_API_TYPE {
   /**
    * 合单下单-合单查询订单
    */
-  COMBINE_TRANSACTIONS_QUERY = '/v3/combine-transactions/out-trade-no/s%',
+  COMBINE_TRANSACTIONS_QUERY = '/v3/combine-transactions/out-trade-no/%s',
   /**
    * 合单下单-合单关闭订单
    */
-  COMBINE_TRANSACTIONS_CLOSE = '/v3/combine-transactions/out-trade-no/s%/close',
+  COMBINE_TRANSACTIONS_CLOSE = '/v3/combine-transactions/out-trade-no/%s/close',
 
   /**
    * 电商收付通-补差接口-请求补差
@@ -566,15 +566,15 @@ export enum WX_API_TYPE {
   /**
    * 电商收付通-退款接口-通过微信支付退款单号查询退款
    */
-  QUERY_REFUND = '/v3/ecommerce/refunds/id/s%',
+  QUERY_REFUND = '/v3/ecommerce/refunds/id/%s',
   /**
    * 电商收付通-退款接口-通过商户退款单号查询退款
    */
-  QUERY_REFUNDS_BY_REFUND_NO = '/v3/ecommerce/refunds/out-refund-no/s%',
+  QUERY_REFUNDS_BY_REFUND_NO = '/v3/ecommerce/refunds/out-refund-no/%s',
   /**
    * 电商收付通-余额查询接口
    */
-  QUERY_BALANCE = '/v3/ecommerce/fund/balance/s%',
+  QUERY_BALANCE = '/v3/ecommerce/fund/balance/%s',
   /**
    * 电商收付通-提现接口-账户余额提现
    */
@@ -582,11 +582,11 @@ export enum WX_API_TYPE {
   /**
    * 电商收付通-提现接口-提现状态查询
    */
-  QUERY_WITHDRAW = '/v3/ecommerce/fund/withdraw/s%',
+  QUERY_WITHDRAW = '/v3/ecommerce/fund/withdraw/%s',
   /**
    * 电商收付通-提现接口-按日下载提现异常文件
    */
-  WITHDRAW_BILL = '/v3/merchant/fund/withdraw/bill-type/s%',
+  WITHDRAW_BILL = '/v3/merchant/fund/withdraw/bill-type/%s',
   /**
    * 电商收付通-账单接口-申请交易账单
    */
