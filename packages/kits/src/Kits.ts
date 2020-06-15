@@ -17,10 +17,10 @@ export class Kits {
   public static FIELD_SIGN_TYPE = 'sign_type'
 
   /**
-   *  加密方法
-   *  @param key  加密key
-   *  @param iv   向量
-   *  @param data 需要加密的数据
+   * AES-128-CBC 加密方法
+   * @param key  加密key
+   * @param iv   向量
+   * @param data 需要加密的数据
    */
   public static aes128cbcEncrypt(key: Buffer, iv: Buffer, data: string): string {
     let cipher = crypto.createCipheriv('aes-128-cbc', key, iv)
@@ -31,14 +31,44 @@ export class Kits {
   }
 
   /**
-   *  解密方法
-   *  @param key      解密的key
-   *  @param iv       向量
-   *  @param crypted  密文
+   * AES-128-CBC     解密方法
+   * @param key      解密的key
+   * @param iv       向量
+   * @param crypted  密文
    */
   public static aes128cbcDecrypt(key: Buffer, iv: Buffer, crypted: string): string {
     crypted = Buffer.from(crypted, 'base64').toString('binary')
     let decipher = crypto.createDecipheriv('aes-128-cbc', key, iv)
+    // 设置自动 padding 为 true，删除填充补位
+    decipher.setAutoPadding(true)
+    let decoded = decipher.update(crypted, 'binary', 'utf8')
+    decoded += decipher.final('utf8')
+    return decoded
+  }
+
+  /**
+   * AES-256-ECB 加密方法
+   * @param key  加密key
+   * @param iv   向量
+   * @param data 需要加密的数据
+   */
+  public static aes256ecbEncrypt(key: Buffer, iv: Buffer, data: string): string {
+    let cipher = crypto.createCipheriv('aes-256-ecb', key, iv)
+    let crypted = cipher.update(data, 'utf8', 'binary')
+    crypted += cipher.final('binary')
+    crypted = Buffer.from(crypted, 'binary').toString('base64')
+    return crypted
+  }
+
+  /**
+   * AES-256-ECB     解密方法
+   * @param key      解密的key
+   * @param iv       向量
+   * @param crypted  密文
+   */
+  public static aes256ecbDecrypt(key: Buffer, iv: Buffer, crypted: string) {
+    crypted = Buffer.from(crypted, 'base64').toString('binary')
+    let decipher = crypto.createDecipheriv('aes-256-ecb', key, iv)
     // 设置自动 padding 为 true，删除填充补位
     decipher.setAutoPadding(true)
     let decoded = decipher.update(crypted, 'binary', 'utf8')

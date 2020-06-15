@@ -78,3 +78,13 @@ test('generateSignedXml HMAC-SHA256', async () => {
     expect(obj['sign']).toEqual('57658016342938AFDDB839E3FEE2600DE6FEBE049C19725DB3172DE8A44B8F54')
   })
 })
+
+test('aes256ecbEncrypt and aes256ecbDecrypt', () => {
+  let iv = new Buffer('')
+  let key = new Buffer('42cc1d91bab89b65ff55b19e28fff4f0')
+  let data = 'IJPay'
+  let encryptStr = Kits.aes256ecbEncrypt(key, iv, data)
+  let eecryptStr = Kits.aes256ecbDecrypt(key, iv, encryptStr)
+
+  expect(eecryptStr).toBe('IJPay')
+})
