@@ -30,6 +30,7 @@ import { InExternalContact } from './entity/msg/in/InExternalContact'
 import { InRegisterCorp } from './entity/msg/in/InRegisterCorp'
 import { InComponentVerifyTicket } from './entity/msg/in/InComponentVerifyTicket'
 import { InAuthMpEvent } from './entity/msg/in/InAuthMpEvent'
+import { InMassEvent } from './entity/msg/in/event/InMassEvent'
 
 /**
  * @author Javen
@@ -120,6 +121,11 @@ export abstract class MsgAdapter {
   // 标签变更通知
   async processInUpdateTagEvent(inUpdateTagEvent: InUpdateTagEvent): Promise<OutMsg> {
     return this.renderOutTextMsg(inUpdateTagEvent, '')
+  }
+
+  // 群发结果通知
+  async processInMassEvent(inMassEvent: InMassEvent): Promise<OutMsg> {
+    return this.renderOutTextMsg(inMassEvent, '')
   }
 
   // 推送 suite_ticket
