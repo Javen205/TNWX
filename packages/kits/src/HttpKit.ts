@@ -17,12 +17,12 @@ export class HttpKit {
 }
 
 export interface HttpDelegate {
-  httpGet(url: string, options?: any): Promise<any>
-  httpGetToResponse(url: string, options?: any): Promise<any>
-  httpPost(url: string, data: string, options?: any): Promise<any>
-  httpPostToResponse(url: string, data: string, options?: any): Promise<any>
-  httpDeleteToResponse(url: string, options?: any): Promise<any>
-  httpPostWithCert(url: string, data: string, certFileContent: Buffer, passphrase: string): Promise<any>
-  upload(url: string, filePath: string, params?: string): Promise<any>
-  uploadToResponse(url: string, filePath: string, data: string, options?: any): Promise<any>
+  httpGet<T = any>(url: string, options?: any): Promise<T>
+  httpGetToResponse<T = any>(url: string, options?: any): Promise<T>
+  httpPost<T = any>(url: string, data: string, options?: any): Promise<T>
+  httpPostToResponse<T = any>(url: string, data: string, options?: any): Promise<T>
+  httpDeleteToResponse<T = any>(url: string, options?: any): Promise<T>
+  httpPostWithCert<T = any>(url: string, data: string, certFileContent: Buffer, passphrase: string): Promise<T>
+  upload<T = any>(url: string, filePath: string, params?: string): Promise<T>
+  uploadToResponse<T = any>(url: string, filePath: string, data: string, options?: any): Promise<T>
 }

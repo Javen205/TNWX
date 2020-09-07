@@ -1,5 +1,6 @@
 export { CryptoKit } from './CryptoKit'
 
+export { ApiResponse } from './api/Api'
 export { UniformMessageApi } from './api/UniformMessageApi'
 export { JsTicketApi } from './api/JsTicketApi'
 export { QyJsTicketApi } from './api/QyJsTicketApi'
