@@ -92,7 +92,7 @@ export class TemplateApi {
       accessToken = await AccessTokenApi.getAccessToken()
     }
     let url = util.format(this.getTemplateIdUrl, accessToken.getAccessToken)
-    return HttpKit.getHttpDelegate.httpPost<ApiResponse<{ template_id_short: string }>>(
+    return HttpKit.getHttpDelegate.httpPost<ApiResponse<{ template_id: string }>>(
       url,
       JSON.stringify({
         template_id_short: templateIdShort
@@ -126,6 +126,6 @@ export class TemplateApi {
       accessToken = await AccessTokenApi.getAccessToken()
     }
     let url = util.format(this.getAllTemplateUrl, accessToken.getAccessToken)
-    return HttpKit.getHttpDelegate.httpGet<ApiResponse<TemplateInfo[]>>(url)
+    return HttpKit.getHttpDelegate.httpGet<ApiResponse<{ template_list: TemplateInfo[] }>>(url)
   }
 }
