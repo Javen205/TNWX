@@ -71,6 +71,19 @@ export class AxiosHttpKit implements HttpDelegate {
     })
   }
 
+  httpPutToResponse(url: string, data: string, options?: any): Promise<any> {
+    return new Promise(resolve => {
+      axios
+        .put(url, data, options)
+        .then(response => {
+          resolve(response)
+        })
+        .catch(error => {
+          resolve(error.response)
+        })
+    })
+  }
+
   httpDeleteToResponse(url: string, options?: any): Promise<any> {
     return new Promise(resolve => {
       axios
