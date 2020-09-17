@@ -455,6 +455,14 @@ export enum WX_API_TYPE {
    */
   CREATE_BUSINESS_COUPON = '/v3/marketing/busifavor/stocks',
   /**
+   * 发放消费卡
+   */
+  SEND_BUSINESS_COUPON = '/v3/marketing/busifavor/coupons/%s/send',
+  /**
+   * H5 发券
+   */
+  H5_SEND_COUPON = '/busifavor/getcouponinfo',
+  /**
    * 商家券-查询商家券批次详情
    */
   QUERY_BUSINESS_COUPON_STOCKS_INFO = '/v3/marketing/busifavor/stocks/%s',
@@ -478,6 +486,14 @@ export enum WX_API_TYPE {
    * 商家券-设置/查询商家券事件通知地址
    */
   BUSINESS_COUPON_CALLBACKS = '/v3/marketing/busifavor/callbacks',
+  /**
+   * 关联订单信息
+   */
+  BUSINESS_COUPON_ASSOCIATE = '/v3/marketing/busifavor/coupons/associate',
+  /**
+   * 取消关联订单信息
+   */
+  BUSINESS_COUPON_DISASSOCIATE = '/v3/marketing/busifavor/coupons/disassociate',
 
   /**
    * 支付有礼-创建全场满额送活动
@@ -487,6 +503,10 @@ export enum WX_API_TYPE {
    * 支付有礼-查询活动详情接口
    */
   PAY_GIFT_ACTIVITY_INFO = '/v3/marketing/paygiftactivity/activities/%s',
+  /**
+   * 支付有礼-获取支付有礼活动列表
+   */
+  PAY_GIFT_ACTIVITY_GET = '/v3/marketing/paygiftactivity/activities',
   /**
    * 支付有礼-查询活动发券商户号
    */
@@ -499,11 +519,27 @@ export enum WX_API_TYPE {
    * 支付有礼-终止活动
    */
   PAY_GIFT_ACTIVITY_TERMINATE = '/v3/marketing/paygiftactivity/activities/%s/terminate',
+  /**
+   * 支付有礼-新增活动发券商户号
+   */
+  PAY_GIFT_ACTIVITY_ADD_MERCHANTS = '/v3/marketing/paygiftactivity/activities/%s/merchants/add',
+  /**
+   * 支付有礼-删除活动发券商户号
+   */
+  PAY_GIFT_ACTIVITY_DELETE_MERCHANTS = '/v3/marketing/paygiftactivity/activities/%s/merchants/delete',
 
   /**
    * 点金计划-特约商户管理
    */
   CHANGE_GOLD_PLAN_STATUS = '/v3/goldplan/merchants/changegoldplanstatus',
+  /**
+   * 点金计划-商家小票管理
+   */
+  CHANGE_CUSTOM_PAGE_STATUS = '/v3/goldplan/merchants/changecustompagestatus',
+  /**
+   * 点金计划-同业过滤标签管理
+   */
+  SET_ADVERTISING_INDUSTRY_FILTER = '/v3/goldplan/merchants/set-advertising-industry-filter',
 
   /**
    * 电商收付通-二级商户进件
@@ -526,6 +562,14 @@ export enum WX_API_TYPE {
    * 合单下单-JS支付
    */
   COMBINE_TRANSACTIONS_JS = '/v3/combine-transactions/jsapi',
+  /**
+   * 合单下单-H5支付
+   */
+  COMBINE_TRANSACTIONS_H5 = '/v3/combine-transactions/h5',
+  /**
+   * 合单下单-Native支付
+   */
+  COMBINE_TRANSACTIONS_NATIVE = '/v3/combine-transactions/native',
   /**
    * 合单下单-合单查询订单
    */
@@ -560,6 +604,14 @@ export enum WX_API_TYPE {
    */
   PROFIT_SHARING_FINISH_ORDER = '/v3/ecommerce/profitsharing/finish-order',
   /**
+   * 添加分账接收方
+   */
+  PROFIT_SHARING_RECEIVERS_ADD = '/v3/ecommerce/profitsharing/receivers/add',
+  /**
+   * 删除分账接收方
+   */
+  PROFIT_SHARING_RECEIVERS_DELETE = '/v3/ecommerce/profitsharing/receivers/delete',
+  /**
    * 电商收付通-退款接口-退款申请
    */
   E_COMMERCE_REFUNDS = '/v3/ecommerce/refunds/apply',
@@ -576,6 +628,18 @@ export enum WX_API_TYPE {
    */
   QUERY_BALANCE = '/v3/ecommerce/fund/balance/%s',
   /**
+   * 查询二级商户账户日终余额
+   */
+  QUERY_END_DAY_BALANCE = '/v3/ecommerce/fund/enddaybalance/%s',
+  /**
+   * 查询电商平台账户实时余额
+   */
+  QUERY_MERCHANT_BALANCE = '/v3/merchant/fund/balance/%s',
+  /**
+   * 查询电商平台账户日终余额
+   */
+  QUERY_MERCHANT_END_DAY_BALANCE = '/v3/merchant/fund/dayendbalance/%s',
+  /**
    * 电商收付通-提现接口-账户余额提现
    */
   WITHDRAW = '/v3/ecommerce/fund/withdraw',
@@ -584,17 +648,62 @@ export enum WX_API_TYPE {
    */
   QUERY_WITHDRAW = '/v3/ecommerce/fund/withdraw/%s',
   /**
+   * 电商收付通-提现接口-商户提现单号查询
+   */
+  QUERY_WITHDRAW_BY_OUT_REQUEST_NO = '/v3/ecommerce/fund/withdraw/out-request-no/%s',
+  /**
+   * 电商收付通-提现接口-电商平台提现
+   */
+  MERCHANT_WITHDRAW = '/v3/merchant/fund/withdraw',
+  /**
+   * 电商收付通-提现接口-微信支付提现单号查询
+   */
+  QUERY_MERCHANT_WITHDRAW = '/v3/ecommerce/fund/withdraw/%s',
+  /**
+   * 电商收付通-提现接口-商户提现单号查询
+   */
+  QUERY_MERCHANT_WITHDRAW_BY_OUT_REQUEST_NO = '/v3/merchant/fund/withdraw/out-request-no/%s',
+  /**
    * 电商收付通-提现接口-按日下载提现异常文件
    */
   WITHDRAW_BILL = '/v3/merchant/fund/withdraw/bill-type/%s',
   /**
-   * 电商收付通-账单接口-申请交易账单
+   * 申请交易账单
    */
   TRADE_BILL = '/v3/bill/tradebill',
   /**
-   * 电商收付通-账单接口-申请资金账单
+   * 申请资金账单
    */
   FUND_FLOW_BILL = '/v3/bill/fundflowbill',
+  /**
+   * 下载账单
+   */
+  BILL_DOWNLOAD = '/v3/billdownload/file',
+
+  /**
+   * 银行特约商户违规信息查询
+   */
+  GET_VIOLATION = '/risk/getviolation',
+  /**
+   * 事前-风险商户核查接口
+   */
+  QUERY_MCH_RISK = '/mchrisk/querymchrisk',
+  /**
+   * 事后-风险商户处理结果同步接口
+   */
+  SYNC_MCH_RISK_RESULT = '/mchrisk/syncmchriskresult',
+  /**
+   * 间联模式查询商户审核状态开放接口
+   */
+  BANK_QUERY_MCH_AUDIT_INFO = '/mchrisk/bankquerymchauditinfo',
+  /**
+   * 渠道商查询商户审核信息
+   */
+  CHANNEL_QUERY_MCH_AUDIT_INFO = '/mchrisk/channelquerymchauditinfo',
+  /**
+   * 设置风险通知回调链接
+   */
+  SET_MCH_RISK_CALLBACK = '/mchrisk/setmchriskcallback',
 
   /**
    * 向员工付款
@@ -632,6 +741,11 @@ export enum WX_API_TYPE {
   SMART_GUIDE_GUIDES_ASSIGN = '/v3/smartguide/guides/%s/assign',
 
   /**
+   * 服务人员信息更新
+   */
+  SMART_GUIDE_GUIDES_UPDATE = '/v3/smartguide/guides/%s',
+
+  /**
    * 报关接口-订单附加信息提交接口
    */
   CUSTOM_DECLARE_ORDER = '/cgi-bin/mch/customs/customdeclareorder',
@@ -642,5 +756,79 @@ export enum WX_API_TYPE {
   /**
    * 报关接口-订单附加信息重推接口
    */
-  CUSTOM_DECLARE_RE_DECLARE = '/cgi-bin/mch/newcustoms/customdeclareredeclare'
+  CUSTOM_DECLARE_RE_DECLARE = '/cgi-bin/mch/newcustoms/customdeclareredeclare',
+
+
+  /**
+   * APP 下单 API
+   */
+  APP_PAY = '/v3/pay/transactions/app',
+  PARTNER_APP_PAY = '/v3/pay/partner/transactions/app',
+  /**
+   * JS API 下单 API
+   */
+  JS_API_PAY = '/v3/pay/transactions/jsapi',
+  PARTNER_JS_API_PAY = '/v3/pay/partner/transactions/jsapi',
+  /**
+   * Native 下单 API
+   */
+  NATIVE_PAY = '/v3/pay/transactions/native',
+  PARTNER_NATIVE_PAY = '/v3/pay/partner/transactions/native',
+  /**
+   * H5 下单 API
+   */
+  H5_PAY = '/v3/pay/transactions/h5',
+  PARTNER_H5_PAY = '/v3/pay/partner/transactions/h5',
+  /**
+   * 微信支付订单号查询
+   */
+  ORDER_QUERY_BY_ID = '/v3/pay/transactions/id/%s',
+  PARTNER_ORDER_QUERY_BY_ID = '/v3/pay/partner/transactions/id/%s',
+  /**
+   * 商户订单号查询
+   */
+  ORDER_QUERY_BY_NO = '/v3/pay/transactions/out-trade-no/%s',
+  PARTNER_ORDER_QUERY_BY_NO = '/v3/pay/partner/transactions/out-trade-no/%s',
+  /**
+   * 关闭订单
+   */
+  CLOSE_ORDER_BY_NO = '/v3/pay/transactions/out-trade-no/%s/close',
+  PARTNER_CLOSE_ORDER_BY_NO = '/v3/pay/partner/transactions/out-trade-no/%s/close',
+
+
+  /**
+   * 委托营销-建立合作关系
+   */
+  PARTNERSHIPS_BUILD = '/v3/marketing/partnerships/build',
+  /**
+   * 委托营销-终止合作关系
+   */
+  PARTNERSHIPS_TERMINATE = '/v3/marketing/partnerships/terminate',
+
+
+  /**
+   * 智慧商圈-商圈积分同步
+   */
+  BUSINESS_CIRCLE_POINTS_NOTIFY = '/v3/businesscircle/points/notify',
+
+  /**
+   * 连锁品牌-分账-查询分账
+   */
+  BRAND_PROFIT_SHARING_ORDERS = '/v3/brand/profitsharing/orders',
+  /**
+   * 连锁品牌-分账回退-查询分账回退
+   */
+  BRAND_PROFIT_SHARING_RETURN_ORDERS = '/v3/brand/profitsharing/returnorders',
+  /**
+   * 连锁品牌-完结分账
+   */
+  BRAND_PROFIT_SHARING_FINISH_ORDER = '/v3/brand/profitsharing/finish-order',
+  /**
+   * 连锁品牌-添加分账接收方
+   */
+  BRAND_PROFIT_SHARING_RECEIVERS_ADD = '/v3/brand/profitsharing/receivers/add',
+  /**
+   * 连锁品牌-删除分账接收方
+   */
+  BRAND_PROFIT_SHARING_RECEIVERS_delete = '/v3/brand/profitsharing/receivers/delete',
 }

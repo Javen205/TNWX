@@ -19,5 +19,13 @@ export enum WX_DOMAIN {
   /**
    *  其它
    */
-  US = 'https://apius.mch.weixin.qq.com'
+  US = 'https://apius.mch.weixin.qq.com',
+  /**
+   * 获取公钥
+   */
+  FRAUD = 'https://fraud.mch.weixin.qq.com',
+  /**
+   *  活动
+   */
+  ACTION = 'https://action.weixin.qq.com',
 }
