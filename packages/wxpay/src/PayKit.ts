@@ -257,6 +257,21 @@ export class PayKit {
   }
 
   /**
+   * 微信支付 Api-v3 put 请求
+   * @param urlPrefix     请求接口前缀，可通过 WxDmainType 来获取
+   * @param urlSuffix     请求接口后缀，可通过 WxApiType 来获取
+   * @param mchId         商户号
+   * @param serialNo      证书序列号
+   * @param key           key.pem 证书
+   * @param data          接口请求参数
+   * @param platSerialNo  微信平台序列号
+   */
+  public static async exePut(urlPrefix: string, urlSuffix: string, mchId: string, serialNo: string, key: Buffer, data: string, platSerialNo?: string): Promise<any> {
+    let authorization = await this.buildAuthorization(RequestMethod.PUT, urlSuffix, mchId, serialNo, key, data)
+    return await this.put(urlPrefix.concat(urlSuffix), data, authorization, platSerialNo || serialNo)
+  }
+
+  /**
    * 微信支付 Api-v3 delete 请求
    * @param urlPrefix     请求接口前缀，可通过 WxDmainType 来获取
    * @param urlSuffix     请求接口后缀，可通过 WxApiType 来获取
@@ -320,6 +335,18 @@ export class PayKit {
   }
 
   /**
+   * put 方法
+   * @param url           请求 url
+   * @param authorization 授权信息
+   * @param serialNumber  证书序列号
+   */
+  public static async put(url: string, data: string, authorization: string, serialNumber?: string) {
+    return await HttpKit.getHttpDelegate.httpPutToResponse(url, data, {
+      headers: this.getHeaders(authorization, serialNumber)
+    })
+  }
+
+  /**
    * delete 方法
    * @param url           请求 url
    * @param authorization 授权信息
@@ -369,6 +396,48 @@ export class PayKit {
       'Content-type': 'application/json',
       'Wechatpay-Serial': serialNumber,
       'User-Agent': userAgent
+    }
+  }
+
+  /**
+   * 微信支付 Api-v3
+   * 
+   * @param {RequestMethod} requestMethod 请求方式
+   * @param {string} urlPrefix 请求接口前缀，可通过 WxDmainType 来获取
+   * @param {string} urlSuffix 请求接口后缀，可通过 WxApiType 来获取
+   * @param {string} mchId 商户号
+   * @param {string} serialNo 证书序列号
+   * @param {Buffer} key  key.pem 证书
+   * @param {string} [data] 请求参数
+   * @param {Map<string, string>} [params] get 请求参数
+   * @param {string} [platSerialNo] 微信平台序列号
+   * @param {string} [filePath] 需要上传的文件路径
+   */
+  public static async v3(
+    requestMethod: RequestMethod,
+    urlPrefix: string,
+    urlSuffix: string,
+    mchId: string,
+    serialNo: string,
+    key: Buffer,
+    data?: string,
+    params?: Map<string, string>,
+    platSerialNo?: string,
+    filePath?: string) {
+
+    switch (requestMethod) {
+      case RequestMethod.GET:
+        return this.exeGet(urlPrefix, urlSuffix, mchId, serialNo, key, params, platSerialNo)
+      case RequestMethod.POST:
+        return this.exePost(urlPrefix, urlSuffix, mchId, serialNo, key, data, platSerialNo)
+      case RequestMethod.DELETE:
+        return this.exeDelete(urlPrefix, urlSuffix, mchId, serialNo, key, platSerialNo)
+      case RequestMethod.UPLOAD:
+        return this.exeUpload(urlPrefix, urlSuffix, mchId, serialNo, key, filePath, data, platSerialNo)
+      case RequestMethod.PUT:
+        return this.exePut(urlPrefix, urlSuffix, mchId, serialNo, key, data, platSerialNo)
+      default:
+        break;
     }
   }
 }
