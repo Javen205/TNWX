@@ -1,5 +1,5 @@
 import { Controller } from 'egg'
-import { WxPayApiConifgKit, WX_DOMAIN, WX_API_TYPE, WxPayApiConfig, PayKit, WxPay, Kits, WX_TRADE_TYPE, SIGN_TYPE, HttpKit } from 'tnwx'
+import { WxPayApiConifgKit, WX_DOMAIN, WX_API_TYPE, WxPayApiConfig, PayKit, WxPay, Kits, WX_TRADE_TYPE, SIGN_TYPE, HttpKit, RequestMethod } from 'tnwx'
 import * as fs from 'fs'
 import * as path from 'path'
 import * as x509 from 'x509'
@@ -93,7 +93,8 @@ export default class WxPayController extends Controller {
       case 4:
         // Api-v3 get 请求
         try {
-          let result = await PayKit.exeGet(
+          let result = await PayKit.v3(
+            RequestMethod.GET,
             WX_DOMAIN.CHINA, //
             WX_API_TYPE.GET_CERTIFICATES,
             config.mchId,
@@ -141,12 +142,14 @@ export default class WxPayController extends Controller {
           params.set('appid', 'wxd678efh567hg6787')
           params.set('openid', 'oUpF8uMuAJO_M2pxb1Q9zNjWeS6o')
 
-          let result = await PayKit.exeGet(
+          let result = await PayKit.v3(
+            RequestMethod.GET,
             WX_DOMAIN.CHINA, //
             WX_API_TYPE.PAY_SCORE_USER_SERVICE_STATE,
             config.mchId,
             x509.parseCert(config.certPath).serial,
             fs.readFileSync(config.keyPath),
+            '',
             params
           )
           console.log(`status:${result.status}`)
@@ -159,14 +162,14 @@ export default class WxPayController extends Controller {
       case 6:
         // Api-v3 delete 请求
         try {
-          let result = await PayKit.exeDelete(
+          let result = await PayKit.v3(
+            RequestMethod.DELETE,
             WX_DOMAIN.CHINA, //
             WX_API_TYPE.MERCHANT_SERVICE_COMPLAINTS_NOTIFICATIONS,
             config.mchId,
             x509.parseCert(config.certPath).serial,
             fs.readFileSync(config.keyPath)
           )
-          console.log(`status:${result.status}`)
 
           ctx.body = `status:${result.status}`
         } catch (error) {
@@ -182,7 +185,8 @@ export default class WxPayController extends Controller {
 
           console.log(`data:${data}`)
 
-          let result = await PayKit.exePost(
+          let result = await PayKit.v3(
+            RequestMethod.POST,
             WX_DOMAIN.CHINA, //
             WX_API_TYPE.MERCHANT_SERVICE_COMPLAINTS_NOTIFICATIONS,
             config.mchId,
@@ -190,6 +194,7 @@ export default class WxPayController extends Controller {
             fs.readFileSync(config.keyPath),
             data
           )
+
           console.log(`status:${result.status}`)
           ctx.body = result.data
         } catch (error) {
@@ -266,6 +271,167 @@ export default class WxPayController extends Controller {
           console.log(error)
         }
         break
+      case 12:
+        try {
+          let data: string = JSON.stringify({
+            appid: config.appId,
+            mchid: config.mchId,
+            description: 'TNWX 微信支付-扫码支付',
+            out_trade_no: Kits.generateStr(),
+            notify_url: config.getDomin,
+            amount: {
+              total: 800
+            }
+          })
+
+          console.log(`data:${data}`)
+
+          let result = await PayKit.v3(
+            RequestMethod.POST,
+            WX_DOMAIN.CHINA,
+            WX_API_TYPE.NATIVE_PAY,
+            config.mchId,
+            x509.parseCert(config.certPath).serial,
+            fs.readFileSync(config.keyPath),
+            data
+          )
+          console.log(`status:${result.status}`)
+          ctx.body = result.data
+        } catch (error) {
+          console.log(error)
+        }
+        break;
+      case 13:
+        try {
+          let data: string = JSON.stringify({
+            appid: config.appId,
+            mchid: config.mchId,
+            description: 'TNWX 微信支付-JSAPI支付',
+            out_trade_no: Kits.generateStr(),
+            notify_url: config.getDomin,
+            amount: {
+              total: 800
+            },
+            payer: {
+              openid: 'o-_-itxuXeGW3O1cxJ7FXNmq8Wf8'
+            }
+          })
+
+          console.log(`data:${data}`)
+
+          let result = await PayKit.v3(
+            RequestMethod.POST,
+            WX_DOMAIN.CHINA,
+            WX_API_TYPE.JS_API_PAY,
+            config.mchId,
+            x509.parseCert(config.certPath).serial,
+            fs.readFileSync(config.keyPath),
+            data
+          )
+          let status = result.status
+          let prepayId: string, paySign: string
+          if (status === 200) {
+            prepayId = result.data.prepay_id
+            let appId: string = config.appId
+            let timeStamp: string = parseInt((Date.now() / 1000).toString()) + ''
+            let nonceStr: string = Kits.generateStr()
+            let ext: string = 'prepayId='.concat(prepayId)
+            paySign = WxPay.createSign([appId, timeStamp, nonceStr, ext], fs.readFileSync(config.keyPath))
+            let json = JSON.stringify({
+              appId: appId,
+              timeStamp: timeStamp,
+              nonceStr: nonceStr,
+              package: ext,
+              signType: 'RSA',
+              paySign: paySign,
+            })
+            ctx.body = json
+            return
+          }
+          ctx.body = result.data
+        } catch (error) {
+          console.log(error)
+        }
+        break;
+      case 14:
+        try {
+          let data: string = JSON.stringify({
+            appid: config.appId,
+            mchid: config.mchId,
+            description: 'TNWX 微信支付-H5支付',
+            out_trade_no: Kits.generateStr(),
+            notify_url: config.getDomin,
+            amount: {
+              total: 800
+            },
+            scene_info: {
+              payer_client_ip: ip,
+              h5_info: {
+                type: 'Wap'
+              }
+            }
+          })
+          console.log(`data:${data}`)
+
+          let result = await PayKit.v3(
+            RequestMethod.POST,
+            WX_DOMAIN.CHINA,
+            WX_API_TYPE.H5_PAY,
+            config.mchId,
+            x509.parseCert(config.certPath).serial,
+            fs.readFileSync(config.keyPath),
+            data
+          )
+          console.log(`status:${result.status}`)
+          ctx.body = result.data
+        } catch (error) {
+          console.log(error)
+        }
+        break;
+      case 15:
+        try {
+          let data: string = JSON.stringify({
+            url: 'https://gitee.com/javen205/IJPay'
+          })
+          console.log(`data:${data}`)
+
+          let result = await PayKit.v3(
+            RequestMethod.POST,
+            WX_DOMAIN.CHINA,
+            WX_API_TYPE.MERCHANT_SERVICE_COMPLAINTS_NOTIFICATIONS,
+            config.mchId,
+            x509.parseCert(config.certPath).serial,
+            fs.readFileSync(config.keyPath),
+            data
+          )
+          console.log(`status:${result.status}`)
+          ctx.body = result.data
+        } catch (error) {
+          console.log(error)
+        }
+        break;
+      case 16:
+        try {
+          let data: string = JSON.stringify({
+            url: 'https://gitee.com/javen205/IJPay'
+          })
+          console.log(`data:${data}`)
+
+          let result = await PayKit.v3(
+            RequestMethod.PUT,
+            WX_DOMAIN.CHINA,
+            WX_API_TYPE.MERCHANT_SERVICE_COMPLAINTS_NOTIFICATIONS,
+            config.mchId,
+            x509.parseCert(config.certPath).serial,
+            fs.readFileSync(config.keyPath),
+            data
+          )
+          console.log(`status:${result.status}`)
+          ctx.body = result.data
+        } catch (error) {
+          console.log(error)
+        }
+        break;
       default:
         break
     }

@@ -8,6 +8,7 @@ export default (app: Application) => {
   const openjssdk = app.middleware.openjssdk(app)
 
   router.get('/', controller.home.index)
+  router.get('/pay', controller.home.pay)
   router.get('/mysql', controller.home.mysql)
   router.get('/npm', controller.home.npm)
   router.get('/msg', controller.wxmp.mpmsg.get)

@@ -7,6 +7,10 @@ export default class HomeController extends Controller {
     })
   }
 
+  public async pay() {
+    await this.ctx.render('pay')
+  }
+
   public async mysql() {
     const { ctx } = this
     let queryRes = await ctx.app.mysql.query('select * from users where name=?', ['Javen'])
