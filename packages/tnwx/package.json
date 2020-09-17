@@ -1,6 +1,6 @@
 {
   "name": "tnwx",
-  "version": "2.4.5",
+  "version": "2.5.0",
   "description": "TNWX 微信系开发脚手架 By Javen",
   "keywords": [
     "tnw",
@@ -45,16 +45,16 @@
     "url": "http://gitee.com/javen205/TNWX/issues"
   },
   "dependencies": {
-    "@tnwx/accesstoken": "^2.4.5",
-    "@tnwx/cache": "^2.4.5",
-    "@tnwx/commons": "^2.4.5",
-    "@tnwx/kits": "^2.4.5",
-    "@tnwx/miniprogram": "^2.4.5",
-    "@tnwx/opencp": "^2.4.5",
-    "@tnwx/openmp": "^2.4.5",
-    "@tnwx/wxcp": "^2.4.5",
-    "@tnwx/wxmp": "^2.4.5",
-    "@tnwx/wxpay": "^2.4.5"
+    "@tnwx/accesstoken": "^2.5.0",
+    "@tnwx/cache": "^2.5.0",
+    "@tnwx/commons": "^2.5.0",
+    "@tnwx/kits": "^2.5.0",
+    "@tnwx/miniprogram": "^2.5.0",
+    "@tnwx/opencp": "^2.5.0",
+    "@tnwx/openmp": "^2.5.0",
+    "@tnwx/wxcp": "^2.5.0",
+    "@tnwx/wxmp": "^2.5.0",
+    "@tnwx/wxpay": "^2.5.0"
   },
-  "gitHead": "9b219736dc98afcdc5da72179101d6a0c3af8a4c"
+  "gitHead": "7001b5e3c60bff5f11f5d4c0260e039768fde318"
 }
