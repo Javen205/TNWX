@@ -19,5 +19,9 @@ export enum RequestMethod {
   /**
    * delete 请求
    */
-  DELETE = 'DELETE'
+  DELETE = 'DELETE',
+  /**
+   * put 请求
+   */
+  PUT = 'PUT'
 }
