@@ -12,8 +12,8 @@ export class UniformMessageApi {
   /**
    * 下发小程序和公众号统一的服务消息
    * @param touser 用户openid
-   * @param mpTemplateMsg 小程序模板消息相关的信息
-   * @param weappTemplateMsg 公众号模板消息相关的信息
+   * @param weappTemplateMsg 小程序模板消息相关的信息
+   * @param mpTemplateMsg 公众号模板消息相关的信息
    */
   public static async sendUniformMessage(touser: string, mpTemplateMsg: object, weappTemplateMsg?: object) {
     let accessToken = await AccessTokenApi.getAccessToken()
