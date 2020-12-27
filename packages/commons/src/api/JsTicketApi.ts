@@ -24,7 +24,8 @@ export class JsTicketApi {
     // 从缓存中获取
     let cache: ICache = ApiConfigKit.getCache
     let jsTicketJson: string = await cache.get(key)
-    if (jsTicketJson) {
+    const isAvailable =  this.isAvailable(jsTicketJson)
+    if (jsTicketJson && isAvailable) {
       if (ApiConfigKit.isDevMode) {
         console.debug('缓存中获取api_ticket...')
       }
@@ -46,5 +47,17 @@ export class JsTicketApi {
       }
       return jsTicket
     }
+  }
+
+  /**
+   * 检测jsTicket是否有效
+   * @param jsTicketJson
+   */
+  public static isAvailable (jsTicketJson: string): boolean {
+    const ticket = JSON.parse(jsTicketJson)
+    if (!ticket.expired_time) return false
+    if (ticket.errcode) return false
+    if (ticket.expired_time < new Date().getTime()) return false
+    return ticket.access_token != null
   }
 }
