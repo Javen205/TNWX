@@ -70,12 +70,10 @@ import {
   QyMiniProgramNoticeMsg,
   QyMiniprogram,
   QyKv,
-  AxiosHttpKit,
   QyTaskCardMsg,
   QyTaskCard,
   QyTaskCardBtn,
   QyWxApi,
-  DefaultCache,
   QyMediaApi,
   QyMediaType,
   QyOauthApi
@@ -255,7 +253,7 @@ app.get('/miniProgram', async (req: any, res: any) => {
       MiniProgramApi.getUnlimited('TNWX', 'IJPay?author=Javen')
         .then(data => {
           //写入文件
-          fs.writeFile('/Users/Javen/Downloads/miniprogram_qrcode.png', data, function(err) {
+          fs.writeFile('/Users/Javen/Downloads/miniprogram_qrcode.png', data, function (err) {
             if (err) {
               res.send(err)
             } else {
@@ -269,7 +267,7 @@ app.get('/miniProgram', async (req: any, res: any) => {
       MiniProgramApi.createQRCode('IJPay?author=Javen')
         .then(data => {
           //写入文件
-          fs.writeFile('/Users/Javen/Downloads/miniprogram_qrcode2.png', data, function(err) {
+          fs.writeFile('/Users/Javen/Downloads/miniprogram_qrcode2.png', data, function (err) {
             if (err) {
               res.send(err)
             } else {
@@ -283,7 +281,7 @@ app.get('/miniProgram', async (req: any, res: any) => {
       MiniProgramApi.getWxAcode('IJPay?author=Javen')
         .then(data => {
           //写入文件
-          fs.writeFile('/Users/Javen/Downloads/miniprogram_qrcode3.png', data, function(err) {
+          fs.writeFile('/Users/Javen/Downloads/miniprogram_qrcode3.png', data, function (err) {
             if (err) {
               res.send(err)
             } else {
@@ -424,7 +422,7 @@ app.get('/qymsg', (req: any, res: any) => {
 })
 
 // 接收微信消息入口
-app.post('/msg', function(req: any, res: any) {
+app.post('/msg', function (req: any, res: any) {
   console.log('post...', req.query)
 
   let appId: string = req.query.appId
@@ -438,11 +436,11 @@ app.post('/msg', function(req: any, res: any) {
 
   //监听 data 事件 用于接收数据
   let buffer: Uint8Array[] = []
-  req.on('data', function(data: any) {
+  req.on('data', function (data: any) {
     buffer.push(data)
   })
 
-  req.on('end', function() {
+  req.on('end', function () {
     let msgXml = Buffer.concat(buffer).toString('utf-8')
     // 接收消息并响应对应的回复
     WeChat.handleMsg(msgAdapter, msgXml, msgSignature, timestamp, nonce)
@@ -454,7 +452,7 @@ app.post('/msg', function(req: any, res: any) {
 })
 
 // 接收微信消息入口
-app.post('/qymsg', function(req: any, res: any) {
+app.post('/qymsg', function (req: any, res: any) {
   console.log('post...', req.query)
 
   let appId: string = req.query.appId
@@ -468,11 +466,11 @@ app.post('/qymsg', function(req: any, res: any) {
 
   //监听 data 事件 用于接收数据
   let buffer: Uint8Array[] = []
-  req.on('data', function(data: any) {
+  req.on('data', function (data: any) {
     buffer.push(data)
   })
 
-  req.on('end', function() {
+  req.on('end', function () {
     let msgXml = Buffer.concat(buffer).toString('utf-8')
     console.log(`接收到的消息msgXml：${msgXml}`)
 
@@ -485,10 +483,10 @@ app.post('/qymsg', function(req: any, res: any) {
 })
 
 app.get('/sendMsg', (req, res) => {
-  let type: string = req.query.type
+  let type = req.query.type
   let agentId = QyApiConfigKit.getApiConfig.getAppId
   let toUser = 'Javen'
-  switch (parseInt(type)) {
+  switch (parseInt(type.toString())) {
     case 0:
       let text = new QyTextMsg(new QyText('TNWX 微信系开发脚手架 \n https://gitee.com/javen205/TNWX'), agentId, toUser)
       QySendMsgApi.sendTextMessage(text)
@@ -596,9 +594,9 @@ app.get('/sendMsg', (req, res) => {
       let markDown = new QyMarkDownMsg(
         new QyText(
           'Javen 开源项目列表:\n' +
-            '[TNWX 微信系开发脚手架](https://gitee.com/javen205/TNWX)\n' +
-            '[IJPay 让支付触手可及](https://gitee.com/javen205/IJPay)\n' +
-            '[JPay 简易而不简单的支付 SDK](https://gitee.com/javen205/IJPay)\n'
+          '[TNWX 微信系开发脚手架](https://gitee.com/javen205/TNWX)\n' +
+          '[IJPay 让支付触手可及](https://gitee.com/javen205/IJPay)\n' +
+          '[JPay 简易而不简单的支付 SDK](https://gitee.com/javen205/IJPay)\n'
         ),
         agentId,
         toUser
@@ -662,7 +660,7 @@ app.get('/auth', (req, res) => {
   let state = req.query.state
   console.log('code:', code, ' state:', state)
 
-  SnsAccessTokenApi.getSnsAccessToken(code).then(data => {
+  SnsAccessTokenApi.getSnsAccessToken(code.toString()).then(data => {
     let temp = JSON.parse(data.toString())
     // 判断 access_token 是否获取成功
     if (temp.errcode) {
@@ -684,7 +682,7 @@ app.get('/auth', (req, res) => {
   })
 })
 
-app.get('/semantic', function(req: any, res: any) {
+app.get('/semantic', function (req: any, res: any) {
   let type: string = req.query.type
   let jsonStr
   switch (parseInt(type)) {
@@ -714,7 +712,7 @@ app.get('/semantic', function(req: any, res: any) {
   })
 })
 
-app.get('/subscribe', function(req: any, res: any) {
+app.get('/subscribe', function (req: any, res: any) {
   let type: string = req.query.type
   console.log('type', type)
   let templateId = '模板Id'
@@ -763,7 +761,7 @@ app.get('/sendTemplate', (req: any, res: any) => {
 
 // 读取配置文件来创建自定义菜单
 app.get('/creatMenu', (req: any, res: any) => {
-  fs.readFile('./config/menu.json', function(err, data) {
+  fs.readFile('./config/menu.json', function (err, data) {
     if (err) {
       console.log(err)
       return
@@ -824,7 +822,7 @@ app.get('/qyAuth', (req, res) => {
   let code = req.query.code
   let state = req.query.state
   console.log('code:', code, ' state:', state)
-  QyOauthApi.getUserInfo(code)
+  QyOauthApi.getUserInfo(code.toString())
     .then(data => {
       res.send(data)
     })

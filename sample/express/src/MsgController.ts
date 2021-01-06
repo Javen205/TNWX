@@ -39,10 +39,15 @@ import {
   InAuthEvent,
   InExternalContactEvent,
   InComponentVerifyTicket,
-  InAuthMpEvent
+  InAuthMpEvent,
+  InBatchJobResult,
+  InExternalContact,
+  InMsg,
+  InRegisterCorp
 } from 'tnwx'
 
-export class MsgController extends MsgAdapter {
+export class MsgController implements MsgAdapter {
+
   async processInTextMsg(inTextMsg: InTextMsg): Promise<OutMsg> {
     let outMsg: any
     let content: string = 'IJPay 让支付触手可及 \n\nhttps://gitee.com/javen205/IJPay'
@@ -52,7 +57,7 @@ export class MsgController extends MsgAdapter {
       outMsg.setContent(content)
     } else if ('2' === inTextMsg.getContent) {
       return this.renderOutTextMsg(inTextMsg, '')
-    } else if ('极速开发微信公众号' == inTextMsg.getContent) {
+    } else if ('3' === inTextMsg.getContent) {
       // 多公众号支持 分别给不同的公众号发送不同的消息
       if (ApiConfigKit.getApiConfig.getAppId == 'wx614c453e0d1dcd12') {
         content = '极速开发微信公众号 \n\nhttps://github.com/javen205/weixin_guide'
@@ -63,10 +68,9 @@ export class MsgController extends MsgAdapter {
         outMsg = new OutTextMsg(inTextMsg)
         outMsg.setContent(content)
       }
-    } else if ('聚合支付' == inTextMsg.getContent) {
+    } else if ('4' === inTextMsg.getContent) {
       outMsg = new OutNewsMsg(inTextMsg)
       outMsg.addArticle('聚合支付了解下', 'IJPay 让支付触手可及', 'https://gitee.com/javen205/IJPay/raw/master/assets/img/IJPay-t.png', 'https://gitee.com/javen205/IJPay')
-      outMsg.addArticle('jfinal-weixin', '极速开发微信公众号', 'https://gitee.com/javen205/IJPay/raw/master/assets/img/IJPay-t.png', 'https://gitee.com/JFinal/jfinal-weixin')
     } else {
       outMsg = new OutTextMsg(inTextMsg)
       outMsg.setContent(inTextMsg.getContent)
@@ -82,11 +86,13 @@ export class MsgController extends MsgAdapter {
     outMsg.setMediaId = inImageMsg.getMediaId
     return outMsg
   }
+
   async processInVoiceMsg(inVoiceMsg: InVoiceMsg): Promise<OutMsg> {
     let outMsg = new OutVoiceMsg(inVoiceMsg)
     outMsg.setMediaId = inVoiceMsg.getMediaId
     return outMsg
   }
+
   async processInVideoMsg(inVideoMsg: InVideoMsg): Promise<OutMsg> {
     let outMsg = new OutVideoMsg(inVideoMsg)
     outMsg.setMediaId = inVideoMsg.getMediaId
@@ -94,6 +100,7 @@ export class MsgController extends MsgAdapter {
     outMsg.setTitle = '视频消息'
     return outMsg
   }
+
   async processInShortVideoMsg(inShortVideoMsg: InShortVideoMsg): Promise<OutMsg> {
     let outMsg = new OutVideoMsg(inShortVideoMsg)
     outMsg.setMediaId = inShortVideoMsg.getMediaId
@@ -101,9 +108,11 @@ export class MsgController extends MsgAdapter {
     outMsg.setTitle = '短视频消息'
     return outMsg
   }
+
   async processInLocationMsg(inLocationMsg: InLocationMsg): Promise<OutMsg> {
     return this.renderOutTextMsg(inLocationMsg, '位置消息... \n\nX:' + inLocationMsg.getLocation_X + ' Y:' + inLocationMsg.getLocation_Y + '\n\n' + inLocationMsg.getLabel)
   }
+
   async processInLinkMsg(inLinkMsg: InLinkMsg): Promise<OutMsg> {
     let text = new OutTextMsg(inLinkMsg)
     text.setContent('链接频消息...' + inLinkMsg.getUrl)
@@ -226,5 +235,26 @@ export class MsgController extends MsgAdapter {
 
   async processIsNotDefinedMsg(inNotDefinedMsg: InNotDefinedMsg): Promise<OutMsg> {
     return this.renderOutTextMsg(inNotDefinedMsg, '未知消息')
+  }
+
+  async processInBatchJobResult(inBatchJobResult: InBatchJobResult): Promise<string> {
+    console.log(inBatchJobResult.jobId);
+    return 'success'
+  }
+
+  async processInExternalContact(inExternalContact: InExternalContact): Promise<string> {
+    console.log(inExternalContact.authCorpId);
+    return 'success'
+  }
+
+  async processInRegisterCorp(inRegisterCorp: InRegisterCorp): Promise<string> {
+    console.log(inRegisterCorp.authCorpId);
+    return 'success'
+  }
+
+  async renderOutTextMsg(inMsg: InMsg, content?: string | undefined): Promise<OutTextMsg> {
+    let OutMsg = new OutTextMsg(inMsg)
+    OutMsg.setContent(content ? content : ' ')
+    return OutMsg
   }
 }
