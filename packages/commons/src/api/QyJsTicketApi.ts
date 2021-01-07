@@ -30,10 +30,13 @@ export class QyJsTicketApi {
     let cache: ICache = QyApiConfigKit.getCache
     let jsTicketJson: string = await cache.get(key)
     if (jsTicketJson) {
+      const jsTicketInstance = new JsTicket(jsTicketJson)
       if (QyApiConfigKit.isDevMode) {
         console.debug('缓存中获取api_ticket...')
       }
-      return new JsTicket(jsTicketJson)
+      if (jsTicketInstance.isAvailable()) {
+        return jsTicketInstance
+      }
     }
     // 通过接口获取
     let accessToken: AccessToken = await QyAccessTokenApi.getAccessToken()
