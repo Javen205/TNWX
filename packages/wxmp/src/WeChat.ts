@@ -32,7 +32,8 @@ import {
   JsApiType,
   BaseMsg,
   InComponentVerifyTicket,
-  InAuthMpEvent
+  InAuthMpEvent,
+  InMassEvent
 } from '@tnwx/commons'
 import { Kits } from '@tnwx/kits'
 
@@ -91,8 +92,8 @@ export class WeChat {
   public static handleMsg(msgAdapter: MsgAdapter, msgXml: string, msgSignature?: string, timestamp?: string, nonce?: string): Promise<string> {
     //实例微信消息加解密
     let cryptoKit: CryptoKit
-    return new Promise(function(resolve, reject) {
-      parseString(msgXml, { explicitArray: false }, async function(err, result) {
+    return new Promise(function (resolve, reject) {
+      parseString(msgXml, { explicitArray: false }, async function (err, result) {
         if (err) {
           reject(`xml 数据解析错误:${err}`)
           console.debug(err)
@@ -155,6 +156,8 @@ export class WeChat {
         } else if (inMsg instanceof InAuthMpEvent) {
           isEncryptMessage = false
           outMsg = await msgAdapter.processInAuthMpEvent(<InAuthMpEvent>inMsg)
+        } else if (inMsg instanceof InMassEvent) {
+          outMsg = await msgAdapter.processInMassEvent(<InMassEvent>inMsg)
         } else if (inMsg instanceof InNotDefinedMsg) {
           if (ApiConfigKit.isDevMode()) {
             console.debug('未能识别的消息类型。 消息 xml 内容为：\n')

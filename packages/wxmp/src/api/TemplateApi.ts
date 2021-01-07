@@ -17,8 +17,8 @@ export class TemplateApi {
 
   /**
    * 发送模板消息
-   * @param tempJson
-   * @param accessToken
+   * @param tempJson 模板消息JSON数据
+   * @param accessToken 接口调用凭证
    */
   public static async send(tempJson: string, accessToken?: AccessToken) {
     if (!accessToken) {
@@ -32,7 +32,7 @@ export class TemplateApi {
    * 设置所属行业
    * @param industry_id1 公众号模板消息所属行业编号
    * @param industry_id2 公众号模板消息所属行业编号
-   * @param accessToken
+   * @param accessToken 接口调用凭证
    */
   public static async setIndustry(industry_id1: string, industry_id2: string, accessToken?: AccessToken) {
     if (!accessToken) {
@@ -49,7 +49,7 @@ export class TemplateApi {
   }
   /**
    * 获取设置的行业信息
-   * @param accessToken
+   * @param accessToken 接口调用凭证
    */
   public static async getIndustry(accessToken?: AccessToken) {
     if (!accessToken) {
@@ -62,7 +62,7 @@ export class TemplateApi {
   /**
    * 获取模板列表
    * @param templateIdShort 模板库中模板的编号
-   * @param accessToken
+   * @param accessToken 接口调用凭证
    */
   public static async getTemplateId(templateIdShort: string, accessToken?: AccessToken) {
     if (!accessToken) {
@@ -79,19 +79,22 @@ export class TemplateApi {
 
   /**
    * 删除模板
-   * @param accessToken
+   * @param templateId 公众帐号下模板消息ID
+   * @param accessToken 接口调用凭证
    */
-  public static async delTemplate(accessToken?: AccessToken) {
+  public static async delTemplate(templateId: string, accessToken?: AccessToken) {
     if (!accessToken) {
       accessToken = await AccessTokenApi.getAccessToken()
     }
     let url = util.format(this.delTemplateUrl, accessToken.getAccessToken)
-    return HttpKit.getHttpDelegate.httpGet(url)
+    return HttpKit.getHttpDelegate.httpPost(url, JSON.stringify({
+      template_id: templateId
+    }))
   }
 
   /**
    * 获取模板列表
-   * @param accessToken
+   * @param accessToken 接口调用凭证
    */
   public static async getAllTemplate(accessToken?: AccessToken) {
     if (!accessToken) {
