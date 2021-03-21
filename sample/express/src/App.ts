@@ -1600,9 +1600,11 @@ const server = app.listen(8888, 'localhost', () => {
 
     // HttpKit.setHttpDelegate = new AxiosHttpKit();
     // ApiConfigKit.setCache = new DefaultCache();
-
-    if (ApiConfigKit.devMode) {
+    ApiConfigKit.devMode = false
+    if (ApiConfigKit.isDevMode()) {
       console.log('服务器已启动, 地址是：http://%s:%s', host, port)
+    } else {
+      console.log('未开启 debug 模式无法查看日志');
     }
   }
 })

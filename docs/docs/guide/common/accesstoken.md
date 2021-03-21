@@ -45,10 +45,10 @@ export class AccessTokenApi {
         let ac: ApiConfig = ApiConfigKit.getApiConfig;
         let accessToken: AccessToken | undefined = this.getAvailableAccessToken(ac);
         if (accessToken) {
-            if(ApiConfigKit.isDevMode) console.log("缓存中的 accesstoken");
+            if((ApiConfigKit.isDevMode())) console.log("缓存中的 accesstoken");
             return accessToken;
         }
-        if(ApiConfigKit.isDevMode) console.log("刷新 accesstoken");
+        if(ApiConfigKit.isDevMode()) console.log("刷新 accesstoken");
         return await this.refreshAccessToken(ac);;
     }
 
