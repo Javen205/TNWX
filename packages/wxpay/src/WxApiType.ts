@@ -795,6 +795,14 @@ export enum WX_API_TYPE {
   CLOSE_ORDER_BY_NO = '/v3/pay/transactions/out-trade-no/%s/close',
   PARTNER_CLOSE_ORDER_BY_NO = '/v3/pay/partner/transactions/out-trade-no/%s/close',
 
+  /**
+   * 申请退款
+   */
+  DOMESTIC_REFUNDS = '/v3/refund/domestic/refunds',
+  /**
+   * 查询单笔退款
+   */
+  DOMESTIC_REFUNDS_QUERY = '/v3/refund/domestic/refunds/%s',
 
   /**
    * 委托营销-建立合作关系
