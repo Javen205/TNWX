@@ -51,7 +51,7 @@ export class WeChat {
       let jsTicket = await JsTicketApi.getTicket(JsApiType.JSAPI, accessToken)
       if (jsTicket) {
         jsapi_ticket = jsTicket.getTicket
-        if (ApiConfigKit.isDevMode) {
+        if (ApiConfigKit.isDevMode()) {
           console.debug('jsapi_ticket:', jsapi_ticket)
         }
       }

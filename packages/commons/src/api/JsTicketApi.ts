@@ -26,7 +26,7 @@ export class JsTicketApi {
     let jsTicketJson: string = await cache.get(key)
     const isAvailable = this.isAvailable(jsTicketJson)
     if (jsTicketJson && isAvailable) {
-      if (ApiConfigKit.isDevMode) {
+      if (ApiConfigKit.isDevMode()) {
         console.debug('缓存中获取api_ticket...')
       }
       return new JsTicket(jsTicketJson)
@@ -42,7 +42,7 @@ export class JsTicketApi {
       let jsTicket: JsTicket = new JsTicket(data)
       let cache: ICache = ApiConfigKit.getCache
       cache.set(key, jsTicket.getCacheJson)
-      if (ApiConfigKit.isDevMode) {
+      if (ApiConfigKit.isDevMode()) {
         console.debug('通过接口获取api_ticket...')
       }
       return jsTicket

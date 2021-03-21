@@ -157,7 +157,7 @@ export class CustomServiceApi {
       }
     }
     json = JSON.stringify(msgObj)
-    if (ApiConfigKit.isDevMode) {
+    if (ApiConfigKit.isDevMode()) {
       console.debug(`发送客服消息JSON ${json}`)
     }
     return HttpKit.getHttpDelegate.httpPost(url, json)

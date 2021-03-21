@@ -30,7 +30,7 @@ export class QyJsTicketApi {
     let cache: ICache = QyApiConfigKit.getCache
     let jsTicketJson: string = await cache.get(key)
     if (jsTicketJson) {
-      if (QyApiConfigKit.isDevMode) {
+      if (QyApiConfigKit.isDevMode()) {
         console.debug('缓存中获取api_ticket...')
       }
       return new JsTicket(jsTicketJson)
@@ -49,7 +49,7 @@ export class QyJsTicketApi {
       let jsTicket: JsTicket = new JsTicket(data)
       let cache: ICache = QyApiConfigKit.getCache
       cache.set(key, jsTicket.getCacheJson)
-      if (QyApiConfigKit.isDevMode) {
+      if (QyApiConfigKit.isDevMode()) {
         console.debug('通过接口获取api_ticket...')
       }
       return jsTicket
