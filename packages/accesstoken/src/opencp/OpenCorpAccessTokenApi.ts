@@ -22,12 +22,12 @@ export class OpenCorpAccessTokenApi {
   public static async getAccessToken(authCorpid: string, permanentCode: string): Promise<AccessToken> {
     let accessToken: AccessToken | undefined = await this.getAvailableAccessToken(authCorpid, permanentCode)
     if (accessToken) {
-      if (QyApiConfigKit.isDevMode) {
+      if (QyApiConfigKit.isDevMode()) {
         console.debug('缓存中的 accesstoken')
       }
       return accessToken
     }
-    if (QyApiConfigKit.isDevMode) {
+    if (QyApiConfigKit.isDevMode()) {
       console.debug('刷新 accesstoken')
     }
     return await this.refreshAccessToken(authCorpid, permanentCode)

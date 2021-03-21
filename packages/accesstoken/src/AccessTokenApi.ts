@@ -22,12 +22,12 @@ export class AccessTokenApi {
     let ac: ApiConfig = ApiConfigKit.getApiConfig
     let accessToken: AccessToken | undefined = await this.getAvailableAccessToken(ac)
     if (accessToken) {
-      if (ApiConfigKit.isDevMode) {
+      if (ApiConfigKit.isDevMode()) {
         console.debug('缓存中的 accesstoken')
       }
       return accessToken
     }
-    if (ApiConfigKit.isDevMode) {
+    if (ApiConfigKit.isDevMode()) {
       console.debug('刷新 accesstoken')
     }
     return await this.refreshAccessToken(ac)

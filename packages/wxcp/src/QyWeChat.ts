@@ -65,7 +65,7 @@ export class QyWeChat {
       let jsTicket = await QyJsTicketApi.getTicket(type)
       if (jsTicket) {
         jsapi_ticket = jsTicket.getTicket
-        if (QyApiConfigKit.isDevMode) {
+        if (QyApiConfigKit.isDevMode()) {
           console.debug('jsapi_ticket:', jsapi_ticket)
         }
       }

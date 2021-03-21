@@ -43,7 +43,8 @@ import {
   InBatchJobResult,
   InExternalContact,
   InRegisterCorp,
-  InMsg
+  InMsg,
+  InMassEvent
 } from 'tnwx'
 
 export class HandMsgAdapter implements MsgAdapter {
@@ -250,6 +251,11 @@ export class HandMsgAdapter implements MsgAdapter {
   async processInRegisterCorp(inRegisterCorp: InRegisterCorp): Promise<string> {
     console.log(inRegisterCorp.authCorpId);
     return 'success'
+  }
+
+  processInMassEvent(inMassEvent: InMassEvent): Promise<OutMsg> {
+    console.log(inMassEvent)
+    return this.renderOutTextMsg(inMassEvent, inMassEvent.getToUserName)
   }
 
   async renderOutTextMsg(inMsg: InMsg, content?: string | undefined): Promise<OutTextMsg> {

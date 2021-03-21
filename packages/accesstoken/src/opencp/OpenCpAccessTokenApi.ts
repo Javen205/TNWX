@@ -22,12 +22,12 @@ export class OpenCpAccessTokenApi {
     let ac: ApiConfig = QyApiConfigKit.getApiConfig
     let accessToken: AccessToken | undefined = await this.getAvailableAccessToken(ac, tokenType)
     if (accessToken) {
-      if (QyApiConfigKit.isDevMode) {
+      if (QyApiConfigKit.isDevMode()) {
         console.debug('缓存中的 accesstoken')
       }
       return accessToken
     }
-    if (QyApiConfigKit.isDevMode) {
+    if (QyApiConfigKit.isDevMode()) {
       console.debug('刷新 accesstoken')
     }
     return await this.refreshAccessToken(ac, tokenType)
