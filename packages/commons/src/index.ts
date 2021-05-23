@@ -3,6 +3,8 @@ export { CryptoKit } from './CryptoKit'
 export { UniformMessageApi } from './api/UniformMessageApi'
 export { JsTicketApi } from './api/JsTicketApi'
 export { QyJsTicketApi } from './api/QyJsTicketApi'
+export { ComSubscribeMsgApi } from './api/ComSubscribeMsgApi'
+
 
 export { JsTicket } from './entity/JsTicket'
 export { TemplateData, MiniProgram, TemplateItem } from './entity/template/TemplateData'
@@ -53,6 +55,7 @@ export { InVerifyFailEvent } from './entity/msg/in/event/InVerifyFailEvent'
 export { InVerifySuccessEvent } from './entity/msg/in/event/InVerifySuccessEvent'
 export { InWifiEvent } from './entity/msg/in/event/InWifiEvent'
 export { ScanCodeInfo } from './entity/msg/in/event/ScanCodeInfo'
+export { InWxVerifyDispatchEvent } from './entity/msg/in/event/InWxVerifyDispatchEvent'
 
 export { InCardPassCheckEvent } from './entity/msg/in/card/InCardPassCheckEvent'
 export { InCardPayOrderEvent } from './entity/msg/in/card/InCardPayOrderEvent'

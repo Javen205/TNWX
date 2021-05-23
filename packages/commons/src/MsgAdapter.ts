@@ -31,6 +31,7 @@ import { InRegisterCorp } from './entity/msg/in/InRegisterCorp'
 import { InComponentVerifyTicket } from './entity/msg/in/InComponentVerifyTicket'
 import { InAuthMpEvent } from './entity/msg/in/InAuthMpEvent'
 import { InMassEvent } from './entity/msg/in/event/InMassEvent'
+import { InWxVerifyDispatchEvent } from './entity/msg/in/event/InWxVerifyDispatchEvent'
 
 /**
  * @author Javen
@@ -62,8 +63,9 @@ export interface MsgAdapter {
   processInQrCodeEvent(inQrCodeEvent: InQrCodeEvent): Promise<OutMsg>
   // 处理地理位置事件
   processInLocationEvent(inLocationEvent: InLocationEvent): Promise<OutMsg>
-  // 处理地理位置事件
+  // 处理菜单事件
   processInMenuEvent(inMenuEvent: InMenuEvent): Promise<OutMsg>
+  processInWxVerifyDispatchEvent(inWxVerifyDispatchEvent: InWxVerifyDispatchEvent): Promise<OutMsg>
   // 处理模板消息事件
   processInTemplateMsgEvent(inTemplateMsgEvent: InTemplateMsgEvent): Promise<OutMsg>
   // 处理摇一摇周边事件

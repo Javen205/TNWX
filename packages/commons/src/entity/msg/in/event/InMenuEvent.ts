@@ -22,9 +22,12 @@ export class InMenuEvent extends EventInMsg {
   public static EVENT_INMENU_MEDIA_ID: string = 'media_id'
   // 10. view_limited：跳转图文消息URL
   public static EVENT_INMENU_VIEW_LIMITED: string = 'view_limited'
+  // 11. view_miniprogram：点击菜单跳转小程序
+  public static EVENT_INMENU_VIEW_MINIPROGRAM: string = 'view_miniprogram'
 
   private eventKey: string
   private scanCodeInfo: ScanCodeInfo
+  private menuId: string
 
   constructor(toUserName: string, fromUserName: string, createTime: number, event: string) {
     super(toUserName, fromUserName, createTime, event)
@@ -44,5 +47,13 @@ export class InMenuEvent extends EventInMsg {
 
   public set setScanCodeInfo(scanCodeInfo: ScanCodeInfo) {
     this.scanCodeInfo = scanCodeInfo
+  }
+
+  public get getMenuId(): string {
+    return this.menuId
+  }
+
+  public set setMenuId(menuId: string) {
+    this.menuId = menuId
   }
 }

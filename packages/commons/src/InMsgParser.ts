@@ -1,3 +1,4 @@
+import { InWxVerifyDispatchEvent } from './entity/msg/in/event/InWxVerifyDispatchEvent';
 import { InTaskEvent } from './entity/msg/in/event/InTaskEvent'
 import { InSpeechRecognitionResults } from './entity/msg/in/InSpeechRecognitionResults'
 import { InMsg } from './entity/msg/in/InMsg'
@@ -161,6 +162,7 @@ export class InMsgParser {
     let event: string = obj.Event
     let eventKey: string = obj.EventKey
     let agentId: string = obj.AgentID
+    let menuId: string = obj.MenuId
 
     if ('unsubscribe' == event) {
       let e = new InFollowEvent(obj.ToUserName, obj.FromUserName, obj.CreateTime, event)
@@ -218,6 +220,7 @@ export class InMsgParser {
       let e = new InMenuEvent(obj.ToUserName, obj.FromUserName, obj.CreateTime, event)
       e.setEventKey = eventKey
       e.setAgentId = agentId
+      e.setMenuId = menuId
       return e
     }
     // 扫码推事件 和 扫码推事件且弹出“消息接收中”提示框
@@ -269,6 +272,21 @@ export class InMsgParser {
     if (InMenuEvent.EVENT_INMENU_VIEW_LIMITED == event) {
       let e = new InMenuEvent(obj.ToUserName, obj.FromUserName, obj.CreateTime, event)
       e.setEventKey = eventKey
+      return e
+    }
+    // view_miniprogram：点击菜单跳转小程序的事件推送
+    if (InMenuEvent.EVENT_INMENU_VIEW_MINIPROGRAM == event) {
+      let e = new InMenuEvent(obj.ToUserName, obj.FromUserName, obj.CreateTime, event)
+      e.setEventKey = eventKey
+      e.setMenuId = menuId
+      return e
+    }
+    // wx_verify_dispatch
+    if (InMenuEvent.EVENT_INMENU_VIEW_MINIPROGRAM == event) {
+      let e = new InWxVerifyDispatchEvent(obj.ToUserName, obj.FromUserName, obj.CreateTime, event)
+      e.setProvider = obj.Provider
+      e.setContact = obj.Contact
+      e.setDispatchTime = obj.DispatchTime
       return e
     }
     // 模板消息是否送达成功通知事件
