@@ -33,7 +33,8 @@ import {
   BaseMsg,
   InComponentVerifyTicket,
   InAuthMpEvent,
-  InMassEvent
+  InMassEvent,
+  InWxVerifyDispatchEvent
 } from '@tnwx/commons'
 import { Kits } from '@tnwx/kits'
 
@@ -158,6 +159,8 @@ export class WeChat {
           outMsg = await msgAdapter.processInAuthMpEvent(<InAuthMpEvent>inMsg)
         } else if (inMsg instanceof InMassEvent) {
           outMsg = await msgAdapter.processInMassEvent(<InMassEvent>inMsg)
+        } else if (inMsg instanceof InWxVerifyDispatchEvent) {
+          outMsg = await msgAdapter.processInWxVerifyDispatchEvent(<InWxVerifyDispatchEvent>inMsg)
         } else if (inMsg instanceof InNotDefinedMsg) {
           if (ApiConfigKit.isDevMode()) {
             console.debug('未能识别的消息类型。 消息 xml 内容为：\n')
