@@ -1,6 +1,6 @@
 {
   "name": "@tnwx/openmp",
-  "version": "2.5.3",
+  "version": "2.5.5",
   "description": "TNWX 微信系开发脚手架之缓存",
   "keywords": [
     "tnw",
@@ -48,7 +48,7 @@
     "url": "http://gitee.com/javen205/TNWX/issues"
   },
   "dependencies": {
-    "@tnwx/commons": "^2.5.3"
+    "@tnwx/commons": "^2.5.5"
   },
-  "gitHead": "3df928f9abc43844389975bf928a7b9789689582"
+  "gitHead": "0f631ba19491b13de9828ab1ba5f98eca08d550b"
 }
