@@ -44,7 +44,8 @@ import {
   InExternalContact,
   InMsg,
   InRegisterCorp,
-  InMassEvent
+  InMassEvent,
+  InWxVerifyDispatchEvent,
 } from 'tnwx'
 
 export class MsgController implements MsgAdapter {
@@ -156,6 +157,11 @@ export class MsgController implements MsgAdapter {
     console.debug('菜单事件：' + inMenuEvent.getFromUserName)
 
     return this.renderOutTextMsg(inMenuEvent, '菜单事件内容是：' + inMenuEvent.getEventKey)
+  }
+  async processInWxVerifyDispatchEvent(inWxVerifyDispatchEvent: InWxVerifyDispatchEvent): Promise<OutMsg> {
+    console.debug('微信认证事件:' + inWxVerifyDispatchEvent.getFromUserName);
+
+    return this.renderOutTextMsg(inWxVerifyDispatchEvent,'微信认证事件内容是：' + inWxVerifyDispatchEvent.getContact);
   }
   async processInTemplateMsgEvent(inTemplateMsgEvent: InTemplateMsgEvent): Promise<OutMsg> {
     console.debug('模板消息事件：' + inTemplateMsgEvent.getFromUserName + ' ' + inTemplateMsgEvent.getStatus)
