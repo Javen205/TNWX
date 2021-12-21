@@ -241,6 +241,8 @@ export class MiniProgramApi {
    * @param autoColor
    * @param lineColor
    * @param isHyaline
+   * @param checkPath
+   * @param envVersion
    */
   public static async getUnlimited(
     scene: string,
@@ -248,7 +250,9 @@ export class MiniProgramApi {
     width: number = 430,
     autoColor: boolean = false,
     lineColor: object = { r: 0, g: 0, b: 0 },
-    isHyaline: boolean = false
+    isHyaline: boolean = false,
+    checkPath: boolean = true,
+    envVersion: MiniProgramEnvVersion
   ) {
     let accessToken = await AccessTokenApi.getAccessToken()
     let url = util.format(this.getUnlimitedUrl, (<AccessToken>accessToken).getAccessToken)
@@ -260,7 +264,9 @@ export class MiniProgramApi {
         width: width,
         auto_color: autoColor,
         line_color: lineColor,
-        is_hyaline: isHyaline
+        is_hyaline: isHyaline,
+        check_path: checkPath,
+        env_version: envVersion
       }),
       {
         headers: { 'Content-type': 'application/json' },
@@ -435,3 +441,6 @@ export enum MiniProgramMediaType {
   VOICE = 1,
   IMG = 2
 }
+
+
+type MiniProgramEnvVersion = 'release' | 'trial' | 'develop'
