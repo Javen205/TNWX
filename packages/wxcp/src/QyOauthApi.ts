@@ -43,7 +43,7 @@ export class QyOauthApi {
    */
    public static async getUserDetail(user_ticket: string) {
     let accessToken: AccessToken = await QyAccessTokenApi.getAccessToken()
-    let url = util.format(this.getUserDetailUrl, accessToken.getAccessToken, code)
+    let url = util.format(this.getUserDetailUrl, accessToken.getAccessToken)
     return HttpKit.getHttpDelegate.httpPost(url,JSON.stringify({user_ticket:user_ticket}))
   }
 }
