@@ -32,6 +32,7 @@ import { InComponentVerifyTicket } from './entity/msg/in/InComponentVerifyTicket
 import { InAuthMpEvent } from './entity/msg/in/InAuthMpEvent'
 import { InMassEvent } from './entity/msg/in/event/InMassEvent'
 import { InWxVerifyDispatchEvent } from './entity/msg/in/event/InWxVerifyDispatchEvent'
+import { InNotDefinedEvent } from './entity/msg/in/event/InNotDefinedEvent'
 
 /**
  * @author Javen
@@ -57,6 +58,8 @@ export interface MsgAdapter {
   processInSpeechRecognitionResults(inSpeechRecognitionResults: InSpeechRecognitionResults): Promise<OutMsg>
   // 处理未定义的消息(其他消息...该扩展了)
   processIsNotDefinedMsg(inNotDefinedMsg: InNotDefinedMsg): Promise<OutMsg>
+  // 处理未定义的事件
+  processInNotDefinedEvent(inNotDefinedMsg: InNotDefinedEvent): Promise<OutMsg>
   // 处理关注、取消关注事件
   processInFollowEvent(inFollowEvent: InFollowEvent): Promise<OutMsg>
   // 处理扫码事件
