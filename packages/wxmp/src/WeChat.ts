@@ -34,7 +34,8 @@ import {
   InComponentVerifyTicket,
   InAuthMpEvent,
   InMassEvent,
-  InWxVerifyDispatchEvent
+  InWxVerifyDispatchEvent,
+  InNotDefinedEvent
 } from '@tnwx/commons'
 import { Kits } from '@tnwx/kits'
 
@@ -167,6 +168,12 @@ export class WeChat {
             console.debug(result)
           }
           outMsg = await msgAdapter.processIsNotDefinedMsg(<InNotDefinedMsg>inMsg)
+        } else if (inMsg instanceof InNotDefinedEvent) {
+          if (ApiConfigKit.isDevMode()) {
+            console.debug('未能识别的事件类型。 事件 xml 内容为：\n')
+            console.debug(result)
+          }
+          outMsg = await msgAdapter.processInNotDefinedEvent(<InNotDefinedEvent>inMsg)
         }
 
         // 处理发送的消息
