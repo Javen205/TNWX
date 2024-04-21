@@ -35,4 +35,15 @@ export class QyOauthApi {
     let url = util.format(this.getUserInfoUrl, accessToken.getAccessToken, code)
     return HttpKit.getHttpDelegate.httpGet(url)
   }
+
+   private static getUserDetailUrl: string = 'https://qyapi.weixin.qq.com/cgi-bin/auth/getuserdetail?access_token=%s'
+  /**
+   * 获取访问用户敏感信息
+   * @param user_ticket 通过成员信息获取到的 user_ticket
+   */
+   public static async getUserDetail(user_ticket: string) {
+    let accessToken: AccessToken = await QyAccessTokenApi.getAccessToken()
+    let url = util.format(this.getUserDetailUrl, accessToken.getAccessToken)
+    return HttpKit.getHttpDelegate.httpPost(url,JSON.stringify({user_ticket:user_ticket}))
+  }
 }
