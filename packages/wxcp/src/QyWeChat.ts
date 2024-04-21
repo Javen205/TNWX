@@ -41,7 +41,8 @@ import {
   InBatchJobResult,
   InExternalContact,
   InExternalContactEvent,
-  InRegisterCorp
+  InRegisterCorp,
+  InNotDefinedEvent
 } from '@tnwx/commons'
 
 import { Kits } from '@tnwx/kits'
@@ -187,6 +188,11 @@ export class QyWeChat {
             console.debug(`未能识别的消息类型。消息 xml 内容为：\n ${result}`)
           }
           outMsg = await msgAdapter.processIsNotDefinedMsg(<InNotDefinedMsg>inMsg)
+        } else if (inMsg instanceof InNotDefinedEvent) {
+          if (QyApiConfigKit.isDevMode()) {
+            console.debug(`未能识别的事件类型。事件 xml 内容为：\n ${result}`)
+          }
+          outMsg = await msgAdapter.processInNotDefinedEvent(<InNotDefinedEvent>inMsg)
         }
 
         // 处理发送的消息
