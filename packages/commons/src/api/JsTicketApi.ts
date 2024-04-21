@@ -59,6 +59,6 @@ export class JsTicketApi {
     if (!ticket.expired_time) return false
     if (ticket.errcode) return false
     if (ticket.expired_time < new Date().getTime()) return false
-    return ticket.access_token != null
+    return ticket.ticket != null
   }
 }
