@@ -29,15 +29,18 @@ export class QyJsTicketApi {
     // 从缓存中获取
     let cache: ICache = QyApiConfigKit.getCache
     let jsTicketJson: string = await cache.get(key)
-    if (jsTicketJson) {
-      const jsTicketInstance = new JsTicket(jsTicketJson)
-      if (QyApiConfigKit.isDevMode()) {
+    if (this.isAvailable(jsTicketJson)) {
+      if (QyApiConfigKit.isDevMode) {
         console.debug('缓存中获取api_ticket...')
       }
-      if (jsTicketInstance.isAvailable()) {
-        return jsTicketInstance
-      }
+      return new JsTicket(jsTicketJson)
+    } 
+
+    // 缓存存在且过期做清除处理
+    if (jsTicketJson) {
+      cache.remove(key)
     }
+
     // 通过接口获取
     let accessToken: AccessToken = await QyAccessTokenApi.getAccessToken()
     let url: string
@@ -57,5 +60,21 @@ export class QyJsTicketApi {
       }
       return jsTicket
     }
+  }
+  /**
+   * 检测jsTicket是否有效
+   * @param jsTicketJson
+   */
+   public static isAvailable (jsTicketJson: string): boolean {
+     try {
+       const ticket = JSON.parse(jsTicketJson)
+       if (!ticket.expired_time) return false
+       if (ticket.errcode) return false
+       if (ticket.expired_time < new Date().getTime()) return false
+       return ticket.access_token != null
+     } catch (e) {
+       // 处理 jsTicketJson = '' 或其他非法情况
+       return false
+     }
   }
 }
